@@ -20,9 +20,9 @@ public class Main extends Application {
 
         // Încarcăm fișierul FXML
         Parent root = FXMLLoader.load(uri.toURL());
-        primaryStage.setTitle("Pagina FXML"); // Setăm titlul ferestrei
-        primaryStage.setScene(new Scene(root, 800, 600)); // Setăm scena cu un panou de dimensiuni 800x600
-        primaryStage.show(); // Arătăm scena
+        primaryStage.setTitle("UnitBv Bank");
+        primaryStage.setScene(new Scene(root, 800, 800));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

@@ -7,18 +7,18 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="login_container" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.LoginController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="200.0" styleClass="login_logo_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox focusTraversable="true" prefHeight="400.0" prefWidth="200.0" styleClass="login_logo_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <FontAwesomeIconView glyphName="BANK" size="30" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="UnitBv Bank" />
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="209.0" layoutY="14.0" prefHeight="350.0" prefWidth="350.0" AnchorPane.rightAnchor="40.60000000000002" AnchorPane.topAnchor="14.0">
+      <VBox alignment="CENTER" focusTraversable="true" layoutX="209.0" layoutY="14.0" prefHeight="350.0" prefWidth="350.0" AnchorPane.rightAnchor="40.60000000000002" AnchorPane.topAnchor="14.0">
          <children>
-            <Label text="Username" />
-            <TextField mouseTransparent="true" opacity="0.82" />
-            <Label layoutX="10.0" layoutY="53.0" text="Password" />
-            <TextField layoutX="10.0" layoutY="71.0" />
+            <Label alignment="CENTER" text="Username" />
+            <TextField alignment="CENTER" opacity="0.82" pickOnBounds="false" />
+            <Label alignment="CENTER" layoutX="10.0" layoutY="53.0" text="Password" />
+            <TextField alignment="CENTER" layoutX="10.0" layoutY="71.0" />
             <Button mnemonicParsing="false" text="Button" />
          </children>
       </VBox>
