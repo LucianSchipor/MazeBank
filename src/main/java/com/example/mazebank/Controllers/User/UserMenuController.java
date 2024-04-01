@@ -1,7 +1,10 @@
 package com.example.mazebank.Controllers.User;
 
+import com.example.mazebank.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,8 +16,16 @@ public class UserMenuController implements Initializable {
     public Button profile_btn;
     public Button logout_btn;
     public Button report_btn;
+    public Label title_lbl;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    logout_btn.setOnAction(event -> onLogOut());
+    }
+
+    private void onLogOut(){
+        Stage stage = (Stage)title_lbl.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showLoginWindow();
     }
 }

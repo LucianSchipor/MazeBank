@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
-      prefWidth="180.0" stylesheets="@../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1">
-   <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
-      <VBox layoutX="6.0" layoutY="7.0" prefHeight="118.0" prefWidth="100.0" styleClass="title_container">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank"/>
-      </VBox>
-      <VBox layoutX="6.0" layoutY="125.0" prefHeight="473.0" prefWidth="160.0" styleClass="menu_container">
-         <Button fx:id="dashboard_btn" mnemonicParsing="false" text="Dashboard"/>
-         <Button fx:id="transaction_btn" mnemonicParsing="false" text="Transaction"/>
-         <Button fx:id="accounts_btn" mnemonicParsing="false" text="Accounts"/>
-         <Line endX="120.0"/>
-         <Button fx:id="profile_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Profile"/>
-         <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout"/>
-      </VBox>
-      <VBox layoutX="9.0" layoutY="592.0" prefHeight="138.0" prefWidth="165.0" styleClass="report_container">
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report a bug?"/>
-         <Label text="Use this to report any error"/>
-         <Button fx:id="report_btn" mnemonicParsing="false" text="Report"/>
-      </VBox>
-   </AnchorPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="180.0" stylesheets="@../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
+         <children>
+            <VBox layoutX="6.0" layoutY="7.0" prefHeight="118.0" prefWidth="100.0" styleClass="title_container">
+               <children>
+                  <Text fx:id="title_lbl" strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" />
+               </children>
+            </VBox>
+            <VBox layoutX="6.0" layoutY="125.0" prefHeight="473.0" prefWidth="160.0" styleClass="menu_container">
+               <children>
+                  <Button fx:id="dashboard_btn" mnemonicParsing="false" text="Dashboard" />
+                  <Button fx:id="transaction_btn" mnemonicParsing="false" text="Transaction" />
+                  <Button fx:id="accounts_btn" mnemonicParsing="false" text="Accounts" />
+                  <Line endX="120.0" />
+                  <Button fx:id="profile_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Profile" />
+                  <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout" />
+               </children>
+            </VBox>
+            <VBox layoutX="9.0" layoutY="592.0" prefHeight="138.0" prefWidth="165.0" styleClass="report_container">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report a bug?" />
+                  <Label text="Use this to report any error" />
+                  <Button fx:id="report_btn" mnemonicParsing="false" text="Report" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>
