@@ -16,28 +16,8 @@
     -fx-font-size: 1.4em;
     -fx-font-family: "Calibri Light";
 }
-.account{
-    -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 10, 0, 0, 10);
-}
-.account Text{
-    -fx-fill: #FFFFFF;
-    -fx-font-family: "Calibri Light";
-    -fx-font-size: 1.5em;
-}
 
-.account VBox{
-    -fx-background-radius: #FFFFFF;
-}
-
-.account_balance{
-    -fx-fill: #FFFFFF;
-    -fx-font-family: Calibri;
-    -fx-font-size: 3em;
-    -fx-font-weight: bold;
-}
-
-.accounts_view{
+.accounts_view {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 10 0 0 10;
     -fx-padding: 10 0 10 0;
@@ -46,44 +26,55 @@
     -border-color: #DDDDDD;
     -fx-spacing: 10;
 }
+.account{
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 10, 0, 0, 10);
+}
 
+.account VBox{
+    -fx-background-radius: 5;
+}
 
-
+.account Text{
+    -fx-fill: #FFFFFF;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
 /*.account FontAwesomeIconView {*/
 /*    -fx-fill: #FFFFFF;*/
 /*}*/
 
-.account_gradient{
+.account_gradient {
     -fx-background-color: linear-gradient(to right, #132A13, #253F25);
 }
 
-.account_balance{
+.account_balance {
     -fx-fill: #FFFFFF;
     -fx-font-family: Calibri;
     -fx-font-size: 3em;
     -fx-font-weight: bold;
 }
 
-.account_number{
+.account_number {
     -fx-text-fill: #FFFFFF;
     -fx-font-family: Calibri;
     -fx-font-size: 1.5em;
     -fx-text-alignment: center;
 }
 
-.summary_view{
+.summary_view {
     -fx-background-color: #FFFFFF;
     -fx-padding: 5 10 5 10;
     -fx-spacing: 5;
     -fx-text-alignment: center_left;
 }
 
-.acc_summary_container{
+.acc_summary_container {
     -fx-padding: 10;
     -fx-spacing: 10;
     -fx-alignment: center_left;
     -fx-border-radius: 10;
-    --border-color: #999999;
+    -fx-border-color: #999999;
     -fx-border-width: 1;
     -fx-border-style: dashed;
 }
@@ -106,13 +97,13 @@
 
 
 
-.transaction_listview{
+.transaction_listview {
     -fx-background-color: #EEEEEE;
     -fx-border-width: 0 0 0 0;
     -fx-border-color: #AAAAAA;
 }
 
-.transaction_listview .scroll-bar:vertical{
+.transaction_listview .scroll-bar:vertical {
     -fx-scale-x: 0;
 }
 
