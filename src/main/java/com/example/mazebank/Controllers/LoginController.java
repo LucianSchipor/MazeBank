@@ -1,7 +1,10 @@
 package com.example.mazebank.Controllers;
 import com.example.mazebank.Models.Model;
+import com.example.mazebank.Views.AccountType;
+import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,10 +18,14 @@ public class LoginController implements Initializable {
     public Button login_btn;
     public Label error_lbl;
     public TextField username_fld;
+    public ChoiceBox<AccountType> account_selector;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    login_btn.setOnAction(event ->
+        account_selector.setItems(FXCollections.observableArrayList(AccountType.CLIENT, AccountType.ADMIN));
+        account_selector.setValue(Model.getInstance().getViewFactory().getLoginAccountType());
+        account_selector.valueProperty().addListener(observable -> Model.getInstance().getViewFactory().setLoginAccountType(account_selector.getValue()));
+        login_btn.setOnAction(event ->
     onLogin());
     }
 
@@ -26,7 +33,11 @@ public class LoginController implements Initializable {
         //Gets the current stage based on label's parent
         Stage stage = (Stage)error_lbl.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
-
-        Model.getInstance().getViewFactory().showClientWindow();
+        if(Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.CLIENT){
+            Model.getInstance().getViewFactory().showClientWindow();
+        }
+        else{
+            Model.getInstance().getViewFactory().showAdminWindow();
+        }
     }
 }

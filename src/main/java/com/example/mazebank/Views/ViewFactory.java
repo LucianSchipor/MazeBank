@@ -1,8 +1,9 @@
 package com.example.mazebank.Views;
 
+import com.example.mazebank.Controllers.Admin.AdminMenuController;
 import com.example.mazebank.Controllers.User.UserController;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -12,15 +13,42 @@ public class ViewFactory {
 
     //Client Views
     private AnchorPane dashboardView;
+    private AccountType loginAccountType;
     private AnchorPane transactionsView;
+    private AnchorPane accountsView;
 
-    private final StringProperty clientSelectedMenuItem;
+    private AnchorPane createClientView;
+    private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
+    private  final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     public ViewFactory(){
-        this.clientSelectedMenuItem = new SimpleStringProperty("");
+        this.loginAccountType = AccountType.CLIENT;
+        this.clientSelectedMenuItem = new SimpleObjectProperty<>();
+        this.adminSelectedMenuItem = new SimpleObjectProperty<>();
     }
 
-    public StringProperty getClientSelectedMenuItem() {
+    public AccountType getLoginAccountType() {
+        return loginAccountType;
+    }
+
+    public void setLoginAccountType(AccountType loginAccountType) {
+        this.loginAccountType = loginAccountType;
+    }
+
+    public ObjectProperty<UserMenuOptions> getClientSelectedMenuItem() {
         return clientSelectedMenuItem;
+    }
+
+    public AnchorPane getAccountsView() {
+
+        if(accountsView == null){
+            try{
+                accountsView = new FXMLLoader(getClass().getResource("/Fxml/User/Accounts.fxml")).load();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    return accountsView;
     }
 
     public  AnchorPane getDashboardView(){
@@ -59,6 +87,12 @@ public void showClientWindow(){
     createStage(loader);
 }
 
+public void showAdminWindow(){
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
+    AdminMenuController controller = new AdminMenuController();
+    loader.setController(controller);
+    createStage(loader);
+}
     private void createStage(FXMLLoader loader) {
         Scene scene = null;
         try {
@@ -72,6 +106,23 @@ public void showClientWindow(){
         stage.setTitle("Maze Bank");
         stage.show();
     }
+
+    public ObjectProperty<AdminMenuOptions> getAdminSelectedMenuItem() {
+        return adminSelectedMenuItem;
+    }
+
+    public AnchorPane getCreateClientView() {
+        if(createClientView == null){
+            try {
+                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/CreateAccount.fxml")).load();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return createClientView;
+    }
+
     public void closeStage(Stage stage){
         stage.close();
     }
