@@ -1,5 +1,6 @@
 package com.example.mazebank.Views;
 
+import com.example.mazebank.Controllers.Admin.AdminController;
 import com.example.mazebank.Controllers.Admin.AdminMenuController;
 import com.example.mazebank.Controllers.User.UserController;
 import javafx.beans.property.ObjectProperty;
@@ -18,6 +19,7 @@ public class ViewFactory {
     private AnchorPane accountsView;
 
     private AnchorPane createClientView;
+    private AnchorPane clientsView;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
     private  final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     public ViewFactory(){
@@ -32,6 +34,18 @@ public class ViewFactory {
 
     public void setLoginAccountType(AccountType loginAccountType) {
         this.loginAccountType = loginAccountType;
+    }
+
+    public AnchorPane getClientsView() {
+        if(clientsView == null){
+            try{
+                clientsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Clients.fxml")).load();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return clientsView;
     }
 
     public ObjectProperty<UserMenuOptions> getClientSelectedMenuItem() {
@@ -89,7 +103,7 @@ public void showClientWindow(){
 
 public void showAdminWindow(){
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
-    AdminMenuController controller = new AdminMenuController();
+    AdminController controller = new AdminController();
     loader.setController(controller);
     createStage(loader);
 }

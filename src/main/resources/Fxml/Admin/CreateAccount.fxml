@@ -27,7 +27,7 @@
       <CheckBox fx:id="sv_acc_box" layoutX="10.0" layoutY="211.0" mnemonicParsing="false" text="Add Savings Account" />
       <Text layoutX="10.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Savings Account Balance" />
       <TextField fx:id="sv_amount_fld" layoutX="10.0" layoutY="244.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="146.0" />
-      <Button fx:id="create_account_btn" mnemonicParsing="false" text="Create new Account" />
+      <Button fx:id="create_client_btn" mnemonicParsing="false" text="Create new Account" />
       <Label fx:id="error_lbl" layoutX="10.0" layoutY="158.0" styleClass="error_lbl" text="Error: " />
    </VBox>
 </AnchorPane>

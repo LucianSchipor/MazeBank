@@ -21,6 +21,7 @@ public class CreateAccountController implements Initializable {
     public TextField sv_amount_fld;
     public Button create_account_btn;
     public Label error_lbl;
+    public Button create_client_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

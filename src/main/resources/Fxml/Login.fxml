@@ -15,7 +15,7 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" textAlignment="CENTER" wrappingWidth="96.1552734375" />
    </VBox>
    <VBox layoutX="340.0" layoutY="142.0" prefHeight="571.0" prefWidth="475.0" styleClass="login_form_container" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-      <ChoiceBox fx:id="account_selector" prefWidth="150.0" />
+      <ChoiceBox fx:id="account_selector" prefWidth="90.0" />
       <Label fx:id="username_lbl" text="Username">
          <graphic>
             <FontAwesomeIconView glyphName="USER" />
