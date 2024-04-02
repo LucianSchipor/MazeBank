@@ -1,6 +1,5 @@
 package com.example.mazebank;
 import com.example.mazebank.Models.Model;
-import com.example.mazebank.Views.ViewFactory;
 import javafx.stage.Stage;
 
 

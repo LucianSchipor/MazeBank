@@ -1,6 +1,8 @@
 package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.User.UserController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -10,7 +12,16 @@ public class ViewFactory {
 
     //Client Views
     private AnchorPane dashboardView;
-    public ViewFactory(){}
+    private AnchorPane transactionsView;
+
+    private final StringProperty clientSelectedMenuItem;
+    public ViewFactory(){
+        this.clientSelectedMenuItem = new SimpleStringProperty("");
+    }
+
+    public StringProperty getClientSelectedMenuItem() {
+        return clientSelectedMenuItem;
+    }
 
     public  AnchorPane getDashboardView(){
         if(dashboardView == null){
@@ -24,8 +35,19 @@ public class ViewFactory {
     return dashboardView;
     }
 
+    public AnchorPane getTransactionsView() {
+        if(transactionsView == null){
+            try{
+                transactionsView = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions.fxml")).load();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return transactionsView;
+    }
 
-public void showLoginWindow(){
+    public void showLoginWindow(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         createStage(loader);
 }

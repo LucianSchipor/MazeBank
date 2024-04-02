@@ -4,7 +4,7 @@
 
 /*Logo Container Styles*/
 .login_logo_container {
-    -fx-background-color: #013321;
+    -fx-background-color: #370d3f;
     -fx-alignment: center;
 }
 
@@ -33,7 +33,7 @@
     -fx-font-weight: bold;
 }
 .login_form_container Button{
-    -fx-background-color: #132A13;
+    -fx-background-color: #370d3f;
     -fx-text-fill: #FFFFFF;
     -fx-pref-width: 350;
     -fx-pref-height: 30;

@@ -45,7 +45,7 @@
 /*}*/
 
 .account_gradient {
-    -fx-background-color: linear-gradient(to right, #132A13, #253F25);
+    -fx-background-color: linear-gradient(to right, #370d3f, #5c166a);
 }
 
 .account_balance {
@@ -131,7 +131,7 @@
 }
 
 .new_trans_container Button{
-    -fx-background-color: linear-gradient(to right, #132A13, #253F25);
+    -fx-background-color: linear-gradient(to right, #370d3f, #5c166a);
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
     -fx-pref-width: 230;
     -fx-font-size: 1.5em;
