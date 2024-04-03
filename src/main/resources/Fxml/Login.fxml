@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="609.0" prefWidth="774.0" styleClass="login_container" stylesheets="@../Styles/Login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.LoginController">
-   <VBox focusTraversable="true" layoutX="-12.0" prefHeight="609.0" prefWidth="270.0" styleClass="login_logo_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-12.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="750.0" prefWidth="1030.0" styleClass="login_container" stylesheets="@../Styles/Login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.LoginController">
+   <VBox focusTraversable="true" layoutX="-12.0" prefHeight="609.0" prefWidth="270.0" styleClass="login_logo_container" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
       <FontAwesomeIconView glyphName="BANK" size="40" text="" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" textAlignment="CENTER" wrappingWidth="96.1552734375" />
    </VBox>
-   <VBox layoutX="340.0" layoutY="142.0" prefHeight="571.0" prefWidth="475.0" styleClass="login_form_container" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+   <VBox layoutX="340.0" layoutY="142.0" prefHeight="571.0" prefWidth="475.0" styleClass="login_form_container" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
       <ChoiceBox fx:id="account_selector" prefWidth="90.0" />
       <Label fx:id="username_lbl" text="Username">
          <graphic>

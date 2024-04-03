@@ -13,7 +13,6 @@ public class AdminMenuController implements Initializable {
     public Button clients_btn;
     public Button deposit_btn;
     public Button logout_btn;
-    public Button create_account_btn;
     public Button create_Acc_Btn;
 
     @Override
@@ -22,9 +21,9 @@ public class AdminMenuController implements Initializable {
     }
 
     private void addListeners(){
-
     create_Acc_Btn.setOnAction(event -> onCreateClient());
     clients_btn.setOnAction(event -> onClients());
+    deposit_btn.setOnAction(event -> onDeposit());
     logout_btn.setOnAction(event -> onLogOut());
     }
 
@@ -33,10 +32,12 @@ public class AdminMenuController implements Initializable {
     }
 
     private void onClients(){
-        System.out.println("Pressed on clients");
         Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CLIENTS);
     }
 
+    private void onDeposit(){
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.DEPOSIT);
+    }
     private void onLogOut(){
         Stage stage = (Stage)logout_btn.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
