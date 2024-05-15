@@ -1,7 +1,9 @@
 package com.example.mazebank.Controllers;
+import com.example.mazebank.Models.DBConnection;
 import com.example.mazebank.Models.Model;
 import com.example.mazebank.Views.AccountType;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -26,11 +28,14 @@ public class LoginController implements Initializable {
         account_selector.setValue(Model.getInstance().getViewFactory().getLoginAccountType());
         account_selector.valueProperty().addListener(observable -> Model.getInstance().getViewFactory().setLoginAccountType(account_selector.getValue()));
         login_btn.setOnAction(event ->
-    onLogin());
+    onLogin(event));
     }
 
-    private void onLogin(){
+    private void onLogin(Event event){
         //Gets the current stage based on label's parent
+        String username = username_fld.toString();
+        String password = password_fld.toString();
+        DBConnection.singUnUser(event, username, password);
         Stage stage = (Stage)error_lbl.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
         if(Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.CLIENT){
