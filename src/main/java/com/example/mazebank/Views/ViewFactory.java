@@ -1,8 +1,8 @@
 package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.AdminController;
-import com.example.mazebank.Controllers.Admin.AdminMenuController;
 import com.example.mazebank.Controllers.User.UserController;
+import com.example.mazebank.Models.AccountType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;

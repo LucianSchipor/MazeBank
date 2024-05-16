@@ -4,6 +4,7 @@ module com.example.mazebank {
     requires javafx.fxml;
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires java.management;
 
     opens com.example.mazebank to javafx.fxml;
     exports com.example.mazebank;
@@ -12,4 +13,5 @@ module com.example.mazebank {
     exports com.example.mazebank.Controllers.User;
     exports com.example.mazebank.Models;
     exports com.example.mazebank.Views;
+    exports com.example.mazebank.Models.DBUtils;
 }
