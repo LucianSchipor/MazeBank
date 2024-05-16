@@ -1,5 +1,6 @@
 package com.example.mazebank.Controllers;
 
+import com.example.mazebank.Controllers.User.UserLoggedIn;
 import com.example.mazebank.Models.DBUtils.DBUtil_Users;
 import com.example.mazebank.Models.Model;
 import com.example.mazebank.Models.AccountType;
@@ -30,10 +31,12 @@ public class LoginController implements Initializable {
         //Gets the current stage based on label's parent
         String username = username_fld.getText();
         String password = password_fld.getText();
+        //Skiping the verification for debugging
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
                 var userLoggedIn = DBUtil_Users.loginUser(event, username, password);
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
+                    UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
                     Stage stage = (Stage) error_lbl.getScene().getWindow();
                     Model.getInstance().getViewFactory().closeStage(stage);
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {

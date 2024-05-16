@@ -1,5 +1,6 @@
 package com.example.mazebank.Controllers.User;
 
+import com.example.mazebank.Models.User;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
@@ -19,9 +20,29 @@ public class DashboardController implements Initializable {
     public Button send_money_btn;
     public ListView transaction_listview;
     public Label login_date;
+    public User user;
+    public Label balance;
+    boolean initialized;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
+        var username = userLoggedIn.getUsername();
+        if (username.equals("client")) {
+            balance.setText("0.00$");
+        } else {
+            balance.setText("9.99$");
+        }
+        initialized = true;
+    }
 
+    public DashboardController(){
+        if (initialized) {
+            if (UserLoggedIn.getInstance().getLoggedInUser().getUsername().equals("client")) {
+                balance.setText("0.00$");
+            } else {
+                balance.setText("9.99$");
+            }
+        }
     }
 }
