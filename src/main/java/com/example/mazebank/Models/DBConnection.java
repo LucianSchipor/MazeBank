@@ -34,7 +34,7 @@ public class DBConnection {
                 alert.setContentText("User already exists");
             }
             else{
-                psInsert = connection.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?, ?)");
+                psInsert = connection.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)");
                 psInsert.setString(1, username);
                 psInsert.setString(2, password);
                 psInsert.executeUpdate();

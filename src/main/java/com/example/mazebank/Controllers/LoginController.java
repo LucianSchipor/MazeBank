@@ -33,8 +33,8 @@ public class LoginController implements Initializable {
 
     private void onLogin(Event event){
         //Gets the current stage based on label's parent
-        String username = username_fld.toString();
-        String password = password_fld.toString();
+        String username = username_fld.getText();
+        String password = password_fld.getText();
         DBConnection.singUnUser(event, username, password);
         Stage stage = (Stage)error_lbl.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
