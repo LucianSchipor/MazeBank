@@ -7,19 +7,15 @@ import javafx.beans.property.StringProperty;
 
 public abstract class Account {
 
-    private final StringProperty owner;
-
     private final StringProperty accountNumber;
 
     private final DoubleProperty balance;
 
-    Account(String owner, String accountNumber, double balance){
-        this.owner = new SimpleStringProperty(this, "Owner", owner);
+    Account(String accountNumber, double balance){
         this.accountNumber = new SimpleStringProperty(this, "Account Number", accountNumber);
         this.balance = new SimpleDoubleProperty(this, "Balance", balance);
     }
 
-    public StringProperty ownerProperty(){return  owner;}
 
     public StringProperty accountNumberProperty() {return accountNumber;}
 

@@ -7,6 +7,8 @@ public class User {
     private String username;
     private String password;
     private AccountType Role;
+    private CheckingAccount checkingAccount;
+
 
     public User(int id, String username, String password, int role) {
         this.id = id;
@@ -23,6 +25,10 @@ public class User {
         this.username = username;
     }
 
+    public int getUserId(){
+        return id;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -37,5 +43,13 @@ public class User {
 
     public void setRole(AccountType role) {
         Role = role;
+    }
+
+    public CheckingAccount getCheckingAccount() {
+        return checkingAccount;
+    }
+
+    public void setCheckingAccount(CheckingAccount checkingAccount) {
+        this.checkingAccount = checkingAccount;
     }
 }

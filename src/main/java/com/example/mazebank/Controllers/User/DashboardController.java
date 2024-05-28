@@ -1,8 +1,11 @@
 package com.example.mazebank.Controllers.User;
 
+import com.example.mazebank.Models.DBUtils.DBUtil_Users;
 import com.example.mazebank.Models.User;
+import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,27 +25,23 @@ public class DashboardController implements Initializable {
     public Label login_date;
     public User user;
     public Label balance;
+    public Text hello_lbl;
+    public Button refreshpg_btn;
     boolean initialized;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
-        if (username.equals("client")) {
-            balance.setText("0.00$");
-        } else {
-            balance.setText("9.99$");
-        }
+        var balanceReg = userLoggedIn.getCheckingAccount().balanceProperty().get();
+        hello_lbl.setText("Welcome back, " + username + "!");
+        balance.setText(Double.toString(balanceReg));
+        refreshpg_btn.setOnAction(event -> onRefreshPg(event));
         initialized = true;
     }
 
-    public DashboardController(){
-        if (initialized) {
-            if (UserLoggedIn.getInstance().getLoggedInUser().getUsername().equals("client")) {
-                balance.setText("0.00$");
-            } else {
-                balance.setText("9.99$");
-            }
-        }
+    private void onRefreshPg(Event event){
+        var cacc = DBUtil_Users.getUserAccount(event, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
+        balance.setText(Double.toString(cacc.balanceProperty().get()));
     }
 }

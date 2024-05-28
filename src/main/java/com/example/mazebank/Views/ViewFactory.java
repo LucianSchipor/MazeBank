@@ -70,7 +70,11 @@ public class ViewFactory {
     public AnchorPane getDashboardView() {
         if (dashboardView == null) {
             try {
-                dashboardView = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml")).load();
+
+                var dashboardViewloader = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
+                dashboardView = dashboardViewloader.load();
+//                dashboardView.sceneProperty().addListener((observable, oldValue, newValue) -> {
+//                }); //TODO
             } catch (Exception e) {
                 e.printStackTrace();
             }

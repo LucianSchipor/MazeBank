@@ -35,8 +35,10 @@ public class LoginController implements Initializable {
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
                 var userLoggedIn = DBUtil_Users.loginUser(event, username, password);
+                var checkingAccount = DBUtil_Users.getUserAccount(event, userLoggedIn.getUserId());
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
+                    UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccount(checkingAccount);
                     Stage stage = (Stage) error_lbl.getScene().getWindow();
                     Model.getInstance().getViewFactory().closeStage(stage);
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {

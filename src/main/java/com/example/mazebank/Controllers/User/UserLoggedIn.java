@@ -1,10 +1,12 @@
 package com.example.mazebank.Controllers.User;
 
+import com.example.mazebank.Models.CheckingAccount;
 import com.example.mazebank.Models.User;
 
 public class UserLoggedIn {
     private static UserLoggedIn instance;
     private User loggedInUser;
+    private CheckingAccount checkingAccount;
 
     private UserLoggedIn() {}
 
@@ -22,5 +24,8 @@ public class UserLoggedIn {
     public User getLoggedInUser() {
         return loggedInUser;
     }
+
+
+
 }
 

@@ -8,8 +8,8 @@ public class SavingsAccount extends Account{
 
     private final DoubleProperty withdrawalLimit;
 
-    public SavingsAccount(String owner, String accountNumber, double balance ,double withdrawalLimit){
-        super(owner, accountNumber, balance);
+    public SavingsAccount(String accountNumber, double balance ,double withdrawalLimit){
+        super(accountNumber, balance);
         this.withdrawalLimit = new SimpleDoubleProperty(this, "Withdrawal Limit", withdrawalLimit);
     }
 
