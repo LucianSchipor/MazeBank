@@ -1,17 +1,9 @@
 package com.example.mazebank.Models;
-
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-
 public class SavingsAccount extends Account{
 
-    private final DoubleProperty withdrawalLimit;
 
-    public SavingsAccount(String accountNumber, double balance ,double withdrawalLimit){
-        super(accountNumber, balance);
-        this.withdrawalLimit = new SimpleDoubleProperty(this, "Withdrawal Limit", withdrawalLimit);
+    public SavingsAccount(String accountNumber, double balance , String currency){
+        super(accountNumber, balance, currency);
     }
 
-    public DoubleProperty withdrawalLimitProperty(){return withdrawalLimit;}
 }

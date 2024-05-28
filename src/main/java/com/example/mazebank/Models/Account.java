@@ -11,9 +11,12 @@ public abstract class Account {
 
     private final DoubleProperty balance;
 
-    Account(String accountNumber, double balance){
+    private final StringProperty currency;
+
+    Account(String accountNumber, double balance, String currency){
         this.accountNumber = new SimpleStringProperty(this, "Account Number", accountNumber);
         this.balance = new SimpleDoubleProperty(this, "Balance", balance);
+        this.currency = new SimpleStringProperty(this, "Currency", currency);
     }
 
 
@@ -21,4 +24,7 @@ public abstract class Account {
 
     public DoubleProperty balanceProperty() {return balance;}
 
+    public String getCurrency() {
+        return currency.get();
+    }
 }

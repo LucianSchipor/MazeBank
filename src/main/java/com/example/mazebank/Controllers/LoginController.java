@@ -4,7 +4,6 @@ import com.example.mazebank.Controllers.User.UserLoggedIn;
 import com.example.mazebank.Models.DBUtils.DBUtil_Users;
 import com.example.mazebank.Models.Model;
 import com.example.mazebank.Models.AccountType;
-import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,12 +18,10 @@ public class LoginController implements Initializable {
     public Button login_btn;
     public Label error_lbl;
     public TextField username_fld;
-    public ChoiceBox<AccountType> account_selector;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        login_btn.setOnAction(event ->
-                onLogin(event));
+        login_btn.setOnAction(this::onLogin);
     }
 
     private void onLogin(Event event) {
@@ -35,9 +32,9 @@ public class LoginController implements Initializable {
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
                 var userLoggedIn = DBUtil_Users.loginUser(event, username, password);
-                var checkingAccount = DBUtil_Users.getUserAccount(event, userLoggedIn.getUserId());
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
+                    var checkingAccount = DBUtil_Users.getUserAccount(event, userLoggedIn.getUserId());
                     UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccount(checkingAccount);
                     Stage stage = (Stage) error_lbl.getScene().getWindow();
                     Model.getInstance().getViewFactory().closeStage(stage);

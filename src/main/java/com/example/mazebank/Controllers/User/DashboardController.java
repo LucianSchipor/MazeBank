@@ -27,21 +27,29 @@ public class DashboardController implements Initializable {
     public Label balance;
     public Text hello_lbl;
     public Button refreshpg_btn;
+    public Label currency_lbl;
     boolean initialized;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
-        var balanceReg = userLoggedIn.getCheckingAccount().balanceProperty().get();
+        var account = userLoggedIn.getCheckingAccount();
+        var balanceReg = account.balanceProperty().get();
         hello_lbl.setText("Welcome back, " + username + "!");
         balance.setText(Double.toString(balanceReg));
-        refreshpg_btn.setOnAction(event -> onRefreshPg(event));
+        currency_lbl.setText(account.getCurrency());
+        refreshpg_btn.setOnAction(this::onRefreshPg);
         initialized = true;
     }
 
     private void onRefreshPg(Event event){
         var cacc = DBUtil_Users.getUserAccount(event, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
-        balance.setText(Double.toString(cacc.balanceProperty().get()));
+        try{
+            balance.setText(Double.toString(cacc.balanceProperty().get()));
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 }
