@@ -1,6 +1,6 @@
 package com.example.mazebank.Controllers.User;
 
-import com.example.mazebank.Models.Transaction;
+import com.example.mazebank.Core.Models.Transaction;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

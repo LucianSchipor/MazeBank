@@ -1,6 +1,6 @@
 package com.example.mazebank.Controllers.Admin;
 
-import com.example.mazebank.Models.Model;
+import com.example.mazebank.Core.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 

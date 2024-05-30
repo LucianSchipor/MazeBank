@@ -1,8 +1,8 @@
-package com.example.mazebank.Models.DBUtils;
+package com.example.mazebank.Repositories.DBUtils;
 
-import com.example.mazebank.Models.CheckingAccount;
-import com.example.mazebank.Models.Transaction;
-import com.example.mazebank.Models.User;
+import com.example.mazebank.Core.Models.CheckingAccount;
+import com.example.mazebank.Core.Models.Transaction;
+import com.example.mazebank.Core.Models.User;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import java.sql.Connection;

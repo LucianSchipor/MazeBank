@@ -1,8 +1,4 @@
-package com.example.mazebank.Models;
-
-import javafx.beans.property.*;
-
-import java.time.LocalDate;
+package com.example.mazebank.Core.Models;
 
 public class Transaction {
     private final int transaction_id;

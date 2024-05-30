@@ -1,6 +1,6 @@
 package com.example.mazebank.Controllers.Admin;
 
-import com.example.mazebank.Models.Client;
+import com.example.mazebank.Core.Models.Client;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 

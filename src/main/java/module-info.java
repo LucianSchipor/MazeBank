@@ -11,7 +11,7 @@ module com.example.mazebank {
     exports  com.example.mazebank.Controllers;
     exports com.example.mazebank.Controllers.Admin;
     exports com.example.mazebank.Controllers.User;
-    exports com.example.mazebank.Models;
+    exports com.example.mazebank.Core.Models;
     exports com.example.mazebank.Views;
-    exports com.example.mazebank.Models.DBUtils;
+    exports com.example.mazebank.Repositories.DBUtils;
 }

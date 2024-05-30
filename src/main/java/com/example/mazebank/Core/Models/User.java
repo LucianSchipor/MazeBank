@@ -1,6 +1,4 @@
-package com.example.mazebank.Models;
-
-import javax.management.relation.Role;
+package com.example.mazebank.Core.Models;
 
 public class User {
     private int id;

@@ -1,9 +1,9 @@
 package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Controllers.User.UserLoggedIn;
-import com.example.mazebank.Models.DBUtils.DBUtil_Users;
-import com.example.mazebank.Models.Model;
-import com.example.mazebank.Models.AccountType;
+import com.example.mazebank.Repositories.DBUtils.DBUtil_Users;
+import com.example.mazebank.Core.Models.Model;
+import com.example.mazebank.Core.Models.AccountType;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;

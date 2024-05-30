@@ -1,8 +1,8 @@
 package com.example.mazebank.Controllers.User;
 
-import com.example.mazebank.Models.DBUtils.DBUtil_Users;
-import com.example.mazebank.Models.Transaction;
-import com.example.mazebank.Models.User;
+import com.example.mazebank.Repositories.DBUtils.DBUtil_Users;
+import com.example.mazebank.Core.Models.Transaction;
+import com.example.mazebank.Core.Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 public class DashboardController implements Initializable {

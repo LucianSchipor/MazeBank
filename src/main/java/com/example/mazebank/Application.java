@@ -1,5 +1,5 @@
 package com.example.mazebank;
-import com.example.mazebank.Models.Model;
+import com.example.mazebank.Core.Models.Model;
 import javafx.stage.Stage;
 
 

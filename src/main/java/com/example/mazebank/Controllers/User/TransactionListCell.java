@@ -1,14 +1,6 @@
 package com.example.mazebank.Controllers.User;
-
-import com.example.mazebank.Models.Transaction;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
+import com.example.mazebank.Core.Models.Transaction;
 import javafx.scene.control.ListCell;
-
-import java.io.IOException;
-
 public class TransactionListCell extends ListCell<Transaction> {
     @Override
     protected void updateItem(Transaction transaction, boolean empty) {

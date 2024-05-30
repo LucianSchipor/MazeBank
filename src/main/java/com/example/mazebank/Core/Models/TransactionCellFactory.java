@@ -1,4 +1,4 @@
-package com.example.mazebank.Models;
+package com.example.mazebank.Core.Models;
 
 import com.example.mazebank.Controllers.User.TransactionListCell;
 import javafx.scene.control.ListCell;

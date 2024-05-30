@@ -1,4 +1,4 @@
-package com.example.mazebank.Models;
+package com.example.mazebank.Core.Models;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

@@ -1,7 +1,7 @@
 package com.example.mazebank.Controllers.User;
 
-import com.example.mazebank.Models.CheckingAccount;
-import com.example.mazebank.Models.User;
+import com.example.mazebank.Core.Models.CheckingAccount;
+import com.example.mazebank.Core.Models.User;
 
 public class UserLoggedIn {
     private static UserLoggedIn instance;

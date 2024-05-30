@@ -1,6 +1,6 @@
 package com.example.mazebank.Controllers.User;
 
-import com.example.mazebank.Models.Model;
+import com.example.mazebank.Core.Models.Model;
 import javafx.scene.layout.BorderPane;
 public class UserController {
 
