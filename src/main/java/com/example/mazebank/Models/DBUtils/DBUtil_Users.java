@@ -1,6 +1,7 @@
 package com.example.mazebank.Models.DBUtils;
 
 import com.example.mazebank.Models.CheckingAccount;
+import com.example.mazebank.Models.Transaction;
 import com.example.mazebank.Models.User;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
@@ -8,6 +9,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class DBUtil_Users {
 
@@ -32,6 +37,79 @@ public class DBUtil_Users {
             alert.setContentText(exception.getMessage());
         }
         return null;
+    }
+
+    public static List<Transaction> getUserTransactions(int from_account_id){
+        Connection connection;
+        PreparedStatement psCheckUserExists;
+        ResultSet resultSet;
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
+            psCheckUserExists = connection.prepareStatement("SELECT \n" +
+                    "    t.transaction_id,\n" +
+                    "    t.from_account_id,\n" +
+                    "    u1.username AS from_username,\n" +
+                    "    t.to_account_id,\n" +
+                    "    u2.username AS to_username,\n" +
+                    "    t.amount\n" +
+                    "FROM \n" +
+                    "    transactions t\n" +
+                    "JOIN \n" +
+                    "    users u1 ON t.from_account_id = u1.user_id\n" +
+                    "JOIN \n" +
+                    "    users u2 ON t.to_account_id = u2.user_id\n" +
+                    "WHERE \n" +
+                    "    t.to_account_id = ?");
+            psCheckUserExists.setInt(1, from_account_id);
+            resultSet = psCheckUserExists.executeQuery();
+            while (resultSet.next()) {
+                int transaction_id = resultSet.getInt("transaction_id");
+                int fromAccountId = resultSet.getInt("from_account_id");
+                int toAccountId = resultSet.getInt("to_account_id");
+                double amount = resultSet.getDouble("amount");
+                String from_username = resultSet.getString("from_username");
+                String to_username = resultSet.getString("to_username");
+                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username));
+            }
+            psCheckUserExists = connection.prepareStatement("SELECT \n" +
+                    "    t.transaction_id,\n" +
+                    "    t.from_account_id,\n" +
+                    "    u1.username AS from_username,\n" +
+                    "    t.to_account_id,\n" +
+                    "    u2.username AS to_username,\n" +
+                    "    t.amount\n" +
+                    "FROM \n" +
+                    "    transactions t\n" +
+                    "JOIN \n" +
+                    "    users u1 ON t.from_account_id = u1.user_id\n" +
+                    "JOIN \n" +
+                    "    users u2 ON t.to_account_id = u2.user_id\n" +
+                    "WHERE \n" +
+                    "    t.from_account_id = ?");
+            psCheckUserExists.setInt(1, from_account_id);
+            resultSet = psCheckUserExists.executeQuery();
+            while (resultSet.next()) {
+                int transaction_id = resultSet.getInt("transaction_id");
+                int fromAccountId = resultSet.getInt("from_account_id");
+                int toAccountId = resultSet.getInt("to_account_id");
+                double amount = resultSet.getDouble("amount");
+                String from_username = resultSet.getString("from_username");
+                String to_username = resultSet.getString("to_username");
+                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username));
+            }
+        }
+        catch (Exception exception){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(exception.getMessage());
+        }
+        Collections.sort(transactions, new Comparator<Transaction>() {
+            @Override
+            public int compare(Transaction t1, Transaction t2) {
+                return Integer.compare(t1.getTransaction_id(), t2.getTransaction_id());
+            }
+        });
+        return transactions;
     }
     public static User loginUser(Event event, String username, String password){
         Connection connection;

@@ -5,55 +5,43 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 
 public class Transaction {
-private final StringProperty sender;
-private final StringProperty receiver;
-private final DoubleProperty amount;
-private final ObjectProperty<LocalDate> date;
-private final StringProperty message;
+    private final int transaction_id;
+    private final int from_account_id;
+    private final int to_account_id;
+    private final double amount;
+    private String from_username;
+    private String to_username;
 
-public Transaction(String sender, String receiver, double amount, LocalDate date, String message) {
-    this.sender = new SimpleStringProperty(this, "sender", sender);
-    this.receiver = new SimpleStringProperty(this, "Receiver", receiver);
-    this.amount = new SimpleDoubleProperty(this, "Amount", amount);
-    this.date = new SimpleObjectProperty<>(this, "Date", date);
-    this.message = new SimpleStringProperty(this, "Message", message);
-}
-
-
-    public String getReceiver() {
-        return receiver.get();
+    public Transaction(int transaction_id, int from_id, int to_id, double amount, String from, String to) {
+        this.from_account_id = from_id;
+        this.to_account_id = to_id;
+        this.amount = amount;
+        this.from_username = from;
+        this.to_username = to;
+        this.transaction_id = transaction_id;
     }
 
-    public StringProperty receiverProperty() {
-        return receiver;
+    public int getTo_account_id() {
+        return to_account_id;
     }
 
-    public StringProperty getSender() {
-        return this.sender;
+    public int getFrom_account_id() {
+        return from_account_id;
     }
-
 
     public double getAmount() {
-        return amount.get();
-    }
-
-    public DoubleProperty amountProperty() {
         return amount;
     }
 
-    public LocalDate getDate() {
-        return date.get();
+    public String getFrom_username() {
+        return from_username;
     }
 
-    public ObjectProperty<LocalDate> dateProperty() {
-        return date;
+    public String getTo_username() {
+        return to_username;
     }
 
-    public String getMessage() {
-        return message.get();
-    }
-
-    public StringProperty messageProperty() {
-        return message;
+    public int getTransaction_id() {
+        return transaction_id;
     }
 }

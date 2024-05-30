@@ -1,15 +1,18 @@
 package com.example.mazebank.Controllers.User;
 
 import com.example.mazebank.Models.DBUtils.DBUtil_Users;
+import com.example.mazebank.Models.Transaction;
 import com.example.mazebank.Models.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 public class DashboardController implements Initializable {
     public Label checking_bal;
     public Label checking_acc_num;
@@ -32,10 +35,29 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        login_date.setText(LocalDate.now().toString());
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account = userLoggedIn.getCheckingAccount();
         var balanceReg = account.balanceProperty().get();
+        var transactionsList = DBUtil_Users.getUserTransactions(userLoggedIn.getUserId());
+        assert transactionsList != null;
+        ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();;
+        observableTransactionList.addAll(transactionsList);
+        transaction_listview.itemsProperty().set(observableTransactionList);
+        transaction_listview.setCellFactory(param -> new TransactionListCell());
+        double income = 0;
+        double outcome = 0;
+        for (Transaction transaction : transactionsList) {
+            if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) {
+                income += transaction.getAmount();
+            }
+            else{
+                outcome += transaction.getAmount();
+            }
+        }
+        income_lbl.setText(Double.toString(income) + " " + account.getCurrency());
+        expense_lbl.setText(Double.toString(outcome) + " " + account.getCurrency());
         hello_lbl.setText("Welcome back, " + username + "!");
         balance.setText(Double.toString(balanceReg));
         currency_lbl.setText(account.getCurrency());
