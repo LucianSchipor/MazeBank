@@ -4,10 +4,8 @@ import com.example.mazebank.Core.Models.Transaction;
 import com.example.mazebank.Core.Models.User;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,7 +14,7 @@ import java.util.List;
 public class DBUtil_Users {
 
     public static CheckingAccount getUserAccount(Event event, int user_id){
-        Connection connection;
+        Connection connection = null;
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         try {
@@ -34,11 +32,20 @@ public class DBUtil_Users {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(exception.getMessage());
         }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return null;
     }
 
     public static List<Transaction> getUserTransactions(int from_account_id){
-        Connection connection;
+        Connection connection = null;
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         List<Transaction> transactions = new ArrayList<Transaction>();
@@ -47,6 +54,7 @@ public class DBUtil_Users {
             psCheckUserExists = connection.prepareStatement("SELECT \n" +
                     "    t.transaction_id,\n" +
                     "    t.from_account_id,\n" +
+                    "    t.message,\n" +
                     "    u1.username AS from_username,\n" +
                     "    t.to_account_id,\n" +
                     "    u2.username AS to_username,\n" +
@@ -68,11 +76,19 @@ public class DBUtil_Users {
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
-                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username));
+                String message = "";
+                try{
+                    message = resultSet.getString("message");
+                }
+                catch(Exception e){
+                    System.out.println("Message is null");
+                }
+                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message));
             }
             psCheckUserExists = connection.prepareStatement("SELECT \n" +
                     "    t.transaction_id,\n" +
                     "    t.from_account_id,\n" +
+                    "    t.message,\n" +
                     "    u1.username AS from_username,\n" +
                     "    t.to_account_id,\n" +
                     "    u2.username AS to_username,\n" +
@@ -94,12 +110,29 @@ public class DBUtil_Users {
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
-                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username));
+                String message = "";
+                try{
+                    message = resultSet.getString("message");
+                    System.out.println("Found");
+                }
+                catch(Exception e){
+                    System.out.println("Message is null");
+                }
+                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message));
             }
         }
         catch (Exception exception){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(exception.getMessage());
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         Collections.sort(transactions, new Comparator<Transaction>() {
             @Override
@@ -116,7 +149,7 @@ public class DBUtil_Users {
         return transactions;
     }
     public static User loginUser(Event event, String username, String password){
-        Connection connection;
+        Connection connection = null;
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         try {
@@ -136,10 +169,19 @@ public class DBUtil_Users {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(exception.getMessage());
         }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     return null;
     }
     public static void singInUser(Event event, String username, String password){
-        Connection connection;
+        Connection connection = null;
         PreparedStatement psInsert;
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
@@ -164,6 +206,15 @@ public class DBUtil_Users {
         catch (Exception exception){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(exception.getMessage());
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         System.out.println("Inserted!");
     }

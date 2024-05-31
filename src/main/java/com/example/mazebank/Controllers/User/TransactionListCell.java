@@ -8,14 +8,20 @@ public class TransactionListCell extends ListCell<Transaction> {
         if (empty || transaction == null) {
             setText(null);
         } else {
+            if(transaction.getFrom_account_id() == UserLoggedIn.getInstance().getLoggedInUser().getUserId()){
             setText("Transaction_Id: " + transaction.getTransaction_id() +
-                    ", From: " + transaction.getFrom_username() +
                     ", To: " + transaction.getTo_username() +
-                    ", Amount: " + transaction.getAmount());
-            if(transaction.getFrom_account_id() == UserLoggedIn.getInstance().getLoggedInUser().getUserId())
-            setStyle("-fx-background-color: #f57767;");
-            else
+                    ", Amount: " + transaction.getAmount() +
+                    ", Message: " + transaction.getMessage());
+                    setStyle("-fx-background-color: #f57767;");
+            }
+            else{
+                setText("Transaction_Id: " + transaction.getTransaction_id() +
+                        ", From: " + transaction.getFrom_username() +
+                        ", Amount: " + transaction.getAmount() +
+                        ", Message: " + transaction.getMessage());
                 setStyle("-fx-background-color: #81f567;");
-        }
+            }
+            }
     }
 }

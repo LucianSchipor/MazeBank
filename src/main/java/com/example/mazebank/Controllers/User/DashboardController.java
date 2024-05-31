@@ -67,13 +67,8 @@ public class DashboardController implements Initializable {
     }
 
    private void onSendMoney(Event event){
-        if(payee_fld.getText().isEmpty() || amount_fld.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Payee adress field or amount field are empty!");
-            alert.showAndWait();
-            return;
-        }
-       DB_Transactions.transferMoneyToAccount(Integer.parseInt(payee_fld.getText()), Integer.parseInt(amount_fld.getText()));
+
+       DB_Transactions.transferMoneyToAccount(payee_fld.getText(), amount_fld.getText(), message_fld.getText());
     }
 
     private void onRefreshPg(Event event){

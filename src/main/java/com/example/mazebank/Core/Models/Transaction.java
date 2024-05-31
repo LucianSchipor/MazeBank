@@ -7,14 +7,16 @@ public class Transaction {
     private final double amount;
     private String from_username;
     private String to_username;
+    private String message;
 
-    public Transaction(int transaction_id, int from_id, int to_id, double amount, String from, String to) {
+    public Transaction(int transaction_id, int from_id, int to_id, double amount, String from, String to, String message) {
         this.from_account_id = from_id;
         this.to_account_id = to_id;
         this.amount = amount;
         this.from_username = from;
         this.to_username = to;
         this.transaction_id = transaction_id;
+        this.message = message;
     }
 
     public int getTo_account_id() {
@@ -39,5 +41,9 @@ public class Transaction {
 
     public int getTransaction_id() {
         return transaction_id;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
