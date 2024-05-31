@@ -29,7 +29,7 @@
          <Text layoutX="14.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Account" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
          <Label fx:id="currency_lbl" layoutX="185.0" layoutY="25.0" styleClass="account_balance" text="RON" textFill="WHITE" />
          <HBox.margin>
-            <Insets left="10.0" />
+            <Insets left="10.0" right="10.0" />
          </HBox.margin>
       </AnchorPane>
    </HBox>

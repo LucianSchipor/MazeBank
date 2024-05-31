@@ -5,6 +5,7 @@ module com.example.mazebank {
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.management;
+    requires jdk.compiler;
 
     opens com.example.mazebank to javafx.fxml;
     exports com.example.mazebank;

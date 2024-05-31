@@ -113,7 +113,6 @@ public class DBUtil_Users {
                 String message = "";
                 try{
                     message = resultSet.getString("message");
-                    System.out.println("Found");
                 }
                 catch(Exception e){
                     System.out.println("Message is null");
@@ -159,7 +158,6 @@ public class DBUtil_Users {
             psCheckUserExists.setString(2, password);
             resultSet = psCheckUserExists.executeQuery();
             if(resultSet.next()){
-                System.out.println("User already exists.");
                 int role = resultSet.getInt("role");
                 int user_id = resultSet.getInt("user_id");
                 return new User(user_id, username, password, role);

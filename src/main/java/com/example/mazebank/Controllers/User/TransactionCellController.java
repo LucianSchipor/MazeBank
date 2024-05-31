@@ -2,6 +2,7 @@ package com.example.mazebank.Controllers.User;
 
 import com.example.mazebank.Core.Models.Transaction;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
@@ -17,14 +18,27 @@ public class TransactionCellController implements Initializable {
     public Label sender_lbl;
     public Label reciever_lbl;
     public Label amount_lbl;
+    public Label currency_lbl;
 
-    private final Transaction transaction;
+    private Transaction transaction;
 
     public TransactionCellController(Transaction transaction) {
         this.transaction = transaction;
     }
+
+    public TransactionCellController() {
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void setFromAccountId(String fromAccountId) {
+        sender_lbl.setText(fromAccountId);
+    }
+
+    public void setAmount(double amount) {
+        amount_lbl.setText(String.valueOf(amount));
     }
 }
