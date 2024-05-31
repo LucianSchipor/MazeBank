@@ -42,8 +42,7 @@ public class DashboardController implements Initializable {
         var account = userLoggedIn.getCheckingAccount();
         var balanceReg = account.balanceProperty().get();
         var transactionsList = DBUtil_Users.getUserTransactions(userLoggedIn.getUserId()).stream().limit(5).toList();
-        assert transactionsList != null;
-        ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();;
+        ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();
         observableTransactionList.addAll(transactionsList);
         transaction_listview.itemsProperty().set(observableTransactionList);
         transaction_listview.setCellFactory(param -> new TransactionListCell());
@@ -57,8 +56,8 @@ public class DashboardController implements Initializable {
                 income += transaction.getAmount();
             }
         }
-        income_lbl.setText(Double.toString(income) + " " + account.getCurrency());
-        expense_lbl.setText(Double.toString(outcome) + " " + account.getCurrency());
+        income_lbl.setText(income + " " + account.getCurrency());
+        expense_lbl.setText(outcome + " " + account.getCurrency());
         hello_lbl.setText("Welcome back, " + username + "!");
         balance.setText(Double.toString(balanceReg));
         currency_lbl.setText(account.getCurrency());
@@ -74,6 +73,7 @@ public class DashboardController implements Initializable {
     private void onRefreshPg(Event event){
         var cacc = DBUtil_Users.getUserAccount(event, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
         try{
+            assert cacc != null;
             balance.setText(Double.toString(cacc.balanceProperty().get()));
         }
         catch (NullPointerException e){

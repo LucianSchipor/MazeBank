@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+@SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
 
     //Client Views
@@ -71,8 +72,6 @@ public class ViewFactory {
 
                 var dashboardViewloader = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
                 dashboardView = dashboardViewloader.load();
-//                dashboardView.sceneProperty().addListener((observable, oldValue, newValue) -> {
-//                }); //TODO
             } catch (Exception e) {
                 e.printStackTrace();
             }

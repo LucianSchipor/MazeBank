@@ -5,9 +5,9 @@ public class Transaction {
     private final int from_account_id;
     private final int to_account_id;
     private final double amount;
-    private String from_username;
-    private String to_username;
-    private String message;
+    private final String from_username;
+    private final String to_username;
+    private final String message;
 
     public Transaction(int transaction_id, int from_id, int to_id, double amount, String from, String to, String message) {
         this.from_account_id = from_id;

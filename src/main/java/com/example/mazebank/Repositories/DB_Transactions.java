@@ -1,13 +1,11 @@
 package com.example.mazebank.Repositories;
 
-import com.example.mazebank.Controllers.User.UserController;
 import com.example.mazebank.Controllers.User.UserLoggedIn;
-import com.example.mazebank.Core.Models.CheckingAccount;
-import javafx.event.Event;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
 
+@SuppressWarnings({"SqlNoDataSourceInspection", "SqlDialectInspection", "CallToPrintStackTrace"})
 public class DB_Transactions {
 
     public static void transferMoneyToAccount(String to_user_id_String, String amount_String, String message){
@@ -20,7 +18,7 @@ public class DB_Transactions {
         catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Id format is incorrect!");
-            System.out.println("Id format is incorrect!");;
+            System.out.println("Id format is incorrect!");
             alert.showAndWait();
             return;
         }
@@ -45,10 +43,9 @@ public class DB_Transactions {
         }
         Connection connection = null;
         PreparedStatement psInsertTransaction;
-        ResultSet resultSet;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
-            psInsertTransaction = connection.prepareStatement("" +
+            psInsertTransaction = connection.prepareStatement(
                     "INSERT INTO" +
                     " transactions (from_account_id,to_account_id,amount, message) VALUES (?,?,?,?)");
             psInsertTransaction.setInt(1, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
@@ -65,7 +62,7 @@ public class DB_Transactions {
            }
            catch (SQLIntegrityConstraintViolationException e){
                Alert alert = new Alert(Alert.AlertType.ERROR);
-               alert.setContentText("User with id " +  Integer.toString(to_user_id) + " does not exists!");
+               alert.setContentText("User with id " + to_user_id + " does not exists!");
                alert.showAndWait();
                return;
            }

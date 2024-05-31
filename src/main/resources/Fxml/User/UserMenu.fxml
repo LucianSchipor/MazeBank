@@ -44,17 +44,16 @@
             </graphic>
          </Button>
       </VBox>
-      <VBox layoutX="15.2" prefHeight="148.0" prefWidth="165.0" styleClass="report_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-         <children>
-            <FontAwesomeIconView fill="WHITE" glyphName="BUG" size="20" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report a bug?" />
-            <Label text="Use this to report any errors or suggestions." textAlignment="CENTER" textFill="WHITE">
-               <VBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="report_btn" mnemonicParsing="false" text="Report" />
-         </children>
+      <VBox layoutX="15.2" prefHeight="148.0" prefWidth="165.0" styleClass="report_container"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <FontAwesomeIconView fill="WHITE" glyphName="BUG" size="20"/>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report a bug?"/>
+         <Label text="Use this to report any errors or suggestions." textAlignment="CENTER" textFill="WHITE">
+            <VBox.margin>
+               <Insets left="5.0" right="5.0"/>
+            </VBox.margin>
+         </Label>
+         <Button fx:id="report_btn" mnemonicParsing="false" text="Report"/>
       </VBox>
    </AnchorPane>
 </VBox>
