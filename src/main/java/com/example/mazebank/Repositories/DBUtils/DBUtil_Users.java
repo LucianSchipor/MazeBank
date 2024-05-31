@@ -1,5 +1,4 @@
 package com.example.mazebank.Repositories.DBUtils;
-
 import com.example.mazebank.Core.Models.CheckingAccount;
 import com.example.mazebank.Core.Models.Transaction;
 import com.example.mazebank.Core.Models.User;
@@ -29,7 +28,6 @@ public class DBUtil_Users {
                 double balance = resultSet.getDouble("account_balance");
                 String currency = resultSet.getString("account_currency");
                 return new CheckingAccount("Unknown", balance, currency);
-
             }
         }
         catch (Exception exception){
@@ -106,7 +104,13 @@ public class DBUtil_Users {
         Collections.sort(transactions, new Comparator<Transaction>() {
             @Override
             public int compare(Transaction t1, Transaction t2) {
-                return Integer.compare(t1.getTransaction_id(), t2.getTransaction_id());
+                if(t1.getTransaction_id() < t2.getTransaction_id())
+                    return 1;
+                else
+                    if(t1.getTransaction_id() == t2.getTransaction_id())
+                        return 0;
+                    else
+                        return -1;
             }
         });
         return transactions;

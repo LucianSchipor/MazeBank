@@ -3,6 +3,7 @@ package com.example.mazebank.Controllers.User;
 import com.example.mazebank.Repositories.DBUtils.DBUtil_Users;
 import com.example.mazebank.Core.Models.Transaction;
 import com.example.mazebank.Core.Models.User;
+import com.example.mazebank.Repositories.DB_Transactions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -34,12 +35,13 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        send_money_btn.setOnAction(this::onSendMoney);
         login_date.setText(LocalDate.now().toString());
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account = userLoggedIn.getCheckingAccount();
         var balanceReg = account.balanceProperty().get();
-        var transactionsList = DBUtil_Users.getUserTransactions(userLoggedIn.getUserId());
+        var transactionsList = DBUtil_Users.getUserTransactions(userLoggedIn.getUserId()).stream().limit(5).toList();
         assert transactionsList != null;
         ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();;
         observableTransactionList.addAll(transactionsList);
@@ -49,10 +51,10 @@ public class DashboardController implements Initializable {
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
             if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) {
-                income += transaction.getAmount();
+                outcome += transaction.getAmount();
             }
             else{
-                outcome += transaction.getAmount();
+                income += transaction.getAmount();
             }
         }
         income_lbl.setText(Double.toString(income) + " " + account.getCurrency());
@@ -62,6 +64,16 @@ public class DashboardController implements Initializable {
         currency_lbl.setText(account.getCurrency());
         refreshpg_btn.setOnAction(this::onRefreshPg);
         initialized = true;
+    }
+
+   private void onSendMoney(Event event){
+        if(payee_fld.getText().isEmpty() || amount_fld.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Payee adress field or amount field are empty!");
+            alert.showAndWait();
+            return;
+        }
+       DB_Transactions.transferMoneyToAccount(Integer.parseInt(payee_fld.getText()), Integer.parseInt(amount_fld.getText()));
     }
 
     private void onRefreshPg(Event event){
