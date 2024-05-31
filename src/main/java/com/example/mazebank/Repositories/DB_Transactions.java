@@ -1,6 +1,7 @@
 package com.example.mazebank.Repositories;
 
 import com.example.mazebank.Controllers.User.UserLoggedIn;
+import com.example.mazebank.Core.Models.User;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
@@ -9,11 +10,16 @@ import java.sql.*;
 public class DB_Transactions {
 
     public static void transferMoneyToAccount(String to_user_id_String, String amount_String, String message){
-        int to_user_id;
         double amount;
         try {
-            to_user_id = Integer.parseInt(to_user_id_String);
             amount = Integer.parseInt(amount_String);
+            boolean hasDigits = to_user_id_String.matches(".*\\d.*");
+            if(hasDigits){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Id cannot have digits!");
+                alert.showAndWait();
+                return;
+            }
         }
         catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -22,13 +28,13 @@ public class DB_Transactions {
             alert.showAndWait();
             return;
         }
-        if(to_user_id == 0|| amount == 0 || to_user_id < 0 || amount < 0){
+        if(to_user_id_String == "" || amount == 0 || amount < 0){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Incorrect value on payee field or amount field!");
             alert.showAndWait();
             return;
         }
-        if(to_user_id == UserLoggedIn.getInstance().getLoggedInUser().getUserId())
+        if(to_user_id_String == UserLoggedIn.getInstance().getLoggedInUser().getUsername())
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You cannot send money to yourself!");
@@ -43,11 +49,19 @@ public class DB_Transactions {
         }
         Connection connection = null;
         PreparedStatement psInsertTransaction;
+        PreparedStatement psSelectUserByUsername;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
             psInsertTransaction = connection.prepareStatement(
                     "INSERT INTO" +
                     " transactions (from_account_id,to_account_id,amount, message) VALUES (?,?,?,?)");
+            psSelectUserByUsername = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
+            int to_user_id = 0;
+            psSelectUserByUsername.setString(1, to_user_id_String);
+            var result = psSelectUserByUsername.executeQuery();
+            if(result.next()){
+                to_user_id = result.getInt("user_id");
+            }
             psInsertTransaction.setInt(1, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
             psInsertTransaction.setInt(2, to_user_id);
             psInsertTransaction.setDouble(3, amount);

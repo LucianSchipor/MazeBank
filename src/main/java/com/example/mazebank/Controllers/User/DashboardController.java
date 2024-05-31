@@ -33,6 +33,12 @@ public class DashboardController implements Initializable {
     public Label currency_lbl;
     boolean initialized;
 
+
+    /*
+    TODO
+        -> la logout + login iar, dashboard nu se reincarca cu datele utilizatorului (nu mi intra iar in initialize)
+
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         send_money_btn.setOnAction(this::onSendMoney);

@@ -1,37 +1,14 @@
 package com.example.mazebank.Controllers.User;
 
 import com.example.mazebank.Core.Models.Transaction;
-import com.sun.tools.javac.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
-
-import java.io.IOException;
-
 public class TransactionListCell extends ListCell<Transaction> {
     @Override
     protected void updateItem(Transaction transaction, boolean empty) {
         super.updateItem(transaction, empty);
-//        if (empty || transaction == null) {
-//            setText(null);
-//        } else {
-//            if(transaction.getFrom_account_id() == UserLoggedIn.getInstance().getLoggedInUser().getUserId()){
-//            setText("Transaction_Id: " + transaction.getTransaction_id() +
-//                    ", To: " + transaction.getTo_username() +
-//                    ", Amount: " + transaction.getAmount() +
-//                    ", Message: " + transaction.getMessage());
-//                    setStyle("-fx-background-color: #f57767;");
-//            }
-//            else{
-//                setText("Transaction_Id: " + transaction.getTransaction_id() +
-//                        ", From: " + transaction.getFrom_username() +
-//                        ", Amount: " + transaction.getAmount() +
-//                        ", Message: " + transaction.getMessage());
-//                setStyle("-fx-background-color: #81f567;");
-//            }
-//            }
         if (empty || transaction == null) {
             setText(null);
             setGraphic(null);
@@ -58,7 +35,6 @@ public class TransactionListCell extends ListCell<Transaction> {
                     controller.out_icon.setFill(paint);                }
             } catch (Exception e) {
                 e.printStackTrace();
-                return;
             }
         }
     }

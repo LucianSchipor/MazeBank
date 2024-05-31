@@ -44,6 +44,7 @@ public class UserMenuController implements Initializable {
     }
 
     private void onLogOut(){
+        UserLoggedIn.getInstance().setLoggedInUser(null);
         Stage stage = (Stage)dashboard_btn.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showLoginWindow();

@@ -28,7 +28,6 @@ public class LoginController implements Initializable {
         //Gets the current stage based on label's parent
         String username = username_fld.getText();
         String password = password_fld.getText();
-        //Skiping the verification for debugging
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
                 var userLoggedIn = DBUtil_Users.loginUser(event, username, password);
