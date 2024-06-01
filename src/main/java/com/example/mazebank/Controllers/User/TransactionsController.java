@@ -12,10 +12,16 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
-    public ListView transactions_listview;
+    public ListView transactions_listview = new ListView();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DBUtil_Users.getUserTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
+        transactions_listview.setItems(transactions_observable);
+        transactions_listview.setCellFactory(param -> new TransactionListCell());
+    }
+
+    public TransactionsController(){
         ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DBUtil_Users.getUserTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());

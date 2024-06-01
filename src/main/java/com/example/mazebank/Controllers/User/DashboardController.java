@@ -14,24 +14,23 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
-    public Label checking_bal;
-    public Label checking_acc_num;
-    public Label savings_bal;
-    public Label savings_acc_num;
-    public Label income_lbl;
-    public Label expense_lbl;
-    public TextField payee_fld;
-    public TextField amount_fld;
-    public TextArea message_fld;
-    public Button send_money_btn;
-    public ListView transaction_listview;
-    public Label login_date;
-    public User user;
-    public Label balance;
-    public Text hello_lbl;
-    public Button refreshpg_btn;
-    public Label currency_lbl;
-    boolean initialized;
+    public Label checking_bal = new Label();
+    public Label checking_acc_num = new Label();
+    public Label savings_bal = new Label();
+    public Label savings_acc_num = new Label();
+    public Label income_lbl = new Label();
+    public Label expense_lbl = new Label();
+    public TextField payee_fld = new TextField();
+    public TextField amount_fld = new TextField();
+    public TextArea message_fld = new TextArea();
+    public Button send_money_btn = new Button("Send Money");
+    public ListView transaction_listview = new ListView();
+    public Label login_date = new Label();
+    public Label balance = new Label();
+    public Text hello_lbl = new Text("Hello");
+    public Button refreshpg_btn = new Button("Refresh Page");
+    public Label currency_lbl = new Label();
+    boolean initialized = true;
 
 
     /*

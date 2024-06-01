@@ -1,6 +1,9 @@
 package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.AdminController;
+import com.example.mazebank.Controllers.Admin.DepositController;
+import com.example.mazebank.Controllers.User.DashboardController;
+import com.example.mazebank.Controllers.User.TransactionsController;
 import com.example.mazebank.Controllers.User.UserController;
 import com.example.mazebank.Core.Models.AccountType;
 import javafx.beans.property.ObjectProperty;
@@ -67,21 +70,20 @@ public class ViewFactory {
     }
 
     public AnchorPane getDashboardView() {
-        if (dashboardView == null) {
             try {
-
-                var dashboardViewloader = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
-                dashboardView = dashboardViewloader.load();
+                var dashboardV = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
+                dashboardV.setController(new DashboardController());
+                dashboardView = dashboardV.load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return dashboardView;
     }
 
     public AnchorPane getDepositView() {
         if (depositView == null) {
             try {
+                var dV  = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit.fxml"));
                 depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -91,13 +93,13 @@ public class ViewFactory {
     }
 
     public AnchorPane getTransactionsView() {
-        if (transactionsView == null) {
             try {
-                transactionsView = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions.fxml")).load();
+                var tV = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions.fxml"));
+                tV.setController(new TransactionsController());
+                transactionsView = tV.load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return transactionsView;
     }
 
@@ -108,6 +110,7 @@ public class ViewFactory {
 
     public void showClientWindow() {
         try {
+            //TODO -> s-ar putea aici sa nu mearga intiializarea din prima
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/User.fxml"));
             UserController userController = new UserController();
             loader.setController(userController);
