@@ -7,24 +7,32 @@ import javafx.beans.property.StringProperty;
 
 public abstract class Account {
 
-    private final StringProperty accountNumber;
+    private final String accountNumber;
 
-    private final DoubleProperty balance;
+    private Double balance;
 
-    private final StringProperty currency;
+    private String currency;
 
-    Account(String accountNumber, double balance, String currency){
-        this.accountNumber = new SimpleStringProperty(this, "Account Number", accountNumber);
-        this.balance = new SimpleDoubleProperty(this, "Balance", balance);
-        this.currency = new SimpleStringProperty(this, "Currency", currency);
+    Account(String accountNumber, double balance, String currency) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+        this.currency = currency;
     }
 
 
-    public StringProperty accountNumberProperty() {return accountNumber;}
-
-    public DoubleProperty balanceProperty() {return balance;}
-
     public String getCurrency() {
-        return currency.get();
+        return currency;
+    }
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    public double getBalance() {
+        return balance;
+    }
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

@@ -34,7 +34,16 @@ public class LoginController implements Initializable {
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
                     var checkingAccount = DBUtil_Users.getUserAccount(event, userLoggedIn.getUserId());
-                    UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccount(checkingAccount);
+                    try {
+                        UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccount(checkingAccount.getFirst());
+                        UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
+                    }
+                    catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
+                        alert.showAndWait();
+                        return;
+                    }
                     Stage stage = (Stage) error_lbl.getScene().getWindow();
                     Model.getInstance().getViewFactory().closeStage(stage);
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {

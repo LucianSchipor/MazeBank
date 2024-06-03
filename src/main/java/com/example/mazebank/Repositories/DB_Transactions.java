@@ -41,7 +41,7 @@ public class DB_Transactions {
             alert.showAndWait();
             return;
         }
-        if(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccount().balanceProperty().get() < amount){
+        if(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccount().getBalance() < amount){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You do not have that balance!");
             alert.showAndWait();

@@ -1,11 +1,14 @@
 package com.example.mazebank.Core.Models;
 
+import java.util.List;
+
 public class User {
     private int id;
     private String username;
     private String password;
     private AccountType Role;
     private CheckingAccount checkingAccount;
+    private List<CheckingAccount> checkingAccounts;
 
 
     public User(int id, String username, String password, int role) {
@@ -47,7 +50,14 @@ public class User {
         return checkingAccount;
     }
 
+    public List<CheckingAccount> getCheckingAccounts() {
+        return checkingAccounts;
+    }
+
     public void setCheckingAccount(CheckingAccount checkingAccount) {
         this.checkingAccount = checkingAccount;
+    }
+    public void setCheckingAccounts(List<CheckingAccount> checkingAccount) {
+        this.checkingAccounts = checkingAccount;
     }
 }

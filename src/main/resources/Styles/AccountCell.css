@@ -1,0 +1,49 @@
+.accounts_view {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10 0 0 10;
+    -fx-padding: 10 0 10 0;
+    -fx-border-width: 0 1 0 0;
+    -border-color: #DDDDDD;
+    -fx-spacing: 10;
+}
+
+.account{
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 10, 0, 0, 10);
+}
+
+.account VBox{
+    -fx-background-radius: 5;
+}
+
+.account Text{
+    -fx-fill: #FFFFFF;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
+/*.account FontAwesomeIconView {*/
+/*    -fx-fill: #FFFFFF;*/
+/*}*/
+
+.account_gradient {
+    -fx-background-color: linear-gradient(to right, #370d3f, #5c166a);
+}
+
+.account_balance {
+    -fx-fill: #FFFFFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 3em;
+    -fx-font-weight: bold;
+}
+
+.account_number {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 1.5em;
+    -fx-text-alignment: center;
+}
+
+
+
+
+

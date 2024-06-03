@@ -1,8 +1,8 @@
 package com.example.mazebank.Controllers.User;
 
+import com.example.mazebank.Core.Models.CheckingAccount;
 import com.example.mazebank.Repositories.DBUtils.DBUtil_Users;
 import com.example.mazebank.Core.Models.Transaction;
-import com.example.mazebank.Core.Models.User;
 import com.example.mazebank.Repositories.DB_Transactions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,9 +10,11 @@ import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
 public class DashboardController implements Initializable {
     public Label checking_bal = new Label();
     public Label checking_acc_num = new Label();
@@ -25,6 +27,7 @@ public class DashboardController implements Initializable {
     public TextArea message_fld = new TextArea();
     public Button send_money_btn = new Button("Send Money");
     public ListView transaction_listview = new ListView();
+    public ListView account_listview = new ListView();
     public Label login_date = new Label();
     public Label balance = new Label();
     public Text hello_lbl = new Text("Hello");
@@ -45,10 +48,17 @@ public class DashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account = userLoggedIn.getCheckingAccount();
-        var balanceReg = account.balanceProperty().get();
+        var account_list = userLoggedIn.getCheckingAccounts();
+        var balanceReg = account.getBalance();
         var transactionsList = DBUtil_Users.getUserTransactions(userLoggedIn.getUserId()).stream().limit(5).toList();
         ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();
         observableTransactionList.addAll(transactionsList);
+
+        ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
+        observableAccountsList.addAll(account_list);
+        account_listview.itemsProperty().set(observableAccountsList);
+        account_listview.setCellFactory(param -> new AccountListCell());
+
         transaction_listview.itemsProperty().set(observableTransactionList);
         transaction_listview.setCellFactory(param -> new TransactionListCell());
         double income = 0;
@@ -56,8 +66,7 @@ public class DashboardController implements Initializable {
         for (Transaction transaction : transactionsList) {
             if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) {
                 outcome += transaction.getAmount();
-            }
-            else{
+            } else {
                 income += transaction.getAmount();
             }
         }
@@ -66,23 +75,48 @@ public class DashboardController implements Initializable {
         hello_lbl.setText("Welcome back, " + username + "!");
         balance.setText(Double.toString(balanceReg));
         currency_lbl.setText(account.getCurrency());
-        refreshpg_btn.setOnAction(this::onRefreshPg);
         initialized = true;
     }
 
-   private void onSendMoney(Event event){
+    public DashboardController() {
+        send_money_btn.setOnAction(this::onSendMoney);
+        login_date.setText(LocalDate.now().toString());
+        var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
+        var username = userLoggedIn.getUsername();
+        var account_list = userLoggedIn.getCheckingAccounts();
+        var account = userLoggedIn.getCheckingAccount();
+        var balanceReg = account.getBalance();
+        var transactionsList = DBUtil_Users.getUserTransactions(userLoggedIn.getUserId()).stream().limit(5).toList();
+        ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();
+        observableTransactionList.addAll(transactionsList);
+        ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
+        observableAccountsList.addAll(account_list);
+        account_listview.itemsProperty().set(observableAccountsList);
+        account_listview.setCellFactory(param -> new AccountListCell());
 
-       DB_Transactions.transferMoneyToAccount(payee_fld.getText(), amount_fld.getText(), message_fld.getText());
+        transaction_listview.itemsProperty().set(observableTransactionList);
+        transaction_listview.setCellFactory(param -> new TransactionListCell());
+        double income = 0;
+        double outcome = 0;
+        for (Transaction transaction : transactionsList) {
+            if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) {
+                outcome += transaction.getAmount();
+            } else {
+                income += transaction.getAmount();
+            }
+        }
+        income_lbl.setText(income + " " + account.getCurrency());
+        expense_lbl.setText(outcome + " " + account.getCurrency());
+        hello_lbl.setText("Welcome back, " + username + "!");
+        balance.setText(Double.toString(balanceReg));
+        currency_lbl.setText(account.getCurrency());
+        initialized = true;
     }
 
-    private void onRefreshPg(Event event){
-        var cacc = DBUtil_Users.getUserAccount(event, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
-        try{
-            assert cacc != null;
-            balance.setText(Double.toString(cacc.balanceProperty().get()));
-        }
-        catch (NullPointerException e){
-            e.printStackTrace();
-        }
+    private void onSendMoney(Event event) {
+        DB_Transactions.transferMoneyToAccount(payee_fld.getText(), amount_fld.getText(), message_fld.getText());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Transfer successful!");
+        alert.showAndWait();
     }
 }
