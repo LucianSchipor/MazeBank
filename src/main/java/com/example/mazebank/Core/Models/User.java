@@ -1,5 +1,7 @@
 package com.example.mazebank.Core.Models;
 
+import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
+
 import java.util.List;
 
 public class User {
@@ -51,7 +53,7 @@ public class User {
     }
 
     public List<CheckingAccount> getCheckingAccounts() {
-        return checkingAccounts;
+        return DB_BankAccounts.GetBankAccounts(id);
     }
 
     public void setCheckingAccount(CheckingAccount checkingAccount) {

@@ -14,10 +14,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
-    public Label checking_bal = new Label();
-    public Label checking_acc_num = new Label();
-    public Label savings_bal = new Label();
-    public Label savings_acc_num = new Label();
     public Label income_lbl = new Label();
     public Label expense_lbl = new Label();
     public TextField payee_fld = new TextField();
@@ -126,10 +122,9 @@ public class DashboardController implements Initializable {
     }
 
     private void onSendMoney(Event event) {
-        DB_Transactions.transferMoneyToAccount(payee_fld.getText(), amount_fld.getText(), message_fld.getText());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Transfer successful!");
-        alert.showAndWait();
+        DB_Transactions.TransferMoney(payee_fld.getText(), amount_fld.getText(), message_fld.getText());
+        updatePage();
+
     }
 
     /*
@@ -157,7 +152,6 @@ public class DashboardController implements Initializable {
 
                 if (empty || item == null) {
                     setGraphic(null);
-                } else {
                 }
             }
 
@@ -169,8 +163,8 @@ public class DashboardController implements Initializable {
                 }
             }
         });
-
     }
+
 
     private void updatePage(){
         var account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
@@ -183,6 +177,11 @@ public class DashboardController implements Initializable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
+        observableAccountsList.addAll(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts());
+        account_listview.itemsProperty().set(observableAccountsList);
+        setAccountlistView(account_listview);
 
         transaction_listview.itemsProperty().set(observableTransactionList);
         transaction_listview.setCellFactory(param -> new TransactionListCell());

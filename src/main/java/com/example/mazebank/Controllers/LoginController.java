@@ -1,7 +1,8 @@
 package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Controllers.User.UserLoggedIn;
-import com.example.mazebank.Repositories.DBUtils.DBUtil_Users;
+import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
+import com.example.mazebank.Repositories.DBUtils.DB_Users;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.AccountType;
 import javafx.event.Event;
@@ -30,12 +31,14 @@ public class LoginController implements Initializable {
         String password = password_fld.getText();
         if (!username.isEmpty() && !password.isEmpty()) {
             try {
-                var userLoggedIn = DBUtil_Users.loginUser(event, username, password);
+                var userLoggedIn = DB_Users.LoginUser(username, password);
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
-                    var checkingAccount = DBUtil_Users.getUserBankAccount(event, userLoggedIn.getUserId());
+                    var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
                     try {
                         UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
+                        UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
+                                UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().getFirst());
                     }
                     catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);

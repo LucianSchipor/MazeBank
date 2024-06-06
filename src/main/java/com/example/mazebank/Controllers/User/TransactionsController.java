@@ -1,7 +1,7 @@
 package com.example.mazebank.Controllers.User;
 
 import com.example.mazebank.Core.Models.Transaction;
-import com.example.mazebank.Repositories.DBUtils.DBUtil_Users;
+import com.example.mazebank.Repositories.DB_Transactions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -15,13 +15,13 @@ public class TransactionsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DBUtil_Users.getBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
 
     public TransactionsController(){
-        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DBUtil_Users.getBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }

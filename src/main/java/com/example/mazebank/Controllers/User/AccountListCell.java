@@ -4,7 +4,6 @@ import com.example.mazebank.Core.Models.CheckingAccount;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
 
 public class AccountListCell extends ListCell<CheckingAccount> {
 
@@ -22,6 +21,7 @@ public class AccountListCell extends ListCell<CheckingAccount> {
                 controller.setAccount_balance(account.getBalance());
                 controller.setAccount_currency(account.getCurrency());
                 controller.setAccount_number(account.getAccountNumber());
+                controller.setId_lbl(account.getAccount_id());
                 setGraphic(hbox);
             } catch (Exception e) {
                 e.printStackTrace();

@@ -14,6 +14,7 @@ public class AccountListCellController implements Initializable {
     public Label balance;
     public Label checking_acc_num;
     public Label currency_lbl;
+    public Label id_lbl;
 
     public AccountListCellController() {}
 
@@ -24,11 +25,10 @@ public class AccountListCellController implements Initializable {
 public void setAccount_balance(double balance){
 this.balance.setText(String.format(Double.toString(balance)));
 }
-public void setAccount_name(String account_name){
 
-        this.account_name.setText(account_name);
+public void setId_lbl(int id_lbl){
+        this.id_lbl.setText("Id: " + id_lbl);
 }
-
 public void setAccount_number(String account_number){
         this.checking_acc_num.setText(account_number);
 }
