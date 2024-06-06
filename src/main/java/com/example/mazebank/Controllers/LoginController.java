@@ -33,9 +33,8 @@ public class LoginController implements Initializable {
                 var userLoggedIn = DBUtil_Users.loginUser(event, username, password);
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
-                    var checkingAccount = DBUtil_Users.getUserAccount(event, userLoggedIn.getUserId());
+                    var checkingAccount = DBUtil_Users.getUserBankAccount(event, userLoggedIn.getUserId());
                     try {
-                        UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccount(checkingAccount.getFirst());
                         UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
                     }
                     catch (Exception e) {

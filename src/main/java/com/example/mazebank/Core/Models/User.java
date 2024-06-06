@@ -9,7 +9,7 @@ public class User {
     private AccountType Role;
     private CheckingAccount checkingAccount;
     private List<CheckingAccount> checkingAccounts;
-
+    private CheckingAccount selectedCheckingAccount;
 
     public User(int id, String username, String password, int role) {
         this.id = id;
@@ -59,5 +59,13 @@ public class User {
     }
     public void setCheckingAccounts(List<CheckingAccount> checkingAccount) {
         this.checkingAccounts = checkingAccount;
+    }
+
+    public CheckingAccount getSelectedCheckingAccount() {
+        return selectedCheckingAccount;
+    }
+
+    public void setSelectedCheckingAccount(CheckingAccount selectedCheckingAccount) {
+        this.selectedCheckingAccount = selectedCheckingAccount;
     }
 }

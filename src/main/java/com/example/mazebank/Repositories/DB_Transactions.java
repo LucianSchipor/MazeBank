@@ -1,7 +1,6 @@
 package com.example.mazebank.Repositories;
 
 import com.example.mazebank.Controllers.User.UserLoggedIn;
-import com.example.mazebank.Core.Models.User;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
@@ -28,13 +27,13 @@ public class DB_Transactions {
             alert.showAndWait();
             return;
         }
-        if(to_user_id_String == "" || amount == 0 || amount < 0){
+        if(to_user_id_String.isEmpty() || amount == 0 || amount < 0){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Incorrect value on payee field or amount field!");
             alert.showAndWait();
             return;
         }
-        if(to_user_id_String == UserLoggedIn.getInstance().getLoggedInUser().getUsername())
+        if(to_user_id_String.equals(UserLoggedIn.getInstance().getLoggedInUser().getUsername()))
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You cannot send money to yourself!");

@@ -8,6 +8,7 @@ public class Transaction {
     private final String from_username;
     private final String to_username;
     private final String message;
+    private String currency = "";
 
     public Transaction(int transaction_id, int from_id, int to_id, double amount, String from, String to, String message) {
         this.from_account_id = from_id;
@@ -19,6 +20,17 @@ public class Transaction {
         this.message = message;
     }
 
+    public String getCurrency(){
+        if(currency == null)
+            return "NOC";
+        if(currency.isEmpty())
+            return "NOC";
+        return currency;
+    }
+
+    public void setCurrency(String currency){
+        this.currency = currency;
+    }
     public int getTo_account_id() {
         return to_account_id;
     }

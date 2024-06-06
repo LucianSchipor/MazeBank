@@ -5,10 +5,14 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Account {
 
     private final String accountNumber;
 
+    private List<Transaction> transactions = new ArrayList<>();
     private Double balance;
 
     private String currency;
@@ -19,7 +23,12 @@ public abstract class Account {
         this.currency = currency;
     }
 
-
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
     public String getCurrency() {
         return currency;
     }

@@ -14,9 +14,10 @@ import java.util.List;
 public class DBUtil_Users {
 
     @SuppressWarnings("SqlNoDataSourceInspection")
-    public static List<CheckingAccount> getUserAccount(Event event, int user_id) {
+    public static List<CheckingAccount> getUserBankAccount(Event event, int user_id) {
         Connection connection = null;
         PreparedStatement psCheckUserExists;
+        PreparedStatement psGetBankAccountTransactions;
         List<CheckingAccount> accounts = new ArrayList<>();
         ResultSet resultSet;
         try {
@@ -25,10 +26,14 @@ public class DBUtil_Users {
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
-                    double balance = resultSet.getDouble("account_balance");
-                    String currency = resultSet.getString("account_currency");
-                    String account_number = resultSet.getString("account_number");
-                    accounts.add(new CheckingAccount(account_number, balance, currency));
+                int account_id = resultSet.getInt("account_id");
+                double balance = resultSet.getDouble("account_balance");
+                String currency = resultSet.getString("account_currency");
+                String account_number = resultSet.getString("account_number");
+                var newBankAccount =  new CheckingAccount(account_number, balance, currency);
+                newBankAccount.setAccount_id(resultSet.getInt("account_id"));
+                newBankAccount.setTransactions(getBankAccountTransactions(account_id));
+                accounts.add(newBankAccount);
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -46,7 +51,7 @@ public class DBUtil_Users {
     }
 
     @SuppressWarnings("UseCompareMethod")
-    public static List<Transaction> getUserTransactions(int from_account_id) {
+    public static List<Transaction> getBankAccountTransactions(int from_account_id) {
         Connection connection = null;
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
@@ -54,22 +59,28 @@ public class DBUtil_Users {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
             psCheckUserExists = connection.prepareStatement("""
-                    SELECT\s
+                     SELECT
                         t.transaction_id,
                         t.from_account_id,
                         t.message,
+                        t.currency,
                         u1.username AS from_username,
                         t.to_account_id,
                         u2.username AS to_username,
                         t.amount
-                    FROM\s
+                    FROM
                         transactions t
-                    JOIN\s
-                        users u1 ON t.from_account_id = u1.user_id
-                    JOIN\s
-                        users u2 ON t.to_account_id = u2.user_id
-                    WHERE\s
-                        t.to_account_id = ?""");
+                    JOIN
+                    	bank_accounts b1 ON t.from_account_id = b1.account_id
+                    JOIN
+                    	bank_accounts b2 On t.to_account_id = b2.account_id
+                    JOIN
+                        users u1 ON b1.user_id = u1.user_id
+                    JOIN
+                        users u2 ON b2.user_id = u2.user_id
+                    WHERE
+                        t.to_account_id = ?
+                    """);
             psCheckUserExists.setInt(1, from_account_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
@@ -79,31 +90,40 @@ public class DBUtil_Users {
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
+                String currency = resultSet.getString("currency");
                 String message = "";
                 try {
                     message = resultSet.getString("message");
                 } catch (Exception e) {
                     System.out.println("Message is null");
                 }
-                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message));
+                var transaction = new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message);
+                transaction.setCurrency(currency);
+                transactions.add(transaction);
             }
             psCheckUserExists = connection.prepareStatement("""
-                    SELECT\s
-                        t.transaction_id,
-                        t.from_account_id,
-                        t.message,
-                        u1.username AS from_username,
-                        t.to_account_id,
-                        u2.username AS to_username,
-                        t.amount
-                    FROM\s
-                        transactions t
-                    JOIN\s
-                        users u1 ON t.from_account_id = u1.user_id
-                    JOIN\s
-                        users u2 ON t.to_account_id = u2.user_id
-                    WHERE\s
-                        t.from_account_id = ?""");
+                    SELECT
+                                                 t.transaction_id,
+                                                 t.from_account_id,
+                                                 t.message,
+                                                 t.currency,
+                                                 u1.username AS from_username,
+                                                 t.to_account_id,
+                                                 u2.username AS to_username,
+                                                 t.amount
+                                             FROM
+                                                 transactions t
+                                             JOIN
+                                             	bank_accounts b1 ON t.from_account_id = b1.account_id
+                                             JOIN
+                                             	bank_accounts b2 On t.to_account_id = b2.account_id
+                                             JOIN
+                                                 users u1 ON b1.user_id = u1.user_id
+                                             JOIN
+                                                 users u2 ON b2.user_id = u2.user_id
+                                             WHERE
+                                                 t.from_account_id = ?;
+                                             """);
             psCheckUserExists.setInt(1, from_account_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
@@ -113,13 +133,16 @@ public class DBUtil_Users {
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
+                String currency = resultSet.getString("currency");
                 String message = "";
                 try {
                     message = resultSet.getString("message");
                 } catch (Exception e) {
                     System.out.println("Message is null");
                 }
-                transactions.add(new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message));
+                var transaction = new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message);
+                transaction.setCurrency(currency);
+                transactions.add(transaction);
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
