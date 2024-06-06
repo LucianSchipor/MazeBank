@@ -21,7 +21,7 @@ public class TransactionListCell extends ListCell<Transaction> {
                 controller.reciever_lbl.setText(transaction.getMessage());
                 controller.currency_lbl.setText(transaction.getCurrency());
                 setGraphic(hbox);
-                if (transaction.getFrom_account_id() == UserLoggedIn.getInstance().getLoggedInUser().getUserId()) {
+                if (transaction.getFrom_account_id() == UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id()) {
                     controller.out_icon.setGlyphName("LONG_ARROW_LEFT");
                     controller.setFromAccountId(transaction.getTo_username());
                     Paint paint;

@@ -9,12 +9,8 @@ import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -70,7 +66,7 @@ public class DashboardController implements Initializable {
         double income = 0;
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
-            if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) {
+            if (transaction.getFrom_account_id() == account.getAccount_id()) {
                 outcome += transaction.getAmount();
             } else {
                 income += transaction.getAmount();
