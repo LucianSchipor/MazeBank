@@ -6,14 +6,16 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class DB_BankAccounts {
     @SuppressWarnings("SqlNoDataSourceInspection")
-    public static List<CheckingAccount> GetBankAccounts(int user_id) {
+    public static LinkedHashMap<Integer,CheckingAccount> GetBankAccounts(int user_id) {
         Connection connection = null;
         PreparedStatement psCheckUserExists;
-        List<CheckingAccount> accounts = new ArrayList<>();
+        LinkedHashMap<Integer,CheckingAccount> accounts = new LinkedHashMap<>();
         ResultSet resultSet;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
@@ -28,7 +30,7 @@ public class DB_BankAccounts {
                 var newBankAccount =  new CheckingAccount(account_number, balance, currency);
                 newBankAccount.setAccount_id(resultSet.getInt("account_id"));
                 newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
-                accounts.add(newBankAccount);
+                accounts.put(account_id, newBankAccount);
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -45,7 +47,9 @@ public class DB_BankAccounts {
         return accounts;
     }
 
-    public static CheckingAccount UpdateBankAccount(int account_id, CheckingAccount account) {
+    // Used for set the local Checking Account with updated from database Checking Account.
+    // Returns same Checkin Account but updated
+    public static CheckingAccount UpdateBankAccount_Local(CheckingAccount account) {
         Connection connection = null;
         PreparedStatement psCheckUserExists;
         PreparedStatement psGetBankAccountTransactions;
@@ -55,12 +59,12 @@ public class DB_BankAccounts {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");
-            psCheckUserExists.setInt(1, account_id);
+            psCheckUserExists.setInt(1, account.getAccount_id());
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 double balance = resultSet.getDouble("account_balance");
                 newBankAccount =  new CheckingAccount(account.getAccountNumber(), balance, account.getCurrency());
-                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
+                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getAccount_id()));
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

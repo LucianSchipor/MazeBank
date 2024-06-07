@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -37,7 +38,9 @@ public class DashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
-        CheckingAccount account = account_list.getFirst();
+        Map.Entry<Integer, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+        var account =entry.getValue();
+
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
             account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
         }
@@ -53,7 +56,7 @@ public class DashboardController implements Initializable {
         }
 
         ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
-        observableAccountsList.addAll(account_list);
+        observableAccountsList.addAll(account_list.values().stream().toList());
         account_listview.itemsProperty().set(observableAccountsList);
         setAccountlistView(account_listview);
 
@@ -82,7 +85,9 @@ public class DashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
-        CheckingAccount account = account_list.getFirst();
+        Map.Entry<Integer, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+        var account =entry.getValue();
+
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
             account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
             acc_selected_number_lbl.setText(account.getAccountNumber());
@@ -99,7 +104,7 @@ public class DashboardController implements Initializable {
         }
 
         ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
-        observableAccountsList.addAll(account_list);
+        observableAccountsList.addAll(account_list.values().stream().toList());
         account_listview.itemsProperty().set(observableAccountsList);
         setAccountlistView(account_listview);
 
@@ -179,7 +184,7 @@ public class DashboardController implements Initializable {
         }
 
         ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
-        observableAccountsList.addAll(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts());
+        observableAccountsList.addAll(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().values().stream().toList());
         account_listview.itemsProperty().set(observableAccountsList);
         setAccountlistView(account_listview);
 

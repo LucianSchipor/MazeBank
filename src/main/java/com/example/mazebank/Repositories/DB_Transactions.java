@@ -38,48 +38,46 @@ public class DB_Transactions {
             alert.showAndWait();
             return;
         }
-        if(to_account_id_String.equals(UserLoggedIn.getInstance().getLoggedInUser().getUsername()))
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You cannot send money to yourself!");
-            alert.showAndWait();
-            return;
-        }
         if(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getBalance() < amount){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You do not have that balance!");
             alert.showAndWait();
             return;
         }
+        TransferMoney_DatabaseStatement(to_account_id_String, amount, message);
+
+    }
+    //Database Statement
+    private static void TransferMoney_DatabaseStatement(String to_account_id_String, Double amount, String message){
         Connection connection = null;
         PreparedStatement psInsertTransaction;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
             psInsertTransaction = connection.prepareStatement(
                     "INSERT INTO" +
-                    " transactions (from_account_id,to_account_id,amount, message) VALUES (?,?,?,?)");
+                            " transactions (from_account_id,to_account_id,amount, message) VALUES (?,?,?,?)");
 
             psInsertTransaction.setInt(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id());
             psInsertTransaction.setInt(2, Integer.parseInt(to_account_id_String));
             psInsertTransaction.setDouble(3, amount);
             psInsertTransaction.setString(4, message);
-           try{
-               int rowsAffected = psInsertTransaction.executeUpdate();
-               if (rowsAffected > 0) {
-                   System.out.println("Transaction successfully inserted.");
-               } else {
-                   System.out.println("Failed to insert transaction.");
-               }
-               UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
-                       DB_BankAccounts.UpdateBankAccount(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id(),
-                       UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount()));
-           }
-           catch (SQLIntegrityConstraintViolationException e){
-               Alert alert = new Alert(Alert.AlertType.ERROR);
-               alert.setContentText("Bank account with id " + to_account_id_String + " does not exists!");
-               alert.showAndWait();
-               return;
-           }
+            try{
+                int rowsAffected = psInsertTransaction.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Transaction successfully inserted.");
+                } else {
+                    System.out.println("Failed to insert transaction.");
+                }
+                UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
+                        DB_BankAccounts.UpdateBankAccount_Local(
+                                UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount()));
+            }
+            catch (SQLIntegrityConstraintViolationException e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Bank account with id " + to_account_id_String + " does not exists!");
+                alert.showAndWait();
+                return;
+            }
             psInsertTransaction.close();
         } catch (SQLException e) {
             e.printStackTrace();

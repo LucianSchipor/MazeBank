@@ -2,6 +2,8 @@ package com.example.mazebank.Core.Models;
 
 import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class User {
@@ -9,8 +11,7 @@ public class User {
     private String username;
     private String password;
     private AccountType Role;
-    private CheckingAccount checkingAccount;
-    private List<CheckingAccount> checkingAccounts;
+    private HashMap<Integer, CheckingAccount> checkingAccounts;
     private CheckingAccount selectedCheckingAccount;
 
     public User(int id, String username, String password, int role) {
@@ -24,42 +25,25 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public int getUserId(){
         return id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public AccountType getRole() {
         return Role;
     }
 
-    public void setRole(AccountType role) {
-        Role = role;
+
+    public void setCheckingAccounts(){
+
     }
 
-    public CheckingAccount getCheckingAccount() {
-        return checkingAccount;
-    }
-
-    public List<CheckingAccount> getCheckingAccounts() {
+    public HashMap<Integer,CheckingAccount> getCheckingAccounts() {
         return DB_BankAccounts.GetBankAccounts(id);
     }
 
-    public void setCheckingAccount(CheckingAccount checkingAccount) {
-        this.checkingAccount = checkingAccount;
-    }
-    public void setCheckingAccounts(List<CheckingAccount> checkingAccount) {
+    public void setCheckingAccounts(HashMap<Integer, CheckingAccount> checkingAccount) {
         this.checkingAccounts = checkingAccount;
     }
 

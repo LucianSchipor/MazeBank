@@ -1,6 +1,7 @@
 package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Controllers.User.UserLoggedIn;
+import com.example.mazebank.Core.Models.CheckingAccount;
 import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_Users;
 import com.example.mazebank.Core.Models.Model;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -36,9 +38,12 @@ public class LoginController implements Initializable {
                     UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
                     var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
                     try {
+                        //Gets first element from hashmap
+                        Map.Entry<Integer, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+                        var value=entry.getValue();
                         UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
                         UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
-                                UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().getFirst());
+                                value);
                     }
                     catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
