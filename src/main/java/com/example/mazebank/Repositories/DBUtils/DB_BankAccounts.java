@@ -18,7 +18,7 @@ public class DB_BankAccounts {
         LinkedHashMap<Integer,CheckingAccount> accounts = new LinkedHashMap<>();
         ResultSet resultSet;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE user_id = ?");
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();

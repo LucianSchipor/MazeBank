@@ -14,7 +14,7 @@ public class DB_Users {
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
             psCheckUserExists = connection.prepareStatement("SELECT  * FROM users WHERE username = ? AND password = ?");
             psCheckUserExists.setString(1, username);
             psCheckUserExists.setString(2, password);
