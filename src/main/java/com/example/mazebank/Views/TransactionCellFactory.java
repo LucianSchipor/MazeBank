@@ -1,7 +1,7 @@
 package com.example.mazebank.Views;
 
-import com.example.mazebank.Controllers.User.TransactionCellController;
-import com.example.mazebank.Core.Models.Transaction;
+import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionCellController;
+import com.example.mazebank.Core.Transactions.Transaction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 

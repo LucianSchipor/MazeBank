@@ -1,7 +1,5 @@
 package com.example.mazebank.Repositories.DBUtils;
 
-import com.example.mazebank.Controllers.User.UserLoggedIn;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

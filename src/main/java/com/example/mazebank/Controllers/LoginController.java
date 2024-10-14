@@ -1,11 +1,11 @@
 package com.example.mazebank.Controllers;
 
-import com.example.mazebank.Controllers.User.UserLoggedIn;
-import com.example.mazebank.Core.Models.CheckingAccount;
-import com.example.mazebank.Repositories.DB_BankAccounts;
-import com.example.mazebank.Repositories.DB_Users;
+import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
+import com.example.mazebank.Repositories.Users.DB_Users;
 import com.example.mazebank.Core.Models.Model;
-import com.example.mazebank.Core.Models.AccountType;
+import com.example.mazebank.Core.Users.AccountType;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;

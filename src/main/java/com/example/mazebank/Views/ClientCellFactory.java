@@ -1,7 +1,7 @@
 package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.ClientCellController;
-import com.example.mazebank.Core.Models.Client;
+import com.example.mazebank.Core.Users.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 

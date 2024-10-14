@@ -1,11 +1,10 @@
 package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.AdminController;
-import com.example.mazebank.Controllers.Admin.DepositController;
-import com.example.mazebank.Controllers.User.DashboardController;
-import com.example.mazebank.Controllers.User.TransactionsController;
-import com.example.mazebank.Controllers.User.UserController;
-import com.example.mazebank.Core.Models.AccountType;
+import com.example.mazebank.Controllers.User.Menu.DashboardController;
+import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
+import com.example.mazebank.Controllers.User.Menu.UserController;
+import com.example.mazebank.Core.Users.AccountType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
@@ -61,7 +60,7 @@ public class ViewFactory {
 
         if (accountsView == null) {
             try {
-                accountsView = new FXMLLoader(getClass().getResource("/Fxml/User/Accounts.fxml")).load();
+                accountsView = new FXMLLoader(getClass().getResource("/Fxml/User/BankAccounts/Accounts.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -71,7 +70,7 @@ public class ViewFactory {
 
     public AnchorPane getDashboardView() {
             try {
-                var dashboardV = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
+                var dashboardV = new FXMLLoader(getClass().getResource("/Fxml/User/Menu/Dashboard.fxml"));
                 dashboardV.setController(new DashboardController());
                 dashboardView = dashboardV.load();
             } catch (Exception e) {
@@ -94,7 +93,7 @@ public class ViewFactory {
 
     public AnchorPane getTransactionsView() {
             try {
-                var tV = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions.fxml"));
+                var tV = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions/Transactions.fxml"));
                 tV.setController(new TransactionsController());
                 transactionsView = tV.load();
             } catch (Exception e) {
