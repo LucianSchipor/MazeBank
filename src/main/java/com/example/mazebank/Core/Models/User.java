@@ -4,6 +4,7 @@ import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class User {
@@ -40,7 +41,14 @@ public class User {
     }
 
     public HashMap<String,CheckingAccount> getCheckingAccounts() {
-        return DB_BankAccounts.GetBankAccounts(id);
+        LinkedHashMap<String, CheckingAccount> checkingAccounts = new LinkedHashMap<>();
+        try {
+            checkingAccounts = DB_BankAccounts.GetBankAccounts(id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return  checkingAccounts;
     }
 
     public void setCheckingAccounts(HashMap<String, CheckingAccount> checkingAccount) {

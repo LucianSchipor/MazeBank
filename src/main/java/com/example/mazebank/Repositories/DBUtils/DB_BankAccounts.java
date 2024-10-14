@@ -12,13 +12,12 @@ import java.util.List;
 
 public class DB_BankAccounts {
     @SuppressWarnings("SqlNoDataSourceInspection")
-    public static LinkedHashMap<String,CheckingAccount> GetBankAccounts(int user_id) {
-        Connection connection = null;
+    public static LinkedHashMap<String,CheckingAccount> GetBankAccounts(int user_id) throws SQLException {
         PreparedStatement psCheckUserExists;
         LinkedHashMap<String,CheckingAccount> accounts = new LinkedHashMap<>();
         ResultSet resultSet;
+        var connection = DB_ConnectionManager.getInstance().GetConnection();
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE user_id = ?");
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
@@ -50,13 +49,18 @@ public class DB_BankAccounts {
     // Returns same Checkin Account but updated
     public static CheckingAccount UpdateBankAccount_Local(CheckingAccount account) {
         Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        }
+        catch (Exception exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+        }
         PreparedStatement psCheckUserExists;
         PreparedStatement psGetBankAccountTransactions;
         List<CheckingAccount> accounts = new ArrayList<>();
         ResultSet resultSet;
         CheckingAccount newBankAccount = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");
             psCheckUserExists.setString(1, account.getAccount_id());
             resultSet = psCheckUserExists.executeQuery();

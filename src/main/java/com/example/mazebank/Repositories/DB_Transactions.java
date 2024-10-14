@@ -3,6 +3,7 @@ package com.example.mazebank.Repositories;
 import com.example.mazebank.Controllers.User.UserLoggedIn;
 import com.example.mazebank.Core.Models.Transaction;
 import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
+import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
@@ -50,9 +51,15 @@ public class DB_Transactions {
     //Database Statement
     private static void TransferMoney_DatabaseStatement(String to_account_id_String, Double amount, String message){
         Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         PreparedStatement psInsertTransaction;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
+            assert connection != null;
             psInsertTransaction = connection.prepareStatement(
                     "INSERT INTO" +
                             " transactions (from_account_id,to_account_id,amount, message) VALUES (?,?,?,?)");
@@ -98,11 +105,17 @@ public class DB_Transactions {
     @SuppressWarnings("UseCompareMethod")
     public static List<Transaction> GetBankAccountTransactions(String from_account_id) {
         Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         List<Transaction> transactions = new ArrayList<>();
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
+            assert connection != null;
             psCheckUserExists = connection.prepareStatement("""
                      SELECT
                         t.transaction_id,

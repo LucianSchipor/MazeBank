@@ -9,12 +9,17 @@ import java.sql.*;
 @SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection", "CallToPrintStackTrace"})
 public class DB_Users {
 
-    public static User LoginUser(String username, String password) {
-        Connection connection = null;
+    public static User LoginUser(String username, String password){
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
+        Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
             psCheckUserExists = connection.prepareStatement("SELECT  * FROM users WHERE username = ? AND password = ?");
             psCheckUserExists.setString(1, username);
             psCheckUserExists.setString(2, password);
