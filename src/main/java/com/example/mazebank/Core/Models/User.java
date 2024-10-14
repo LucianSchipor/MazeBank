@@ -11,7 +11,7 @@ public class User {
     private String username;
     private String password;
     private AccountType Role;
-    private HashMap<Integer, CheckingAccount> checkingAccounts;
+    private HashMap<String, CheckingAccount> checkingAccounts;
     private CheckingAccount selectedCheckingAccount;
 
     public User(int id, String username, String password, int role) {
@@ -39,11 +39,11 @@ public class User {
 
     }
 
-    public HashMap<Integer,CheckingAccount> getCheckingAccounts() {
+    public HashMap<String,CheckingAccount> getCheckingAccounts() {
         return DB_BankAccounts.GetBankAccounts(id);
     }
 
-    public void setCheckingAccounts(HashMap<Integer, CheckingAccount> checkingAccount) {
+    public void setCheckingAccounts(HashMap<String, CheckingAccount> checkingAccount) {
         this.checkingAccounts = checkingAccount;
     }
 

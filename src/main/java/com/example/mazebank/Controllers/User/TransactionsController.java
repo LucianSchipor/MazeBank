@@ -15,13 +15,13 @@ public class TransactionsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next().getKey()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
 
     public TransactionsController(){
-        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next().getKey()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }

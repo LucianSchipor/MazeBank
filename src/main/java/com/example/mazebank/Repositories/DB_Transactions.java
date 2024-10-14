@@ -8,14 +8,14 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @SuppressWarnings({"SqlNoDataSourceInspection", "SqlDialectInspection", "CallToPrintStackTrace"})
 public class DB_Transactions {
 
     //TODO -> de facut conversia (ex: Trimit 150 ron si ar trebui sa ajunga 30 EUR, nu 150 EUR).
     public static void TransferMoney(String to_account_id_String, String amount_String, String message){
-        if(Integer.parseInt(to_account_id_String) ==
-        UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id()){
+        if(Objects.equals(to_account_id_String, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You cannot send money to selected account!");
             alert.showAndWait();
@@ -57,7 +57,7 @@ public class DB_Transactions {
                     "INSERT INTO" +
                             " transactions (from_account_id,to_account_id,amount, message) VALUES (?,?,?,?)");
 
-            psInsertTransaction.setInt(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id());
+            psInsertTransaction.setString(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id());
             psInsertTransaction.setInt(2, Integer.parseInt(to_account_id_String));
             psInsertTransaction.setDouble(3, amount);
             psInsertTransaction.setString(4, message);
@@ -96,7 +96,7 @@ public class DB_Transactions {
     }
 
     @SuppressWarnings("UseCompareMethod")
-    public static List<Transaction> GetBankAccountTransactions(int from_account_id) {
+    public static List<Transaction> GetBankAccountTransactions(String from_account_id) {
         Connection connection = null;
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
@@ -126,12 +126,12 @@ public class DB_Transactions {
                     WHERE
                         t.to_account_id = ?
                     """);
-            psCheckUserExists.setInt(1, from_account_id);
+            psCheckUserExists.setString(1, from_account_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
-                int fromAccountId = resultSet.getInt("from_account_id");
-                int toAccountId = resultSet.getInt("to_account_id");
+                String fromAccountId = resultSet.getString("from_account_id");
+                String toAccountId = resultSet.getString("to_account_id");
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
@@ -168,12 +168,12 @@ public class DB_Transactions {
                                                  users u2 ON b2.user_id = u2.user_id
                                              WHERE
                                                  t.from_account_id = ?;""");
-            psCheckUserExists.setInt(1, from_account_id);
+            psCheckUserExists.setString(1, from_account_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
-                int fromAccountId = resultSet.getInt("from_account_id");
-                int toAccountId = resultSet.getInt("to_account_id");
+                String fromAccountId = resultSet.getString("from_account_id");
+                String toAccountId = resultSet.getString("to_account_id");
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");

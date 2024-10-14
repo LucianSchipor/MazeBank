@@ -39,7 +39,7 @@ public class LoginController implements Initializable {
                     var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
                     try {
                         //Gets first element from hashmap
-                        Map.Entry<Integer, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+                        Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
                         var value=entry.getValue();
                         UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
                         UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(

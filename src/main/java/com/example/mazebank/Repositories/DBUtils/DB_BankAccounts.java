@@ -12,10 +12,10 @@ import java.util.List;
 
 public class DB_BankAccounts {
     @SuppressWarnings("SqlNoDataSourceInspection")
-    public static LinkedHashMap<Integer,CheckingAccount> GetBankAccounts(int user_id) {
+    public static LinkedHashMap<String,CheckingAccount> GetBankAccounts(int user_id) {
         Connection connection = null;
         PreparedStatement psCheckUserExists;
-        LinkedHashMap<Integer,CheckingAccount> accounts = new LinkedHashMap<>();
+        LinkedHashMap<String,CheckingAccount> accounts = new LinkedHashMap<>();
         ResultSet resultSet;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
@@ -23,13 +23,12 @@ public class DB_BankAccounts {
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
-                int account_id = resultSet.getInt("account_id");
+                String account_id = resultSet.getString("account_id");
                 double balance = resultSet.getDouble("account_balance");
                 String currency = resultSet.getString("account_currency");
-                String account_number = resultSet.getString("account_number");
-                var newBankAccount =  new CheckingAccount(account_number, balance, currency);
-                newBankAccount.setAccount_id(resultSet.getInt("account_id"));
-                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
+                var newBankAccount =  new CheckingAccount(account_id, balance, currency);
+                newBankAccount.setAccount_id(resultSet.getString("account_id"));
+//                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
                 accounts.put(account_id, newBankAccount);
             }
         } catch (Exception exception) {
@@ -59,7 +58,7 @@ public class DB_BankAccounts {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");
-            psCheckUserExists.setInt(1, account.getAccount_id());
+            psCheckUserExists.setString(1, account.getAccount_id());
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 double balance = resultSet.getDouble("account_balance");

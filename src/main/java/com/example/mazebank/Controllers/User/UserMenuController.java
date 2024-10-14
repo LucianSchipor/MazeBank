@@ -32,14 +32,16 @@ public class UserMenuController implements Initializable {
     }
 
     private void onDashboard(){
+        System.out.println("[LOG] - redirecting to Dashboard panel");
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.DASHBOARD);
     }
 
     private void onTransactions(){
-        System.out.println("Transactions button hitted!");
+        System.out.println("[LOG] - redirecting to Transactions panel");
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.TRANSACTIONS);
     }
     private void onAccounts(){
+        System.out.println("[LOG] - redirecting to Accounts panel");
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.ACCOUNTS);
     }
 

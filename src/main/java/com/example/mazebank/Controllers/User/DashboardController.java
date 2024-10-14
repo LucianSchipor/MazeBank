@@ -38,7 +38,7 @@ public class DashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
-        Map.Entry<Integer, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+        Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
         var account =entry.getValue();
 
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
@@ -85,7 +85,7 @@ public class DashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
-        Map.Entry<Integer, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+        Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
         var account =entry.getValue();
 
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
@@ -112,13 +112,13 @@ public class DashboardController implements Initializable {
         transaction_listview.setCellFactory(param -> new TransactionListCell());
         double income = 0;
         double outcome = 0;
-        for (Transaction transaction : transactionsList) {
-            if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) {
-                outcome += transaction.getAmount();
-            } else {
-                income += transaction.getAmount();
-            }
-        }
+//        for (Transaction transaction : transactionsList) {
+//            if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) { //todo -> metoda sa iau tranzactii pe baza numarului de cont
+//                outcome += transaction.getAmount();
+//            } else {
+//                income += transaction.getAmount();
+//            }
+//        }
         income_lbl.setText(income + " " + account.getCurrency());
         expense_lbl.setText(outcome + " " + account.getCurrency());
         hello_lbl.setText("Welcome back, " + username + "!");
@@ -164,6 +164,7 @@ public class DashboardController implements Initializable {
                 // update for HBox for non-empty cells based on selection
                 if (selected) {
                     UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(item);
+                    System.out.println("[LOG] - selected account set to " + item.getAccount_id());
                     updatePage();
                 }
             }
