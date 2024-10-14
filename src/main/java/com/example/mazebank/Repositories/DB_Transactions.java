@@ -2,7 +2,6 @@ package com.example.mazebank.Repositories;
 
 import com.example.mazebank.Controllers.User.UserLoggedIn;
 import com.example.mazebank.Core.Models.Transaction;
-import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.scene.control.Alert;
 

@@ -1,6 +1,7 @@
-package com.example.mazebank.Repositories.DBUtils;
+package com.example.mazebank.Repositories;
 
 import com.example.mazebank.Core.Models.User;
+import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 

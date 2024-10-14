@@ -2,8 +2,8 @@ package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Controllers.User.UserLoggedIn;
 import com.example.mazebank.Core.Models.CheckingAccount;
-import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
-import com.example.mazebank.Repositories.DBUtils.DB_Users;
+import com.example.mazebank.Repositories.DB_BankAccounts;
+import com.example.mazebank.Repositories.DB_Users;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.AccountType;
 import javafx.event.Event;

@@ -1,12 +1,11 @@
-package com.example.mazebank.Repositories.DBUtils;
+package com.example.mazebank.Repositories;
 
 import com.example.mazebank.Core.Models.CheckingAccount;
-import com.example.mazebank.Repositories.DB_Transactions;
+import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 

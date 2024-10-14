@@ -15,4 +15,5 @@ module com.example.mazebank {
     exports com.example.mazebank.Core.Models;
     exports com.example.mazebank.Views;
     exports com.example.mazebank.Repositories.DBUtils;
+    exports com.example.mazebank.Repositories;
 }

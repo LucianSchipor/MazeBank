@@ -1,11 +1,9 @@
 package com.example.mazebank.Core.Models;
 
-import com.example.mazebank.Repositories.DBUtils.DB_BankAccounts;
+import com.example.mazebank.Repositories.DB_BankAccounts;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 public class User {
     private int id;
