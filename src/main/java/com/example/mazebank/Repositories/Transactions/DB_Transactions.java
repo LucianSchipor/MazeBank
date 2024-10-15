@@ -1,5 +1,6 @@
 package com.example.mazebank.Repositories.Transactions;
 
+import com.example.mazebank.Core.BankAccounts.CheckingAccount;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
@@ -18,10 +19,19 @@ public class DB_Transactions {
         if (receiver.isBlank() || amount_String.isBlank() || message.isBlank()) {
             return false;
         }
+        for (Map.Entry<String, CheckingAccount> entry : UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet()) {
+            String account_number = entry.getKey();
+            if(account_number.equals(receiver)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("You cannot send money to your own account. Use Deposit.");
+                alert.showAndWait();
+                return false;
+            }
+        }
 
         if (Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You cannot send money to your own account account!");
+            alert.setContentText("You cannot send money to your own account!");
             alert.showAndWait();
             return false;
         }
