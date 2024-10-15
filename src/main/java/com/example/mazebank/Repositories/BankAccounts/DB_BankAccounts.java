@@ -27,7 +27,7 @@ public class DB_BankAccounts {
                 String currency = resultSet.getString("account_currency");
                 var newBankAccount =  new CheckingAccount(account_id, balance, currency);
                 newBankAccount.setAccount_id(resultSet.getString("account_id"));
-//                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
+                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
                 accounts.put(account_id, newBankAccount);
             }
         } catch (Exception exception) {
@@ -47,7 +47,7 @@ public class DB_BankAccounts {
 
     // Used for set the local Checking Account with updated from database Checking Account.
     // Returns same Checkin Account but updated
-    public static CheckingAccount UpdateBankAccount_Local(CheckingAccount account) {
+    public static void Local_UpdateBankAccountsAfterTransaction(CheckingAccount account) {
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -56,8 +56,6 @@ public class DB_BankAccounts {
             Alert alert = new Alert(Alert.AlertType.ERROR);
         }
         PreparedStatement psCheckUserExists;
-        PreparedStatement psGetBankAccountTransactions;
-        List<CheckingAccount> accounts = new ArrayList<>();
         ResultSet resultSet;
         CheckingAccount newBankAccount = null;
         try {
@@ -66,8 +64,8 @@ public class DB_BankAccounts {
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 double balance = resultSet.getDouble("account_balance");
-                newBankAccount =  new CheckingAccount(account.getAccountNumber(), balance, account.getCurrency());
-                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getAccount_id()));
+                account.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getAccount_id()));
+                account.setBalance(balance);
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -81,6 +79,41 @@ public class DB_BankAccounts {
                 }
             }
         }
-        return newBankAccount;
+    }
+
+    public static void DB_UpdateBankAccountsAfterTransaction(String sender, Double amount, String receiver){
+        Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        PreparedStatement psInsertTransaction;
+        PreparedStatement psGetBankAccount;
+        ResultSet resultSet = null;
+        Double sender_balance = (double) 0;
+        Double receiver_balance = (double) 0;
+        try {
+            assert connection != null;
+            psInsertTransaction = connection.prepareStatement(
+                    "UPDATE bank_accounts " +
+                            "SET account_balance = account_balance - ? " +
+                            "WHERE account_id = ?");
+            psInsertTransaction.setDouble(1, amount);
+            psInsertTransaction.setString(2, sender);
+            psInsertTransaction.executeUpdate();
+
+            psInsertTransaction = connection.prepareStatement(
+                    "UPDATE bank_accounts " +
+                            "SET account_balance = account_balance + ? " +
+                            "WHERE account_id = ?");
+            psInsertTransaction.setDouble(1, amount);
+            psInsertTransaction.setString(2, receiver);
+            psInsertTransaction.executeUpdate();
+        }
+        catch (Exception exception){
+            exception.printStackTrace();
+        }
     }
 }

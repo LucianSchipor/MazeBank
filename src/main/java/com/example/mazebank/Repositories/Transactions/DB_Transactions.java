@@ -15,41 +15,49 @@ import java.util.Objects;
 public class DB_Transactions {
 
     //TODO -> de facut conversia (ex: Trimit 150 ron si ar trebui sa ajunga 30 EUR, nu 150 EUR).
-    public static void TransferMoney(String receiver, String amount_String, String message){
+
+    private static boolean VerifyTransfer(String receiver, String amount_String, String message){
+        if(receiver.isBlank() || amount_String.isBlank() || message.isBlank()){
+            return false;
+        }
+
         if(Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You cannot send money to selected account!");
+            alert.setContentText("You cannot send money to your own account account!");
             alert.showAndWait();
-            return;
+            return false;
         }
         double amount;
         try {
-            amount = Integer.parseInt(amount_String);
+            amount = Float.parseFloat(amount_String);
         }
         catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Id format is incorrect!");
-            System.out.println("Id format is incorrect!");
+            alert.setContentText("IBAN format is incorrect!");
+            System.out.println("[LOG] - IBAN format is incorrect!");
             alert.showAndWait();
-            return;
+            return false;
         }
         if(receiver.isEmpty() || amount == 0 || amount < 0){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Incorrect value on payee field or amount field!");
+            System.out.println("[LOG] - receiver field from Transfer has an incorrect type or value!");
+            alert.setContentText("Receiver field from Transfer has an incorrect type or value!");
             alert.showAndWait();
-            return;
+            return false;
         }
         if(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getBalance() < amount){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You do not have that balance!");
             alert.showAndWait();
-            return;
+            return false;
         }
-        TransferMoney_DatabaseStatement(receiver, amount, message);
-
+    return true;
     }
     //Database Statement
-    private static void TransferMoney_DatabaseStatement(String receiver, Double amount, String message){
+    public static void Transfer(String receiver, Double amount, String message){
+        if(!VerifyTransfer(receiver, amount.toString(), message)){
+            return;
+        }
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -71,13 +79,13 @@ public class DB_Transactions {
             try{
                 int rowsAffected = psInsertTransaction.executeUpdate();
                 if (rowsAffected > 0) {
+                    DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id(), amount, receiver);
+                    var selectedAccount = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
+                    DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
                     System.out.println("Transaction successfully inserted.");
                 } else {
                     System.out.println("Failed to insert transaction.");
                 }
-                UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
-                        DB_BankAccounts.UpdateBankAccount_Local(
-                                UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount()));
             }
             catch (SQLIntegrityConstraintViolationException e){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -96,7 +104,9 @@ public class DB_Transactions {
                     e.printStackTrace();
                 }
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setContentText("Transfer successful!");
             alert.showAndWait();
         }
@@ -123,7 +133,7 @@ public class DB_Transactions {
                         t.message,
                         t.currency,
                         u1.username AS from_username,
-                        t.to_account_id,
+                        t.receiver,
                         u2.username AS to_username,
                         t.amount
                     FROM
@@ -131,7 +141,7 @@ public class DB_Transactions {
                     JOIN
                     	bank_accounts b1 ON t.sender = b1.account_id
                     JOIN
-                    	bank_accounts b2 On t.sender = b2.account_id
+                    	bank_accounts b2 On t.receiver = b2.account_id
                     JOIN
                         users u1 ON b1.user_id = u1.user_id
                     JOIN
@@ -166,7 +176,7 @@ public class DB_Transactions {
                                                  t.message,
                                                  t.currency,
                                                  u1.username AS from_username,
-                                                 t.to_account_id,
+                                                 t.receiver,
                                                  u2.username AS to_username,
                                                  t.amount
                                              FROM
@@ -223,4 +233,6 @@ public class DB_Transactions {
         });
         return transactions;
     }
+
+
 }

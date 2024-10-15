@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class DashboardController implements Initializable {
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
         Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-        var account =entry.getValue();
+        var account = entry.getValue();
 
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
             account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
@@ -89,7 +90,7 @@ public class DashboardController implements Initializable {
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
         Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-        var account =entry.getValue();
+        var account = entry.getValue();
 
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
             account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
@@ -130,9 +131,15 @@ public class DashboardController implements Initializable {
     }
 
     private void onSendMoney(Event event) {
-        DB_Transactions.TransferMoney(payee_fld.getText(), amount_fld.getText(), message_fld.getText());
-        updatePage();
-
+        if (payee_fld.getText() != "" && amount_fld.getText() != "") {
+            DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
+            updatePage();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            System.out.println("[LOG] - one field was null");
+            alert.setContentText("You cannot have empty fields!");
+            alert.showAndWait();
+        }
     }
 
     /*
@@ -175,9 +182,8 @@ public class DashboardController implements Initializable {
     }
 
 
-    private void updatePage(){
+    private void updatePage() {
         var account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
-        acc_selected_number_lbl.setText(account.getAccountNumber());
         var transactionsList = account.getTransactions();
         ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();
         try {
