@@ -15,8 +15,8 @@ import java.util.Objects;
 public class DB_Transactions {
 
     //TODO -> de facut conversia (ex: Trimit 150 ron si ar trebui sa ajunga 30 EUR, nu 150 EUR).
-    public static void TransferMoney(String to_account_id_String, String amount_String, String message){
-        if(Objects.equals(to_account_id_String, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())){
+    public static void TransferMoney(String receiver, String amount_String, String message){
+        if(Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You cannot send money to selected account!");
             alert.showAndWait();
@@ -33,7 +33,7 @@ public class DB_Transactions {
             alert.showAndWait();
             return;
         }
-        if(to_account_id_String.isEmpty() || amount == 0 || amount < 0){
+        if(receiver.isEmpty() || amount == 0 || amount < 0){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Incorrect value on payee field or amount field!");
             alert.showAndWait();
@@ -45,11 +45,11 @@ public class DB_Transactions {
             alert.showAndWait();
             return;
         }
-        TransferMoney_DatabaseStatement(to_account_id_String, amount, message);
+        TransferMoney_DatabaseStatement(receiver, amount, message);
 
     }
     //Database Statement
-    private static void TransferMoney_DatabaseStatement(String to_account_id_String, Double amount, String message){
+    private static void TransferMoney_DatabaseStatement(String receiver, Double amount, String message){
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -62,10 +62,10 @@ public class DB_Transactions {
             assert connection != null;
             psInsertTransaction = connection.prepareStatement(
                     "INSERT INTO" +
-                            " transactions (from_account_id,to_account_id,amount, message) VALUES (?,?,?,?)");
+                            " transactions (sender,receiver,amount, message) VALUES (?,?,?,?)");
 
             psInsertTransaction.setString(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id());
-            psInsertTransaction.setInt(2, Integer.parseInt(to_account_id_String));
+            psInsertTransaction.setString(2, receiver);
             psInsertTransaction.setDouble(3, amount);
             psInsertTransaction.setString(4, message);
             try{
@@ -81,7 +81,7 @@ public class DB_Transactions {
             }
             catch (SQLIntegrityConstraintViolationException e){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Bank account with id " + to_account_id_String + " does not exists!");
+                alert.setContentText("Bank account with IBAN " + receiver + " does not exists!");
                 alert.showAndWait();
                 return;
             }
@@ -103,7 +103,7 @@ public class DB_Transactions {
     }
 
     @SuppressWarnings("UseCompareMethod")
-    public static List<Transaction> GetBankAccountTransactions(String from_account_id) {
+    public static List<Transaction> GetBankAccountTransactions(String bank_account_number) {
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -119,7 +119,7 @@ public class DB_Transactions {
             psCheckUserExists = connection.prepareStatement("""
                      SELECT
                         t.transaction_id,
-                        t.from_account_id,
+                        t.sender,
                         t.message,
                         t.currency,
                         u1.username AS from_username,
@@ -129,22 +129,22 @@ public class DB_Transactions {
                     FROM
                         transactions t
                     JOIN
-                    	bank_accounts b1 ON t.from_account_id = b1.account_id
+                    	bank_accounts b1 ON t.sender = b1.account_id
                     JOIN
-                    	bank_accounts b2 On t.to_account_id = b2.account_id
+                    	bank_accounts b2 On t.sender = b2.account_id
                     JOIN
                         users u1 ON b1.user_id = u1.user_id
                     JOIN
                         users u2 ON b2.user_id = u2.user_id
                     WHERE
-                        t.to_account_id = ?
+                        t.receiver = ?
                     """);
-            psCheckUserExists.setString(1, from_account_id);
+            psCheckUserExists.setString(1, bank_account_number);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
-                String fromAccountId = resultSet.getString("from_account_id");
-                String toAccountId = resultSet.getString("to_account_id");
+                String sender = resultSet.getString("sender");
+                String receiver = resultSet.getString("receiver");
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
@@ -155,14 +155,14 @@ public class DB_Transactions {
                 } catch (Exception e) {
                     System.out.println("Message is null");
                 }
-                var transaction = new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message);
+                var transaction = new Transaction(transaction_id, sender, receiver, amount, from_username, to_username, message);
                 transaction.setCurrency(currency);
                 transactions.add(transaction);
             }
             psCheckUserExists = connection.prepareStatement("""
                     SELECT
                                                  t.transaction_id,
-                                                 t.from_account_id,
+                                                 t.sender,
                                                  t.message,
                                                  t.currency,
                                                  u1.username AS from_username,
@@ -172,21 +172,21 @@ public class DB_Transactions {
                                              FROM
                                                  transactions t
                                              JOIN
-                                             	bank_accounts b1 ON t.from_account_id = b1.account_id
+                                             	bank_accounts b1 ON t.sender = b1.account_id
                                              JOIN
-                                             	bank_accounts b2 On t.to_account_id = b2.account_id
+                                             	bank_accounts b2 On t.receiver = b2.account_id
                                              JOIN
                                                  users u1 ON b1.user_id = u1.user_id
                                              JOIN
                                                  users u2 ON b2.user_id = u2.user_id
                                              WHERE
-                                                 t.from_account_id = ?;""");
-            psCheckUserExists.setString(1, from_account_id);
+                                                 t.sender = ?;""");
+            psCheckUserExists.setString(1, bank_account_number);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
-                String fromAccountId = resultSet.getString("from_account_id");
-                String toAccountId = resultSet.getString("to_account_id");
+                String sender = resultSet.getString("sender");
+                String receiver = resultSet.getString("receiver");
                 double amount = resultSet.getDouble("amount");
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
@@ -197,7 +197,7 @@ public class DB_Transactions {
                 } catch (Exception e) {
                     System.out.println("Message is null");
                 }
-                var transaction = new Transaction(transaction_id, fromAccountId, toAccountId, amount, from_username, to_username, message);
+                var transaction = new Transaction(transaction_id, sender, receiver, amount, from_username, to_username, message);
                 transaction.setCurrency(currency);
                 transactions.add(transaction);
             }
