@@ -1,14 +1,13 @@
 package com.example.mazebank.Repositories.BankAccounts;
 
 import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class DB_BankAccounts {
     @SuppressWarnings("SqlNoDataSourceInspection")
@@ -16,8 +15,10 @@ public class DB_BankAccounts {
         PreparedStatement psCheckUserExists;
         LinkedHashMap<String,CheckingAccount> accounts = new LinkedHashMap<>();
         ResultSet resultSet;
-        var connection = DB_ConnectionManager.getInstance().GetConnection();
+        Connection connection = null;
         try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
+
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE user_id = ?");
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
@@ -105,15 +106,41 @@ public class DB_BankAccounts {
             psInsertTransaction.executeUpdate();
 
             psInsertTransaction = connection.prepareStatement(
+                    "SELECT account_currency from bank_accounts " +
+                            "WHERE account_id = ?");
+            psInsertTransaction.setString(1, receiver);
+            resultSet = psInsertTransaction.executeQuery();
+            String currency = "";
+            while (resultSet.next()) {
+                currency = resultSet.getString("account_currency");
+            }
+
+            psInsertTransaction = connection.prepareStatement(
                     "UPDATE bank_accounts " +
                             "SET account_balance = account_balance + ? " +
                             "WHERE account_id = ?");
-            psInsertTransaction.setDouble(1, amount);
+
+            Double newAmount = Currency_Conversion(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency(), currency, amount);
+            psInsertTransaction.setDouble(1, newAmount);
             psInsertTransaction.setString(2, receiver);
             psInsertTransaction.executeUpdate();
         }
         catch (Exception exception){
             exception.printStackTrace();
         }
+
+
+    }
+    private static Double Currency_Conversion(String currency, String currency2, Double amount) {
+        Map<String, Double> exchangeRates = new HashMap<>();
+        // Rates are in RON -> 1 DOL - 4.56 RON
+        exchangeRates.put("USD", 4.56);
+        exchangeRates.put("EUR", 4.98);
+        exchangeRates.put("CHF", 5.29);
+        exchangeRates.put("GBP", 5.97);
+        exchangeRates.put("RON", 1.0);
+
+        double amountInRON = amount * exchangeRates.get(currency);
+        return amountInRON / exchangeRates.get(currency2);
     }
 }

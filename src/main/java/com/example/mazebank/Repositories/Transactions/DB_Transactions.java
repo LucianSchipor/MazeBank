@@ -7,21 +7,19 @@ import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @SuppressWarnings({"SqlNoDataSourceInspection", "SqlDialectInspection", "CallToPrintStackTrace"})
 public class DB_Transactions {
 
     //TODO -> de facut conversia (ex: Trimit 150 ron si ar trebui sa ajunga 30 EUR, nu 150 EUR).
 
-    private static boolean VerifyTransfer(String receiver, String amount_String, String message){
-        if(receiver.isBlank() || amount_String.isBlank() || message.isBlank()){
+    private static boolean VerifyTransfer(String receiver, String amount_String, String message) {
+        if (receiver.isBlank() || amount_String.isBlank() || message.isBlank()) {
             return false;
         }
 
-        if(Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())){
+        if (Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You cannot send money to your own account account!");
             alert.showAndWait();
@@ -30,39 +28,38 @@ public class DB_Transactions {
         double amount;
         try {
             amount = Float.parseFloat(amount_String);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("IBAN format is incorrect!");
             System.out.println("[LOG] - IBAN format is incorrect!");
             alert.showAndWait();
             return false;
         }
-        if(receiver.isEmpty() || amount == 0 || amount < 0){
+        if (receiver.isEmpty() || amount == 0 || amount < 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             System.out.println("[LOG] - receiver field from Transfer has an incorrect type or value!");
             alert.setContentText("Receiver field from Transfer has an incorrect type or value!");
             alert.showAndWait();
             return false;
         }
-        if(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getBalance() < amount){
+        if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getBalance() < amount) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You do not have that balance!");
             alert.showAndWait();
             return false;
         }
-    return true;
+        return true;
     }
+
     //Database Statement
-    public static void Transfer(String receiver, Double amount, String message){
-        if(!VerifyTransfer(receiver, amount.toString(), message)){
+    public static void Transfer(String receiver, Double amount, String message) {
+        if (!VerifyTransfer(receiver, amount.toString(), message)) {
             return;
         }
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         PreparedStatement psInsertTransaction;
@@ -70,24 +67,23 @@ public class DB_Transactions {
             assert connection != null;
             psInsertTransaction = connection.prepareStatement(
                     "INSERT INTO" +
-                            " transactions (sender,receiver,amount, message) VALUES (?,?,?,?)");
+                            " transactions (sender,receiver,amount, message, currency) VALUES (?,?,?,?,?)");
 
             psInsertTransaction.setString(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id());
             psInsertTransaction.setString(2, receiver);
             psInsertTransaction.setDouble(3, amount);
             psInsertTransaction.setString(4, message);
-            try{
+            psInsertTransaction.setString(5, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency());
+            try {
                 int rowsAffected = psInsertTransaction.executeUpdate();
                 if (rowsAffected > 0) {
                     DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id(), amount, receiver);
-                    var selectedAccount = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
                     DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
                     System.out.println("Transaction successfully inserted.");
                 } else {
                     System.out.println("Failed to insert transaction.");
                 }
-            }
-            catch (SQLIntegrityConstraintViolationException e){
+            } catch (SQLIntegrityConstraintViolationException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Bank account with IBAN " + receiver + " does not exists!");
                 alert.showAndWait();
@@ -117,8 +113,7 @@ public class DB_Transactions {
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         PreparedStatement psCheckUserExists;
@@ -233,6 +228,7 @@ public class DB_Transactions {
         });
         return transactions;
     }
+
 
 
 }
