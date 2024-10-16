@@ -31,29 +31,28 @@ public class LoginController implements Initializable {
     }
 
 
-    private void onSignUp(Event event) {
+    private void onSignUp(Event event){
         String username = username_fld.getText();
         String password = password_fld.getText();
-        if (Objects.equals(username, "") || Objects.equals(password, "")) {
+        if(Objects.equals(username, "") || Objects.equals(password, "")){
             System.out.println("[LOG] - " + "one field is empty");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("One field is empty");
             alert.showAndWait();
-        } else {
+        }
 
-            if (!username.isEmpty() && !password.isEmpty()) {
-                try {
-                    DB_Users.SignupUser(username, password);
-                } catch (Exception e) {
-                    System.out.println("[LOG] - " + e.getMessage());
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("Error on creating a new account.");
-                    alert.showAndWait();
-                }
+        if(!username.isEmpty() && !password.isEmpty()){
+            try {
+                DB_Users.SignupUser(username, password);
+            }
+            catch(Exception e){
+                System.out.println("[LOG] - " + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Error on creating a new account.");
+                alert.showAndWait();
             }
         }
     }
-
     private void onLogin(Event event) {
         //Gets the current stage based on label's parent
         String username = username_fld.getText();
@@ -62,29 +61,31 @@ public class LoginController implements Initializable {
             try {
                 var userLoggedIn = DB_Users.LoginUser(username, password);
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
-                    UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
-                    var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
-                    try {
-                        //Gets first element from hashmap
-                        Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-                        var value = entry.getValue();
-                        UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
-                        UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
-                                value);
-                    } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
-                        alert.showAndWait();
-                        return;
-                    }
-                    Stage stage = (Stage) error_lbl.getScene().getWindow();
-                    Model.getInstance().getViewFactory().closeStage(stage);
-                    if (userLoggedIn.getRole() == AccountType.CLIENT) {
+                    if(userLoggedIn.getRole() == AccountType.CLIENT) {
+                        UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
+                        var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
+                        try {
+                            //Gets first element from hashmap
+                            Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+                            var value = entry.getValue();
+                            UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
+                            UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
+                                    value);
+                        } catch (Exception e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
+                            alert.showAndWait();
+                            return;
+                        }
+                        Stage stage = (Stage) error_lbl.getScene().getWindow();
+                        Model.getInstance().getViewFactory().closeStage(stage);
                         Model.getInstance().getViewFactory().showClientWindow();
-                    } else {
+                    }
+                    else{
                         Model.getInstance().getViewFactory().showAdminWindow();
                     }
-                } else {
+                }
+                else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("User does not exist!");
                     alert.showAndWait();
