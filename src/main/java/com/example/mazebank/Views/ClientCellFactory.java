@@ -23,7 +23,7 @@ public class ClientCellFactory extends ListCell<Client> {
             setGraphic(loader.load());
         }
         catch (Exception e){
-            e.printStackTrace();
+            System.out.println("[LOG] - " + e.getMessage());
         }
     }
     }

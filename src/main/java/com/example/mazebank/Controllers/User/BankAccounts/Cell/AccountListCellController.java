@@ -26,9 +26,6 @@ public void setAccount_balance(double balance){
 this.balance.setText(String.format(Double.toString(balance)));
 }
 
-public void setId_lbl(String id_lbl){
-//        this.id_lbl.setText("Id: " + id_lbl);
-}
 public void setAccount_number(String account_number){
         this.checking_acc_num.setText(account_number);
 }

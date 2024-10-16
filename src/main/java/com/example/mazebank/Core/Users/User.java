@@ -7,17 +7,15 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class User {
-    private int id;
-    private String username;
-    private String password;
-    private AccountType Role;
+    private final int id;
+    private final String username;
+    private final AccountType Role;
     private HashMap<String, CheckingAccount> checkingAccounts;
     private CheckingAccount selectedCheckingAccount;
 
     public User(int id, String username, String password, int role) {
         this.id = id;
         this.username = username;
-        this.password = password;
         Role = AccountType.values()[role];
     }
 
@@ -34,18 +32,13 @@ public class User {
         return Role;
     }
 
-
-    public void setCheckingAccounts(){
-
-    }
-
     public HashMap<String,CheckingAccount> getCheckingAccounts() {
         LinkedHashMap<String, CheckingAccount> checkingAccounts = new LinkedHashMap<>();
         try {
             checkingAccounts = DB_BankAccounts.GetBankAccounts(id);
         }
         catch (Exception e){
-            e.printStackTrace();
+            System.out.println("[LOG] - " + e.getMessage());
         }
         return  checkingAccounts;
     }

@@ -11,7 +11,7 @@ import java.util.*;
 
 public class DB_BankAccounts {
     @SuppressWarnings("SqlNoDataSourceInspection")
-    public static LinkedHashMap<String,CheckingAccount> GetBankAccounts(int user_id) throws SQLException {
+    public static LinkedHashMap<String,CheckingAccount> GetBankAccounts(int user_id) {
         PreparedStatement psCheckUserExists;
         LinkedHashMap<String,CheckingAccount> accounts = new LinkedHashMap<>();
         ResultSet resultSet;
@@ -60,6 +60,7 @@ public class DB_BankAccounts {
         ResultSet resultSet;
         CheckingAccount newBankAccount = null;
         try {
+            assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");
             psCheckUserExists.setString(1, account.getAccount_id());
             resultSet = psCheckUserExists.executeQuery();
@@ -88,11 +89,11 @@ public class DB_BankAccounts {
             connection = DB_ConnectionManager.getInstance().GetConnection();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("[LOG] - " + e.getMessage());
         }
         PreparedStatement psInsertTransaction;
         PreparedStatement psGetBankAccount;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         Double sender_balance = (double) 0;
         Double receiver_balance = (double) 0;
         try {
@@ -126,7 +127,7 @@ public class DB_BankAccounts {
             psInsertTransaction.executeUpdate();
         }
         catch (Exception exception){
-            exception.printStackTrace();
+            System.out.println("[LOG] - " + exception.getMessage());
         }
 
 

@@ -1,7 +1,6 @@
 package com.example.mazebank.Controllers.User.Transactions;
 
 import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCell;
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
@@ -12,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
@@ -37,7 +37,7 @@ public class TransactionsController implements Initializable {
     }
 
     private void onSendMoney(Event event) {
-        if (payee_fld.getText() != "" && amount_fld.getText() != "") {
+        if (!Objects.equals(payee_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
             DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
             updatePage();
         } else {
@@ -64,7 +64,7 @@ public class TransactionsController implements Initializable {
         double income = 0;
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
-            if (transaction.getSender() == account.getAccount_id()) {
+            if (Objects.equals(transaction.getSender(), account.getAccount_id())) {
                 outcome += transaction.getAmount();
             } else {
                 income += transaction.getAmount();

@@ -24,7 +24,7 @@ public class AccountListCell extends ListCell<CheckingAccount> {
 //                controller.setId_lbl(account.getAccount_id());
                 setGraphic(hbox);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("[LOG] - " + e.getMessage());
             }
         }
     }

@@ -5,10 +5,8 @@ import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCe
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.BankAccounts.CheckingAccount;
 import com.example.mazebank.Core.Transactions.Transaction;
-import com.example.mazebank.Repositories.Transactions.DB_Transactions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -16,6 +14,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -64,7 +63,7 @@ public class DashboardController implements Initializable {
         double income = 0;
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
-            if (transaction.getSender() == account.getAccount_id()) {
+            if (Objects.equals(transaction.getSender(), account.getAccount_id())) {
                 outcome += transaction.getAmount();
             } else {
                 income += transaction.getAmount();
@@ -111,7 +110,7 @@ public class DashboardController implements Initializable {
         double income = 0;
         double outcome = 0;
 //        for (Transaction transaction : transactionsList) {
-//            if (transaction.getFrom_account_id() == userLoggedIn.getUserId()) { //todo -> metoda sa iau tranzactii pe baza numarului de cont
+//            if (transaction.getSender() == userLoggedIn.getUserId()) { //todo -> metoda sa iau tranzactii pe baza numarului de cont
 //                outcome += transaction.getAmount();
 //            } else {
 //                income += transaction.getAmount();
@@ -183,7 +182,7 @@ public class DashboardController implements Initializable {
         double income = 0;
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
-            if (transaction.getSender() == account.getAccount_id()) {
+            if (Objects.equals(transaction.getSender(), account.getAccount_id())) {
                 outcome += transaction.getAmount();
             } else {
                 income += transaction.getAmount();

@@ -38,7 +38,7 @@ public class TransactionListCell extends ListCell<Transaction> {
                     paint = Paint.valueOf("#00b10f");
                     controller.out_icon.setFill(paint);                }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("[LOG] - " + e.getMessage());
             }
         }
     }

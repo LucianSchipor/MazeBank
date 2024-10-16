@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
                     alert.showAndWait();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("[LOG] - " + e.getMessage());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

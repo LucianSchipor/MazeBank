@@ -1,12 +1,8 @@
 package com.example.mazebank.Repositories.Users;
-
-import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Users.User;
-import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
-
 import java.sql.*;
 import java.util.Random;
 
@@ -39,13 +35,11 @@ public class DB_Users {
             e.printStackTrace();
         }
         try {
+            assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
             psCheckUserExists.setString(1, username);
             resultSet = psCheckUserExists.executeQuery();
-            if (resultSet.next())
-                return false;
-            else
-                return true;
+            return !resultSet.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -62,6 +56,7 @@ public class DB_Users {
         }
         if (VerifyCredentials(username)) {
             try {
+                assert connection != null;
                 psCheckUserExists = connection.prepareStatement("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
                 psCheckUserExists.setString(1, username);
                 psCheckUserExists.setString(2, password);
@@ -105,6 +100,7 @@ public class DB_Users {
             e.printStackTrace();
         }
         try {
+            assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT  * FROM users WHERE username = ? AND password = ?");
             psCheckUserExists.setString(1, username);
             psCheckUserExists.setString(2, password);

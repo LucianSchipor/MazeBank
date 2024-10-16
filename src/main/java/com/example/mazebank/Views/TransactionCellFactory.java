@@ -23,7 +23,7 @@ public class TransactionCellFactory extends ListCell<Transaction> {
                 setGraphic(loader.load());
             }
             catch (Exception e){
-                e.printStackTrace();
+                System.out.println("[LOG] - " + e.getMessage());
             }
         }
     }
