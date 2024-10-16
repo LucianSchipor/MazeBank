@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -21,10 +22,36 @@ public class LoginController implements Initializable {
     public Button login_btn;
     public Label error_lbl;
     public TextField username_fld;
+    public Button signup_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_btn.setOnAction(this::onLogin);
+        signup_btn.setOnAction(this::onSignUp);
+    }
+
+
+    private void onSignUp(Event event) {
+        String username = username_fld.getText();
+        String password = password_fld.getText();
+        if (Objects.equals(username, "") || Objects.equals(password, "")) {
+            System.out.println("[LOG] - " + "one field is empty");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("One field is empty");
+            alert.showAndWait();
+        } else {
+
+            if (!username.isEmpty() && !password.isEmpty()) {
+                try {
+                    DB_Users.SignupUser(username, password);
+                } catch (Exception e) {
+                    System.out.println("[LOG] - " + e.getMessage());
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Error on creating a new account.");
+                    alert.showAndWait();
+                }
+            }
+        }
     }
 
     private void onLogin(Event event) {
@@ -40,12 +67,11 @@ public class LoginController implements Initializable {
                     try {
                         //Gets first element from hashmap
                         Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-                        var value=entry.getValue();
+                        var value = entry.getValue();
                         UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
                         UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
                                 value);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
                         alert.showAndWait();
@@ -58,8 +84,7 @@ public class LoginController implements Initializable {
                     } else {
                         Model.getInstance().getViewFactory().showAdminWindow();
                     }
-                }
-                else{
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("User does not exist!");
                     alert.showAndWait();

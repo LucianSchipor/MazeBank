@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+
+import java.util.Objects;
+
 public class TransactionListCell extends ListCell<Transaction> {
     @Override
     protected void updateItem(Transaction transaction, boolean empty) {
@@ -22,7 +25,7 @@ public class TransactionListCell extends ListCell<Transaction> {
                 controller.reciever_lbl.setText(transaction.getMessage());
                 controller.currency_lbl.setText(transaction.getCurrency());
                 setGraphic(hbox);
-                if (transaction.getFrom_account_id() == UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id()) {
+                if (Objects.equals(transaction.getSender(), UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
                     controller.out_icon.setGlyphName("LONG_ARROW_LEFT");
                     controller.setFromAccountId(transaction.getTo_username());
                     Paint paint;

@@ -69,7 +69,7 @@ public class DashboardController implements Initializable {
         double income = 0;
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
-            if (transaction.getFrom_account_id() == account.getAccount_id()) {
+            if (transaction.getSender() == account.getAccount_id()) {
                 outcome += transaction.getAmount();
             } else {
                 income += transaction.getAmount();
@@ -203,7 +203,7 @@ public class DashboardController implements Initializable {
         double income = 0;
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
-            if (transaction.getFrom_account_id() == account.getAccount_id()) {
+            if (transaction.getSender() == account.getAccount_id()) {
                 outcome += transaction.getAmount();
             } else {
                 income += transaction.getAmount();
