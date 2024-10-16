@@ -5,13 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="500.0" stylesheets="@../../../../Styles/AccountCell.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
+<AnchorPane prefHeight="200.0" prefWidth="500.0" stylesheets="@../../../../Styles/AccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
    <styleClass>
       <String fx:value="account" />
       <String fx:value="account_gradient" />
    </styleClass>
    <Label fx:id="balance" layoutX="23.0" layoutY="25.0" styleClass="account_balance" text="3,500.56" textFill="WHITE" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="25.0" />
-   <Label fx:id="checking_acc_num" layoutX="14.0" layoutY="144.0" prefHeight="22.0" prefWidth="160.0" styleClass="account_number" text="Number:  0000" AnchorPane.bottomAnchor="33.599999999999994" AnchorPane.leftAnchor="14.0" />
-   <Text layoutX="14.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Account" AnchorPane.bottomAnchor="14.5" AnchorPane.leftAnchor="14.0" />
+   <Text layoutX="14.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal " AnchorPane.bottomAnchor="14.5" AnchorPane.leftAnchor="14.0" />
    <Label fx:id="currency_lbl" layoutX="417.0" layoutY="25.0" styleClass="account_balance" text="RON" textFill="WHITE" />
 </AnchorPane>

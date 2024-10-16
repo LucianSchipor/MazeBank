@@ -26,10 +26,6 @@ public void setAccount_balance(double balance){
 this.balance.setText(String.format(Double.toString(balance)));
 }
 
-public void setAccount_number(String account_number){
-        this.checking_acc_num.setText(account_number);
-}
-
 public void setAccount_currency(String account_currency){
         this.currency_lbl.setText(account_currency);
 }

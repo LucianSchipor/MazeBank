@@ -20,7 +20,6 @@ public class AccountListCell extends ListCell<CheckingAccount> {
                 AccountListCellController controller = loader.getController();
                 controller.setAccount_balance(account.getBalance());
                 controller.setAccount_currency(account.getCurrency());
-                controller.setAccount_number(account.getAccount_id());
 //                controller.setId_lbl(account.getAccount_id());
                 setGraphic(hbox);
             } catch (Exception e) {
