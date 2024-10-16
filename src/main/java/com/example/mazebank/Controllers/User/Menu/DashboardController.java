@@ -155,7 +155,6 @@ public class DashboardController implements Initializable {
                 // update for HBox for non-empty cells based on selection
                 if (selected) {
                     UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(item);
-                    System.out.println("[LOG] - selected account set to " + item.getAccount_id());
                     updatePage();
                 }
             }

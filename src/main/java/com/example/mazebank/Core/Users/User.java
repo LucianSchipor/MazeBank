@@ -59,7 +59,7 @@ public class User {
     }
 
     public void setSelectedCheckingAccount(CheckingAccount selectedCheckingAccount) {
-        System.out.println("[LOG] - new bank account selected");
+        System.out.println("[LOG] - account selected setted to: " + selectedCheckingAccount.getAccount_id());
         this.selectedCheckingAccount = selectedCheckingAccount;
     }
 }
