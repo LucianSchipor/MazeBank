@@ -9,27 +9,26 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="195.0" styleClass="main_menu_container" stylesheets="@../../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Menu.UserMenuController">
-   <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container"
-   >
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="195.0" styleClass="main_menu_container" stylesheets="@../../../Styles/ClientMenu.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Menu.UserMenuController">
+   <AnchorPane prefHeight="730.0" prefWidth="160.0" styleClass="left_container">
       <VBox prefHeight="80.0" prefWidth="160.0" styleClass="title_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <FontAwesomeIconView glyphName="BANK" size="30" />
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" />
       </VBox>
       <VBox prefHeight="400.0" prefWidth="229.0" styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-         <Button fx:id="dashboard_btn" mnemonicParsing="false" text="Dashboard">
+         <Button fx:id="dashboard_btn" mnemonicParsing="false" text="Home">
             <graphic>
                <FontAwesomeIconView glyphName="HOME" size="20" />
             </graphic>
          </Button>
-         <Button fx:id="transactions_btn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="129.0" text="Transactions" textAlignment="CENTER">
+         <Button fx:id="transactions_btn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="129.0" text="Payments" textAlignment="CENTER">
             <graphic>
-               <FontAwesomeIconView glyphName="HANDSHAKE_ALT" size="20" />
+               <FontAwesomeIconView glyphName="EXCHANGE" size="20" />
             </graphic>
          </Button>
-         <Button fx:id="accounts_btn" layoutX="10.0" layoutY="41.0" mnemonicParsing="false" text="Accounts">
+         <Button fx:id="accounts_btn" layoutX="10.0" layoutY="41.0" mnemonicParsing="false" text="Inbox">
             <graphic>
-               <FontAwesomeIconView glyphName="ADDRESS_BOOK_ALT" size="20" />
+               <FontAwesomeIconView glyphName="BELL" size="20" />
             </graphic>
          </Button>
          <Line endX="120.0" />
@@ -44,16 +43,15 @@
             </graphic>
          </Button>
       </VBox>
-      <VBox layoutX="15.2" prefHeight="148.0" prefWidth="165.0" styleClass="report_container"
-            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-         <FontAwesomeIconView fill="WHITE" glyphName="BUG" size="20"/>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report a bug?"/>
+      <VBox layoutX="15.2" prefHeight="148.0" prefWidth="165.0" styleClass="report_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <FontAwesomeIconView fill="WHITE" glyphName="BUG" size="20" />
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Report a bug?" />
          <Label text="Use this to report any errors or suggestions." textAlignment="CENTER" textFill="WHITE">
             <VBox.margin>
-               <Insets left="5.0" right="5.0"/>
+               <Insets left="5.0" right="5.0" />
             </VBox.margin>
          </Label>
-         <Button fx:id="report_btn" mnemonicParsing="false" text="Report"/>
+         <Button fx:id="report_btn" mnemonicParsing="false" text="Report" />
       </VBox>
    </AnchorPane>
 </VBox>
