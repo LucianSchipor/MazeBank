@@ -3,13 +3,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
-   <ListView fx:id="transaction_listview" layoutX="15.0" layoutY="369.0" prefHeight="366.0" prefWidth="827.0" styleClass="transaction_listview" />
+   <ListView fx:id="transaction_listview" layoutX="15.0" layoutY="381.0" prefHeight="354.0" prefWidth="827.0" styleClass="transaction_listview" />
    <Text layoutX="708.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="My Accounts" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
-   <Text layoutX="364.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="Latest Transactions" AnchorPane.leftAnchor="364.0" AnchorPane.topAnchor="351.4000005722046" />
-   <ListView fx:id="account_listview" layoutX="15.2" layoutY="117.0" prefHeight="262.0" prefWidth="827.0" styleClass="transaction_listview" AnchorPane.bottomAnchor="408.0" AnchorPane.leftAnchor="15.0" />
+   <Text layoutX="7.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="latest_transactions" text="Latest Transactions" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="351.4000005722046">
+      <font>
+         <Font size="21.0" />
+      </font></Text>
+   <ListView fx:id="account_listview" layoutX="15.2" layoutY="117.0" prefHeight="254.0" prefWidth="827.0" styleClass="transaction_listview" AnchorPane.bottomAnchor="416.0" AnchorPane.leftAnchor="15.0" />
    <Text fx:id="hello_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hello, User!" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
-   <Label fx:id="login_date" styleClass="date_lbl" text="Today, 04/01/2024" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="27.0" />
+   <Label fx:id="login_date" layoutX="706.0" layoutY="36.0" styleClass="date_lbl" text="Today, 04/01/2024" AnchorPane.rightAnchor="14.399999999999977" AnchorPane.topAnchor="36.0" />
 </AnchorPane>

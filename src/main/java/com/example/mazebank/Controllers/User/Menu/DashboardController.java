@@ -21,10 +21,6 @@ import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
     public Label income_lbl = new Label();
     public Label expense_lbl = new Label();
-    public TextField payee_fld = new TextField();
-    public TextField amount_fld = new TextField();
-    public TextArea message_fld = new TextArea();
-    public Button send_money_btn = new Button("Send Money");
     public ListView<Transaction> transaction_listview = new ListView<>();
     public ListView<CheckingAccount> account_listview = new ListView<>();
     public Label login_date = new Label();
@@ -36,7 +32,6 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        send_money_btn.setOnAction(this::onSendMoney);
         login_date.setText(LocalDate.now().toString());
 
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
@@ -83,7 +78,6 @@ public class DashboardController implements Initializable {
     }
 
     public DashboardController() {
-        send_money_btn.setOnAction(this::onSendMoney);
         login_date.setText(LocalDate.now().toString());
 
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
@@ -129,19 +123,6 @@ public class DashboardController implements Initializable {
         balance.setText(Double.toString(balanceReg));
         currency_lbl.setText(account.getCurrency());
     }
-
-    private void onSendMoney(Event event) {
-        if (payee_fld.getText() != "" && amount_fld.getText() != "") {
-            DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
-            updatePage();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            System.out.println("[LOG] - one field was null");
-            alert.setContentText("You cannot have empty fields!");
-            alert.showAndWait();
-        }
-    }
-
     /*
      * TODO
      *  - la selectie pentru account, se vede ce cont este selectat + tranzactiile se afiseaza pe baza contului
