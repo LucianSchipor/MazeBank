@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 
+import java.text.SimpleDateFormat;
+
 public class AccountListCell extends ListCell<CheckingAccount> {
 
     @Override
@@ -20,7 +22,11 @@ public class AccountListCell extends ListCell<CheckingAccount> {
                 AccountListCellController controller = loader.getController();
                 controller.setAccount_balance(account.getBalance());
                 controller.setAccount_currency(account.getCurrency());
-//                controller.setId_lbl(account.getAccount_id());
+                controller.setAccount_number(account.getAccount_id());
+                controller.setAccount_CVV(account.getCVV());
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
+                String formattedDate = formatter.format(account.getExpire_date());
+                controller.setAccount_expire_date(formattedDate);
                 setGraphic(hbox);
             } catch (Exception e) {
                 System.out.println("[LOG] - " + e.getMessage());

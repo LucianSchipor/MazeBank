@@ -1,16 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="500.0" stylesheets="@../../../../Styles/AccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
+<AnchorPane prefHeight="200.0" prefWidth="820.0" stylesheets="@../../../../Styles/AccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
    <styleClass>
       <String fx:value="account" />
       <String fx:value="account_gradient" />
    </styleClass>
-   <Label fx:id="balance" layoutX="23.0" layoutY="25.0" styleClass="account_balance" text="3,500.56" textFill="WHITE" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="25.0" />
-   <Text layoutX="14.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal " AnchorPane.bottomAnchor="14.5" AnchorPane.leftAnchor="14.0" />
-   <Label fx:id="currency_lbl" layoutX="417.0" layoutY="25.0" styleClass="account_balance" text="RON" textFill="WHITE" />
+   <Label fx:id="balance" alignment="CENTER" layoutX="660.0" layoutY="12.0" prefHeight="42.0" prefWidth="146.0" styleClass="account_balance" text="100.000" textFill="WHITE" AnchorPane.leftAnchor="660.0" AnchorPane.topAnchor="12.0" />
+   <Text layoutX="16.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal " AnchorPane.bottomAnchor="157.5" AnchorPane.leftAnchor="16.0" />
+   <Label fx:id="currency_lbl" layoutX="699.0" layoutY="52.0" styleClass="account_balance" text="RON" textFill="WHITE" />
+   <Label layoutX="12.0" layoutY="73.0" text="Card number" textFill="WHITE">
+      <font>
+         <Font size="13.0" />
+      </font>
+   </Label>
+   <Label fx:id="checking_acc_num" layoutX="12.0" layoutY="91.0" prefHeight="26.0" prefWidth="165.0" text="0000 0000 0000 0000" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+   </Label>
+   <Label layoutX="12.0" layoutY="125.0" text="Expiry Date" textFill="WHITE">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <Label layoutX="118.0" layoutY="125.0" text="CVV" textFill="WHITE">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="expire_date_lbl" layoutX="12.0" layoutY="145.0" text="10/26" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+   </Label>
+   <Label fx:id="cvv_lbl" layoutX="118.0" layoutY="145.0" text="123" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+   </Label>
+   <FontAwesomeIconView glyphName="CC_VISA" layoutX="690.0" layoutY="166.0" selectionFill="#ffffff08" selectionStart="0" size="60" stroke="#ffffff08" textAlignment="CENTER" wrappingWidth="85.1427993774414" />
+   <FontAwesomeIconView />
 </AnchorPane>

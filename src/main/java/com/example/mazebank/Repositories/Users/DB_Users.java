@@ -1,5 +1,6 @@
 package com.example.mazebank.Repositories.Users;
 import com.example.mazebank.Core.Users.User;
+import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
@@ -70,15 +71,8 @@ public class DB_Users {
                 while (resultSet.next()) {
                     added_user_id = resultSet.getInt("user_id");
                 }
-                psCheckUserExists = connection.prepareStatement("INSERT INTO bank_accounts (account_id, account_balance, account_currency, user_id) VALUES (?,?,?,?)");
-                psCheckUserExists.setString(1, GenerateNewAccountNumber());
-                psCheckUserExists.setFloat(2, 0);
-                psCheckUserExists.setString(3, "RON");
-                psCheckUserExists.setInt(4, added_user_id);
-                int rowsAffected = psCheckUserExists.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Successfully created user account.");
-                }
+                DB_BankAccounts.CreateBankAccount(added_user_id, "RON");
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
