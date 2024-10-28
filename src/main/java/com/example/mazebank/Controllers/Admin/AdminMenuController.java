@@ -13,6 +13,7 @@ public class AdminMenuController implements Initializable {
     public Button clients_btn;
     public Button deposit_btn;
     public Button logout_btn;
+    public Button create_User_btn;
     public Button create_Acc_Btn;
 
     @Override
@@ -21,7 +22,7 @@ public class AdminMenuController implements Initializable {
     }
 
     private void addListeners(){
-    create_Acc_Btn.setOnAction(event -> onCreateClient());
+    create_User_btn.setOnAction(event -> onCreateClient());
     clients_btn.setOnAction(event -> onClients());
     deposit_btn.setOnAction(event -> onDeposit());
     logout_btn.setOnAction(event -> onLogOut());

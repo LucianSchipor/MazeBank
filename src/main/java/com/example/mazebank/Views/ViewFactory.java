@@ -148,7 +148,7 @@ public class ViewFactory {
     public AnchorPane getCreateClientView() {
         if (createClientView == null) {
             try {
-                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/CreateAccount.fxml")).load();
+                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Create.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }

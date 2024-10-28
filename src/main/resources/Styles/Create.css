@@ -1,0 +1,59 @@
+.container {
+    -fx-background-color: #EEEEEE;
+}
+
+.container Text{
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+    -fx-fill: #555555;
+}
+
+.container VBox {
+    -fx-border-width: 0 0 0 1;
+    -fx-border-color: #000000;
+    -fx-padding: 10;
+    -fx-spacing: 15;
+}
+
+.container TextField {
+    -fx-pref-width: 50px;
+    -fx-pref-height: 35;
+    -fx-background-color: #e0e0e0;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+}
+
+.container Button {
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-pref-width: 150;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFFF;
+}
+
+.container .users_container .tab {
+    -fx-pref-width: 350px;
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333333;
+    -fx-padding: 8px;
+}
+
+.container .users_container Button {
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-font-size: 1.6em;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Calibri Light";
+    -fx-pref-width: 200;
+}
+
+.container .users_container .tab:selected {
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.container .users_container .tab:hover {
+    -fx-background-color: #c0c0c0;
+}
+
+
+

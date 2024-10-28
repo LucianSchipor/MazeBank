@@ -10,6 +10,6 @@
     <fx:include source="AdminMenu.fxml" />
 </left>
     <center>
-        <fx:include source="CreateAccount.fxml" />
+        <fx:include source="Create.fxml" />
     </center>
 </BorderPane>
