@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../../Styles/User/Dashboard/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <ListView fx:id="transaction_listview" layoutX="15.0" layoutY="369.0" prefHeight="366.0" prefWidth="827.0" styleClass="transaction_listview" />
    <VBox layoutX="722.0" layoutY="99.2" prefHeight="240.0" prefWidth="210.0" styleClass="summary_view" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="99.0">
       <VBox prefHeight="226.0" prefWidth="190.0" styleClass="acc_summary_container">

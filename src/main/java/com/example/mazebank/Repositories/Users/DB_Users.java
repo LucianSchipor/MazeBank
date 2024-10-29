@@ -5,6 +5,8 @@ import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection", "CallToPrintStackTrace"})
@@ -119,39 +121,30 @@ public class DB_Users {
         return null;
     }
 
-    public static void SigninUser(Event event, String username, String password) {
+    public static List<User> SearchUsers(String username){
         Connection connection = null;
-        PreparedStatement psInsert;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
+        List<User> usersList = new ArrayList<>();
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maze-bank", "root", "Schiporgabriel20@");
-            psCheckUserExists = connection.prepareStatement("SELECT  * FROM users WHERE username = ?");
-            psCheckUserExists.setString(1, username);
+            assert connection != null;
+            psCheckUserExists =  connection.prepareStatement("SELECT * FROM users WHERE username LIKE ?");
+            psCheckUserExists.setString(1, username + "%");
             resultSet = psCheckUserExists.executeQuery();
-            if (resultSet.isBeforeFirst()) {
-                //check if result set is empty
-                System.out.println("User already exists.");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("User already exists");
-            } else {
-                psInsert = connection.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)");
-                psInsert.setString(1, username);
-                psInsert.setString(2, password);
-                psInsert.executeUpdate();
-            }
-        } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(exception.getMessage());
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            while (resultSet.next()) {
+                var newUser = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"));
+                usersList.add(newUser);
+                System.out.println("[LOG] - added user " + newUser.getUsername() + " to list of users!");
             }
         }
-        System.out.println("Inserted!");
+        catch (Exception exception){
+            System.out.println("[LOG] - failed to search users!");
+        }
+    return usersList;
     }
 }

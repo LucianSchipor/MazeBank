@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" stylesheets="@../../../Styles/Deposit.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Deposit.DepositController">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" stylesheets="@../../../Styles/Admin/Deposit/Deposit.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Deposit.DepositController">
     <VBox alignment="CENTER" layoutX="18.0" layoutY="90.0" prefHeight="570.0" prefWidth="820.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="100.0">
         <HBox alignment="CENTER" prefHeight="60.0" prefWidth="820.0" styleClass="search_box">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search by payee adress" />

@@ -14,7 +14,7 @@ public class AdminMenuController implements Initializable {
     public Button deposit_btn;
     public Button logout_btn;
     public Button create_btn;
-    public Button modify_btn;
+    public Button search_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -24,6 +24,7 @@ public class AdminMenuController implements Initializable {
 
     private void addListeners(){
     create_btn.setOnAction(event -> onCreate());
+    search_btn.setOnAction(event -> onSearch());
     accounts_btn.setOnAction(event -> onClients());
     deposit_btn.setOnAction(event -> onDeposit());
     logout_btn.setOnAction(event -> onLogOut());
@@ -52,28 +53,34 @@ public class AdminMenuController implements Initializable {
                     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 6);""";
 
         create_btn.setStyle(deselectButtonString);
+        search_btn.setStyle(deselectButtonString);
         accounts_btn.setStyle(deselectButtonString);
         deposit_btn.setStyle(deselectButtonString);
     }
 
 
+    private void onSearch(){
+        System.out.println("[LOG] - redirecting to Search panel");
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.SEARCH);
+        deselectAll();
+        setStyleSelectedButton(search_btn);
+    }
+
     private void onCreate(){
         System.out.println("[LOG] - redirecting to Create panel");
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE_CLIENT);
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE);
         deselectAll();
         setStyleSelectedButton(create_btn);
     }
 
     private void onClients(){
         System.out.println("[LOG] - redirecting to Clients panel");
-        accounts_btn.setStyle("-fx-background-color: #AAAAAA; -fx-text-fill: #FFFFFF;");
         deselectAll();
         setStyleSelectedButton(accounts_btn);
     }
 
     private void onDeposit(){
         System.out.println("[LOG] - redirecting to Deposit panel");
-        deposit_btn.setStyle("-fx-background-color: #AAAAAA; -fx-text-fill: #FFFFFF;");
         deselectAll();
         setStyleSelectedButton(deposit_btn);
     }

@@ -26,8 +26,10 @@ module com.example.mazebank {
     exports com.example.mazebank.Controllers.Admin.Create;
     exports com.example.mazebank.Controllers.Admin.Accounts;
     exports com.example.mazebank.Controllers.Admin.Deposit;
+    exports com.example.mazebank.Controllers.Admin.Search;
     exports com.example.mazebank.Views.Admin;
     exports com.example.mazebank.Views.Admin.Menu;
     exports com.example.mazebank.Views.User.Menu;
     exports com.example.mazebank.Views.User.Transactions;
+    exports com.example.mazebank.Controllers.Admin.Search.Cell;
 }

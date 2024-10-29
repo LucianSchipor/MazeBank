@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../../Styles/User/Dashboard/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <ListView fx:id="transaction_listview" layoutX="11.0" layoutY="379.0" prefHeight="358.0" prefWidth="827.0" styleClass="transaction_listview" />
    <Text layoutX="708.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="section_title" text="My Accounts" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="90.0" />
    <ListView fx:id="account_listview" layoutX="15.2" layoutY="117.0" prefHeight="283.0" prefWidth="827.0" styleClass="transaction_listview" AnchorPane.bottomAnchor="387.0" AnchorPane.leftAnchor="15.0" />

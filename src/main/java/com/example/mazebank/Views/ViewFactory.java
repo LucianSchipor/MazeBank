@@ -24,6 +24,7 @@ public class ViewFactory {
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
     private AnchorPane createClientView;
+    private AnchorPane searchView;
     private AnchorPane clientsView;
     private AnchorPane depositView;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
@@ -145,7 +146,7 @@ public class ViewFactory {
         return adminSelectedMenuItem;
     }
 
-    public AnchorPane getCreateClientView() {
+    public AnchorPane getCreateView() {
         if (createClientView == null) {
             try {
                 createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Create/Create.fxml")).load();
@@ -154,6 +155,17 @@ public class ViewFactory {
             }
         }
         return createClientView;
+    }
+
+    public AnchorPane getSearchView() {
+        if (searchView == null) {
+            try {
+                searchView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/Search.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return searchView;
     }
 
     public void closeStage(Stage stage) {

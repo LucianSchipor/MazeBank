@@ -5,11 +5,11 @@
 }
 
 .client_cell_container FontAwesomeIconView {
-    -fx-fill: #005B43;
+    -fx-fill: #000000;
 }
 
 .client_cell_container HBox {
-    -fx-spacing: 15;
+    -fx-spacing: 40;
     -fx-alignment: Center_left;
 }
 
@@ -23,6 +23,11 @@
     -fx-font-family: Calibri;
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
+}
+
+.bank_accounts_btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
 }
 
 .delete_btn {

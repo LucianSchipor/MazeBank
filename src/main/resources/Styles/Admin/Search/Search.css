@@ -1,42 +1,42 @@
-.transactions_container{
+.search_container{
     -fx-background-color: #EEEEEE;
 }
 
-.transactions_container Text {
+.search_container Text {
     -fx-fill: #000000;
     -fx-font-size: 2.5em;
     -fx-font-family: "Calibri Light";
 }
 
-.transactions_container .list-view {
+.search_container .list-view {
     -fx-background-color: #EEEEEE;
     -fx-padding: 10;
 }
 
-.transactions_container .list-cell {
+.search_container .list-cell {
     -fx-background-color: #EEEEEE;
     -fx-pref-width: 800;
 }
 
-.new_trans_container{
+.searchbox_container{
     -fx-background-color: #EEEEEE;
     -fx-padding: 20 10 20 10;
     -fx-spacing: 10;
     -fx-alignment: center_left;
 }
 
-.new_trans_container Label{
+.searchbox_container Text{
     -fx-font-family: "Calibri Light";
     -fx-font-size: 1.3em;
 }
 
-.new_trans_container TextField{
+.searchbox_container TextField{
     -fx-pref-height: 40;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #e0e0e0;
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
 }
 
-.new_trans_container Button{
+.searchbox_container Button{
     -fx-background-color: linear-gradient(to right, #005B43, #228B22);
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
     -fx-pref-width: 400;
@@ -45,6 +45,6 @@
     -fx-text-fill: #FFFFFF;
 }
 
-.new_trans_container Button:hover{
+.searchbox_container Button:hover{
     -fx-cursor: hand;
 }

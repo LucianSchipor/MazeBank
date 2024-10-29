@@ -17,6 +17,8 @@ public class ClientCellController implements Initializable {
     public Label date_lbl;
 
     private final Client client;
+    public Label id;
+
     public ClientCellController(Client client){
         this.client = client;
     }

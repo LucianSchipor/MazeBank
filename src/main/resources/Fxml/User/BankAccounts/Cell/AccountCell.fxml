@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="820.0" stylesheets="@../../../../Styles/AccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
+<AnchorPane prefHeight="200.0" prefWidth="820.0" stylesheets="@../../../../Styles/User/Dashboard/BankAccounts/BankAccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
    <styleClass>
       <String fx:value="account" />
       <String fx:value="account_gradient" />

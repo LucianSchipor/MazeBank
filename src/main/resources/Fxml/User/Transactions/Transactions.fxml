@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="transactions_container" stylesheets="@../../../Styles/Transactions.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="transactions_container" stylesheets="@../../../Styles/User/Transactions/Transactions.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
     <Text layoutX="330.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transactions" AnchorPane.leftAnchor="349.0" AnchorPane.topAnchor="14.0" />
-    <ListView fx:id="transactions_listview" layoutX="15.2" layoutY="326.4" prefHeight="414.0" prefWidth="830.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="326.0" />
+    <ListView fx:id="transactions_listview" layoutX="15.2" layoutY="326.4" prefHeight="414.0" prefWidth="830.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="326.0" />
    <VBox layoutX="249.0" layoutY="51.0" prefHeight="282.0" prefWidth="362.0" styleClass="new_trans_container">
-      <Label text="IBAN *"/>
-      <TextField fx:id="payee_fld"/>
-      <Label layoutX="10.0" layoutY="10.0" text="Amount *"/>
-      <TextField fx:id="amount_fld" layoutX="10.0" layoutY="31.0"/>
-      <Label layoutX="10.0" layoutY="62.0" text="Message"/>
-      <TextArea fx:id="message_fld" prefHeight="70.0" prefWidth="200.0"/>
-      <Button fx:id="send_money_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="362.0" text="Send"/>
+      <Label text="IBAN *" />
+      <TextField fx:id="payee_fld" />
+      <Label layoutX="10.0" layoutY="10.0" text="Amount *" />
+      <TextField fx:id="amount_fld" layoutX="10.0" layoutY="31.0" />
+      <Label layoutX="10.0" layoutY="62.0" text="Message" />
+      <TextArea fx:id="message_fld" prefHeight="70.0" prefWidth="200.0" />
+      <Button fx:id="send_money_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="362.0" text="Send" />
    </VBox>
 </AnchorPane>

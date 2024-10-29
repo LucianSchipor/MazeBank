@@ -19,7 +19,8 @@ public BorderPane admin_parent;
 
                 case CLIENTS -> admin_parent.setCenter(Model.getInstance().getViewFactory().getClientsView());
                 case DEPOSIT -> admin_parent.setCenter(Model.getInstance().getViewFactory().getDepositView());
-                default -> admin_parent.setCenter(Model.getInstance().getViewFactory().getCreateClientView());
+                case SEARCH -> admin_parent.setCenter(Model.getInstance().getViewFactory().getSearchView());
+                default -> admin_parent.setCenter(Model.getInstance().getViewFactory().getCreateView());
             }
         });
     }

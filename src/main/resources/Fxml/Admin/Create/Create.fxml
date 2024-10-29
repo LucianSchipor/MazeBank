@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:controller="com.example.mazebank.Controllers.Admin.Create.CreateController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="850.0" styleClass="container" stylesheets="@../../../Styles/Create.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:controller="com.example.mazebank.Controllers.Admin.Create.CreateController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="850.0" styleClass="container" stylesheets="@../../../Styles/Admin/Create/Create.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" >
    <TabPane  layoutX="51.2" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="users_container" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50.0">
       <Tab text="Users" >
          <AnchorPane prefHeight="200.0" prefWidth="200.0" >
