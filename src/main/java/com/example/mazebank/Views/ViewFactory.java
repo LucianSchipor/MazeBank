@@ -82,7 +82,6 @@ public class ViewFactory {
     public AnchorPane getDepositView() {
         if (depositView == null) {
             try {
-                var dV  = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit.fxml"));
                 depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -109,7 +108,6 @@ public class ViewFactory {
 
     public void showClientWindow() {
         try {
-            //TODO -> s-ar putea aici sa nu mearga intiializarea din prima
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/User.fxml"));
             UserController userController = new UserController();
             loader.setController(userController);

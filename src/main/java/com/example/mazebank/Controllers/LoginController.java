@@ -9,6 +9,8 @@ import com.example.mazebank.Core.Users.AccountType;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -28,8 +30,15 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_btn.setOnAction(this::onLogin);
         signup_btn.setOnAction(this::onSignUp);
+        username_fld.setOnKeyPressed(this::handleEnterKey);
+        password_fld.setOnKeyPressed(this::handleEnterKey);
     }
 
+    private void handleEnterKey(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            onLogin(event);
+        }
+    }
 
     private void onSignUp(Event event){
         String username = username_fld.getText();
