@@ -1,4 +1,4 @@
-package com.example.mazebank.Views;
+package com.example.mazebank.Views.User.Menu;
 
 public enum UserMenuOptions {
     DASHBOARD,

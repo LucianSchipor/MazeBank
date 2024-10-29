@@ -1,4 +1,4 @@
-package com.example.mazebank.Views;
+package com.example.mazebank.Views.User.Transactions;
 
 import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionCellController;
 import com.example.mazebank.Core.Transactions.Transaction;

@@ -1,7 +1,7 @@
-package com.example.mazebank.Controllers.Admin;
+package com.example.mazebank.Controllers.Admin.Menu;
 
 import com.example.mazebank.Core.Models.Model;
-import com.example.mazebank.Views.AdminMenuOptions;
+import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminMenuController implements Initializable {
-    public Button clients_btn;
+    public Button accounts_btn;
     public Button deposit_btn;
     public Button logout_btn;
     public Button create_btn;
@@ -23,8 +23,8 @@ public class AdminMenuController implements Initializable {
     }
 
     private void addListeners(){
-    create_btn.setOnAction(event -> onCreateClient());
-    clients_btn.setOnAction(event -> onClients());
+    create_btn.setOnAction(event -> onCreate());
+    accounts_btn.setOnAction(event -> onClients());
     deposit_btn.setOnAction(event -> onDeposit());
     logout_btn.setOnAction(event -> onLogOut());
     }
@@ -52,24 +52,27 @@ public class AdminMenuController implements Initializable {
                     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 6);""";
 
         create_btn.setStyle(deselectButtonString);
-        clients_btn.setStyle(deselectButtonString);
+        accounts_btn.setStyle(deselectButtonString);
         deposit_btn.setStyle(deselectButtonString);
     }
 
 
-    private void onCreateClient(){
+    private void onCreate(){
+        System.out.println("[LOG] - redirecting to Create panel");
         Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE_CLIENT);
         deselectAll();
         setStyleSelectedButton(create_btn);
     }
 
     private void onClients(){
-        clients_btn.setStyle("-fx-background-color: #AAAAAA; -fx-text-fill: #FFFFFF;");
+        System.out.println("[LOG] - redirecting to Clients panel");
+        accounts_btn.setStyle("-fx-background-color: #AAAAAA; -fx-text-fill: #FFFFFF;");
         deselectAll();
-        setStyleSelectedButton(clients_btn);
+        setStyleSelectedButton(accounts_btn);
     }
 
     private void onDeposit(){
+        System.out.println("[LOG] - redirecting to Deposit panel");
         deposit_btn.setStyle("-fx-background-color: #AAAAAA; -fx-text-fill: #FFFFFF;");
         deselectAll();
         setStyleSelectedButton(deposit_btn);

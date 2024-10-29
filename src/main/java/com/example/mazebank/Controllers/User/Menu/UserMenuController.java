@@ -1,7 +1,7 @@
 package com.example.mazebank.Controllers.User.Menu;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Models.Model;
-import com.example.mazebank.Views.UserMenuOptions;
+import com.example.mazebank.Views.User.Menu.UserMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

@@ -1,4 +1,4 @@
-package com.example.mazebank.Controllers.Admin;
+package com.example.mazebank.Controllers.Admin.Accounts;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;

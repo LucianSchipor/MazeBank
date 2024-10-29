@@ -22,4 +22,12 @@ module com.example.mazebank {
     exports com.example.mazebank.Repositories.Users;
     exports com.example.mazebank.Controllers.User.Menu;
     exports com.example.mazebank.Core.Models;
+    exports com.example.mazebank.Controllers.Admin.Menu;
+    exports com.example.mazebank.Controllers.Admin.Create;
+    exports com.example.mazebank.Controllers.Admin.Accounts;
+    exports com.example.mazebank.Controllers.Admin.Deposit;
+    exports com.example.mazebank.Views.Admin;
+    exports com.example.mazebank.Views.Admin.Menu;
+    exports com.example.mazebank.Views.User.Menu;
+    exports com.example.mazebank.Views.User.Transactions;
 }

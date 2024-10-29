@@ -5,6 +5,8 @@ import com.example.mazebank.Controllers.User.Menu.DashboardController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
 import com.example.mazebank.Core.Users.AccountType;
+import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
+import com.example.mazebank.Views.User.Menu.UserMenuOptions;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +46,7 @@ public class ViewFactory {
     public AnchorPane getClientsView() {
         if (clientsView == null) {
             try {
-                clientsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Clients.fxml")).load();
+                clientsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Accounts/Accounts.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,7 +84,7 @@ public class ViewFactory {
     public AnchorPane getDepositView() {
         if (depositView == null) {
             try {
-                depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit.fxml")).load();
+                depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit/Deposit.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -146,7 +148,7 @@ public class ViewFactory {
     public AnchorPane getCreateClientView() {
         if (createClientView == null) {
             try {
-                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Create.fxml")).load();
+                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Create/Create.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }

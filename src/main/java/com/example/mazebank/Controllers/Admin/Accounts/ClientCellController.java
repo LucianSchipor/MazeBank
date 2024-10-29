@@ -1,4 +1,4 @@
-package com.example.mazebank.Controllers.Admin;
+package com.example.mazebank.Controllers.Admin.Accounts;
 
 import com.example.mazebank.Core.Users.Client;
 import javafx.fxml.Initializable;

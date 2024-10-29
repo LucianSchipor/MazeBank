@@ -7,9 +7,9 @@
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="400.0" prefWidth="1030">
 <left>
-    <fx:include source="AdminMenu.fxml" />
+    <fx:include source="Menu/AdminMenu.fxml" />
 </left>
     <center>
-        <fx:include source="Create.fxml" />
+        <fx:include source="Create/Create.fxml" />
     </center>
 </BorderPane>

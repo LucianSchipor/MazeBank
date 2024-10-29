@@ -1,0 +1,8 @@
+.container {
+
+}
+
+.container .bank_account_container .tab{
+    -fx-pref-width: 350px;
+
+}
