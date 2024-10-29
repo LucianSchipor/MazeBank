@@ -8,33 +8,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="850.0" styleClass="container" stylesheets="@../../Styles/Create.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TabPane layoutX="51.2" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="users_container" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50.0">
-         <tabs>
-            <Tab text="Users">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <VBox prefHeight="471.0" prefWidth="310.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-                              <TextField prefWidth="586.0" styleClass="input-field" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
-                              <TextField layoutX="10.0" layoutY="28.0" styleClass="input-field" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" />
-                              <TextField layoutX="10.0" layoutY="80.0" styleClass="input-field" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
-                              <TextField layoutX="10.0" layoutY="133.0" styleClass="input-field" />
-                              <Button mnemonicParsing="false" prefHeight="28.0" text="Create" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Bank Accounts" />
-         </tabs>
-      </TabPane>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
+            prefWidth="850.0" styleClass="container" stylesheets="@../../Styles/Create.css"
+            xmlns="http://javafx.com/javafx/23">
+   <TabPane layoutX="51.2" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="users_container"
+            tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50.0">
+      <Tab text="Users">
+         <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <VBox prefHeight="471.0" prefWidth="310.0">
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name"/>
+               <TextField prefWidth="586.0"/>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name"/>
+               <TextField layoutX="10.0" layoutY="28.0"/>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail"/>
+               <TextField layoutX="10.0" layoutY="80.0"/>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number"/>
+               <TextField layoutX="10.0" layoutY="133.0"/>
+               <Button mnemonicParsing="false" prefHeight="28.0" text="Create"/>
+            </VBox>
+         </AnchorPane>
+      </Tab>
+      <Tab text="Bank Accounts"/>
+   </TabPane>
 </AnchorPane>
