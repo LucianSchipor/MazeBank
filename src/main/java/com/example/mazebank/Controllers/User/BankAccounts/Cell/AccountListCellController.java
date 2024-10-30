@@ -1,6 +1,6 @@
 package com.example.mazebank.Controllers.User.BankAccounts.Cell;
 
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 public class AccountListCellController implements Initializable {
     public Label account_name = new Label();
 
-    public CheckingAccount account;
+    public BankAccount account;
     public Label balance;
     public Label checking_acc_num;
     public Label currency_lbl;

@@ -1,10 +1,12 @@
 package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.AdminController;
+import com.example.mazebank.Controllers.Admin.Search.BankAccounts.SearchResultController_BankAccounts;
 import com.example.mazebank.Controllers.User.Menu.DashboardController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
 import com.example.mazebank.Core.Users.AccountType;
+import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
 import com.example.mazebank.Views.User.Menu.UserMenuOptions;
 import javafx.beans.property.ObjectProperty;
@@ -18,7 +20,6 @@ import javafx.stage.Stage;
 @SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
 
-    //Client Views
     private AnchorPane dashboardView;
     private AccountType loginAccountType;
     private AnchorPane transactionsView;
@@ -109,6 +110,24 @@ public class ViewFactory {
         createStage(loader);
     }
 
+    public void showAdminOptionsForUserWindow(User user){
+        SearchResultController_BankAccounts controller = new SearchResultController_BankAccounts(user);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/SearchResult/BankAccounts/SearchResult_BankAccounts.fxml"));
+        loader.setController(controller);
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
+        stage.setResizable(false);
+        stage.setTitle(user.getUsername());
+        stage.show();
+    }
+
     public void showClientWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/User.fxml"));
@@ -139,6 +158,21 @@ public class ViewFactory {
         stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
         stage.setResizable(false);
         stage.setTitle("Maze Bank");
+        stage.show();
+    }
+
+    private void createStage(FXMLLoader loader, String title) {
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
+        stage.setResizable(false);
+        stage.setTitle(title);
         stage.show();
     }
 

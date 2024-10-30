@@ -1,6 +1,6 @@
 package com.example.mazebank.Repositories.BankAccounts;
 
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
@@ -13,9 +13,9 @@ import java.util.*;
 
 public class DB_BankAccounts {
     @SuppressWarnings("SqlNoDataSourceInspection")
-    public static LinkedHashMap<String, CheckingAccount> GetBankAccounts(int user_id) {
+    public static LinkedHashMap<String, BankAccount> GetBankAccounts(int user_id) {
         PreparedStatement psCheckUserExists;
-        LinkedHashMap<String, CheckingAccount> accounts = new LinkedHashMap<>();
+        LinkedHashMap<String, BankAccount> accounts = new LinkedHashMap<>();
         ResultSet resultSet;
         Connection connection = null;
         try {
@@ -31,7 +31,7 @@ public class DB_BankAccounts {
                 String CVV = resultSet.getString("cvv");
                 Date date = resultSet.getDate("expire_date");
 
-                var newBankAccount = new CheckingAccount(account_id, balance, currency, date, CVV);
+                var newBankAccount = new BankAccount(account_id, balance, currency, date, CVV);
                 newBankAccount.setAccount_id(resultSet.getString("account_id"));
                 newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
                 accounts.put(account_id, newBankAccount);
@@ -53,7 +53,7 @@ public class DB_BankAccounts {
 
     // Used for set the local Checking Account with updated from database Checking Account.
     // Returns same Checkin Account but updated
-    public static void Local_UpdateBankAccountsAfterTransaction(CheckingAccount account) {
+    public static void Local_UpdateBankAccountsAfterTransaction(BankAccount account) {
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -62,7 +62,7 @@ public class DB_BankAccounts {
         }
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
-        CheckingAccount newBankAccount = null;
+        BankAccount newBankAccount = null;
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");

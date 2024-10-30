@@ -15,7 +15,7 @@ public class ClientCellFactory extends ListCell<Client> {
         setGraphic(null);
     }
     else{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/SearchResultCell.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/SearchResult/SearchResultCell.fxml"));
         ClientCellController controller = new ClientCellController(client);
         loader.setController(controller);
         setText(null);

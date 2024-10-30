@@ -1,6 +1,6 @@
 package com.example.mazebank.Repositories.Transactions;
 
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
@@ -19,7 +19,7 @@ public class DB_Transactions {
         if (receiver.isBlank() || amount_String.isBlank() || message.isBlank()) {
             return false;
         }
-        for (Map.Entry<String, CheckingAccount> entry : UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet()) {
+        for (Map.Entry<String, BankAccount> entry : UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet()) {
             String account_number = entry.getKey();
             if(account_number.equals(receiver)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

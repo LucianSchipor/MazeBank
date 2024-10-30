@@ -2,8 +2,8 @@ package com.example.mazebank.Core.BankAccounts;
 
 import java.util.Date;
 
-public class CheckingAccount extends Account {
-    public  CheckingAccount(String accountNumber, double balance, String currency, Date expire_date, String CVV) {
+public class BankAccount extends Account {
+    public BankAccount(String accountNumber, double balance, String currency, Date expire_date, String CVV) {
         super(accountNumber, balance, currency);
         this.expire_date = expire_date;
         this.CVV = CVV;
@@ -12,7 +12,7 @@ public class CheckingAccount extends Account {
     private Date expire_date;
     private String CVV;
 
-    public CheckingAccount(){
+    public BankAccount(){
         super("0", 0, "NOC");
     }
 

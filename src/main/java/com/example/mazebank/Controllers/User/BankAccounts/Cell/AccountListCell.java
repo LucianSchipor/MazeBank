@@ -1,16 +1,16 @@
 package com.example.mazebank.Controllers.User.BankAccounts.Cell;
 
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 
 import java.text.SimpleDateFormat;
 
-public class AccountListCell extends ListCell<CheckingAccount> {
+public class AccountListCell extends ListCell<BankAccount> {
 
     @Override
-    protected void updateItem(CheckingAccount account, boolean empty) {
+    protected void updateItem(BankAccount account, boolean empty) {
         super.updateItem(account, empty);
         if (empty || account == null) {
             setText(null);

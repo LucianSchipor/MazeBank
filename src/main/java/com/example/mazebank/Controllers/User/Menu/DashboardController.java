@@ -3,7 +3,7 @@ package com.example.mazebank.Controllers.User.Menu;
 import com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCell;
 import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCell;
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Transactions.Transaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +21,7 @@ public class DashboardController implements Initializable {
     public Label income_lbl = new Label();
     public Label expense_lbl = new Label();
     public ListView<Transaction> transaction_listview = new ListView<>();
-    public ListView<CheckingAccount> account_listview = new ListView<>();
+    public ListView<BankAccount> account_listview = new ListView<>();
     public Label login_date = new Label();
     public Label balance = new Label();
     public Text hello_lbl = new Text("Hello");
@@ -36,7 +36,7 @@ public class DashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
-        Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+        Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
         var account = entry.getValue();
 
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
@@ -53,7 +53,7 @@ public class DashboardController implements Initializable {
             System.out.println(e.getMessage());
         }
 
-        ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
+        ObservableList<BankAccount> observableAccountsList = FXCollections.observableArrayList();
         observableAccountsList.addAll(account_list.values().stream().toList());
         account_listview.itemsProperty().set(observableAccountsList);
         setAccountlistView(account_listview);
@@ -82,7 +82,7 @@ public class DashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         var account_list = userLoggedIn.getCheckingAccounts();
-        Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+        Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
         var account = entry.getValue();
 
         if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
@@ -100,7 +100,7 @@ public class DashboardController implements Initializable {
             System.out.println(e.getMessage());
         }
 
-        ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
+        ObservableList<BankAccount> observableAccountsList = FXCollections.observableArrayList();
         observableAccountsList.addAll(account_list.values().stream().toList());
         account_listview.itemsProperty().set(observableAccountsList);
         setAccountlistView(account_listview);
@@ -127,14 +127,14 @@ public class DashboardController implements Initializable {
      *  - la selectie pentru account, se vede ce cont este selectat + tranzactiile se afiseaza pe baza contului
      *    selectat
      * */
-    private void setAccountlistView(ListView<CheckingAccount> listView) {
+    private void setAccountlistView(ListView<BankAccount> listView) {
         listView.setCellFactory(l -> new AccountListCell() {
 
             // create all nodes that could be displayed
             {
                 // update HBox every time the selection changes
                 selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    CheckingAccount item = getItem();
+                    BankAccount item = getItem();
                     if (!isEmpty() && item != null) {
                         updateItemSelection(item, newValue);
                     }
@@ -142,7 +142,7 @@ public class DashboardController implements Initializable {
             }
 
             @Override
-            protected void updateItem(CheckingAccount item, boolean empty) {
+            protected void updateItem(BankAccount item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
@@ -150,7 +150,7 @@ public class DashboardController implements Initializable {
                 }
             }
 
-            private void updateItemSelection(CheckingAccount item, boolean selected) {
+            private void updateItemSelection(BankAccount item, boolean selected) {
                 // update for HBox for non-empty cells based on selection
                 if (selected) {
                     UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(item);
@@ -172,7 +172,7 @@ public class DashboardController implements Initializable {
             System.out.println(e.getMessage());
         }
 
-        ObservableList<CheckingAccount> observableAccountsList = FXCollections.observableArrayList();
+        ObservableList<BankAccount> observableAccountsList = FXCollections.observableArrayList();
         observableAccountsList.addAll(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().values().stream().toList());
         account_listview.itemsProperty().set(observableAccountsList);
         setAccountlistView(account_listview);

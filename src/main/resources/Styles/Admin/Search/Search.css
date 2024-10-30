@@ -15,7 +15,7 @@
 
 .search_container .list-cell {
     -fx-background-color: #EEEEEE;
-    -fx-pref-width: 800;
+    -fx-pref-width: 450;
 }
 
 .searchbox_container{

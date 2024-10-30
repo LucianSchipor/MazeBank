@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -18,6 +20,7 @@ public class SearchController implements Initializable {
 public ListView searchResult_listview = new ListView();
 public TextField username_fld = new TextField();
 public Button search_btn = new Button();
+    public VBox usersOption_Panel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

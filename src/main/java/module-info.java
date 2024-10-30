@@ -4,9 +4,10 @@ module com.example.mazebank {
     requires javafx.fxml;
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires java.desktop;
     opens com.example.mazebank to javafx.fxml;
     exports com.example.mazebank;
-    exports  com.example.mazebank.Controllers;
+    exports com.example.mazebank.Controllers;
     exports com.example.mazebank.Controllers.Admin;
     exports com.example.mazebank.Views;
     exports com.example.mazebank.Repositories.DBUtils;
@@ -32,4 +33,6 @@ module com.example.mazebank {
     exports com.example.mazebank.Views.User.Menu;
     exports com.example.mazebank.Views.User.Transactions;
     exports com.example.mazebank.Controllers.Admin.Search.Cell;
+    exports com.example.mazebank.Controllers.Admin.Search.BankAccounts.Cell;
+    exports com.example.mazebank.Controllers.Admin.Search.BankAccounts;
 }

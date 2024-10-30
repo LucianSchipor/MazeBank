@@ -1,12 +1,12 @@
 package com.example.mazebank.Core.Models;
 
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Users.User;
 
 public class UserLoggedIn {
     private static UserLoggedIn instance;
     private User loggedInUser;
-    private CheckingAccount checkingAccount;
+    private BankAccount bankAccount;
 
     private UserLoggedIn() {}
 

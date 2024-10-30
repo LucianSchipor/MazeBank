@@ -1,0 +1,46 @@
+.bAcc_cell_container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 7);
+}
+
+.bAcc_cell_container FontAwesomeIconView {
+    -fx-fill: #000000;
+}
+
+.bAcc_cell_container HBox {
+    -fx-alignment: center_left;
+    -fx-spacing: 20;
+}
+
+.bAcc_cell_container HBox Label {
+    -fx-text-fill: #005B43;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 0.86em;
+}
+
+.bAcc_cell_container .button_container {
+}
+
+.bAcc_cell_container .separatorContainer {
+    -fx-spacing: 2;
+}
+.acc_display_lbl {
+    -fx-font-family: Calibri;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+
+.bank_accounts_btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+}
+
+.delete_btn {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FF0000;
+}
+
+.delete_btn:hover{
+    -fx-cursor: hand;
+}

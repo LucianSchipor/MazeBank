@@ -1,7 +1,7 @@
 package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Core.BankAccounts.CheckingAccount;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import com.example.mazebank.Core.Models.Model;
@@ -75,7 +75,7 @@ public class LoginController implements Initializable {
                         var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
                         try {
                             //Gets first element from hashmap
-                            Map.Entry<String, CheckingAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+                            Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
                             var value = entry.getValue();
                             UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
                             UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(

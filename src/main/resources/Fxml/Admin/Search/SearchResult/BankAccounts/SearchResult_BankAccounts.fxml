@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="bacc_title_lbl" layoutX="243.0" layoutY="14.0" text="User's Bank Accounts"/>
+    <ListView fx:id="bAcc_listView"  layoutX="26.0" layoutY="32.0" prefHeight="356.0" prefWidth="550.0" AnchorPane.leftAnchor="10.0"
+              AnchorPane.rightAnchor="10.0"/>
+</AnchorPane>
