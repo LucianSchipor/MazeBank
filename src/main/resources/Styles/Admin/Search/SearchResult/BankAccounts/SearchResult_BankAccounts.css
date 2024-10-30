@@ -1,0 +1,20 @@
+.search_container .list-view {
+    -fx-background-color: #EEEEEE;
+    -fx-padding: 10;
+}
+
+.search_container .list-view:focused {
+    -fx-background-color: transparent;
+}
+
+.search_container .list-cell {
+    -fx-background-color: #EEEEEE;
+    -fx-pref-width: 450;
+}
+
+.search_container .list-cell:focused {
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 5, 0, 0, 5);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-background-radius: 10;
+}

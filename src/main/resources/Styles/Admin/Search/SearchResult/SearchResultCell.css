@@ -4,6 +4,11 @@
     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 7);
 }
 
+.user_cell_container:focused {
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 8, 0, 0, 10); /* Umbră mai accentuată */
+
+}
+
 .user_cell_container FontAwesomeIconView {
     -fx-fill: #000000;
 }

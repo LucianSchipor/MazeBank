@@ -18,6 +18,13 @@
     -fx-pref-width: 450;
 }
 
+.search_container .list-cell:focused {
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 5, 0, 0, 5);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-background-radius: 10;
+}
+
 .searchbox_container{
     -fx-background-color: #EEEEEE;
     -fx-padding: 20 10 20 10;
