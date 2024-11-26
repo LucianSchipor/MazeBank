@@ -5,17 +5,23 @@ import com.example.mazebank.Controllers.Admin.Search.BankAccounts.SearchResultCo
 import com.example.mazebank.Controllers.User.Menu.DashboardController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
+import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
 import com.example.mazebank.Views.User.Menu.UserMenuOptions;
+import com.google.zxing.WriterException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 @SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
@@ -139,6 +145,28 @@ public class ViewFactory {
         }
     }
 
+
+    public void showQRCode(String barCodeUrl){
+        try {
+            Image qrImage = Security.createQRCode(barCodeUrl, 300, 300);
+
+            ImageView imageView = new ImageView(qrImage);
+            imageView.setFitWidth(300);
+            imageView.setFitHeight(300);
+            StackPane root = new StackPane(imageView);
+            Scene scene = new Scene(root, 300 + 50, 300 + 50);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
+            stage.setResizable(false);
+            stage.setTitle("QR Code");
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (WriterException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void showAdminWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
         AdminController controller = new AdminController();

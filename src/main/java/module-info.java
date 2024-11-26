@@ -5,6 +5,10 @@ module com.example.mazebank {
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.desktop;
+    requires org.apache.commons.codec;
+    requires totp;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
     opens com.example.mazebank to javafx.fxml;
     exports com.example.mazebank;
     exports com.example.mazebank.Controllers;
