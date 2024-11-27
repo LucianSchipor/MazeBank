@@ -2,10 +2,12 @@ package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
+import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Users.AccountType;
+import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.Mode;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
@@ -14,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
@@ -74,9 +77,7 @@ public class LoginController implements Initializable {
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {
                         UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
                         if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Verified()) {
-                            Stage stage = (Stage) error_lbl.getScene().getWindow();
-                            Model.getInstance().getViewFactory().closeStage(stage);
-                            Model.getInstance().getViewFactory().show2FAWindow();
+                            FA_Check();
                         } else {
                             var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
                             try {
@@ -101,12 +102,12 @@ public class LoginController implements Initializable {
                         Model.getInstance().getViewFactory().closeStage(stage);
                         Model.getInstance().getViewFactory().showAdminWindow();
                     }
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("User does not exist!");
-                    alert.showAndWait();
                 }
-
+                else{
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("User does not exist!");
+                        alert.showAndWait();
+                    }
             } catch (Exception e) {
                 System.out.println("[LOG] - " + e.getMessage());
             }
@@ -114,6 +115,20 @@ public class LoginController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Username or Password is empty!");
             alert.showAndWait();
+        }
+    }
+
+    private void FA_Check() throws IOException, WriterException {
+        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Enabled()) {
+            Security.getInstance().setAuthCodes();
+            Stage stage = (Stage) error_lbl.getScene().getWindow();
+            Model.getInstance().getViewFactory().closeStage(stage);
+            Model.getInstance().getViewFactory().show2FAWindow();
+        } else {
+            Security.getInstance().setAuthCodes(UserLoggedIn.getInstance().getLoggedInUser().getFA_Key());
+            Stage stage = (Stage) error_lbl.getScene().getWindow();
+            Model.getInstance().getViewFactory().closeStage(stage);
+            Model.getInstance().getViewFactory().show2FAWindow();
         }
     }
 }

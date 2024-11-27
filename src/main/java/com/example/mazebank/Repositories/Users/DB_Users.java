@@ -135,11 +135,12 @@ public class DB_Users {
                 String email = resultSet.getString("email");
                 String Key = resultSet.getString("2FA_Key");
                 Boolean FA_Enabled = false;
-                if(!Key.equals("NaN")){
+                if(!Key.equals("NaN") && !Key.isEmpty() && !Key.equals("")) {
                     FA_Enabled = true;
                 }
                 var newUser = new User(user_id, username, password, role, email);
                 newUser.setFA_Enabled(FA_Enabled);
+                newUser.setFA_Key(Key);
                 return newUser;
             }
         } catch (Exception exception) {

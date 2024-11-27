@@ -13,6 +13,7 @@ public class User {
     private String Email;
     private Boolean FA_Enabled = false;
     private boolean FA_Verified = false;
+    private String FA_Key = "";
     private HashMap<String, BankAccount> checkingAccounts;
     private BankAccount selectedBankAccount;
 
@@ -76,11 +77,27 @@ public class User {
         this.FA_Enabled = FA_Enabled;
     }
 
+    public boolean isFA_Enabled() {
+        return FA_Enabled;
+    }
+
     public boolean isFA_Verified() {
         return FA_Verified;
     }
 
     public void setFA_Verified(boolean FA_Verified) {
         this.FA_Verified = FA_Verified;
+    }
+
+    public void setFA_Enabled(boolean FA_Enabled) {
+        this.FA_Enabled = FA_Enabled;
+    }
+
+    public String getFA_Key() {
+        return FA_Key;
+    }
+
+    public void setFA_Key(String FA_Key) {
+        this.FA_Key = FA_Key;
     }
 }

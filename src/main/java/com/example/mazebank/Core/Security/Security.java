@@ -19,11 +19,11 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 
 public class Security {
-private static Security instance;
+    private static Security instance;
 
-private Pair<String, String> authCodes = new Pair<>("", "");
+    private Pair<String, String> authCodes = new Pair<>("", "");
+
     public Security() throws IOException, WriterException {
-        setAuthCodes();
     }
 
     public static synchronized Security getInstance() throws IOException, WriterException {
@@ -31,6 +31,17 @@ private Pair<String, String> authCodes = new Pair<>("", "");
             instance = new Security();
         }
         return instance;
+    }
+
+
+    public Boolean verifyOTP(String otp) throws IOException, WriterException {
+        if (otp.equals(getTOTPCode(Security.getInstance().authCodes.getKey()))) {
+            System.out.println("[LOG][Security] - OTP Code is valid for this User");
+            return true;
+        } else {
+            System.out.println("[LOG][Security] - Invalid OTP Code");
+            return false;
+        }
     }
 
     private static String generateSecretKey() {
@@ -74,6 +85,7 @@ private Pair<String, String> authCodes = new Pair<>("", "");
         securityThread.setDaemon(true);
         securityThread.start();
     }
+
     public static Image createQRCode(String barCodeData)
             throws WriterException, IOException {
         BitMatrix matrix = new MultiFormatWriter().encode(Security.getInstance().getAuthCodes().getValue(), BarcodeFormat.QR_CODE,
@@ -101,7 +113,14 @@ private Pair<String, String> authCodes = new Pair<>("", "");
         return authCodes;
     }
 
-    private void setAuthCodes() throws IOException, WriterException {
+    public void setAuthCodes(String secretKey) throws IOException, WriterException {
+        String email = UserLoggedIn.getInstance().getLoggedInUser().getEmail();
+        String companyName = "Maze Bank";
+        String barCodeUrl = Security.getGoogleAuthenticatorBarCode(secretKey, email, companyName);
+        authCodes = new Pair<>(secretKey, barCodeUrl);
+    }
+
+    public void setAuthCodes() throws IOException, WriterException {
         String secretKey = generateSecretKey();
         String email = UserLoggedIn.getInstance().getLoggedInUser().getEmail();
         String companyName = "Maze Bank";
