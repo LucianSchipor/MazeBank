@@ -2,6 +2,7 @@ package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.AdminController;
 import com.example.mazebank.Controllers.Admin.Search.BankAccounts.SearchResultController_BankAccounts;
+import com.example.mazebank.Controllers.FA_Controller;
 import com.example.mazebank.Controllers.User.Menu.DashboardController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
@@ -19,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -146,27 +148,15 @@ public class ViewFactory {
     }
 
 
-    public void showQRCode(String barCodeUrl){
+    public void show2FAWindow(){
         try {
-            Image qrImage = Security.createQRCode(barCodeUrl, 300, 300);
-
-            ImageView imageView = new ImageView(qrImage);
-            imageView.setFitWidth(300);
-            imageView.setFitHeight(300);
-            StackPane root = new StackPane(imageView);
-            Scene scene = new Scene(root, 300 + 50, 300 + 50);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
-            stage.setResizable(false);
-            stage.setTitle("QR Code");
-            stage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (WriterException e) {
-            throw new RuntimeException(e);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/2FA.fxml"));
+            createStage(loader);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
+
     public void showAdminWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
         AdminController controller = new AdminController();

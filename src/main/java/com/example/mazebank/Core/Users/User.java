@@ -10,13 +10,17 @@ public class User {
     private final int id;
     private final String username;
     private final AccountType Role;
+    private String Email;
+    private Boolean FA_Enabled = false;
+    private boolean FA_Verified = false;
     private HashMap<String, BankAccount> checkingAccounts;
     private BankAccount selectedBankAccount;
 
-    public User(int id, String username, String password, int role) {
+    public User(int id, String username, String password, int role, String email) {
         this.id = id;
         this.username = username;
         Role = AccountType.values()[role];
+        Email = email;
     }
 
     public String getUsername() {
@@ -54,5 +58,29 @@ public class User {
     public void setSelectedCheckingAccount(BankAccount selectedBankAccount) {
         System.out.println("[LOG] - account selected setted to: " + selectedBankAccount.getAccount_id());
         this.selectedBankAccount = selectedBankAccount;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        this.Email =  email;
+    }
+
+    public Boolean getFA_Enabled() {
+        return FA_Enabled;
+    }
+
+    public void setFA_Enabled(Boolean FA_Enabled) {
+        this.FA_Enabled = FA_Enabled;
+    }
+
+    public boolean isFA_Verified() {
+        return FA_Verified;
+    }
+
+    public void setFA_Verified(boolean FA_Verified) {
+        this.FA_Verified = FA_Verified;
     }
 }

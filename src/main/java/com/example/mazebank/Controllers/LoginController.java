@@ -6,6 +6,7 @@ import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Users.AccountType;
+import com.google.zxing.qrcode.decoder.Mode;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -40,21 +41,20 @@ public class LoginController implements Initializable {
         }
     }
 
-    private void onSignUp(Event event){
+    private void onSignUp(Event event) {
         String username = username_fld.getText();
         String password = password_fld.getText();
-        if(Objects.equals(username, "") || Objects.equals(password, "")){
+        if (Objects.equals(username, "") || Objects.equals(password, "")) {
             System.out.println("[LOG] - " + "one field is empty");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("One field is empty");
             alert.showAndWait();
         }
 
-        if(!username.isEmpty() && !password.isEmpty()){
+        if (!username.isEmpty() && !password.isEmpty()) {
             try {
                 DB_Users.SignupUser(username, password);
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 System.out.println("[LOG] - " + e.getMessage());
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Error on creating a new account.");
@@ -62,45 +62,51 @@ public class LoginController implements Initializable {
             }
         }
     }
+
     private void onLogin(Event event) {
         //Gets the current stage based on label's parent
         String username = username_fld.getText();
         String password = password_fld.getText();
         if (!username.isEmpty() && !password.isEmpty()) {
+            var userLoggedIn = DB_Users.LoginUser(username, password);
             try {
-                var userLoggedIn = DB_Users.LoginUser(username, password);
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
-                    if(userLoggedIn.getRole() == AccountType.CLIENT) {
+                    if (userLoggedIn.getRole() == AccountType.CLIENT) {
                         UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
-                        var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
-                        try {
-                            //Gets first element from hashmap
-                            Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-                            var value = entry.getValue();
-                            UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
-                            UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
-                                    value);
-                        } catch (Exception e) {
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
-                            alert.showAndWait();
-                            return;
+                        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Verified()) {
+                            Stage stage = (Stage) error_lbl.getScene().getWindow();
+                            Model.getInstance().getViewFactory().closeStage(stage);
+                            Model.getInstance().getViewFactory().show2FAWindow();
+                        } else {
+                            var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
+                            try {
+                                //Gets first element from hashmap
+                                Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+                                var value = entry.getValue();
+                                UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
+                                UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
+                                        value);
+                            } catch (Exception e) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
+                                alert.showAndWait();
+                                return;
+                            }
+                            Stage stage = (Stage) error_lbl.getScene().getWindow();
+                            Model.getInstance().getViewFactory().closeStage(stage);
+                            Model.getInstance().getViewFactory().showClientWindow();
                         }
-                        Stage stage = (Stage) error_lbl.getScene().getWindow();
-                        Model.getInstance().getViewFactory().closeStage(stage);
-                        Model.getInstance().getViewFactory().showClientWindow();
-                    }
-                    else{
+                    } else {
                         Stage stage = (Stage) error_lbl.getScene().getWindow();
                         Model.getInstance().getViewFactory().closeStage(stage);
                         Model.getInstance().getViewFactory().showAdminWindow();
                     }
-                }
-                else{
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("User does not exist!");
                     alert.showAndWait();
                 }
+
             } catch (Exception e) {
                 System.out.println("[LOG] - " + e.getMessage());
             }

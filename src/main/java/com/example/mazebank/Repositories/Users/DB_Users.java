@@ -15,13 +15,11 @@ public class DB_Users {
     public static String GenerateNewAccountNumber() {
         Random random = new Random();
 
-        // Prima cifră nu poate fi 0, deci generăm o cifră între 1 și 9
         StringBuilder number = new StringBuilder();
-        number.append(random.nextInt(9) + 1); // Generăm primul număr între 1 și 9
+        number.append(random.nextInt(9) + 1);
 
-        // Generăm restul de 15 cifre (pot include 0)
         for (int i = 1; i < 16; i++) {
-            number.append(random.nextInt(10)); // Generăm număr între 0 și 9
+            number.append(random.nextInt(10));
         }
 
         return number.toString();
@@ -104,7 +102,8 @@ public class DB_Users {
             if (resultSet.next()) {
                 int role = resultSet.getInt("role");
                 int user_id = resultSet.getInt("user_id");
-                return new User(user_id, username, password, role);
+                String email = resultSet.getString("email");
+                return new User(user_id, username, password, role, email);
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -137,7 +136,7 @@ public class DB_Users {
             psCheckUserExists.setString(1, username + "%");
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
-                var newUser = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"));
+                var newUser = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));
                 usersList.add(newUser);
                 System.out.println("[LOG] - added user " + newUser.getUsername() + " to list of users!");
             }
