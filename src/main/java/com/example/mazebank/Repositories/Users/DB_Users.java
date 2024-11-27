@@ -1,9 +1,12 @@
 package com.example.mazebank.Repositories.Users;
+
+import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +87,33 @@ public class DB_Users {
         }
     }
 
+    public static void Enable2FA(User user, String key) {
+        PreparedStatement psCheckUserExists;
+        ResultSet resultSet;
+        Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (UserLoggedIn.getInstance().getLoggedInUser() != null) {
+            try {
+                assert connection != null;
+                psCheckUserExists = connection.prepareStatement("UPDATE users SET 2FA_Key = ? WHERE username = ?");
+                psCheckUserExists.setString(1, key);
+                psCheckUserExists.setString(2, user.getUsername());
+                psCheckUserExists.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.showAndWait();
+            System.out.println("[LOG] - no logged in user");
+        }
+    }
+
+
     public static User LoginUser(String username, String password) {
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
@@ -103,7 +133,14 @@ public class DB_Users {
                 int role = resultSet.getInt("role");
                 int user_id = resultSet.getInt("user_id");
                 String email = resultSet.getString("email");
-                return new User(user_id, username, password, role, email);
+                String Key = resultSet.getString("2FA_Key");
+                Boolean FA_Enabled = false;
+                if(!Key.equals("NaN")){
+                    FA_Enabled = true;
+                }
+                var newUser = new User(user_id, username, password, role, email);
+                newUser.setFA_Enabled(FA_Enabled);
+                return newUser;
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -120,7 +157,7 @@ public class DB_Users {
         return null;
     }
 
-    public static List<User> SearchUsers(String username){
+    public static List<User> SearchUsers(String username) {
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -132,7 +169,7 @@ public class DB_Users {
         List<User> usersList = new ArrayList<>();
         try {
             assert connection != null;
-            psCheckUserExists =  connection.prepareStatement("SELECT * FROM users WHERE username LIKE ?");
+            psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE username LIKE ?");
             psCheckUserExists.setString(1, username + "%");
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
@@ -140,10 +177,9 @@ public class DB_Users {
                 usersList.add(newUser);
                 System.out.println("[LOG] - added user " + newUser.getUsername() + " to list of users!");
             }
-        }
-        catch (Exception exception){
+        } catch (Exception exception) {
             System.out.println("[LOG] - failed to search users!");
         }
-    return usersList;
+        return usersList;
     }
 }
