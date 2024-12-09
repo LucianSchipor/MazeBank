@@ -1,6 +1,7 @@
 package com.example.mazebank.Repositories.Users;
 
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
@@ -182,9 +183,9 @@ public class DB_Users {
                     FA_Verification_Time = timestamp.toLocalDateTime();
                 }
                 var newUser = new User(user_id, username, password, role, email);
-                newUser.setFA_Enabled(FA_Enabled);
-                newUser.setFA_Key(Key);
-                newUser.setFA_Verification_Time(FA_Verification_Time);
+                Security.getInstance().setFA_Enabled(FA_Enabled);
+                Security.getInstance().setFA_Key(Key);
+                Security.getInstance().setFA_Verification_Time(FA_Verification_Time);
                 return newUser;
             }
         } catch (Exception exception) {

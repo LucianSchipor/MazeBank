@@ -37,7 +37,6 @@ public class FA_Controller implements Initializable {
                     Update2FAKey(event);
                 } catch (IOException | WriterException e) {
                     e.printStackTrace();
-                    // Poți adăuga și o notificare pentru utilizator
                 }
             });
         } catch (Exception e) {
@@ -68,21 +67,32 @@ public class FA_Controller implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("OTP Code is invalid!");
             alert.showAndWait();
-            return;
         }
     }
 
     private void Verify2FA(Event event) throws IOException, WriterException {
         if (Security.getInstance().verifyOTP(otp_fld.getText())) {
             DB_Users.UpdateFAVerificationTime(UserLoggedIn.getInstance().getLoggedInUser());
-            Stage stage = (Stage) imageView.getScene().getWindow();
+            Security.getInstance().setFA_Verified(true);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setContentText("2FA verified for " + UserLoggedIn.getInstance().getLoggedInUser().getUsername());
+            alert.showAndWait();
+            Stage stage = (Stage)otp_fld.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
-            Model.getInstance().getViewFactory().showClientWindow();
+            Model.getInstance().getViewFactory().showPreviousWindow();
+            //Aici, vreau sa deschid pagina, in acealsi punct in care era
+
+
+
+
+
+            //            Stage stage = (Stage) imageView.getScene().getWindow();
+//            Model.getInstance().getViewFactory().closeStage(stage);
+//            Model.getInstance().getViewFactory().showClientWindow();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("OTP Code is invalid!");
             alert.showAndWait();
-            return;
         }
     }
 

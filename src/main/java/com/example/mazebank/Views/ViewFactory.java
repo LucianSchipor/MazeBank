@@ -38,6 +38,7 @@ public class ViewFactory {
     private AnchorPane depositView;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
+    private Scene previousWindow;
 
     public ViewFactory() {
         this.loginAccountType = AccountType.CLIENT;
@@ -148,13 +149,24 @@ public class ViewFactory {
     }
 
 
-    public void show2FAWindow(){
+    public void show2FAWindow(Scene previousScene){
+        this.previousWindow = previousScene;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/2FA.fxml"));
             createStage(loader);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+
+    public void showPreviousWindow() {
+        Stage stage = new Stage();
+        stage.setScene(this.previousWindow);
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
+        stage.setResizable(false);
+        stage.setTitle("Maze Bank");
+        stage.show();
     }
 
     public void showAdminWindow() {

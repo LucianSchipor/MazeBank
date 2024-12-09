@@ -97,7 +97,7 @@ public class LoginController implements Initializable {
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {
                         UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
-                        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Enabled() || !UserLoggedIn.getInstance().getLoggedInUser().isFA_Verified()) {
+                        if (!Security.getInstance().isFA_Enabled() || !Security.getInstance().isFA_Verified()) {
                             FA_Check();
                         }
                         else{
@@ -125,16 +125,17 @@ public class LoginController implements Initializable {
     }
 
     private void FA_Check() throws IOException, WriterException {
-        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Enabled()) {
+        if (!Security.getInstance().isFA_Enabled()) {
             Security.getInstance().setAuthCodes();
             Stage stage = (Stage) error_lbl.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
-            Model.getInstance().getViewFactory().show2FAWindow();
+            Model.getInstance().getViewFactory().show2FAWindow(error_lbl.getScene());
+
         } else {
-            Security.getInstance().setAuthCodes(UserLoggedIn.getInstance().getLoggedInUser().getFA_Key());
+            Security.getInstance().setAuthCodes(Security.getInstance().getFA_Key());
             Stage stage = (Stage) error_lbl.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
-            Model.getInstance().getViewFactory().show2FAWindow();
+            Model.getInstance().getViewFactory().show2FAWindow(error_lbl.getScene());
         }
     }
 }

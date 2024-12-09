@@ -15,11 +15,7 @@ public class User {
     private final int id;
     private final String username;
     private final AccountType Role;
-    private LocalDateTime FA_Verification_Time;
     private String Email;
-    private Boolean FA_Enabled = false;
-    private boolean FA_Verified = false;
-    private String FA_Key = "";
     private HashMap<String, BankAccount> checkingAccounts;
     private BankAccount selectedBankAccount;
 
@@ -35,7 +31,7 @@ public class User {
     }
 
 
-    public int getUserId(){
+    public int getUserId() {
         return id;
     }
 
@@ -47,11 +43,10 @@ public class User {
         LinkedHashMap<String, BankAccount> checkingAccounts = new LinkedHashMap<>();
         try {
             checkingAccounts = DB_BankAccounts.GetBankAccounts(id);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("[LOG] - " + e.getMessage());
         }
-        return  checkingAccounts;
+        return checkingAccounts;
     }
 
     public void setCheckingAccounts(HashMap<String, BankAccount> checkingAccount) {
@@ -72,43 +67,8 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.Email =  email;
-    }
-
-    public void setFA_Enabled(Boolean FA_Enabled) {
-        this.FA_Enabled = FA_Enabled;
-    }
-
-    public boolean isFA_Enabled() {
-        return FA_Enabled;
+        this.Email = email;
     }
 
 
-    public boolean isFA_Verified() {
-//    Pe baza timpului cand s-a efectuat ultima verificare, stocat in BD in 2FA_Verification_Time
-//    Vad daca aceasta verificare a fost factuta acum mai mult de 15 minute.
-//    Daca da, cer iar sa-si verifice codul
-
-        return Duration.between(FA_Verification_Time, LocalDateTime.now()).toMinutes() <= 15;
-    }
-
-    public void setFA_Verified(boolean FA_Verified) {
-        this.FA_Verified = FA_Verified;
-    }
-
-    public void setFA_Enabled(boolean FA_Enabled) {
-        this.FA_Enabled = FA_Enabled;
-    }
-
-    public String getFA_Key() {
-        return FA_Key;
-    }
-
-    public void setFA_Key(String FA_Key) {
-        this.FA_Key = FA_Key;
-    }
-
-    public void setFA_Verification_Time(LocalDateTime FA_Verification_Time) {
-        this.FA_Verification_Time = FA_Verification_Time;
-    }
 }

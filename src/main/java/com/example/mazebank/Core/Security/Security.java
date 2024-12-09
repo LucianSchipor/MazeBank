@@ -17,12 +17,56 @@ import org.apache.commons.codec.binary.Hex;
 import java.io.*;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Security {
     private static Security instance;
 
     private Pair<String, String> authCodes = new Pair<>("", "");
+    private Boolean FA_Permision = false;
+    private Boolean FA_Enabled = false;
+    private boolean FA_Verified = false;
+    private String FA_Key = "";
+    private LocalDateTime FA_Verification_Time;
 
+    public void setFA_Enabled(Boolean FA_Enabled) {
+        this.FA_Enabled = FA_Enabled;
+    }
+
+    public boolean isFA_Enabled() {
+        return FA_Enabled;
+    }
+
+
+    public boolean isFA_Verified() {
+//    Pe baza timpului cand s-a efectuat ultima verificare, stocat in BD in 2FA_Verification_Time
+//    Vad daca aceasta verificare a fost factuta acum mai mult de 15 minute.
+//    Daca da, cer iar sa-si verifice codul
+
+        return Duration.between(FA_Verification_Time, LocalDateTime.now()).toMinutes() <= 15;
+    }
+
+    public void setFA_Verified(boolean FA_Verified) {
+        this.FA_Verified = FA_Verified;
+        setFA_Verification_Time(LocalDateTime.now());
+    }
+
+    public void setFA_Enabled(boolean FA_Enabled) {
+        this.FA_Enabled = FA_Enabled;
+    }
+
+    public String getFA_Key() {
+        return FA_Key;
+    }
+
+    public void setFA_Key(String FA_Key) {
+        this.FA_Key = FA_Key;
+    }
+
+    public void setFA_Verification_Time(LocalDateTime FA_Verification_Time) {
+        this.FA_Verification_Time = FA_Verification_Time;
+    }
     public Security() throws IOException, WriterException {
     }
 
@@ -125,5 +169,13 @@ public class Security {
         String companyName = "Maze Bank";
         String barCodeUrl = Security.getGoogleAuthenticatorBarCode(secretKey, email, companyName);
         authCodes = new Pair<>(secretKey, barCodeUrl);
+    }
+
+    public Boolean getFA_Permision() {
+        return FA_Permision;
+    }
+
+    public void setFA_Permision(Boolean FA_Permision) {
+        this.FA_Permision = FA_Permision;
     }
 }
