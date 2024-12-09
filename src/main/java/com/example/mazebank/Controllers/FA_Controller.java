@@ -34,7 +34,7 @@ public class FA_Controller implements Initializable {
         try {
             verify_btn.setOnAction(event -> {
                 try {
-                    enable_2FA(event); // Apelează metoda și gestionează excepțiile
+                    Update2FAKey(event);
                 } catch (IOException | WriterException e) {
                     e.printStackTrace();
                     // Poți adăuga și o notificare pentru utilizator
@@ -60,9 +60,21 @@ public class FA_Controller implements Initializable {
         return createQRCode(Security.getInstance().getAuthCodes().getValue());
     }
 
-    private void enable_2FA(Event event) throws IOException, WriterException {
+    private void Update2FAKey(Event event) throws IOException, WriterException {
         if (Security.getInstance().verifyOTP(otp_fld.getText())) {
-            DB_Users.Enable2FA(UserLoggedIn.getInstance().getLoggedInUser(), Security.getInstance().getAuthCodes().getKey());
+            DB_Users.Update2FAKey(UserLoggedIn.getInstance().getLoggedInUser(), Security.getInstance().getAuthCodes().getKey());
+            Verify2FA(event);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("OTP Code is invalid!");
+            alert.showAndWait();
+            return;
+        }
+    }
+
+    private void Verify2FA(Event event) throws IOException, WriterException {
+        if (Security.getInstance().verifyOTP(otp_fld.getText())) {
+            DB_Users.UpdateFAVerificationTime(UserLoggedIn.getInstance().getLoggedInUser());
             Stage stage = (Stage) imageView.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
             Model.getInstance().getViewFactory().showClientWindow();
@@ -74,7 +86,4 @@ public class FA_Controller implements Initializable {
         }
     }
 
-    private void verify_2FA(Event event) throws IOException, WriterException {
-
-    }
 }

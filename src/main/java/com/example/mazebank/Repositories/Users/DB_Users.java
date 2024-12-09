@@ -4,7 +4,6 @@ import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
-import javafx.event.Event;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
@@ -62,10 +61,13 @@ public class DB_Users {
         if (VerifyCredentials(username)) {
             try {
                 assert connection != null;
-                psCheckUserExists = connection.prepareStatement("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
+                psCheckUserExists = connection.prepareStatement("INSERT INTO users (username, password, role, 2FA_Key, email, 2FA_Verification_Time) VALUES (?, ?, ?, ?, ?, ?)");
                 psCheckUserExists.setString(1, username);
                 psCheckUserExists.setString(2, password);
                 psCheckUserExists.setInt(3, 1);
+                psCheckUserExists.setString(4, "NaN");
+                psCheckUserExists.setString(5, username);
+                psCheckUserExists.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now().minusYears(1)));
                 psCheckUserExists.executeUpdate();
 
                 psCheckUserExists = connection.prepareStatement("SELECT user_id FROM users WHERE username = ?");
@@ -88,7 +90,7 @@ public class DB_Users {
         }
     }
 
-    public static void Enable2FA(User user, String key) {
+    public static void Update2FAKey(User user, String key) {
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         Connection connection = null;
@@ -114,6 +116,40 @@ public class DB_Users {
         }
     }
 
+
+    public static void UpdateFAVerificationTime(User user) {
+        PreparedStatement psCheckUserExists;
+        ResultSet resultSet;
+        Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert connection != null;
+            psCheckUserExists = connection.prepareStatement("UPDATE users " +
+                    "SET 2FA_Verification_Time = ? " +
+                    "WHERE username = ?");
+            psCheckUserExists.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            psCheckUserExists.setString(2, user.getUsername());
+            psCheckUserExists.executeUpdate();
+
+        } catch (Exception exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(exception.getMessage());
+            alert.showAndWait();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 
 
     public static User LoginUser(String username, String password) {

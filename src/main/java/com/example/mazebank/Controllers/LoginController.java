@@ -8,7 +8,6 @@ import com.example.mazebank.Repositories.Users.DB_Users;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Users.AccountType;
 import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.decoder.Mode;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -66,6 +65,28 @@ public class LoginController implements Initializable {
         }
     }
 
+
+    private void ShowClientWindow(){
+        var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
+        var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
+        try {
+            //Gets first element from hashmap
+            Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+            var value = entry.getValue();
+            UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
+            UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
+                    value);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
+            alert.showAndWait();
+            return;
+        }
+        Stage stage = (Stage) error_lbl.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showClientWindow();
+    }
+
     private void onLogin(Event event) {
         //Gets the current stage based on label's parent
         String username = username_fld.getText();
@@ -76,29 +97,11 @@ public class LoginController implements Initializable {
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {
                         UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
-                        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Enabled()) {
+                        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Enabled() || !UserLoggedIn.getInstance().getLoggedInUser().isFA_Verified()) {
                             FA_Check();
-                        } else {
-                            if(!UserLoggedIn.getInstance().getLoggedInUser().isFA_Verified()) {
-                                //ii cer sa bage codul
-                            }
-                            var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
-                            try {
-                                //Gets first element from hashmap
-                                Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-                                var value = entry.getValue();
-                                UserLoggedIn.getInstance().getLoggedInUser().setCheckingAccounts(checkingAccount);
-                                UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(
-                                        value);
-                            } catch (Exception e) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setContentText("User " + userLoggedIn.getUsername() + " doesn't have any account from this bank.");
-                                alert.showAndWait();
-                                return;
-                            }
-                            Stage stage = (Stage) error_lbl.getScene().getWindow();
-                            Model.getInstance().getViewFactory().closeStage(stage);
-                            Model.getInstance().getViewFactory().showClientWindow();
+                        }
+                        else{
+                            ShowClientWindow();
                         }
                     } else {
                         Stage stage = (Stage) error_lbl.getScene().getWindow();

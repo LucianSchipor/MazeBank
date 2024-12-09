@@ -75,10 +75,6 @@ public class User {
         this.Email =  email;
     }
 
-    public Boolean getFA_Enabled() {
-        return FA_Enabled;
-    }
-
     public void setFA_Enabled(Boolean FA_Enabled) {
         this.FA_Enabled = FA_Enabled;
     }
