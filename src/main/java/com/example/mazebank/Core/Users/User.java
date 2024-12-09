@@ -3,6 +3,11 @@ package com.example.mazebank.Core.Users;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -10,6 +15,7 @@ public class User {
     private final int id;
     private final String username;
     private final AccountType Role;
+    private LocalDateTime FA_Verification_Time;
     private String Email;
     private Boolean FA_Enabled = false;
     private boolean FA_Verified = false;
@@ -81,8 +87,13 @@ public class User {
         return FA_Enabled;
     }
 
+
     public boolean isFA_Verified() {
-        return FA_Verified;
+//    Pe baza timpului cand s-a efectuat ultima verificare, stocat in BD in 2FA_Verification_Time
+//    Vad daca aceasta verificare a fost factuta acum mai mult de 15 minute.
+//    Daca da, cer iar sa-si verifice codul
+
+        return Duration.between(FA_Verification_Time, LocalDateTime.now()).toMinutes() <= 15;
     }
 
     public void setFA_Verified(boolean FA_Verified) {
@@ -99,5 +110,9 @@ public class User {
 
     public void setFA_Key(String FA_Key) {
         this.FA_Key = FA_Key;
+    }
+
+    public void setFA_Verification_Time(LocalDateTime FA_Verification_Time) {
+        this.FA_Verification_Time = FA_Verification_Time;
     }
 }

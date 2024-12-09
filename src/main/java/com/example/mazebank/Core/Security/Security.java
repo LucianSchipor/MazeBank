@@ -69,8 +69,7 @@ public class Security {
             while (true) {
                 String code = Security.getTOTPCode(secretKey);
                 if (!code.equals(lastCode)) {
-                    System.out.println("[LOG][Google Auth] - Key: " + secretKey);
-                    System.out.println("[LOG][Google Auth] - Code: " + code);
+                    System.out.println("[LOG][Google Auth] - Key: " + secretKey + "Code: " + code);
                 }
                 lastCode = code;
                 try {

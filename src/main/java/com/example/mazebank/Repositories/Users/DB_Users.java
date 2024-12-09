@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -114,6 +115,7 @@ public class DB_Users {
     }
 
 
+
     public static User LoginUser(String username, String password) {
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
@@ -134,13 +136,19 @@ public class DB_Users {
                 int user_id = resultSet.getInt("user_id");
                 String email = resultSet.getString("email");
                 String Key = resultSet.getString("2FA_Key");
+                Timestamp timestamp = resultSet.getTimestamp("2FA_Verification_Time");
                 Boolean FA_Enabled = false;
                 if(!Key.equals("NaN") && !Key.isEmpty() && !Key.equals("")) {
                     FA_Enabled = true;
                 }
+                LocalDateTime FA_Verification_Time = null;
+                if(timestamp != null) {
+                    FA_Verification_Time = timestamp.toLocalDateTime();
+                }
                 var newUser = new User(user_id, username, password, role, email);
                 newUser.setFA_Enabled(FA_Enabled);
                 newUser.setFA_Key(Key);
+                newUser.setFA_Verification_Time(FA_Verification_Time);
                 return newUser;
             }
         } catch (Exception exception) {

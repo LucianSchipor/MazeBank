@@ -76,9 +76,12 @@ public class LoginController implements Initializable {
                 if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {
                         UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
-                        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Verified()) {
+                        if (!UserLoggedIn.getInstance().getLoggedInUser().isFA_Enabled()) {
                             FA_Check();
                         } else {
+                            if(!UserLoggedIn.getInstance().getLoggedInUser().isFA_Verified()) {
+                                //ii cer sa bage codul
+                            }
                             var checkingAccount = DB_BankAccounts.GetBankAccounts(userLoggedIn.getUserId());
                             try {
                                 //Gets first element from hashmap
