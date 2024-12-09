@@ -7,14 +7,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="820.0" stylesheets="@../../../../Styles/User/Dashboard/BankAccounts/BankAccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
+<AnchorPane prefHeight="200.0" prefWidth="766.0" stylesheets="@../../../../Styles/User/Dashboard/BankAccounts/BankAccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
    <styleClass>
       <String fx:value="account" />
       <String fx:value="account_gradient" />
    </styleClass>
-   <Label fx:id="balance" alignment="CENTER" layoutX="660.0" layoutY="12.0" prefHeight="42.0" prefWidth="146.0" styleClass="account_balance" text="100.000" textFill="WHITE" AnchorPane.leftAnchor="660.0" AnchorPane.topAnchor="12.0" />
+   <Label fx:id="balance" alignment="CENTER" layoutX="630.0" layoutY="12.0" prefHeight="42.0" prefWidth="146.0" styleClass="account_balance" text="100.000" textFill="WHITE" AnchorPane.leftAnchor="630.0" AnchorPane.topAnchor="12.0" />
    <Text layoutX="16.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal " AnchorPane.bottomAnchor="157.5" AnchorPane.leftAnchor="16.0" />
-   <Label fx:id="currency_lbl" layoutX="699.0" layoutY="52.0" styleClass="account_balance" text="RON" textFill="WHITE" />
+   <Label fx:id="currency_lbl" layoutX="684.0" layoutY="52.0" styleClass="account_balance" text="RON" textFill="WHITE" />
    <Label layoutX="12.0" layoutY="73.0" text="Card number" textFill="WHITE">
       <font>
          <Font size="13.0" />
@@ -45,5 +45,5 @@
          <Font name="System Bold" size="16.0" />
       </font>
    </Label>
-   <FontAwesomeIconView glyphName="CC_VISA" layoutX="690.0" layoutY="166.0" selectionFill="#ffffff08" selectionStart="0" size="60" stroke="#ffffff08" textAlignment="CENTER" wrappingWidth="85.1427993774414" />
+   <FontAwesomeIconView glyphName="CC_VISA" layoutX="675.0" layoutY="166.0" selectionFill="#ffffff08" selectionStart="0" size="60" stroke="#ffffff08" textAlignment="CENTER" wrappingWidth="85.1427993774414" />
 </AnchorPane>

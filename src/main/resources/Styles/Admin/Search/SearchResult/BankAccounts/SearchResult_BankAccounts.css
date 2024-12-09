@@ -4,7 +4,7 @@
 }
 
 .container .list-view:focused {
-    -fx-background-color: transparent;
+    -fx-background-color: #EEEEEE;
 }
 
 .container .list-cell {
@@ -14,7 +14,8 @@
 
 .container .list-cell:focused {
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 5, 0, 0, 5);
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
     -fx-background-radius: 10;
+    -fx-background-color: #C8C8C8;
 }

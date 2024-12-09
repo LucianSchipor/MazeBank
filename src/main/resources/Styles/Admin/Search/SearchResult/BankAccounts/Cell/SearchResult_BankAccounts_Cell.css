@@ -10,13 +10,13 @@
 
 .bAcc_cell_container HBox {
     -fx-alignment: center_left;
-    -fx-spacing: 20;
+    -fx-spacing: 30;
 }
 
 .bAcc_cell_container HBox Label {
     -fx-text-fill: #005B43;
     -fx-font-family: "Calibri Light";
-    -fx-font-size: 0.86em;
+    -fx-font-size: 0.99em;
 }
 
 .bAcc_cell_container .button_container {
@@ -39,6 +39,11 @@
 .delete_btn {
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #FF0000;
+}
+
+.edit_btn{
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #228B22;
 }
 
 .delete_btn:hover{

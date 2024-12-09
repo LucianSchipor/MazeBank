@@ -1,15 +1,20 @@
 package com.example.mazebank.Controllers.User.Transactions;
 
 import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCell;
+import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
+import com.google.zxing.WriterException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -23,23 +28,40 @@ public class TransactionsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        send_money_btn.setOnAction(this::onSendMoney);
+        send_money_btn.setOnAction(event -> {
+            try {
+                onSendMoney(event);
+            } catch (IOException | WriterException e) {
+                e.printStackTrace();
+            }
+        });
         ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
 
     public TransactionsController() {
-        send_money_btn.setOnAction(this::onSendMoney);
-        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber()));
+        send_money_btn.setOnAction(event -> {
+            try {
+                onSendMoney(event);
+            } catch (IOException | WriterException e) {
+                e.printStackTrace();
+            }
+        });        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
 
-    private void onSendMoney(Event event) {
+    private void onSendMoney(Event event) throws IOException, WriterException {
         if (!Objects.equals(payee_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
-            DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
-            updatePage();
+            if(Security.getInstance().isFA_Verified()){
+                DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
+                updatePage();
+            }
+            else{
+                Model.getInstance().getViewFactory().closeStage((Stage) send_money_btn.getScene().getWindow());
+                Model.getInstance().getViewFactory().show2FAWindow(send_money_btn.getScene());
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             System.out.println("[LOG] - one field was null");
