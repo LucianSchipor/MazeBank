@@ -1,0 +1,17 @@
+.alert_container {
+    -fx-background-color: #f7a7a3;
+-fx-border-radius: 10px;
+}
+
+.margin_container{
+    -fx-background-color: #770202;
+    -fx-border-radius: 10px;
+}
+
+.message_container{
+    -fx-alignment: center;
+    -fx-spacing: 5px;
+}
+.message_container Label{
+-fx-font-size: 15px;
+}

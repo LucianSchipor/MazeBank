@@ -38,6 +38,9 @@ public class ViewFactory {
     private AnchorPane clientsView;
     private AnchorPane depositView;
     private AnchorPane formsView;
+    private AnchorPane confirmation_alert;
+    private AnchorPane error_alert;
+    private AnchorPane info_alert;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private Scene previousWindow;
@@ -181,6 +184,33 @@ public class ViewFactory {
     public void showRegisterFormWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/RegisterForm.fxml"));
+            createStage(loader);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void showConfirmationAlertWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Alerts/Confirmation_Alert.fxml"));
+            createStage(loader);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void showInfoAlertWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Alerts/Info_Alert.fxml"));
+            createStage(loader);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void showErrorAlertWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Alerts/Fail_Alert.fxml"));
             createStage(loader);
         } catch (Exception exception) {
             exception.printStackTrace();

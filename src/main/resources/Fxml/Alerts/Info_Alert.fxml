@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:controller="com.example.mazebank.Controllers.Alerts.AlertController"  prefHeight="59.0" prefWidth="390.0" stylesheets="@../../Styles/Alerts/Info_Alert.css"
+            xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="100.0" prefWidth="17.0" styleClass="margin_container"/>
+   <HBox layoutX="14.0" prefHeight="100.0" prefWidth="383.0" styleClass="alert_container">
+      <HBox prefHeight="100.0" prefWidth="419.0" styleClass="message_container">
+         <FontAwesomeIconView glyphName="EXCLAMATION" size="20"/>
+         <Label fx:id="message" prefHeight="22.0" prefWidth="206.0" text="This is a warning message"/>
+      </HBox>
+   </HBox>
+</AnchorPane>

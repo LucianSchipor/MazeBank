@@ -1,5 +1,7 @@
 package com.example.mazebank.Controllers;
 
+import com.example.mazebank.Core.Alert.AlertType;
+import com.example.mazebank.Core.Alert.CustomAlert;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Security.Security;
@@ -57,7 +59,7 @@ public class LoginController implements Initializable {
         String password = password_fld.getText();
         if (Objects.equals(username, "") || Objects.equals(password, "")) {
             System.out.println("[LOG] - " + "one field is empty");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            CustomAlert alert = new CustomAlert(AlertType.ERROR);
             alert.setContentText("One field is empty");
             alert.showAndWait();
         }
@@ -127,8 +129,8 @@ public class LoginController implements Initializable {
                 System.out.println("[LOG] - " + e.getMessage());
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Username or Password is empty!");
+            CustomAlert alert = new CustomAlert(AlertType.ERROR);
+            alert.setContentText("One field is empty");
             alert.showAndWait();
         }
     }
