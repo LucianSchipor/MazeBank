@@ -24,10 +24,11 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
     public Label username_lbl;
     public TextField password_fld;
-    public Button login_btn;
     public Label error_lbl;
     public TextField username_fld;
     public Button signup_btn;
+    public Button createAccount_btn;
+    public Button login_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,12 +36,20 @@ public class LoginController implements Initializable {
         signup_btn.setOnAction(this::onSignUp);
         username_fld.setOnKeyPressed(this::handleEnterKey);
         password_fld.setOnKeyPressed(this::handleEnterKey);
+        createAccount_btn.setOnAction(this::onCreateAccount);
     }
 
     private void handleEnterKey(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             onLogin(event);
         }
+    }
+
+
+    private void onCreateAccount(Event event) {
+        Stage stage = (Stage) error_lbl.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showRegisterFormWindow();
     }
 
     private void onSignUp(Event event) {

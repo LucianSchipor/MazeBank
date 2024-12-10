@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminMenuController implements Initializable {
-    public Button accounts_btn;
+    public Button forms_btn;
     public Button deposit_btn;
     public Button logout_btn;
     public Button create_btn;
@@ -25,11 +25,17 @@ public class AdminMenuController implements Initializable {
     private void addListeners(){
     create_btn.setOnAction(event -> onCreate());
     search_btn.setOnAction(event -> onSearch());
-    accounts_btn.setOnAction(event -> onClients());
+    forms_btn.setOnAction(event -> onForms());
     deposit_btn.setOnAction(event -> onDeposit());
     logout_btn.setOnAction(event -> onLogOut());
     }
 
+    public void onForms(){
+        System.out.println("[LOG] - redirecting to Forms panel");
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.FORMS);
+        deselectAll();
+        setStyleSelectedButton(forms_btn);
+    }
     private void setStyleSelectedButton(Button button){
         String selectButtonString = """
                 -fx-pref-width: 130;
@@ -54,7 +60,7 @@ public class AdminMenuController implements Initializable {
 
         create_btn.setStyle(deselectButtonString);
         search_btn.setStyle(deselectButtonString);
-        accounts_btn.setStyle(deselectButtonString);
+        forms_btn.setStyle(deselectButtonString);
         deposit_btn.setStyle(deselectButtonString);
     }
 
@@ -76,7 +82,7 @@ public class AdminMenuController implements Initializable {
     private void onClients(){
         System.out.println("[LOG] - redirecting to Clients panel");
         deselectAll();
-        setStyleSelectedButton(accounts_btn);
+        setStyleSelectedButton(forms_btn);
     }
 
     private void onDeposit(){

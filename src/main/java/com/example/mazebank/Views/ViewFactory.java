@@ -3,6 +3,7 @@ package com.example.mazebank.Views;
 import com.example.mazebank.Controllers.Admin.AdminController;
 import com.example.mazebank.Controllers.Admin.Search.BankAccounts.SearchResultController_BankAccounts;
 import com.example.mazebank.Controllers.FA_Controller;
+import com.example.mazebank.Controllers.RegisterFormController;
 import com.example.mazebank.Controllers.User.Menu.DashboardController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
@@ -36,6 +37,7 @@ public class ViewFactory {
     private AnchorPane searchView;
     private AnchorPane clientsView;
     private AnchorPane depositView;
+    private AnchorPane formsView;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private Scene previousWindow;
@@ -176,6 +178,16 @@ public class ViewFactory {
         createStage(loader);
     }
 
+    public void showRegisterFormWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/RegisterForm.fxml"));
+            createStage(loader);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+
     private void createStage(FXMLLoader loader) {
         Scene scene = null;
         try {
@@ -230,6 +242,17 @@ public class ViewFactory {
             }
         }
         return searchView;
+    }
+
+    public AnchorPane getFormsView() {
+        if (formsView == null) {
+            try {
+                formsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Forms/Forms.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return formsView;
     }
 
     public void closeStage(Stage stage) {

@@ -47,9 +47,7 @@ public class FA_Controller implements Initializable {
             imageView.setImage(getQRCode());
             code_lbl.setText(keyPair.getKey());
             Security.getInstance().startSecurityThread(keyPair.getKey());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (WriterException e) {
+        } catch (IOException | WriterException e) {
             throw new RuntimeException(e);
         }
     }
@@ -80,15 +78,6 @@ public class FA_Controller implements Initializable {
             Stage stage = (Stage)otp_fld.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
             Model.getInstance().getViewFactory().showPreviousWindow();
-            //Aici, vreau sa deschid pagina, in acealsi punct in care era
-
-
-
-
-
-            //            Stage stage = (Stage) imageView.getScene().getWindow();
-//            Model.getInstance().getViewFactory().closeStage(stage);
-//            Model.getInstance().getViewFactory().showClientWindow();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("OTP Code is invalid!");

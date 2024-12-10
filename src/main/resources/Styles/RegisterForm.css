@@ -1,0 +1,82 @@
+.login_container{
+-fx-background-color: #EEEEEE;
+}
+
+/*Logo Container Styles*/
+.login_logo_container {
+    -fx-background-color: #005B43;
+    -fx-alignment: center;
+}
+
+.login_logo_container Text{
+    -fx-font-size: 2em;
+    -fx-fill: #FFFFFF;
+}
+
+.login_logo_container FontAwesomeIconView{
+-fx-fill: #FFFFFF;
+}
+
+.login_form_container {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.input_field{
+    -fx-background-color: #e0e0e0;
+    -fx-pref-height: 35;
+    -fx-font-size: 1.2em;
+    -fx-text-alignment: center;
+}
+
+.login_form_container Label{
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+}
+.login_form_container Button{
+    -fx-background-color: #005B43;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 150;
+    -fx-pref-height: 30;
+    -fx-font-size: 1.2em;
+}
+
+.login_form_container Button:hover{
+    -fx-cursor: hand;
+}
+
+.login_form_container .error_lbl{
+-fx-text-fill: red;
+}
+
+.login_form_container .choice-box {
+    -fx-pref-width: 345px;
+    -fx-pref-height: 35px; /* Corectat la 35px pentru a respecta unitatea */
+    -fx-background-color: #e0e0e0;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+}
+
+.login_form_container .choice-box .context-menu {
+    -fx-background-color: #e0e0e0;
+    -fx-pref-width: 80px;
+}
+
+.login_form_container .choice-box .menu-item:focused {
+    -fx-background-color: #AAAAAA; /* Culoarea de fundal pentru elementul focusat */
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3); /* Efectul de umbră */
+    -fx-scale-x: 1.3; /* Mărirea pe axa X */
+    -fx-scale-y: 1.3; /* Mărirea pe axa Y */
+}
+
+/*.container .choice-box .menu-item > .label {*/
+/*    -fx-text-fill: white;*/
+/*}*/
+
+/*.container .choice-box .menu-item:focused > .label {*/
+/*    -fx-text-fill: black;*/
+/*}*/
+
+.login_form_container .choice-box .list-cell {
+    -fx-background-color: #e0e0e0;
+    -fx-pref-width: 80px;
+}

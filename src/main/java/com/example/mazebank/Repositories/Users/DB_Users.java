@@ -93,7 +93,6 @@ public class DB_Users {
 
     public static void Update2FAKey(User user, String key) {
         PreparedStatement psCheckUserExists;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -120,7 +119,6 @@ public class DB_Users {
 
     public static void UpdateFAVerificationTime(User user) {
         PreparedStatement psCheckUserExists;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();

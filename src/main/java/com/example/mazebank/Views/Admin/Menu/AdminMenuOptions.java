@@ -4,5 +4,6 @@ public enum AdminMenuOptions {
     CREATE,
     SEARCH,
     CLIENTS,
+    FORMS,
     DEPOSIT
 }

@@ -40,5 +40,6 @@
          </VBox.margin></Button>
       <Button fx:id="signup_btn" layoutX="308.0" layoutY="337.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="30.0" text="Sign in" />
       <Label fx:id="error_lbl" styleClass="error_lbl" />
+      <Button fx:id="createAccount_btn" layoutX="308.0" layoutY="356.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="30.0" text="Create Account" />
    </VBox>
 </AnchorPane>
