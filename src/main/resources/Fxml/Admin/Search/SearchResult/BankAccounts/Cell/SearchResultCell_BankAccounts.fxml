@@ -9,40 +9,45 @@
 
 <AnchorPane prefHeight="60.0" prefWidth="800.0" styleClass="bAcc_cell_container" stylesheets="@../../../../../../Styles/Admin/Search/SearchResult/BankAccounts/Cell/SearchResult_BankAccounts_Cell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Search.BankAccounts.Cell.SearchResultCellController_BankAccounts">
    <HBox layoutX="11.2" layoutY="8.0" prefHeight="42.0" prefWidth="779.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
-      <FontAwesomeIconView glyphName="MONEY" size="20">
+      <HBox HBox.hgrow="ALWAYS">
          <HBox.margin>
-            <Insets left="5.0" />
-         </HBox.margin></FontAwesomeIconView>
-      <HBox prefHeight="54.0" prefWidth="177.0" styleClass="separatorContainer">
-         <Label prefHeight="22.0" prefWidth="56.0" text="Number:" />
-         <Label fx:id="cardNumber_lbl" layoutX="10.0" layoutY="24.0" prefHeight="22.0" prefWidth="115.0" text="1234 1234 1234 1234" />
+            <Insets left="10.0"/>
+         </HBox.margin>
+         <FontAwesomeIconView glyphName="MONEY" size="20">
+            <HBox.margin>
+               <Insets left="5.0"/>
+            </HBox.margin>
+         </FontAwesomeIconView>
+         <HBox styleClass="separatorContainer">
+            <Label text="Number:"/>
+            <Label fx:id="cardNumber_lbl" layoutX="10.0" layoutY="24.0" text="1234 1234 1234 1234"/>
+         </HBox>
+         <HBox styleClass="separatorContainer">
+            <Label text="Expiry Date"/>
+            <Label fx:id="date_lbl" text="08/2024"/>
+         </HBox>
+         <HBox styleClass="separatorContainer">
+            <Label text="Balance"/>
+            <Label fx:id="balance_lbl" text="288"/>
+         </HBox>
+         <HBox styleClass="separatorContainer">
+            <Label fx:id="currency_lbl" text="RON"/>
+         </HBox>
       </HBox>
-      <HBox prefHeight="50.0" prefWidth="120.0" styleClass="separatorContainer">
-         <Label prefHeight="22.0" prefWidth="57.0" text="Expiry Date" />
-         <Label fx:id="date_lbl" prefHeight="22.0" prefWidth="42.0" text="08/2024" />
-      </HBox>
-      <HBox prefHeight="50.0" prefWidth="80.0" styleClass="separatorContainer">
-         <Label prefHeight="14.0" prefWidth="42.0" text="Balance" />
-         <Label fx:id="balance_lbl" text="288" />
-      </HBox>
-      <HBox layoutX="369.0" layoutY="10.0" prefHeight="54.0" prefWidth="38.0" styleClass="separatorContainer">
-         <children>
-            <Label fx:id="currency_lbl" prefHeight="14.0" prefWidth="39.0" text="RON" />
-         </children>
-      </HBox>
-      <HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="193.0" styleClass="button_container">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" styleClass="edit_btn" text="Edit">
-               <graphic>
-                  <FontAwesomeIconView glyphName="EDIT" />
-               </graphic>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" styleClass="delete_btn" text="Delete">
-               <graphic>
-                  <FontAwesomeIconView glyphName="TRASH" />
-               </graphic>
-            </Button>
-         </children>
+      <HBox layoutX="10.0" layoutY="10.0" styleClass="button_container" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets right="10.0"/>
+         </padding>
+         <Button mnemonicParsing="false" styleClass="edit_btn">
+            <graphic>
+               <FontAwesomeIconView glyphName="EDIT"/>
+            </graphic>
+         </Button>
+         <Button mnemonicParsing="false" styleClass="delete_btn">
+            <graphic>
+               <FontAwesomeIconView glyphName="TRASH"/>
+            </graphic>
+         </Button>
       </HBox>
    </HBox>
 </AnchorPane>

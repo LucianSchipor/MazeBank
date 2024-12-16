@@ -7,18 +7,14 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" stylesheets="@../../../../../Styles/Admin/Search/SearchResult/BankAccounts/SearchResult_BankAccounts.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
-   <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <children>
-         <HBox styleClass="title_container">
-            <children>
-               <Label fx:id="bacc_title_lbl" text="Label" />
-            </children>
-         </HBox>
-         <VBox VBox.vgrow="ALWAYS">
-            <children>
-                <ListView fx:id="bAcc_listView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="container" VBox.vgrow="ALWAYS" />
-            </children>
-         </VBox>
-      </children>
+   <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+         AnchorPane.topAnchor="0.0">
+      <HBox styleClass="title_container">
+         <Label fx:id="bacc_title_lbl" text="Label"/>
+      </HBox>
+      <VBox VBox.vgrow="ALWAYS">
+         <ListView fx:id="bAcc_listView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                   styleClass="container" VBox.vgrow="ALWAYS"/>
+      </VBox>
    </VBox>
 </AnchorPane>

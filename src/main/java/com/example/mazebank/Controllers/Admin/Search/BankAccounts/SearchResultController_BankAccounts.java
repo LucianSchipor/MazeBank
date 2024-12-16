@@ -14,8 +14,8 @@ import java.util.ResourceBundle;
 
 public class SearchResultController_BankAccounts implements Initializable {
 
-    public Label bacc_title_lbl = new Label("Bank Accounts");
     public ListView bAcc_listView = new ListView();
+    public Label bacc_title_lbl = new Label();
     private User user;
 
     public SearchResultController_BankAccounts(User user) {

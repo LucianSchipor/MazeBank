@@ -10,16 +10,18 @@
 
 .bAcc_cell_container HBox {
     -fx-alignment: center_left;
-    -fx-spacing: 30;
+    -fx-spacing: 20;
 }
 
 .bAcc_cell_container HBox Label {
     -fx-text-fill: #005B43;
     -fx-font-family: "Calibri Light";
-    -fx-font-size: 0.99em;
+    -fx-font-size: 1.3em;
 }
 
 .bAcc_cell_container .button_container {
+    -fx-alignment: center_right;
+    -fx-spacing: 5;
 }
 
 .bAcc_cell_container .separatorContainer {
@@ -37,13 +39,20 @@
 }
 
 .delete_btn {
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #FF0000;
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
+}
+.delete_btn FontAwesomeIconView{
+    -fx-fill: FF0000;
 }
 
 .edit_btn{
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #228B22;
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
+}
+
+.edit_btn FontAwesomeIconView{
+    -fx-fill: #5787DB;
 }
 
 .delete_btn:hover{

@@ -7,39 +7,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane fx:id="anchor_pane" prefHeight="50.0" prefWidth="750.0" styleClass="user_cell_container" stylesheets="@../../../../Styles/Admin/Search/SearchResult/SearchResultCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Search.Cell.SearchResultCellController">
-   <HBox styleClass="main_HBox" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
-         AnchorPane.topAnchor="5.0">
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-         <HBox prefHeight="40.0" prefWidth="50.0" HBox.hgrow="ALWAYS">
-            <Label fx:id="id" prefHeight="22.0" prefWidth="74.0" text="Id:  11">
-               <graphic>
-                  <FontAwesomeIconView glyphName="USER" size="20"/>
-               </graphic>
+<AnchorPane fx:id="anchor_pane" styleClass="user_cell_container" stylesheets="@../../../../Styles/Admin/Search/SearchResult/SearchResultCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Search.Cell.SearchResultCellController">
+   <HBox styleClass="main_HBox" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0">
+      <HBox HBox.hgrow="ALWAYS">
+         <HBox>
+            <FontAwesomeIconView glyphName="USER" size="20" />
+            <Label fx:id="id" text="Id:  11">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </Label>
             <HBox.margin>
-               <Insets left="5.0"/>
+               <Insets left="5.0" />
             </HBox.margin>
          </HBox>
-         <HBox prefHeight="40.0" prefWidth="102.0" HBox.hgrow="ALWAYS">
-            <Label fx:id="username_lbl" prefHeight="22.0" prefWidth="300.0" text="\@johnDoe1"/>
+         <HBox>
+            <Label fx:id="username_lbl" text="\@johnDoe1" />
          </HBox>
       </HBox>
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="button_container"
-            HBox.hgrow="ALWAYS">
+      <HBox styleClass="button_container" HBox.hgrow="ALWAYS">
          <Button fx:id="bankAcc_btn" mnemonicParsing="false" styleClass="bank_accounts_btn">
             <graphic>
-               <FontAwesomeIconView glyphName="MONEY" text=""/>
+               <FontAwesomeIconView glyphName="MONEY" text="" />
             </graphic>
          </Button>
-         <Button fx:id="delete_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                 mnemonicParsing="false" styleClass="delete_btn">
+         <Button fx:id="delete_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="delete_btn">
             <graphic>
-               <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="20"/>
+               <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="20" />
             </graphic>
          </Button>
          <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
          </HBox.margin>
       </HBox>
    </HBox>

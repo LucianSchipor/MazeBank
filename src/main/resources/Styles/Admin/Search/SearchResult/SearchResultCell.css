@@ -9,7 +9,7 @@
 }
 
 .user_cell_container HBox {
-    -fx-spacing: 130;
+    -fx-spacing: 30;
     -fx-alignment: Center_left;
 }
 
