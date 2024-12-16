@@ -4,12 +4,21 @@
 }
 
 .container .list-view:focused {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
     -fx-background-color: #EEEEEE;
 }
 
 .container .list-cell {
     -fx-background-color: #EEEEEE;
     -fx-pref-width: 450;
+}
+
+.title_container {
+    -fx-font-size: 2.0em;
+    -fx-font-family: "Calibri Light";
+    -fx-alignment: center;
+
 }
 
 .container .list-cell:focused {
