@@ -4,11 +4,6 @@
     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 7);
 }
 
-.user_cell_container:focused {
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 8, 0, 0, 10); /* Umbră mai accentuată */
-
-}
-
 .user_cell_container FontAwesomeIconView {
     -fx-fill: #000000;
 }
@@ -24,8 +19,14 @@
     -fx-font-size: 1.5em;
 }
 
-.user_cell_container .button_container {
+.main_HBox .button_container {
     -fx-spacing: 10;
+    -fx-alignment: center_right;
+}
+
+.main_HBox {
+    -fx-spacing: 10;
+    -fx-hgrow: always;
 }
 
 .acc_display_lbl {
@@ -34,15 +35,24 @@
     -fx-font-size: 1.1em;
 }
 
-.bank_accounts_btn {
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+.button_container .bank_accounts_btn {
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
 }
 
-.delete_btn {
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #FF0000;
+.button_container .bank_accounts_btn FontAwesomeIconView {
+    -fx-fill: #005B43;
 }
+
+.button_container .delete_btn {
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
+}
+
+.delete_btn FontAwesomeIconView {
+    -fx-fill: #FF0000;
+}
+
 
 .delete_btn:hover{
     -fx-cursor: hand;

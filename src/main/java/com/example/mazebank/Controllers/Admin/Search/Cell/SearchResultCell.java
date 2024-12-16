@@ -22,6 +22,9 @@ public class SearchResultCell extends ListCell<User> {
                     SearchResultCellController controller = loader.getController();
                     controller.setUserDetails(user);
                     setGraphic(hbox);
+                    if(isSelected()){
+                        controller.selectCell();
+                    }
                 } catch (IOException e) {
                     System.out.println("[LOG] - Error on creating Cells for Search Result - " + e.getMessage());
                 }

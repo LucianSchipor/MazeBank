@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
-            prefWidth="850.0" styleClass="container" stylesheets="@../../../Styles/Admin/Search/Search.css"
-            xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.mazebank.Controllers.Admin.Forms.FormsController">
-   <Text layoutX="387.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forms"/>
-   <ListView fx:id="forms_listView" layoutX="27.0" layoutY="46.0" prefHeight="673.0" prefWidth="800.0"/>
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="container" stylesheets="@../../../Styles/Admin/Forms/Forms.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Forms.FormsController">
+   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title_container">
+         <Label text="Forms">
+            <graphic>
+               <FontAwesomeIconView glyphName="WPFORMS" size="20" />
+            </graphic></Label>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <ListView fx:id="forms_listView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+         </ListView>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </VBox>
+   </VBox>
 </AnchorPane>

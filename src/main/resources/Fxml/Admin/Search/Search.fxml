@@ -1,24 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="850.0" styleClass="container" stylesheets="@../../../Styles/Admin/Search/Search.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Search.SearchController">
-   <Text layoutX="407.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" textAlignment="CENTER" />
-   <VBox layoutX="266.0" layoutY="44.0" prefHeight="282.0" prefWidth="362.0" styleClass="searchbox_container">
-      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username (used for Tests)" />
-      <TextField fx:id="username_fld" layoutX="10.0" layoutY="28.0" prefHeight="50.0" prefWidth="670.0" promptText="Enter username" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-      <TextField />
-      <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
-      <TextField layoutX="10.0" layoutY="26.0" />
-      <Text layoutX="10.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" />
-      <TextField layoutX="10.0" layoutY="69.0" prefHeight="57.0" prefWidth="670.0" />
-      <Button fx:id="search_btn" prefHeight="35.0" prefWidth="163.0" text="Search" />
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="container" stylesheets="@../../../Styles/Admin/Search/Search.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Search.SearchController">
+   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="main_VBox" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <children>
+         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title_container">
+            <children>
+               <Label text="Search">
+                  <graphic>
+                     <FontAwesomeIconView glyphName="SEARCH" size="20" />
+                  </graphic>
+               </Label>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username (used for Tests)" />
+                  <TextField fx:id="username_fld" prefHeight="50.0" prefWidth="670.0" promptText="Enter username" />
+               </children>
+            </VBox>
+            <VBox layoutX="20.0" layoutY="30.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+                  <TextField promptText="Enter First Name" />
+               </children>
+            </VBox>
+            <VBox layoutX="20.0" layoutY="593.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
+                  <TextField promptText="Enter Last Name" />
+               </children>
+            </VBox>
+            <VBox layoutX="20.0" layoutY="804.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" />
+                  <TextField prefHeight="57.0" prefWidth="670.0" promptText="Enter E-Mail" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="btn_container">
+               <children>
+                  <Button fx:id="search_btn" prefHeight="35.0" prefWidth="163.0" text="Search">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox.margin>
+               <Insets left="200.0" right="200.0" />
+            </VBox.margin>
+         </VBox>
+         <ListView fx:id="searchResult_listview" />
+      </children>
    </VBox>
-   <ListView fx:id="searchResult_listview" layoutX="27.0" layoutY="396.0" prefHeight="323.0" prefWidth="800.0" />
 </AnchorPane>

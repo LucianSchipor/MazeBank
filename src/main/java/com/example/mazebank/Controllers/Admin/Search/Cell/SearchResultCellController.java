@@ -20,6 +20,7 @@ public class SearchResultCellController implements Initializable {
     public Label id;
     public Button delete_btn;
     public Button bankAcc_btn;
+    public AnchorPane anchor_pane;
     private User user;
 
     public SearchResultCellController(){
@@ -45,4 +46,7 @@ public class SearchResultCellController implements Initializable {
         this.username_lbl.setText(user.getUsername());
     }
 
+    public void selectCell(){
+        anchor_pane.setStyle("-fx-background-color:  #AAAAAA" + ";");
+    }
 }

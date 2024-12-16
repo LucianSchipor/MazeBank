@@ -2,6 +2,7 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 7);
+    -fx-padding: 5 5 5 5;
 }
 
 .user_cell_container FontAwesomeIconView {
@@ -9,7 +10,7 @@
 }
 
 .user_cell_container HBox {
-    -fx-spacing: 110;
+    -fx-spacing: 20;
     -fx-alignment: Center_left;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .user_cell_container .button_container {
-    -fx-spacing: 10;
+    -fx-spacing: 2;
 }
 
 .acc_display_lbl {
@@ -33,16 +34,39 @@
     -fx-background-color: linear-gradient(to right, #005B43, #228B22);
 }
 
-.view_form_btn{
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: linear-gradient(to right, #5787db, #84adf8);
+.accept_form_btn {
+    -fx-font-size: 20;
+    -fx-background-color: transparent;
+}
+
+.accept_form_btn FontAwesomeIconView {
+    -fx-fill: #228B22;
+}
+
+.button_HBox {
+
+    -fx-alignment: center_right;
+}
+
+
+.view_form_btn {
+    -fx-font-size: 20;
+    -fx-background-color: transparent;
+}
+
+.view_form_btn FontAwesomeIconView {
+    -fx-text-fill: #5787DB;
 }
 
 .delete_btn {
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #FF0000;
+    -fx-font-size: 20;
+    -fx-background-color: transparent;
 }
 
-.delete_btn:hover{
+.delete_btn FontAwesomeIconView {
+    -fx-fill: #FF0000;
+}
+
+.delete_btn:hover {
     -fx-cursor: hand;
 }

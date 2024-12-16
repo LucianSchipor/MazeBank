@@ -6,6 +6,7 @@ import com.example.mazebank.Core.Forms.Form;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Transactions.Transaction;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -26,11 +27,12 @@ import java.util.ResourceBundle;
 
 public class FormsResultCell_Controller implements Initializable {
     public Label id;
+    public AnchorPane anchorPane;
     public Button viewForm_btn;
     public Button reject_btn;
     public Button accept_btn;
     public Label status_lbl;
-    private Form form;
+    public Form form;
 
     public FormsResultCell_Controller(Form form){
         this.form = form;
@@ -39,6 +41,11 @@ public class FormsResultCell_Controller implements Initializable {
     public FormsResultCell_Controller(){
 
     }
+
+    public void selectCell(){
+        anchorPane.setStyle("-fx-background-color:  #AAAAAA" + ";");
+    }
+
 
     public void setform(Form form){
         this.form = form;

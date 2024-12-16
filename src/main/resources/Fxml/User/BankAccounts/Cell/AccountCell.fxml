@@ -12,9 +12,9 @@
       <String fx:value="account" />
       <String fx:value="account_gradient" />
    </styleClass>
-   <Label fx:id="balance" alignment="CENTER" layoutX="630.0" layoutY="12.0" prefHeight="42.0" prefWidth="146.0" styleClass="account_balance" text="100.000" textFill="WHITE" AnchorPane.leftAnchor="630.0" AnchorPane.topAnchor="12.0" />
+   <Label fx:id="balance" alignment="CENTER" layoutX="630.0" layoutY="12.0" prefHeight="42.0" prefWidth="146.0" styleClass="account_balance" text="100.000" textFill="WHITE" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="12.0" />
    <Text layoutX="16.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal " AnchorPane.bottomAnchor="157.5" AnchorPane.leftAnchor="16.0" />
-   <Label fx:id="currency_lbl" layoutX="684.0" layoutY="52.0" styleClass="account_balance" text="RON" textFill="WHITE" />
+   <Label fx:id="currency_lbl" layoutX="662.0" layoutY="52.0" styleClass="account_balance" text="RON" textFill="WHITE" AnchorPane.bottomAnchor="106.4" AnchorPane.rightAnchor="35.200000000000045" />
    <Label layoutX="12.0" layoutY="73.0" text="Card number" textFill="WHITE">
       <font>
          <Font size="13.0" />
@@ -45,5 +45,5 @@
          <Font name="System Bold" size="16.0" />
       </font>
    </Label>
-   <FontAwesomeIconView glyphName="CC_VISA" layoutX="675.0" layoutY="166.0" selectionFill="#ffffff08" selectionStart="0" size="60" stroke="#ffffff08" textAlignment="CENTER" wrappingWidth="85.1427993774414" />
+   <FontAwesomeIconView glyphName="CC_VISA" layoutX="654.0" layoutY="166.0" selectionFill="#ffffff08" selectionStart="0" size="60" stroke="#ffffff08" textAlignment="CENTER" wrappingWidth="85.1427993774414" AnchorPane.rightAnchor="25.0" />
 </AnchorPane>

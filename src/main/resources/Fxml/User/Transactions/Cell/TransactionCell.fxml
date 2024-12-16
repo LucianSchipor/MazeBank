@@ -1,22 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="60.0" prefWidth="550.0" styleClass="cell_container" stylesheets="@../../../../Styles/User/Transactions/TransactionCell.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Transactions.Cell.TransactionCellController">
-   <VBox prefHeight="50.0" prefWidth="50.0" styleClass="trans_icon_container" AnchorPane.bottomAnchor="4.600000000000004" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="5.0">
-      <FontAwesomeIconView fx:id="out_icon" fill="#e40000" glyphName="LONG_ARROW_LEFT" size="30" />
-   </VBox>
-   <Label fx:id="trans_date_lbl" layoutX="57.0" layoutY="22.0" styleClass="trans_date_lbl" text="04/03/2024" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="22.4" />
-   <Label fx:id="sender_lbl" layoutX="190.0" layoutY="22.0" styleClass="trans_pAdress_lbl" text="John Doe" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="22.0" />
-   <Line endY="20.0" layoutX="300.0" layoutY="26.0" startY="-10.200000762939453" AnchorPane.leftAnchor="300.0" />
-   <Label fx:id="reciever_lbl" layoutX="364.0" layoutY="22.0" styleClass="trans_pAdress_lbl" text="Jane Doe" AnchorPane.leftAnchor="358.0" AnchorPane.topAnchor="22.0" />
-   <Label fx:id="amount_lbl" layoutX="438.0" layoutY="12.0" prefHeight="37.0" prefWidth="104.0" styleClass="trans_amount_lbl" text="3,000.00" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="12.0">
-      <graphic>
-         <Label fx:id="currency_lbl" styleClass="trans_amount_lbl" text="RON" />
-      </graphic>
-   </Label>
+<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="cell_container" stylesheets="@../../../../Styles/User/Transactions/TransactionCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Transactions.Cell.TransactionCellController">
+   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="HBox_Container">
+      <VBox styleClass="trans_icon_container">
+         <FontAwesomeIconView fx:id="out_icon" fill="#e40000" glyphName="LONG_ARROW_LEFT" size="30">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+         </FontAwesomeIconView>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </VBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <Label fx:id="trans_date_lbl" styleClass="trans_date_lbl" text="04/03/2024" />
+      </HBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <Label fx:id="fromBAccNumber_lbl" text="RO01MAZE0000070012345678">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font></Label>
+      </HBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <Label fx:id="sender_lbl" styleClass="trans_pAdress_lbl" text="John Doe">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+      </HBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <Label fx:id="amount_lbl" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="trans_amount_lbl" text="3,000.00">
+            <graphic>
+               <Label fx:id="currency_lbl" styleClass="trans_amount_lbl" text="RON" />
+            </graphic>
+            <HBox.margin>
+               <Insets right="5.0" />
+            </HBox.margin>
+         </Label>
+      </HBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="btn_container">
+         <HBox.margin>
+            <Insets right="10.0" />
+         </HBox.margin>
+         <Button fx:id="viewTransactionDetails_btn" mnemonicParsing="false" styleClass="viewDetails_btn" textFill="FORESTGREEN">
+            <graphic>
+               <FontAwesomeIconView glyphName="EDIT" selectionFill="FORESTGREEN" />
+            </graphic>
+         </Button>
+         <Button fx:id="deleteTransaction_btn" layoutX="84.0" layoutY="48.0" mnemonicParsing="false" styleClass="delete_btn">
+            <graphic>
+               <FontAwesomeIconView glyphName="CLOSE" selectionFill="#a60707" />
+            </graphic>
+         </Button>
+      </HBox>
+   </HBox>
 </AnchorPane>

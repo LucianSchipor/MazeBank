@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
     public Label income_lbl = new Label();
     public Label expense_lbl = new Label();
+    public Label selectedAccount_lbl = new Label();
     public ListView<Transaction> transaction_listview = new ListView<>();
     public ListView<BankAccount> account_listview = new ListView<>();
     public Label login_date = new Label();
@@ -73,6 +74,7 @@ public class DashboardController implements Initializable {
         expense_lbl.setText(outcome + " " + account.getCurrency());
         hello_lbl.setText("Welcome back, " + username + "!");
         balance.setText(Double.toString(balanceReg));
+        selectedAccount_lbl.setText("Account: " + UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber() + " transactions");
         currency_lbl.setText(account.getCurrency());
     }
 
@@ -154,6 +156,7 @@ public class DashboardController implements Initializable {
                 // update for HBox for non-empty cells based on selection
                 if (selected) {
                     UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(item);
+                    selectedAccount_lbl.setText("Account: " + item.getAccountNumber() + " transactions");
                     updatePage();
                 }
             }

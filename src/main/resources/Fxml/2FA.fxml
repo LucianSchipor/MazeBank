@@ -7,14 +7,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1030.0" stylesheets="@../Styles/2FA.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.FA_Controller">
-    <VBox layoutY="1.0" prefHeight="750.0" prefWidth="1030.0" styleClass="searchbox_container">
-        <Label text="Two-Factor Authentication" />
-        <Label layoutX="10.0" layoutY="10.0" text="Scan the below QR Code with Google Authenticator or any other applications" />
-      <ImageView fx:id="imageView" fitHeight="363.0" fitWidth="434.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="code_lbl" layoutX="329.0" layoutY="92.0" text="RAZ5OKOS63PBEB2U5PCLVWLBZKDW423N" textFill="FORESTGREEN" />
-      <Label layoutX="132.0" layoutY="58.0" text="Enter OTP Code from Google Authenticator" />
-        <TextField fx:id="otp_fld" prefHeight="26.0" prefWidth="401.0" />
-        <Button fx:id="verify_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Verify" />
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1030.0" stylesheets="@../Styles/2FA.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.FA_Controller">
+    <VBox layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container">
+         <children>
+              <Label text="Two-Factor Authentication" />
+              <Label text="Scan the below QR Code with Google Authenticator or any other applications" />
+         </children>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="450.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container">
+         <children>
+            <Label fx:id="code_lbl" text="RAZ5OKOS63PBEB2U5PCLVWLBZKDW423N" textFill="FORESTGREEN" />
+            <Label text="Enter OTP Code from Google Authenticator" />
+              <TextField fx:id="otp_fld" prefHeight="26.0" prefWidth="401.0" />
+         </children>
+      </VBox>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container">
+         <children>
+              <Button fx:id="verify_btn" mnemonicParsing="false" prefHeight="35.0" prefWidth="83.0" text="Verify" />
+         </children>
+      </VBox>
     </VBox>
 </AnchorPane>

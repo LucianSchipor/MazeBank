@@ -10,6 +10,10 @@
     -fx-font-size: 1.3em;
 }
 
+.searchbox_container Image {
+    -fx-alignment: center;
+}
+
 .searchbox_container TextField{
     -fx-pref-height: 40;
     -fx-background-color: #e0e0e0;

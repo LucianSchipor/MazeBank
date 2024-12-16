@@ -33,5 +33,6 @@ public class FormsController implements Initializable {
         ObservableList<Form> forms_observable = FXCollections.observableArrayList(DB_Forms.GetForms());
         forms_listView.setItems(forms_observable);
         forms_listView.setCellFactory(param -> new FormsResultListCell_Controller());
+        //TODO -> setat style cand selectez formular
     }
 }

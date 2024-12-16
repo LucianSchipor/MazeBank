@@ -2,18 +2,34 @@
     -fx-background-color: #EEEEEE;
 }
 
+.title_container {
+    -fx-alignment: center;
+}
+
+.title_container Label {
+    -fx-alignment: center;
+    -fx-font-size: 2.5em;
+    -fx-font-family: "Calibri Light";
+}
+
+
 .container Text {
     -fx-font-family: "Calibri Light";
     -fx-font-size: 1.5em;
     -fx-fill: #555555;
 }
 
-.container VBox {
+.container .main_VBox {
     -fx-border-width: 0 0 0 1;
     -fx-border-color: #000000;
     -fx-padding: 10;
     -fx-spacing: 15;
 }
+
+.tab_VBox{
+-fx-spacing: 5;
+}
+
 
 .container TextField {
     -fx-pref-width: 50px;
@@ -62,8 +78,16 @@
     -fx-text-fill: #FFFFFF;
 }
 
+.container .users_container {
+}
+
+
+.container .users_container {
+    -fx-alignment: center;
+}
+
 .container .users_container .tab {
-    -fx-pref-width: 350px;
+    -fx-pref-width: 30em;
     -fx-background-color: #e0e0e0;
     -fx-text-fill: #333333;
     -fx-padding: 8px;

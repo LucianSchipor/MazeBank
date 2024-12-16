@@ -137,8 +137,8 @@ public class ViewFactory {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
-        stage.setResizable(false);
-        stage.setTitle(user.getUsername());
+        stage.setResizable(true);
+        stage.setTitle(user.getUsername() + "'s Bank Accounts");
         stage.show();
     }
 
@@ -228,7 +228,7 @@ public class ViewFactory {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setTitle("Maze Bank");
         stage.show();
     }

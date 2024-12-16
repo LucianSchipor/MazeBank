@@ -1,6 +1,5 @@
 .container{
     -fx-background-color: #EEEEEE;
-    -fx-alignment: center;
 }
 
 .title_container {
@@ -19,7 +18,7 @@
     -fx-font-family: "Calibri Light";
 }
 
-.container .list-view {
+.container .searchbox_container .list-view {
     -fx-background-color: #EEEEEE;
 }
 
@@ -27,19 +26,19 @@
     -fx-background-color: #EEEEEE;
 }
 
-.main_VBox VBox{
-    -fx-alignment: center;
+.container .list-cell:focused {
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-background-radius: 5;
 }
 
 .searchbox_container{
     -fx-background-color: #EEEEEE;
-    -fx-padding: 10 10 10 10;
-    -fx-spacing: 10;
+    -fx-padding: 0 0 0 0;
+    -fx-spacing: 5;
 }
 
-.searchbox_container VBox{
-    -fx-alignment: center_left;
-}
 .searchbox_container Text{
     -fx-font-family: "Calibri Light";
     -fx-font-size: 1.3em;
@@ -49,19 +48,6 @@
     -fx-pref-height: 40;
     -fx-background-color: #e0e0e0;
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
-}
-.searchbox_container .btn_container {
-    -fx-alignment: center;
-}
-
-.searchbox_container Button{
-    -fx-alignment: center;
-    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
-    -fx-pref-width: 200;
-    -fx-font-size: 1.5em;
-    -fx-font-family: "Calibri Light";
-    -fx-text-fill: #FFFFFF;
 }
 
 .searchbox_container Button:hover{

@@ -1,6 +1,10 @@
 package com.example.mazebank.Core.Transactions;
 
+import com.example.mazebank.Core.BankAccounts.BankAccount;
+
 public class Transaction {
+    private BankAccount sender_BankAccount;
+    private BankAccount reciever_BankAccount;
     private final int transaction_id;
     private final String sender;
     private final String receiver;
@@ -57,5 +61,21 @@ public class Transaction {
 
     public String getMessage() {
         return message;
+    }
+
+    public BankAccount getSender_BankAccount() {
+        return sender_BankAccount;
+    }
+
+    public void setSender_BankAccount(BankAccount sender_BankAccount) {
+        this.sender_BankAccount = sender_BankAccount;
+    }
+
+    public BankAccount getReciever_BankAccount() {
+        return reciever_BankAccount;
+    }
+
+    public void setReciever_BankAccount(BankAccount reciever_BankAccount) {
+        this.reciever_BankAccount = reciever_BankAccount;
     }
 }

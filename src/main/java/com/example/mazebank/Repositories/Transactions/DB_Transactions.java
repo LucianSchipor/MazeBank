@@ -165,6 +165,8 @@ public class DB_Transactions {
                 String to_username = resultSet.getString("to_username");
                 String currency = resultSet.getString("currency");
                 String message = "";
+                BankAccount sender_BAcc = DB_BankAccounts.GetBankAccountByAccountId(sender);
+                BankAccount receiver_BAcc = DB_BankAccounts.GetBankAccountByAccountId(receiver);
                 try {
                     message = resultSet.getString("message");
                 } catch (Exception e) {
@@ -172,7 +174,10 @@ public class DB_Transactions {
                 }
                 var transaction = new Transaction(transaction_id, sender, receiver, amount, from_username, to_username, message);
                 transaction.setCurrency(currency);
+                transaction.setReciever_BankAccount(receiver_BAcc);
+                transaction.setSender_BankAccount(sender_BAcc);
                 transactions.add(transaction);
+
             }
             psCheckUserExists = connection.prepareStatement("""
                     SELECT
@@ -206,6 +211,8 @@ public class DB_Transactions {
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
                 String currency = resultSet.getString("currency");
+                BankAccount sender_BAcc = DB_BankAccounts.GetBankAccountByAccountId(sender);
+                BankAccount receiver_BAcc = DB_BankAccounts.GetBankAccountByAccountId(receiver);
                 String message = "";
                 try {
                     message = resultSet.getString("message");
@@ -214,7 +221,10 @@ public class DB_Transactions {
                 }
                 var transaction = new Transaction(transaction_id, sender, receiver, amount, from_username, to_username, message);
                 transaction.setCurrency(currency);
+                transaction.setReciever_BankAccount(receiver_BAcc);
+                transaction.setSender_BankAccount(sender_BAcc);
                 transactions.add(transaction);
+
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

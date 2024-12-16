@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -9,35 +12,58 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="850.0" styleClass="container" stylesheets="@../../../Styles/Admin/Create/Create.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Create.CreateController">
-   <TabPane layoutX="51.2" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="users_container" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50.0">
-      <Tab text="Users">
-         <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <VBox prefHeight="453.0" prefWidth="310.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username (used for tests)" />
-               <TextField fx:id="users_username_fld" layoutX="21.0" layoutY="54.0" prefWidth="586.0" promptText="Enter username for new user" />
-               <Text layoutX="21.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-               <TextField fx:id="users_fName_fld" prefWidth="586.0" />
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
-               <TextField fx:id="users_lName_fld" layoutX="10.0" layoutY="28.0" />
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" />
-               <TextField fx:id="users_Email_fld" layoutX="10.0" layoutY="80.0" promptText="\@outlook.com" />
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
-               <TextField fx:id="users_phoneNumber_fld" layoutX="10.0" layoutY="133.0" />
-               <Button fx:id="users_create_btn" mnemonicParsing="false" prefHeight="14.0" text="Create User" />
-            </VBox>
-         </AnchorPane>
-      </Tab>
-      <Tab text="Bank Accounts">
-         <AnchorPane prefHeight="200.0" prefWidth="200.0">
-            <VBox prefHeight="471.0" prefWidth="310.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User" />
-               <TextField fx:id="bAcc_username_fld" prefWidth="586.0" promptText="Enter User's Id " />
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Currency" />
-               <ChoiceBox fx:id="choicebox" prefWidth="150.0" />
-               <Button fx:id="bAcc_create_btn" mnemonicParsing="false" prefHeight="28.0" text="Create Bank Account" />
-            </VBox>
-         </AnchorPane>
-      </Tab>
-   </TabPane>
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="container" stylesheets="@../../../Styles/Admin/Create/Create.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Create.CreateController">
+   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <children>
+         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title_container">
+            <children>
+               <Label text="Create">
+                  <graphic>
+                     <FontAwesomeIconView glyphName="PLUS" size="20" />
+                  </graphic>
+               </Label>
+            </children>
+         </VBox>
+         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="main_VBox">
+            <children>
+               <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="users_container" tabClosingPolicy="UNAVAILABLE">
+                  <Tab text="Users">
+                     <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tab_VBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username (used for tests)" />
+                           <TextField fx:id="users_username_fld" layoutX="21.0" layoutY="54.0" prefWidth="586.0" promptText="Enter username for new user" />
+                           <Text layoutX="21.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+                           <TextField fx:id="users_fName_fld" prefWidth="586.0" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
+                           <TextField fx:id="users_lName_fld" layoutX="10.0" layoutY="28.0" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail" />
+                           <TextField fx:id="users_Email_fld" layoutX="10.0" layoutY="80.0" promptText="\@outlook.com" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
+                           <TextField fx:id="users_phoneNumber_fld" layoutX="10.0" layoutY="133.0" />
+                           <Button fx:id="users_create_btn" mnemonicParsing="false" prefHeight="14.0" text="Create User" />
+                        </VBox>
+                     </AnchorPane>
+                  </Tab>
+                  <Tab text="Bank Accounts">
+                     <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tab_VBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User" />
+                           <TextField fx:id="bAcc_username_fld" prefWidth="586.0" promptText="Enter User's Id " />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Currency" />
+                           <ChoiceBox fx:id="choicebox" prefWidth="150.0" />
+                           <Button fx:id="bAcc_create_btn" mnemonicParsing="false" prefHeight="28.0" text="Create Bank Account" />
+                        </VBox>
+                     </AnchorPane>
+                  </Tab>
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+               </TabPane>
+            </children>
+            <VBox.margin>
+               <Insets left="200.0" right="200.0" />
+            </VBox.margin>
+         </VBox>
+      </children>
+   </VBox>
 </AnchorPane>

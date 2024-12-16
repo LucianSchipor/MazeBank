@@ -30,10 +30,12 @@ public class DB_BankAccounts {
                 String currency = resultSet.getString("account_currency");
                 String CVV = resultSet.getString("cvv");
                 Date date = resultSet.getDate("expire_date");
+                String IBAN = resultSet.getString("IBAN");
 
                 var newBankAccount = new BankAccount(account_id, balance, currency, date, CVV);
                 newBankAccount.setAccount_id(resultSet.getString("account_id"));
                 newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
+                newBankAccount.setIBAN(IBAN);
                 accounts.put(account_id, newBankAccount);
             }
         } catch (Exception exception) {
@@ -49,6 +51,45 @@ public class DB_BankAccounts {
             }
         }
         return accounts;
+    }
+
+    public static BankAccount GetBankAccountByAccountId(String account_id) {
+        PreparedStatement psCheckUserExists;
+        ResultSet resultSet;
+        BankAccount foundBankAccount = null;
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
+            psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");
+
+            psCheckUserExists.setString(1, account_id);
+            resultSet = psCheckUserExists.executeQuery();
+            while (resultSet.next()) {
+                String bankAccount_id = resultSet.getString("account_id");
+                double balance = resultSet.getDouble("account_balance");
+                String currency = resultSet.getString("account_currency");
+                String CVV = resultSet.getString("cvv");
+                Date date = resultSet.getDate("expire_date");
+                String IBAN = resultSet.getString("IBAN");
+
+                foundBankAccount = new BankAccount(bankAccount_id, balance, currency, date, CVV);
+                foundBankAccount.setAccount_id(resultSet.getString("account_id"));
+//                foundBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
+                foundBankAccount.setIBAN(IBAN);
+            }
+        } catch (Exception exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(exception.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing connection");
+                }
+            }
+        }
+        return foundBankAccount;
     }
 
     // Used for set the local Checking Account with updated from database Checking Account.

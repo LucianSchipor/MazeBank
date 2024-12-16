@@ -2,13 +2,13 @@
     -fx-background-color: #EEEEEE;
 }
 
+
 .user_name{
     -fx-font-size: 2.6em;
     -fx-font-family: "Calibri Light";
 }
 
 .dashboard_button{
-
     -fx-border-style: solid;
     -fx-border-width: 0.1px;
     -fx-border-radius: 10px;
@@ -109,16 +109,27 @@
     -fx-font-family: "Calibri Light";
     -fx-font-size: 1.5em;
 }
+.transactions_VBox{
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
 
 
-
-.transaction_listview {
+.transactions_VBox .transaction_listview {
     -fx-background-color: #EEEEEE;
     -fx-border-width: 0 0 0 0;
     -fx-border-color: #AAAAAA;
 }
 
-.transaction_listview .scroll-bar:vertical {
+.transactions_VBox .transaction_listview .list-cell:focused {
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+}
+
+.transactions_VBox .transaction_listview .scroll-bar:vertical {
     -fx-scale-x: 0;
 }
 
@@ -126,6 +137,7 @@
     -fx-background-color: #EEEEEE;
     -fx-padding: 15 0 15 0;
 }
+
 
 .new_trans_container{
     -fx-background-color: #EEEEEE;
@@ -137,6 +149,7 @@
 .new_trans_container Label{
     -fx-font-family: "Calibri Light";
     -fx-font-size: 1.3em;
+    -fx-font-weight: 700;
 }
 
 .new_trans_container TextField{
