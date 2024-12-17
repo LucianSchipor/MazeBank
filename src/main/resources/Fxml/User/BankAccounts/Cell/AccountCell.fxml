@@ -14,7 +14,7 @@
       <String fx:value="account" />
       <String fx:value="account_gradient" />
    </styleClass>
-   <HBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+   <HBox styleClass="main_HBox" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
       <children>
          <VBox styleClass="second_VBox" HBox.hgrow="ALWAYS">
             <children>
@@ -37,7 +37,7 @@
                      </Label>
                      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="security_Details_BankAccount_container" VBox.vgrow="ALWAYS">
                         <children>
-                           <VBox prefHeight="200.0" prefWidth="100.0" styleClass="security_Details_BankAccount_container" HBox.hgrow="ALWAYS">
+                           <VBox prefHeight="200.0" prefWidth="100.0" styleClass="security_Details_BankAccount_container">
                               <children>
                                  <Label text="Expiry Date" textFill="WHITE">
                                     <font>
@@ -51,7 +51,7 @@
                                  </Label>
                               </children>
                            </VBox>
-                           <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="security_Details_BankAccount_container" HBox.hgrow="ALWAYS">
+                           <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="security_Details_BankAccount_container">
                               <children>
                                  <Label text="CVV" textFill="WHITE">
                                     <font>

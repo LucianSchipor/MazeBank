@@ -28,7 +28,7 @@
       <HBox styleClass="button_container" HBox.hgrow="ALWAYS">
          <Button fx:id="bankAcc_btn" mnemonicParsing="false" styleClass="bank_accounts_btn">
             <graphic>
-               <FontAwesomeIconView glyphName="MONEY" text="" />
+               <FontAwesomeIconView glyphName="EYE" />
             </graphic>
          </Button>
          <Button fx:id="delete_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="delete_btn">

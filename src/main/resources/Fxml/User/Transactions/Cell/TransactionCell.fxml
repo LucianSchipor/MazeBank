@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" styleClass="cell_container" stylesheets="@../../../../Styles/User/Transactions/TransactionCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Transactions.Cell.TransactionCellController">
-   <HBox AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+   <HBox styleClass="main_HBox" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
       <HBox styleClass="HBox_Container" HBox.hgrow="ALWAYS">
          <HBox>
             <Label fx:id="trans_date_lbl" styleClass="trans_date_lbl" text="04/03/2024" />

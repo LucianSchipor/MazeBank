@@ -55,7 +55,7 @@
 }
 
 .view_form_btn FontAwesomeIconView {
-    -fx-text-fill: #5787DB;
+    -fx-fill: #5787DB;
 }
 
 .delete_btn {

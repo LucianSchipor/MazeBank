@@ -1,5 +1,5 @@
 .accounts_view {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: transparent;
     -fx-background-radius: 10 0 0 10;
     -fx-padding: 10 0 10 0;
     -fx-border-width: 0 1 0 0;
@@ -9,7 +9,11 @@
 
 .account{
     -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 10, 0, 0, 10);
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 5, 0, 0, 5);
+}
+
+.account:focused{
+-fx-background-color: transparent;
 }
 
 .account VBox{

@@ -61,7 +61,7 @@
                </TabPane>
             </children>
             <VBox.margin>
-               <Insets left="200.0" right="200.0" />
+               <Insets />
             </VBox.margin>
          </VBox>
       </children>

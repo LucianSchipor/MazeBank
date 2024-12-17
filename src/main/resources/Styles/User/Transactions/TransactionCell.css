@@ -1,13 +1,15 @@
 .cell_container {
-    -fx-background-color: #FFFFFF;
     -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 7);
+    -fx-background-color: transparent;
 }
 .cell_container Label {
     -fx-font-size: 1.3em;
     -fx-font-weight: bold;
 }
 
+.main_HBox{
+    -fx-background-radius: 10;
+}
 .cell_container .HBox_Container {
     -fx-spacing: 20;
 }
