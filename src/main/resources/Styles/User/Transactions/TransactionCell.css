@@ -3,9 +3,13 @@
     -fx-background-radius: 10;
     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 7);
 }
+.cell_container Label {
+    -fx-font-size: 1.3em;
+    -fx-font-weight: bold;
+}
 
 .cell_container .HBox_Container {
-    -fx-spacing: 50;
+    -fx-spacing: 20;
 }
 
 .HBox_Container HBox {
@@ -13,13 +17,14 @@
     -fx-alignment: center;
 }
 
-.cell_container:focused {
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 8, 0, 0, 10);
-    -fx-background-color: transparent;
-}
+/*.cell_container:focused {*/
+/*    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 8, 0, 0, 10);*/
+/*    -fx-background-color: transparent;*/
+/*}*/
 
 .btn_container {
 -fx-spacing: 10;
+    -fx-alignment: center_right;
 }
 
 .viewDetails_btn {
@@ -63,9 +68,7 @@
 }
 
 .trans_amount_lbl {
-    -fx-background-color: #005B43;
-    -fx-background-radius: 2;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #000000;
     -fx-padding: 5;
     -fx-font-weight: 700;
 }

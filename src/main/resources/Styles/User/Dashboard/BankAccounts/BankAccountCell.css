@@ -29,6 +29,17 @@
     -fx-background-color: linear-gradient(to right, #005B43, #228B22);
 }
 
+.security_Details_BankAccount_container {
+-fx-alignment: bottom_left;
+}
+.first_VBox{
+    -fx-alignment: center_left;
+}
+.second_VBox{
+-fx-alignment: center_right;
+}
+
+
 .account_balance {
     -fx-fill: #FFFFFF;
     -fx-font-family: Calibri;

@@ -21,28 +21,23 @@ public class TransactionListCell extends ListCell<Transaction> {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions/Cell/TransactionCell.fxml"));
                 AnchorPane hbox = loader.load();
                 TransactionCellController controller = loader.getController();
-                controller.setAmount(transaction.getAmount());
-                controller.sender_lbl.setText(transaction.getSender());
                 controller.currency_lbl.setText(transaction.getCurrency());
                 setGraphic(hbox);
                 if (Objects.equals(transaction.getSender(), UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
-                    controller.out_icon.setGlyphName("LONG_ARROW_LEFT");
-                    controller.setFromAccountId(transaction.getTo_username());
+                    controller.setAmount(transaction.getAmount(), "green");
+                    controller.setFromAccountId("from " + transaction.getTo_username());
                     controller.setFromBankAccountNumber(transaction.getReciever_BankAccount().getIBAN());
-                    Paint paint;
-                    paint = Paint.valueOf("#e40000");
-                    controller.out_icon.setFill(paint);
-
                 } else {
-                    controller.setFromAccountId(transaction.getFrom_username());
+                    controller.setFromAccountId("to " + transaction.getFrom_username());
                     controller.setFromBankAccountNumber(transaction.getSender_BankAccount().getIBAN());
-                    controller.out_icon.setGlyphName("LONG_ARROW_RIGHT");
-                    Paint paint;
-                    paint = Paint.valueOf("#00b10f");
-                    controller.out_icon.setFill(paint);                }
-                if(isSelected()) {
-                    controller.selectCell();
+                    controller.setAmount(transaction.getAmount(), "red");
                 }
+
+
+
+//                if(isSelected()) {
+//                    controller.selectCell();
+//                }
 
             } catch (Exception e) {
                 System.out.println("[LOG] - " + e.getMessage());

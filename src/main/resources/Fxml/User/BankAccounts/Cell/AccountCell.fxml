@@ -4,46 +4,80 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="200.0" prefWidth="766.0" stylesheets="@../../../../Styles/User/Dashboard/BankAccounts/BankAccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
+<AnchorPane stylesheets="@../../../../Styles/User/Dashboard/BankAccounts/BankAccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
    <styleClass>
       <String fx:value="account" />
       <String fx:value="account_gradient" />
    </styleClass>
-   <Label fx:id="balance" alignment="CENTER" layoutX="630.0" layoutY="12.0" prefHeight="42.0" prefWidth="146.0" styleClass="account_balance" text="100.000" textFill="WHITE" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="12.0" />
-   <Text layoutX="16.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal " AnchorPane.bottomAnchor="157.5" AnchorPane.leftAnchor="16.0" />
-   <Label fx:id="currency_lbl" layoutX="662.0" layoutY="52.0" styleClass="account_balance" text="RON" textFill="WHITE" AnchorPane.bottomAnchor="106.4" AnchorPane.rightAnchor="35.200000000000045" />
-   <Label layoutX="12.0" layoutY="73.0" text="Card number" textFill="WHITE">
-      <font>
-         <Font size="13.0" />
-      </font>
-   </Label>
-   <Label fx:id="checking_acc_num" layoutX="12.0" layoutY="91.0" prefHeight="26.0" prefWidth="165.0" text="0000 0000 0000 0000" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="16.0" />
-      </font>
-   </Label>
-   <Label layoutX="12.0" layoutY="125.0" text="Expiry Date" textFill="WHITE">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Label>
-   <Label layoutX="118.0" layoutY="125.0" text="CVV" textFill="WHITE">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Label>
-   <Label fx:id="expire_date_lbl" layoutX="12.0" layoutY="145.0" text="10/26" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="16.0" />
-      </font>
-   </Label>
-   <Label fx:id="cvv_lbl" layoutX="118.0" layoutY="145.0" text="123" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="16.0" />
-      </font>
-   </Label>
-   <FontAwesomeIconView glyphName="CC_VISA" layoutX="654.0" layoutY="166.0" selectionFill="#ffffff08" selectionStart="0" size="60" stroke="#ffffff08" textAlignment="CENTER" wrappingWidth="85.1427993774414" AnchorPane.rightAnchor="25.0" />
+   <HBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <children>
+         <VBox styleClass="second_VBox" HBox.hgrow="ALWAYS">
+            <children>
+               <HBox VBox.vgrow="ALWAYS">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Personal " />
+                  </children>
+               </HBox>
+               <VBox VBox.vgrow="ALWAYS">
+                  <children>
+                     <Label text="Card number" textFill="WHITE">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="checking_acc_num" text="0000 0000 0000 0000" textFill="WHITE">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </Label>
+                     <HBox prefHeight="100.0" prefWidth="200.0" styleClass="security_Details_BankAccount_container" VBox.vgrow="ALWAYS">
+                        <children>
+                           <VBox prefHeight="200.0" prefWidth="100.0" styleClass="security_Details_BankAccount_container" HBox.hgrow="ALWAYS">
+                              <children>
+                                 <Label text="Expiry Date" textFill="WHITE">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="expire_date_lbl" text="10/26" textFill="WHITE">
+                                    <font>
+                                       <Font name="System Bold" size="16.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </VBox>
+                           <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="security_Details_BankAccount_container" HBox.hgrow="ALWAYS">
+                              <children>
+                                 <Label text="CVV" textFill="WHITE">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="cvv_lbl" text="123" textFill="WHITE">
+                                    <font>
+                                       <Font name="System Bold" size="16.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </VBox>
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+            </children>
+         </VBox>
+         <VBox styleClass="second_VBox" HBox.hgrow="ALWAYS">
+            <children>
+               <Label fx:id="balance" alignment="CENTER" styleClass="account_balance" text="100.000" textFill="WHITE" />
+               <Label fx:id="currency_lbl" styleClass="account_balance" text="RON" textFill="WHITE" />
+               <FontAwesomeIconView glyphName="CC_VISA" selectionFill="#ffffff08" selectionStart="0" size="60" stroke="#ffffff08" textAlignment="CENTER" wrappingWidth="85.1427993774414" />
+            </children>
+         </VBox>
+      </children>
+   </HBox>
 </AnchorPane>

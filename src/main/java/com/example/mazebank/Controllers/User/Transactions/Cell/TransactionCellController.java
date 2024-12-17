@@ -16,13 +16,13 @@ public class TransactionCellController implements Initializable {
     public FontAwesomeIconView in_icon;
     public FontAwesomeIconView out_icon;
     public Label trans_date_lbl;
-    public Label sender_lbl;
     public Label amount_lbl;
     public Label currency_lbl;
     public AnchorPane anchorPane;
     public Label fromBAccNumber_lbl;
     public Button viewTransactionDetails_btn;
     public Button deleteTransaction_btn;
+    public Label sender_lbl;
 
     private Transaction transaction;
 
@@ -38,9 +38,9 @@ public class TransactionCellController implements Initializable {
 
     }
 
-    public void selectCell(){
-        anchorPane.setStyle("-fx-background-color:  #AAAAAA" + ";");
-    }
+//    public void selectCell(){
+//        anchorPane.setStyle("-fx-background-color:  #AAAAAA" + ";");
+//    }
     public void setFromAccountId(String fromAccountId) {
         sender_lbl.setText(fromAccountId);
     }
@@ -49,7 +49,16 @@ public class TransactionCellController implements Initializable {
         fromBAccNumber_lbl.setText(fromBankAccountNumber);
     }
 
-    public void setAmount(double amount) {
-        amount_lbl.setText(String.valueOf(amount));
+    public void setAmount(double amount, String color) {
+        if(color.equals("green")){
+            amount_lbl.setText("+" + String.valueOf(amount));
+            amount_lbl.setStyle("-fx-text-fill: #228B22");
+
+        }
+        else{
+            amount_lbl.setText("-" + String.valueOf(amount));
+            amount_lbl.setStyle("-fx-text-fill: #FF0000");
+
+        }
     }
 }
