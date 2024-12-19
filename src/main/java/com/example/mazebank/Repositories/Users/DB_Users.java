@@ -226,4 +226,29 @@ public class DB_Users {
         }
         return usersList;
     }
+
+    public static User SearchUserById(int user_id) {
+        Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PreparedStatement psCheckUserExists;
+        ResultSet resultSet;
+        List<User> usersList = new ArrayList<>();
+        try {
+            assert connection != null;
+            psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE user_id = ?");
+            psCheckUserExists.setInt(1, user_id);
+            resultSet = psCheckUserExists.executeQuery();
+            while (resultSet.next()) {
+                var newUser = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));
+                return newUser;
+            }
+        } catch (Exception exception) {
+            System.out.println("[LOG] - failed to search users!");
+        }
+    return null;
+    }
 }

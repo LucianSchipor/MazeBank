@@ -7,9 +7,9 @@ public class Form {
     private final String form_path;
     private final Date date;
     private final int user_id;
-    private int status;
+    private FormStatus status;
 
-    public Form(int form_id, int user_id, String form_path, Date date, int status) {
+    public Form(int form_id, int user_id, String form_path, Date date, FormStatus status) {
         this.form_id = form_id;
         this.form_path = form_path;
         this.date = date;
@@ -29,11 +29,15 @@ public class Form {
         return form_id;
     }
 
-    public int getStatus() {
+    public FormStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(FormStatus status) {
         this.status = status;
+    }
+
+    public int getUser_id() {
+        return user_id;
     }
 }

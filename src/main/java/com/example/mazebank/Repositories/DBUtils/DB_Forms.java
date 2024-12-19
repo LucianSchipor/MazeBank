@@ -1,8 +1,8 @@
 package com.example.mazebank.Repositories.DBUtils;
 
 import com.example.mazebank.Core.Forms.Form;
+import com.example.mazebank.Core.Forms.FormStatus;
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Core.Users.User;
 import javafx.util.Pair;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -68,6 +68,64 @@ public class DB_Forms {
         }
     }
 
+    public static void UpdateFormStatus(int form_id, FormStatus status){
+        PreparedStatement querry;
+        ResultSet resultSet;
+        Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert connection != null;
+            querry = connection.prepareStatement("UPDATE forms SET status = ? WHERE form_id = ?");
+            querry.setInt(2, form_id);
+            querry.setInt(1, FormStatus.valueOf(status.name()).ordinal());
+            int rowsAffected = querry.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("[LOG][Forms] - successfully deleted form!");
+                try {
+                    createDocument();
+                }
+                catch (Exception e){
+                    System.out.println("[LOG][Forms] - " + e.getCause());
+                    System.out.println("[LOG][Forms] - " + e.getLocalizedMessage());
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void DeleteForm(int form_id){
+        PreparedStatement querry;
+        ResultSet resultSet;
+        Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert connection != null;
+            querry = connection.prepareStatement("DELETE from FORMS where form_id = ?");
+            querry.setInt(1, form_id);
+            int rowsAffected = querry.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("[LOG][Forms] - successfully deleted form!");
+                try {
+                    createDocument();
+                }
+                catch (Exception e){
+                    System.out.println("[LOG][Forms] - " + e.getCause());
+                    System.out.println("[LOG][Forms] - " + e.getLocalizedMessage());
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void CreateForm(Form form){
         PreparedStatement querry;
@@ -153,7 +211,11 @@ public class DB_Forms {
                 String path = resultSet.getString("form_path");
                 int user_id = resultSet.getInt("user_id");
                 int status = resultSet.getInt("status");
-                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), status);
+                FormStatus formStatus = null;
+                if(status == 0) formStatus = FormStatus.PENDING;
+                if(status == 1) formStatus = FormStatus.ACCEPTED;
+                if(status == 2) formStatus = FormStatus.REJECTED;
+                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), formStatus);
                 forms.add(form);
             }
         } catch (SQLException e) {
@@ -180,7 +242,11 @@ public class DB_Forms {
                 String path = resultSet.getString("form_path");
                 int user_id = resultSet.getInt("user_id");
                 int status = resultSet.getInt("status");
-                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), status);
+                FormStatus formStatus = null;
+                if(status == 0) formStatus = FormStatus.PENDING;
+                if(status == 1) formStatus = FormStatus.ACCEPTED;
+                if(status == 2) formStatus = FormStatus.REJECTED;
+                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), formStatus);
                 forms.add(form);
             }
         } catch (SQLException e) {
