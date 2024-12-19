@@ -1,5 +1,6 @@
 package com.example.mazebank.Controllers;
 
+import com.example.mazebank.Repositories.DBUtils.DB_Forms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +40,7 @@ public class RegisterFormController implements Initializable {
         Text.add(new Pair<>("E-Mail: ", email_fld.getText()));
         Text.add(new Pair<>("Last Name: ", lName_fld.getText()));
         Text.add(new Pair<>("First Name: ", fName_fld.getText()));
-        createDocument(Text);
+        DB_Forms.CreateForm();
     }
 
     private void createDocument(List<Pair<String, String>> Text){

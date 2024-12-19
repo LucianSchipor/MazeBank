@@ -105,9 +105,9 @@ public class LoginController implements Initializable {
         if (!username.isEmpty() && !password.isEmpty()) {
             var userLoggedIn = DB_Users.LoginUser(username, password);
             try {
-                if (userLoggedIn != null && (userLoggedIn.getRole() == AccountType.CLIENT || userLoggedIn.getRole() == AccountType.ADMIN)) {
+                if (userLoggedIn != null) {
+                    UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
                     if (userLoggedIn.getRole() == AccountType.CLIENT) {
-                        UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
                         if (!Security.getInstance().isFA_Enabled() || !Security.getInstance().isFA_Verified()) {
                             FA_Check();
                         }
@@ -115,9 +115,17 @@ public class LoginController implements Initializable {
                             ShowClientWindow();
                         }
                     } else {
-                        Stage stage = (Stage) error_lbl.getScene().getWindow();
-                        Model.getInstance().getViewFactory().closeStage(stage);
-                        Model.getInstance().getViewFactory().showAdminWindow();
+                        if(userLoggedIn.getRole() == AccountType.ADMIN){
+                            Stage stage = (Stage) error_lbl.getScene().getWindow();
+                            Model.getInstance().getViewFactory().closeStage(stage);
+                            Model.getInstance().getViewFactory().showAdminWindow();
+                        }
+                        else{
+                            Stage stage = (Stage) error_lbl.getScene().getWindow();
+                            Model.getInstance().getViewFactory().closeStage(stage);
+                            Model.getInstance().getViewFactory().showTempUserDashboard();
+                        }
+
                     }
                 }
                 else{

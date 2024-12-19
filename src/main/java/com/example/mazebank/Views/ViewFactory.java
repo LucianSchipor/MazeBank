@@ -2,29 +2,23 @@ package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.AdminController;
 import com.example.mazebank.Controllers.Admin.Search.BankAccounts.SearchResultController_BankAccounts;
-import com.example.mazebank.Controllers.FA_Controller;
-import com.example.mazebank.Controllers.RegisterFormController;
 import com.example.mazebank.Controllers.User.Menu.DashboardController;
+import com.example.mazebank.Controllers.User.TempUser.TempUserController;
+import com.example.mazebank.Controllers.User.TempUser.TempUserDashboardController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
-import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
+import com.example.mazebank.Views.User.Menu.TempUserMenuOptions;
 import com.example.mazebank.Views.User.Menu.UserMenuOptions;
-import com.google.zxing.WriterException;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 @SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
@@ -38,17 +32,20 @@ public class ViewFactory {
     private AnchorPane clientsView;
     private AnchorPane depositView;
     private AnchorPane formsView;
+    private AnchorPane tempUserDashboard;
     private AnchorPane confirmation_alert;
     private AnchorPane error_alert;
     private AnchorPane info_alert;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
+    private final ObjectProperty<TempUserMenuOptions> tempUserSelectedMenuItem;
     private Scene previousWindow;
 
     public ViewFactory() {
         this.loginAccountType = AccountType.CLIENT;
         this.clientSelectedMenuItem = new SimpleObjectProperty<>();
         this.adminSelectedMenuItem = new SimpleObjectProperty<>();
+        this.tempUserSelectedMenuItem = new SimpleObjectProperty<>();
     }
 
     public AccountType getLoginAccountType() {
@@ -181,9 +178,15 @@ public class ViewFactory {
         createStage(loader);
     }
 
+    public void showTempUserDashboard(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/TempUser/TempUser.fxml"));
+        TempUserController controller = new TempUserController();
+        loader.setController(controller);
+        createStage(loader);
+    }
     public void showRegisterFormWindow() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/RegisterForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/RegisterForm.fxml"));
             createStage(loader);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -223,7 +226,8 @@ public class ViewFactory {
         try {
             scene = new Scene(loader.load());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("[LOG][CreateStage] - " + e.getCause());
+            System.out.println("[LOG][CreateStage] - " + e.getLocalizedMessage());
         }
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -252,6 +256,10 @@ public class ViewFactory {
         return adminSelectedMenuItem;
     }
 
+    public ObjectProperty<TempUserMenuOptions> getTempUserSelectedMenuItem() {
+        return tempUserSelectedMenuItem;
+    }
+
     public AnchorPane getCreateView() {
         if (createClientView == null) {
             try {
@@ -278,6 +286,27 @@ public class ViewFactory {
         if (formsView == null) {
             try {
                 formsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Forms/Forms.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return formsView;
+    }
+
+    public AnchorPane getTempDashboardView() {
+        TempUserDashboardController tempUserDashboardController = new TempUserDashboardController();
+            try {
+                tempUserDashboard = new FXMLLoader(getClass().getResource("/Fxml/User/TempUser/Menu/TempUserDashboard.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return tempUserDashboard;
+    }
+
+    public AnchorPane getRegisterFormWindow() {
+        if (formsView == null) {
+            try {
+                formsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/RegisterForm.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }

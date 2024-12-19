@@ -17,11 +17,18 @@
 -fx-fill: #FFFFFF;
 }
 
-.login_form_container {
-    -fx-spacing: 10;
+.login_form_container{
     -fx-alignment: center;
 }
 
+.login_container VBox {
+    -fx-alignment: center;
+    -fx-spacing: 20;
+}
+
+.login_container VBox HBox {
+    -fx-alignment: center;
+}
 .input_field{
     -fx-background-color: #e0e0e0;
     -fx-pref-height: 35;

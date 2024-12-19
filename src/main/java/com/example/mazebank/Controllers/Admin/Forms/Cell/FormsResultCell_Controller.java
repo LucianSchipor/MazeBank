@@ -50,16 +50,19 @@ public class FormsResultCell_Controller implements Initializable {
     public void setform(Form form){
         this.form = form;
         this.id.setText( Integer.toString(form.getForm_id()));
-        this.status_lbl.setText(form.getStatus());
-        if(Objects.equals(form.getStatus(), "Pending")){
+        if(form.getStatus() == 0){
+            this.status_lbl.setText("Pending");
             this.status_lbl.setTextFill(Paint.valueOf("#5787db"));
         }
         else{
-            if(Objects.equals(form.getStatus(), "Accepted")){
+            if(form.getStatus() == 1){
+                this.status_lbl.setText("Accepted");
                 this.status_lbl.setTextFill(Paint.valueOf("#228B22"));
             }
             else{
+                this.status_lbl.setText("Rejected");
                 this.status_lbl.setTextFill(Paint.valueOf("#FF0000"));
+
             }
         }
     }

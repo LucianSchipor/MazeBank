@@ -65,7 +65,7 @@ public class DB_Users {
                 psCheckUserExists = connection.prepareStatement("INSERT INTO users (username, password, role, 2FA_Key, email, 2FA_Verification_Time) VALUES (?, ?, ?, ?, ?, ?)");
                 psCheckUserExists.setString(1, username);
                 psCheckUserExists.setString(2, password);
-                psCheckUserExists.setInt(3, 1);
+                psCheckUserExists.setInt(3, 2);
                 psCheckUserExists.setString(4, "NaN");
                 psCheckUserExists.setString(5, username);
                 psCheckUserExists.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now().minusYears(1)));

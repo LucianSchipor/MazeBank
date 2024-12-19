@@ -1,0 +1,409 @@
+.dashboard{
+    -fx-background-color: #EEEEEE;
+}
+
+
+.user_name{
+    -fx-font-size: 2.6em;
+    -fx-font-family: "Calibri Light";
+}
+
+.dashboard_button{
+    -fx-border-style: solid;
+    -fx-border-width: 0.1px;
+    -fx-border-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #000000;}
+
+.latest_transactions{
+    -fx-font-size: 1.8em;
+    -fx-font-family: "Calibri Light";
+}
+
+.greeting_container{
+    -fx-alignment: center_left;
+    -fx-spacing: 10 ;
+}
+
+.form_title_container{
+    -fx-alignment: center;
+}
+
+.form_title_container Label {
+    -fx-font-size: 1.4em;
+    -fx-font-weight: bold;
+}
+
+.greeting_container FontAwesomeIconView {
+    -fx-fill: #c59d01;
+}
+ .warning_lbl{
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #c59d01;
+    -fx-font-weight: bold;
+}
+
+.date_container{
+    -fx-alignment: center_right;
+}
+.date_lbl{
+    -fx-text-fill: black;
+    -fx-font-size: 1.4em;
+    -fx-font-family: "Calibri Light";
+}
+.section_title{
+    -fx-font-size: 1.4em;
+    -fx-font-family: "Calibri Light";
+}
+
+.accounts_view {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10 0 0 10;
+    -fx-padding: 10 0 10 0;
+    -fx-border-width: 0 1 0 0;
+    -border-color: #DDDDDD;
+    -fx-spacing: 10;
+}
+.account{
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 10, 0, 0, 10);
+}
+
+.account VBox{
+    -fx-background-radius: 5;
+}
+
+.account Text{
+    -fx-fill: #FFFFFF;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
+/*.account FontAwesomeIconView {*/
+/*    -fx-fill: #FFFFFF;*/
+/*}*/
+
+.account_gradient {
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+}
+
+.account_balance {
+    -fx-fill: #FFFFFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 3em;
+    -fx-font-weight: bold;
+}
+
+.account_number {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 1.5em;
+    -fx-text-alignment: center;
+}
+
+.summary_view {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 5 10 5 10;
+    -fx-spacing: 5;
+    -fx-text-alignment: center_left;
+}
+
+.acc_summary_container {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-alignment: center_left;
+    -fx-border-radius: 10;
+    -fx-border-color: #999999;
+    -fx-border-width: 1;
+    -fx-border-style: dashed;
+}
+
+.acc_summary_container Line {
+    -fx-stroke: #AAAAAA;
+}
+
+.income_amount{
+    -fx-text-fill: #00AA00;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
+
+.expense_amount{
+    -fx-text-fill: #AA0000;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
+.transactions_VBox{
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+
+.transaction_listview:focused{
+    /*-fx-background-color: transparent;*/
+}
+
+.transaction_listview {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 0 0;
+}
+
+.transaction_listview .list-cell:focused {
+    /*-fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);*/
+    /*-fx-scale-x: 1.01;*/
+    /*-fx-scale-y: 1.01;*/
+    /*-fx-background-radius: 5;*/
+    -fx-background-color: inherit; /* Folosește culoarea celulei deja setate */
+    -fx-border-color: transparent; /* Înlătură bordura albastră implicită */
+    -fx-effect: none; /* Dezactivează efectele vizuale */
+}
+
+.transaction_listview .scroll-bar:vertical {
+    -fx-scale-x: 0;
+}
+
+.list_cell{
+    -fx-background-color: #EEEEEE;
+    -fx-padding: 15 0 15 0;
+}
+
+
+.new_trans_container{
+    -fx-background-color: #EEEEEE;
+    -fx-padding: 20 10 20 10;
+    -fx-spacing: 10;
+    -fx-alignment: center_left;
+}
+
+.new_trans_container Label{
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.3em;
+    -fx-font-weight: 700;
+}
+
+.new_trans_container TextField{
+    -fx-pref-height: 40;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+}
+
+.new_trans_container Button{
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-pref-width: 230;
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #FFFFFF;
+}
+
+.new_trans_container Button:hover{
+    -fx-cursor: hand;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.dashboard{
+    -fx-background-color: #EEEEEE;
+}
+
+
+.user_name{
+    -fx-font-size: 2.6em;
+    -fx-font-family: "Calibri Light";
+}
+
+.dashboard_button{
+    -fx-border-style: solid;
+    -fx-border-width: 0.1px;
+    -fx-border-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #000000;}
+
+.latest_transactions{
+    -fx-font-size: 1.8em;
+    -fx-font-family: "Calibri Light";
+}
+
+.greeting_container{
+    -fx-alignment: center_left;
+}
+
+.date_container{
+    -fx-alignment: center_right;
+}
+.date_lbl{
+    -fx-text-fill: black;
+    -fx-font-size: 1.4em;
+    -fx-font-family: "Calibri Light";
+}
+.section_title{
+    -fx-font-size: 1.4em;
+    -fx-font-family: "Calibri Light";
+}
+
+.accounts_view {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10 0 0 10;
+    -fx-padding: 10 0 10 0;
+    -fx-border-width: 0 1 0 0;
+    -border-color: #DDDDDD;
+    -fx-spacing: 10;
+}
+.account{
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 10, 0, 0, 10);
+}
+
+.account VBox{
+    -fx-background-radius: 5;
+}
+
+.account Text{
+    -fx-fill: #FFFFFF;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
+/*.account FontAwesomeIconView {*/
+/*    -fx-fill: #FFFFFF;*/
+/*}*/
+
+.account_gradient {
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+}
+
+.account_balance {
+    -fx-fill: #FFFFFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 3em;
+    -fx-font-weight: bold;
+}
+
+.account_number {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Calibri;
+    -fx-font-size: 1.5em;
+    -fx-text-alignment: center;
+}
+
+.summary_view {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 5 10 5 10;
+    -fx-spacing: 5;
+    -fx-text-alignment: center_left;
+}
+
+.acc_summary_container {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-alignment: center_left;
+    -fx-border-radius: 10;
+    -fx-border-color: #999999;
+    -fx-border-width: 1;
+    -fx-border-style: dashed;
+}
+
+.acc_summary_container Line {
+    -fx-stroke: #AAAAAA;
+}
+
+.income_amount{
+    -fx-text-fill: #00AA00;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
+
+.expense_amount{
+    -fx-text-fill: #AA0000;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.5em;
+}
+.transactions_VBox{
+    -fx-alignment: center;
+    -fx-spacing: 10;
+}
+
+.transaction_listview:focused{
+    /*-fx-background-color: transparent;*/
+}
+
+.transaction_listview {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 0 0;
+}
+
+.transaction_listview .list-cell:focused {
+    /*-fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);*/
+    /*-fx-scale-x: 1.01;*/
+    /*-fx-scale-y: 1.01;*/
+    /*-fx-background-radius: 5;*/
+    -fx-background-color: inherit; /* Folosește culoarea celulei deja setate */
+    -fx-border-color: transparent; /* Înlătură bordura albastră implicită */
+    -fx-effect: none; /* Dezactivează efectele vizuale */
+}
+
+.transaction_listview .scroll-bar:vertical {
+    -fx-scale-x: 0;
+}
+
+.list_cell{
+    -fx-background-color: #EEEEEE;
+    -fx-padding: 15 0 15 0;
+}
+
+
+.new_trans_container{
+    -fx-background-color: #EEEEEE;
+    -fx-padding: 20 10 20 10;
+    -fx-spacing: 10;
+    -fx-alignment: center_left;
+}
+
+.new_trans_container Label{
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 1.3em;
+    -fx-font-weight: 700;
+}
+
+.new_trans_container TextField{
+    -fx-pref-height: 40;
+    -fx-background-color: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+}
+
+.new_trans_container Button{
+    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+    -fx-pref-width: 230;
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Calibri Light";
+    -fx-text-fill: #FFFFFF;
+}
+
+.new_trans_container Button:hover{
+    -fx-cursor: hand;
+}
+
+
+
+
+
+
+
+
+
+
+
+

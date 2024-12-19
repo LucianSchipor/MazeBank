@@ -26,9 +26,9 @@ public class FormsResultListCell_Controller extends ListCell<Form> {
 
                 controller.setform(form);
                 setGraphic(hbox);
-                if(isSelected()){
-                    controller.selectCell();
-                }
+//                if(isSelected()){
+//                    controller.selectCell();
+//                }
             } catch (Exception e) {
                 System.out.println("[LOG] - " + e.getCause());
             }
