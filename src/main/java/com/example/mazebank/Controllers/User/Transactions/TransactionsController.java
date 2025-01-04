@@ -143,6 +143,8 @@ public class TransactionsController implements Initializable {
 
         transactions_listview.itemsProperty().set(observableTransactionList);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
+        double income = 0;
+        double outcome = 0;
         for (Transaction transaction : transactionsList) {
             if (Objects.equals(transaction.getSender(), account.getAccount_id())) {
                 outcome += transaction.getAmount();
