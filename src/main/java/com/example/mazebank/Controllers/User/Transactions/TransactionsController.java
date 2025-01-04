@@ -1,6 +1,7 @@
 package com.example.mazebank.Controllers.User.Transactions;
 
 import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCell;
+import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Security.Security;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -32,7 +34,8 @@ public class TransactionsController implements Initializable {
             try {
                 onSendMoney(event);
             } catch (IOException | WriterException e) {
-                e.printStackTrace();
+                System.out.println("[LOG][Transactions][Cause] - " + e.getCause());
+                System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
             }
         });
         ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber()));
@@ -45,7 +48,8 @@ public class TransactionsController implements Initializable {
             try {
                 onSendMoney(event);
             } catch (IOException | WriterException e) {
-                e.printStackTrace();
+                System.out.println("[LOG][Transactions][Cause] - " + e.getCause());
+                System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
             }
         });        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber()));
         transactions_listview.setItems(transactions_observable);
@@ -53,10 +57,20 @@ public class TransactionsController implements Initializable {
     }
 
     private void onSendMoney(Event event) throws IOException, WriterException {
+        var selectedAccount = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
         if (!Objects.equals(payee_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
             if(Security.getInstance().isFA_Verified()){
-                DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
-                updatePage();
+                if(VerifyTransfer(payee_fld.getText(), amount_fld.getText(), message_fld.getText())){
+                    selectedAccount.setBalance(selectedAccount.getBalance() - Double.parseDouble(amount_fld.getText()));
+                    DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
+                    updatePage();
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    System.out.println("[LOG] - one field was null");
+                    alert.setContentText("You cannot have empty fields!");
+                    alert.showAndWait();
+                    }
             }
             else{
                 Model.getInstance().getViewFactory().closeStage((Stage) send_money_btn.getScene().getWindow());
@@ -68,6 +82,52 @@ public class TransactionsController implements Initializable {
             alert.setContentText("You cannot have empty fields!");
             alert.showAndWait();
         }
+    }
+
+    private static boolean VerifyTransfer(String receiver, String amount_String, String message) {
+        if (receiver.isBlank() || amount_String.isBlank() || message.isBlank()) {
+            return false;
+        }
+        for (Map.Entry<String, BankAccount> entry : UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet()) {
+            String account_number = entry.getKey();
+            if(account_number.equals(receiver)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("You cannot send money to your own account. Use Deposit.");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
+        if (Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("You cannot send money to your own account!");
+            alert.showAndWait();
+            return false;
+        }
+        double amount;
+        try {
+            amount = Float.parseFloat(amount_String);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("IBAN format is incorrect!");
+            System.out.println("[LOG] - IBAN format is incorrect!");
+            alert.showAndWait();
+            return false;
+        }
+        if (receiver.isEmpty() || amount == 0 || amount < 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            System.out.println("[LOG] - receiver field from Transfer has an incorrect type or value!");
+            alert.setContentText("Receiver field from Transfer has an incorrect type or value!");
+            alert.showAndWait();
+            return false;
+        }
+        if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getBalance() < amount) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("You do not have that balance!");
+            alert.showAndWait();
+            return false;
+        }
+        return true;
     }
 
     private void updatePage() {
@@ -83,8 +143,6 @@ public class TransactionsController implements Initializable {
 
         transactions_listview.itemsProperty().set(observableTransactionList);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
-        double income = 0;
-        double outcome = 0;
         for (Transaction transaction : transactionsList) {
             if (Objects.equals(transaction.getSender(), account.getAccount_id())) {
                 outcome += transaction.getAmount();

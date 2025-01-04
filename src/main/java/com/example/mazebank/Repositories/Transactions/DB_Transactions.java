@@ -8,6 +8,7 @@ import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @SuppressWarnings({"SqlNoDataSourceInspection", "SqlDialectInspection", "CallToPrintStackTrace"})
@@ -15,57 +16,11 @@ public class DB_Transactions {
 
     //TODO -> de facut conversia (ex: Trimit 150 ron si ar trebui sa ajunga 30 EUR, nu 150 EUR).
 
-    private static boolean VerifyTransfer(String receiver, String amount_String, String message) {
-        if (receiver.isBlank() || amount_String.isBlank() || message.isBlank()) {
-            return false;
-        }
-        for (Map.Entry<String, BankAccount> entry : UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet()) {
-            String account_number = entry.getKey();
-            if(account_number.equals(receiver)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("You cannot send money to your own account. Use Deposit.");
-                alert.showAndWait();
-                return false;
-            }
-        }
-
-        if (Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You cannot send money to your own account!");
-            alert.showAndWait();
-            return false;
-        }
-        double amount;
-        try {
-            amount = Float.parseFloat(amount_String);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("IBAN format is incorrect!");
-            System.out.println("[LOG] - IBAN format is incorrect!");
-            alert.showAndWait();
-            return false;
-        }
-        if (receiver.isEmpty() || amount == 0 || amount < 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            System.out.println("[LOG] - receiver field from Transfer has an incorrect type or value!");
-            alert.setContentText("Receiver field from Transfer has an incorrect type or value!");
-            alert.showAndWait();
-            return false;
-        }
-        if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getBalance() < amount) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You do not have that balance!");
-            alert.showAndWait();
-            return false;
-        }
-        return true;
-    }
-
     //Database Statement
     public static void Transfer(String receiver, Double amount, String message) {
-        if (!VerifyTransfer(receiver, amount.toString(), message)) {
-            return;
-        }
+//        if (!VerifyTransfer(receiver, amount.toString(), message)) {
+//            return;
+//        }
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -77,18 +32,19 @@ public class DB_Transactions {
             assert connection != null;
             psInsertTransaction = connection.prepareStatement(
                     "INSERT INTO" +
-                            " transactions (sender,receiver,amount, message, currency) VALUES (?,?,?,?,?)");
+                            " transactions (sender,receiver,amount, message, currency, datetime) VALUES (?,?,?,?,?,?)");
 
             psInsertTransaction.setString(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id());
             psInsertTransaction.setString(2, receiver);
             psInsertTransaction.setDouble(3, amount);
             psInsertTransaction.setString(4, message);
             psInsertTransaction.setString(5, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency());
+            psInsertTransaction.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
             try {
                 int rowsAffected = psInsertTransaction.executeUpdate();
                 if (rowsAffected > 0) {
                     DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id(), amount, receiver);
-                    DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
+//                    DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
                     System.out.println("Transaction successfully inserted.");
                 } else {
                     System.out.println("Failed to insert transaction.");
@@ -137,6 +93,7 @@ public class DB_Transactions {
                         t.sender,
                         t.message,
                         t.currency,
+                        t.datetime,
                         u1.username AS from_username,
                         t.receiver,
                         u2.username AS to_username,
@@ -185,6 +142,7 @@ public class DB_Transactions {
                                                  t.sender,
                                                  t.message,
                                                  t.currency,
+                                                 t.datetime,
                                                  u1.username AS from_username,
                                                  t.receiver,
                                                  u2.username AS to_username,
@@ -211,6 +169,7 @@ public class DB_Transactions {
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
                 String currency = resultSet.getString("currency");
+                Timestamp date = resultSet.getTimestamp("datetime");
                 BankAccount sender_BAcc = DB_BankAccounts.GetBankAccountByAccountId(sender);
                 BankAccount receiver_BAcc = DB_BankAccounts.GetBankAccountByAccountId(receiver);
                 String message = "";
@@ -223,6 +182,7 @@ public class DB_Transactions {
                 transaction.setCurrency(currency);
                 transaction.setReciever_BankAccount(receiver_BAcc);
                 transaction.setSender_BankAccount(sender_BAcc);
+                transaction.setTimestamp(date);
                 transactions.add(transaction);
 
             }

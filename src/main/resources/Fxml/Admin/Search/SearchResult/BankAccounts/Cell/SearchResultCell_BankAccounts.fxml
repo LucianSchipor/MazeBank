@@ -11,41 +11,46 @@
    <HBox layoutX="11.2" layoutY="8.0" prefHeight="42.0" prefWidth="779.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0">
       <HBox HBox.hgrow="ALWAYS">
          <HBox.margin>
-            <Insets left="10.0"/>
+            <Insets left="10.0" />
          </HBox.margin>
          <FontAwesomeIconView glyphName="MONEY" size="20">
             <HBox.margin>
-               <Insets left="5.0"/>
+               <Insets left="5.0" />
             </HBox.margin>
          </FontAwesomeIconView>
          <HBox styleClass="separatorContainer">
-            <Label text="Number:"/>
-            <Label fx:id="cardNumber_lbl" layoutX="10.0" layoutY="24.0" text="1234 1234 1234 1234"/>
+            <Label text="Number:" />
+            <Label fx:id="cardNumber_lbl" layoutX="10.0" layoutY="24.0" text="1234 1234 1234 1234" />
          </HBox>
          <HBox styleClass="separatorContainer">
-            <Label text="Expiry Date"/>
-            <Label fx:id="date_lbl" text="08/2024"/>
+            <Label text="Expiry Date" />
+            <Label fx:id="date_lbl" text="08/2024" />
          </HBox>
          <HBox styleClass="separatorContainer">
-            <Label text="Balance"/>
-            <Label fx:id="balance_lbl" text="288"/>
+            <Label text="Balance" />
+            <Label fx:id="balance_lbl" text="288" />
          </HBox>
          <HBox styleClass="separatorContainer">
-            <Label fx:id="currency_lbl" text="RON"/>
+            <Label fx:id="currency_lbl" text="RON" />
          </HBox>
       </HBox>
       <HBox layoutX="10.0" layoutY="10.0" styleClass="button_container" HBox.hgrow="ALWAYS">
          <padding>
-            <Insets right="10.0"/>
+            <Insets right="10.0" />
          </padding>
+         <Button layoutX="64.0" layoutY="17.0" mnemonicParsing="false" styleClass="add_btn">
+            <graphic>
+               <FontAwesomeIconView glyphName="PLUS" />
+            </graphic>
+         </Button>
          <Button mnemonicParsing="false" styleClass="edit_btn">
             <graphic>
-               <FontAwesomeIconView glyphName="EDIT"/>
+               <FontAwesomeIconView glyphName="EDIT" />
             </graphic>
          </Button>
          <Button mnemonicParsing="false" styleClass="delete_btn">
             <graphic>
-               <FontAwesomeIconView glyphName="TRASH"/>
+               <FontAwesomeIconView glyphName="TRASH" />
             </graphic>
          </Button>
       </HBox>

@@ -10,51 +10,48 @@
 <AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user_cell_container" stylesheets="@../../../../Styles/Admin/Forms/Cell/FormResultCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.Admin.Forms.Cell.FormsResultCell_Controller">
    <HBox layoutX="41.599999999999994" layoutY="15.2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-         <children>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-               <FontAwesomeIconView glyphName="WPFORMS" size="20" />
-               <Label fx:id="id" prefHeight="22.0" prefWidth="62.0" text="Id:  11" />
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </HBox>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-               <Label fx:id="status_lbl" prefHeight="22.0" prefWidth="151.0" text="Pending" />
-            </HBox>
-         </children>
+         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <FontAwesomeIconView glyphName="WPFORMS" size="20"/>
+            <Label fx:id="id" prefHeight="22.0" prefWidth="62.0" text="Id:  11"/>
+            <HBox.margin>
+               <Insets left="15.0"/>
+            </HBox.margin>
+         </HBox>
+         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <Label fx:id="status_lbl" prefHeight="22.0" prefWidth="151.0" text="Pending"/>
+         </HBox>
       </HBox>
       <HBox layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-         <children>
-            <HBox fx:id ="username_HBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false">
-               <children>
-                  <Label fx:id="username_lbl" prefHeight="22.0" prefWidth="151.0" text="Pending" />
-               </children>
-            </HBox>
-         </children>
+         <HBox fx:id="username_HBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+               visible="false">
+            <Label fx:id="username_lbl" prefHeight="22.0" prefWidth="151.0" text="Pending"/>
+         </HBox>
       </HBox>
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="button_HBox" HBox.hgrow="ALWAYS">
-         <children>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="button_container">
-               <Button fx:id="accept_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="accept_form_btn">
-                  <graphic>
-                     <FontAwesomeIconView glyphName="CHECK" styleClass="accept_form_btn" />
-                  </graphic>
-               </Button>
-               <Button fx:id="viewForm_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="view_form_btn" textFill="#911c1c">
-                  <graphic>
-                     <FontAwesomeIconView glyphName="EYE" />
-                  </graphic>
-               </Button>
-               <Button fx:id="reject_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="delete_btn">
-                  <graphic>
-                     <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="20" />
-                  </graphic>
-               </Button>
-               <HBox.margin>
-                  <Insets right="15.0" />
-               </HBox.margin>
-            </HBox>
-         </children>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="button_HBox"
+            HBox.hgrow="ALWAYS">
+         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="button_container">
+            <Button fx:id="accept_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" styleClass="accept_form_btn">
+               <graphic>
+                  <FontAwesomeIconView glyphName="CHECK" styleClass="accept_form_btn"/>
+               </graphic>
+            </Button>
+            <Button fx:id="viewForm_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" styleClass="view_form_btn" textFill="#911c1c">
+               <graphic>
+                  <FontAwesomeIconView glyphName="EYE"/>
+               </graphic>
+            </Button>
+            <Button fx:id="reject_btn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                    mnemonicParsing="false" styleClass="delete_btn">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="20"/>
+               </graphic>
+            </Button>
+            <HBox.margin>
+               <Insets right="15.0"/>
+            </HBox.margin>
+         </HBox>
       </HBox>
    </HBox>
 </AnchorPane>

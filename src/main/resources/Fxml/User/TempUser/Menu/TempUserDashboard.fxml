@@ -2,31 +2,30 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:controller="com.example.mazebank.Controllers.User.TempUser.TempUserDashboardController" prefHeight="738.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../../../Styles/User/TempUser/TempUserDashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="738.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../../../Styles/User/TempUser/TempUserDashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.TempUser.TempUserDashboardController">
     <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <HBox>
             <VBox.margin>
                 <Insets top="10.0" />
             </VBox.margin>
             <VBox prefHeight="134.0" prefWidth="510.0" styleClass="greeting_container" HBox.hgrow="ALWAYS">
-                <Text fx:id="hello_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name"
-                      text="Hello, User!"/>
+                <Text fx:id="hello_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hello, User!" />
                 <VBox>
                     <Label styleClass="warning_lbl" text=" Please note, this is a temporary account.">
                         <graphic>
-                            <FontAwesomeIconView glyphName="INFO" size="14"/>
+                            <FontAwesomeIconView glyphName="INFO" size="14" />
                         </graphic>
                     </Label>
                     <Label styleClass="warning_lbl" text=" You will receive a response to your form soon.">
                         <graphic>
-                            <FontAwesomeIconView glyphName="INFO" size="14"/>
+                            <FontAwesomeIconView glyphName="INFO" size="14" />
                         </graphic>
                     </Label>
                 </VBox>
@@ -37,12 +36,54 @@
         </HBox>
         <VBox VBox.vgrow="ALWAYS">
             <HBox styleClass="form_title_container">
-                <Label text="Your Forms"/>
+                <Label text="Your Form" />
             </HBox>
-            <ListView fx:id="forms_listview" prefWidth="827.0" styleClass="transaction_listview" VBox.vgrow="ALWAYS">
-            <VBox.margin>
-               <Insets left="5.0" right="5.0" top="20.0" />
-            </VBox.margin></ListView>
+            <VBox styleClass="login_form_container" VBox.vgrow="ALWAYS">
+                <VBox>
+                    <VBox.margin>
+                        <Insets top="10.0"/>
+                    </VBox.margin>
+                    <Label text="E-Mail">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="ENVELOPE" size="20"/>
+                        </graphic>
+                    </Label>
+                    <Label fx:id="e_mail_input" styleClass="input_lbl" text="Input" textFill="#aeaeae"/>
+                    <Label fx:id="username_lbl" text="Username">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="USER" size="20" text=""/>
+                        </graphic>
+                    </Label>
+                    <Label fx:id="username_input" layoutX="396.0" layoutY="10.0" text="Input" textFill="#aeaeae"/>
+                    <Label text="First Name">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="EDIT" size="20"/>
+                        </graphic>
+                    </Label>
+                    <Label fx:id="lname_input" layoutX="396.0" layoutY="336.0" text="Input" textFill="#aeaeae"/>
+                    <Label text="Last Name">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="EDIT" size="20"/>
+                        </graphic>
+                    </Label>
+                    <Label fx:id="fname_input" layoutX="396.0" layoutY="391.0" text="Input" textFill="#aeaeae"/>
+                    <Label text="Status">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="CLOCK_ALT" size="20"/>
+                        </graphic>
+                    </Label>
+                    <Label fx:id="status_input" layoutX="396.0" layoutY="445.0" text="Input" textFill="#aeaeae"/>
+                </VBox>
+                <VBox>
+                    <children>
+                        <Button fx:id="upgrade_btn" mnemonicParsing="false" text="Upgrade to normal account"
+                                VBox.vgrow="ALWAYS"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="30.0"/>
+                    </VBox.margin>
+                </VBox>
+            </VBox>
         </VBox>
     </VBox>
 </AnchorPane>

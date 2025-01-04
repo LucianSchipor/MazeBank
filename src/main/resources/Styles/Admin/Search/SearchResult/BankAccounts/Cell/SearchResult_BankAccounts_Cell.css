@@ -55,6 +55,11 @@
     -fx-fill: #5787DB;
 }
 
-.delete_btn:hover{
-    -fx-cursor: hand;
+.add_btn{
+    -fx-background-color: transparent;
+    -fx-font-size: 20;
+}
+
+.add_btn FontAwesomeIconView{
+    -fx-fill: #228B22;
 }

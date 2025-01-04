@@ -12,46 +12,45 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1030.0" styleClass="login_container" stylesheets="@../Styles/Login.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.LoginController">
-   <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <children>
-         <VBox focusTraversable="true" prefHeight="609.0" prefWidth="270.0" styleClass="login_logo_container">
-            <FontAwesomeIconView glyphName="BANK" size="40" text="" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" textAlignment="CENTER" wrappingWidth="96.1552734375" />
-         </VBox>
-         <VBox alignment="TOP_CENTER" styleClass="login_form_container" HBox.hgrow="ALWAYS">
-            <Label fx:id="username_lbl" text="Username">
-               <graphic>
-                  <FontAwesomeIconView glyphName="USER" />
-               </graphic>
-            </Label>
-            <TextField fx:id="username_fld" alignment="CENTER" styleClass="input_field">
-               <VBox.margin>
-                  <Insets left="200.0" right="200.0" />
-               </VBox.margin>
-            </TextField>
-            <Label text="Password">
-               <graphic>
-                  <FontAwesomeIconView glyphName="LOCK" />
-               </graphic>
-            </Label>
-            <PasswordField fx:id="password_fld" alignment="CENTER" styleClass="input_field">
-               <VBox.margin>
-                  <Insets left="200.0" right="200.0" />
-               </VBox.margin>
-            </PasswordField>
-            <Button fx:id="login_btn" mnemonicParsing="false" prefHeight="32.0" prefWidth="30.0" text="Login">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="signup_btn" layoutX="308.0" layoutY="337.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="30.0" text="Fast Create" />
-            <Button fx:id="createAccount_btn" layoutX="308.0" layoutY="356.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="30.0" text="Create Account" />
-            <Button fx:id="createAccount_btn1" layoutX="315.0" layoutY="464.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="30.0" text="View your forms" />
-            <Label fx:id="error_lbl" styleClass="error_lbl" />
-            <HBox.margin>
-               <Insets />
-            </HBox.margin>
-         </VBox>
-      </children>
+   <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+         AnchorPane.topAnchor="0.0">
+      <VBox focusTraversable="true" prefHeight="609.0" prefWidth="270.0" styleClass="login_logo_container">
+         <FontAwesomeIconView glyphName="BANK" size="40" text=""/>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" textAlignment="CENTER"
+               wrappingWidth="96.1552734375"/>
+      </VBox>
+      <VBox alignment="TOP_CENTER" styleClass="login_form_container" HBox.hgrow="ALWAYS">
+         <Label fx:id="username_lbl" text="Username">
+            <graphic>
+               <FontAwesomeIconView glyphName="USER"/>
+            </graphic>
+         </Label>
+         <TextField fx:id="username_fld" alignment="CENTER" styleClass="input_field">
+            <VBox.margin>
+               <Insets left="200.0" right="200.0"/>
+            </VBox.margin>
+         </TextField>
+         <Label text="Password">
+            <graphic>
+               <FontAwesomeIconView glyphName="LOCK"/>
+            </graphic>
+         </Label>
+         <PasswordField fx:id="password_fld" alignment="CENTER" styleClass="input_field">
+            <VBox.margin>
+               <Insets left="200.0" right="200.0"/>
+            </VBox.margin>
+         </PasswordField>
+         <Button fx:id="login_btn" mnemonicParsing="false" prefHeight="32.0" prefWidth="30.0" text="Login">
+            <VBox.margin>
+               <Insets top="10.0"/>
+            </VBox.margin>
+         </Button>
+         <Button fx:id="createAccount_btn" layoutX="308.0" layoutY="356.0" mnemonicParsing="false" prefHeight="32.0"
+                 prefWidth="30.0" text="Sign Up"/>
+         <Label fx:id="error_lbl" styleClass="error_lbl"/>
+         <HBox.margin>
+            <Insets/>
+         </HBox.margin>
+      </VBox>
    </HBox>
 </AnchorPane>

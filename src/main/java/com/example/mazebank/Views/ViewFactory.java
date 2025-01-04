@@ -186,7 +186,7 @@ public class ViewFactory {
     }
     public void showRegisterFormWindow() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/RegisterForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Register.fxml"));
             createStage(loader);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -294,7 +294,6 @@ public class ViewFactory {
     }
 
     public AnchorPane getTempDashboardView() {
-        TempUserDashboardController tempUserDashboardController = new TempUserDashboardController();
             try {
                 tempUserDashboard = new FXMLLoader(getClass().getResource("/Fxml/User/TempUser/Menu/TempUserDashboard.fxml")).load();
             } catch (Exception e) {

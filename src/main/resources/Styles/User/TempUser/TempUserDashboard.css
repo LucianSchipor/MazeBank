@@ -8,6 +8,21 @@
     -fx-font-family: "Calibri Light";
 }
 
+.login_form_container VBox{
+    -fx-alignment: top_center;
+    -fx-spacing: 10;
+}
+
+.login_form_container Label{
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
+}
+.login_form_container Button{
+    -fx-background-color: #005B43;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.2em;
+}
+
 .dashboard_button{
     -fx-border-style: solid;
     -fx-border-width: 0.1px;

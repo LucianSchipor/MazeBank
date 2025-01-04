@@ -5,8 +5,6 @@ import com.example.mazebank.Core.Transactions.Transaction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
-
 import java.util.Objects;
 
 public class TransactionListCell extends ListCell<Transaction> {
@@ -22,15 +20,17 @@ public class TransactionListCell extends ListCell<Transaction> {
                 AnchorPane hbox = loader.load();
                 TransactionCellController controller = loader.getController();
                 controller.currency_lbl.setText(transaction.getCurrency());
+                controller.trans_date_lbl.setText(transaction.getTimestamp().toString());
                 setGraphic(hbox);
                 if (Objects.equals(transaction.getSender(), UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
-                    controller.setAmount(transaction.getAmount(), "green");
-                    controller.setFromAccountId("from " + transaction.getTo_username());
+
+                    controller.setFromAccountId("to " + transaction.getTo_username());
                     controller.setFromBankAccountNumber(transaction.getReciever_BankAccount().getIBAN());
-                } else {
-                    controller.setFromAccountId("to " + transaction.getFrom_username());
-                    controller.setFromBankAccountNumber(transaction.getSender_BankAccount().getIBAN());
                     controller.setAmount(transaction.getAmount(), "red");
+                } else {
+                    controller.setAmount(transaction.getAmount(), "green");
+                    controller.setFromAccountId("from " + transaction.getFrom_username());
+                    controller.setFromBankAccountNumber(transaction.getSender_BankAccount().getIBAN());
                 }
 
 

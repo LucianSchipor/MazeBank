@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox focusTraversable="true" prefHeight="609.0" prefWidth="270.0" styleClass="login_logo_container"
+      stylesheets="@../../../Styles/RegisterTheme.css" xmlns="http://javafx.com/javafx/23">
+   <FontAwesomeIconView glyphName="BANK" size="40" text=""/>
+   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maze Bank" textAlignment="CENTER" wrappingWidth="96.1552734375"/>
+</VBox>

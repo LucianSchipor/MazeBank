@@ -2,8 +2,11 @@ package com.example.mazebank.Core.Transactions;
 
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 
+import java.sql.Timestamp;
+
 public class Transaction {
     private BankAccount sender_BankAccount;
+    private Timestamp timestamp;
     private BankAccount reciever_BankAccount;
     private final int transaction_id;
     private final String sender;
@@ -77,5 +80,13 @@ public class Transaction {
 
     public void setReciever_BankAccount(BankAccount reciever_BankAccount) {
         this.reciever_BankAccount = reciever_BankAccount;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }
