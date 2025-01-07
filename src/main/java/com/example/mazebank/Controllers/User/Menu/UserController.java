@@ -34,6 +34,7 @@ public class UserController implements Initializable {
             switch (newVal){
                 case TRANSACTIONS -> client_parent.setCenter(Model.getInstance().getViewFactory().getTransactionsView());
                 case ACCOUNTS -> client_parent.setCenter(Model.getInstance().getViewFactory().getAccountsView());
+                case ADD_FUDNS -> client_parent.setCenter(Model.getInstance().getViewFactory().getAddFundsView());
                 default -> client_parent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
             }
         } );

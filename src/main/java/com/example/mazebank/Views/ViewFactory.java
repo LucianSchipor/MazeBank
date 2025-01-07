@@ -4,7 +4,6 @@ import com.example.mazebank.Controllers.Admin.AdminController;
 import com.example.mazebank.Controllers.Admin.Search.BankAccounts.SearchResultController_BankAccounts;
 import com.example.mazebank.Controllers.User.Menu.DashboardController;
 import com.example.mazebank.Controllers.User.TempUser.TempUserController;
-import com.example.mazebank.Controllers.User.TempUser.TempUserDashboardController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
 import com.example.mazebank.Core.Users.AccountType;
@@ -20,6 +19,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 @SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
 
@@ -30,12 +31,10 @@ public class ViewFactory {
     private AnchorPane createClientView;
     private AnchorPane searchView;
     private AnchorPane clientsView;
+    private AnchorPane addFundsView;
     private AnchorPane depositView;
     private AnchorPane formsView;
     private AnchorPane tempUserDashboard;
-    private AnchorPane confirmation_alert;
-    private AnchorPane error_alert;
-    private AnchorPane info_alert;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private final ObjectProperty<TempUserMenuOptions> tempUserSelectedMenuItem;
@@ -81,6 +80,18 @@ public class ViewFactory {
             }
         }
         return accountsView;
+    }
+
+    public AnchorPane getAddFundsView() {
+
+        if (addFundsView == null) {
+            try {
+                addFundsView = new FXMLLoader(getClass().getResource("/Fxml/User/Add Funds/Add_Funds.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return addFundsView;
     }
 
     public AnchorPane getDashboardView() {

@@ -17,6 +17,7 @@ public class UserMenuController implements Initializable {
     public Button profile_btn;
     public Button logout_btn;
     public Button report_btn;
+    public Button add_funds_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -25,10 +26,10 @@ public class UserMenuController implements Initializable {
     }
 
     private void addListeners(){
+        add_funds_btn.setOnAction(event -> onAddFunds());
         dashboard_btn.setOnAction(event -> onDashboard());
         transactions_btn.setOnAction(event -> onTransactions());
         logout_btn.setOnAction(event -> onLogOut());
-        accounts_btn.setOnAction(event -> onAccounts());
     }
 
     private void setStyleSelectedButton(Button button){
@@ -57,6 +58,14 @@ public class UserMenuController implements Initializable {
         accounts_btn.setStyle(deselectButtonString);
     }
 
+    private void onAddFunds(){
+        System.out.println("[LOG] - redirecting to Add Funds panel");
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.ADD_FUDNS);
+        deselectAll();
+        setStyleSelectedButton(add_funds_btn);
+    }
+
+
     private void onDashboard(){
         System.out.println("[LOG] - redirecting to Dashboard panel");
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.DASHBOARD);
@@ -69,13 +78,6 @@ public class UserMenuController implements Initializable {
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.TRANSACTIONS);
         deselectAll();
         setStyleSelectedButton(transactions_btn);
-    }
-
-    private void onAccounts(){
-        System.out.println("[LOG] - redirecting to Accounts panel");
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.ACCOUNTS);
-        deselectAll();
-        setStyleSelectedButton(accounts_btn);
     }
 
     private void onLogOut(){
