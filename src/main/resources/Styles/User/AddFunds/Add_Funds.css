@@ -40,6 +40,9 @@
     -fx-alignment: center;
 }
 
+.login_form_container:focused {
+    -fx-background-color: transparent;
+}
 .login_container VBox {
     -fx-alignment: center;
     -fx-spacing: 20;
@@ -83,11 +86,31 @@
     -fx-text-fill: red;
 }
 
-.login_form_container .choice-box {
+.payment_details_container VBox {
+    -fx-border-color: #e1dede;
+    -fx-border-width: 0 0 1px 0;
+
+}
+
+
+.period_container{
+    -fx-border-color: #e1dede;
+    -fx-border-width: 0 0 1px 0;
+}
+.period_container .choice-box{
+    -fx-pref-width: 100px;
+    -fx-pref-height: 35px; /* Corectat la 35px pentru a respecta unitatea */
+    -fx-background-color: #e0e0e0;
+    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+}
+.account_currency_container .choice-box{
     -fx-pref-width: 345px;
     -fx-pref-height: 35px; /* Corectat la 35px pentru a respecta unitatea */
     -fx-background-color: #e0e0e0;
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
+}
+.login_form_container .choice-box {
+
 }
 
 .login_form_container .choice-box .context-menu {

@@ -8,13 +8,20 @@ public class Form {
     private final Date date;
     private final int user_id;
     private FormStatus status;
+    private FormType formType;
 
-    public Form(int form_id, int user_id, String form_path, Date date, FormStatus status) {
+    public Form(int form_id, int user_id, String form_path, Date date, FormStatus status, int formType) {
         this.form_id = form_id;
         this.form_path = form_path;
         this.date = date;
         this.user_id = user_id;
         this.status = status;
+        if(formType == 0){
+            this.formType = FormType.ACCOUNT;
+        }
+        else{
+            this.formType = FormType.FUNDS;
+        }
     }
 
     public String getForm_path() {
@@ -39,5 +46,13 @@ public class Form {
 
     public int getUser_id() {
         return user_id;
+    }
+
+    public FormType getFormType() {
+        return formType;
+    }
+
+    public void setFormType(FormType formType) {
+        this.formType = formType;
     }
 }

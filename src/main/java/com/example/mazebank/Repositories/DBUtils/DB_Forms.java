@@ -2,6 +2,7 @@ package com.example.mazebank.Repositories.DBUtils;
 
 import com.example.mazebank.Core.Forms.Form;
 import com.example.mazebank.Core.Forms.FormStatus;
+import com.example.mazebank.Core.Forms.FormType;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import javafx.util.Pair;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -127,7 +128,7 @@ public class DB_Forms {
         }
     }
 
-    public static void CreateForm(Form form){
+    public static void CreateForm(){
         PreparedStatement querry;
         ResultSet resultSet;
         Connection connection = null;
@@ -158,7 +159,7 @@ public class DB_Forms {
             throw new RuntimeException(e);
         }
     }
-    public static void CreateForm(){
+    public static void CreateForm(Form form){
         PreparedStatement querry;
         ResultSet resultSet;
         Connection connection = null;
@@ -169,11 +170,12 @@ public class DB_Forms {
         }
         try {
             assert connection != null;
-            querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id) values (?, ?, ?, ?)");
+            querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id, form_type) values (?, ?, ?, ?, ?)");
             querry.setString(1, "Forms/" + UserLoggedIn.getInstance().getLoggedInUser().getUsername() + "_Register_Form.pdf");
             querry.setDate(2, Date.valueOf(LocalDate.now()));
             querry.setInt(3, 0);
             querry.setInt(4, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
+            querry.setInt(5, FormType.valueOf(form.getFormType().toString()).ordinal());
 
             int rowsAffected = querry.executeUpdate();
             if (rowsAffected > 0) {
@@ -211,11 +213,12 @@ public class DB_Forms {
                 String path = resultSet.getString("form_path");
                 int user_id = resultSet.getInt("user_id");
                 int status = resultSet.getInt("status");
+                int form_type = resultSet.getInt("form_type");
                 FormStatus formStatus = null;
                 if(status == 0) formStatus = FormStatus.PENDING;
                 if(status == 1) formStatus = FormStatus.ACCEPTED;
                 if(status == 2) formStatus = FormStatus.REJECTED;
-                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), formStatus);
+                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), formStatus, form_type);
                 forms.add(form);
             }
         } catch (SQLException e) {
@@ -242,11 +245,12 @@ public class DB_Forms {
                 String path = resultSet.getString("form_path");
                 int user_id = resultSet.getInt("user_id");
                 int status = resultSet.getInt("status");
+                int form_type = resultSet.getInt("form_type");
                 FormStatus formStatus = null;
                 if(status == 0) formStatus = FormStatus.PENDING;
                 if(status == 1) formStatus = FormStatus.ACCEPTED;
                 if(status == 2) formStatus = FormStatus.REJECTED;
-                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), formStatus);
+                Form form = new Form(form_id, user_id, path, resultSet.getDate("date"), formStatus, form_type);
                 forms.add(form);
             }
         } catch (SQLException e) {

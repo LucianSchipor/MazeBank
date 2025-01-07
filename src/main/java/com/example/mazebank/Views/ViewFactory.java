@@ -19,7 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 
 @SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
