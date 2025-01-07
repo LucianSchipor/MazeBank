@@ -92,6 +92,13 @@
 
 }
 
+.check-box:focused{
+    -fx-background-color: transparent;
+}
+
+.check-box{
+    -fx-background-color: transparent;
+}
 
 .period_container{
     -fx-border-color: #e1dede;

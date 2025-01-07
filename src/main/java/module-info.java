@@ -45,4 +45,5 @@ module com.example.mazebank {
     exports com.example.mazebank.Controllers.Admin.Forms.Cell;
     exports com.example.mazebank.Controllers.Alerts;
     exports com.example.mazebank.Controllers.User.TempUser;
+    exports com.example.mazebank.Controllers.User.AddFunds;
 }
