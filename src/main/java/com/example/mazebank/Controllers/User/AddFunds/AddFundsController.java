@@ -4,6 +4,7 @@ import com.example.mazebank.Core.Bank.BankInfo;
 import com.example.mazebank.Core.Credit.Credit;
 import com.example.mazebank.Core.Credit.LoanCalculator;
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Repositories.Credits.DB_Credits;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,10 +36,9 @@ public class AddFundsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         check_box.setSelected(false);
         check_box.setOnAction(n -> {
-            if(check_box.isSelected()){
+            if (check_box.isSelected()) {
                 this.createForm_btn.setDisable(false);
-            }
-            else{
+            } else {
                 this.createForm_btn.setDisable(true);
             }
         });
@@ -62,30 +62,58 @@ public class AddFundsController implements Initializable {
     }
 
     private void onApply(ActionEvent actionEvent) {
+        /*
+         -> creez formular de credit in BD
+
+         */
+        try {
+        }
+        catch (Exception e) {
+            System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("One field is empty!");
+            alert.showAndWait();
+        }
+        finally {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Credit request has been created successfully!");
+            alert.showAndWait();
+        }
+
 
     }
 
     private void onCalculate(javafx.event.ActionEvent actionEvent) {
-        CalculateCredit();
-        this.details_container.setVisible(true);
-        monthly_rate_lbl.setText(String.valueOf(credit.getCredit_monthly_rate()) + " " + credit.getCredit_currency());
-        interest_lbl.setText(String.valueOf(credit.getCredit_intrest()) + "%");
-        total_credit_value_lbl.setText(String.valueOf(credit.getCredit_total_sum()) + " " + credit.getCredit_currency());
-        effective_anual_interest_lbl.setText(String.valueOf(credit.getCredit_intrest()) + "%");
-        total_payment_amount_lbl.setText(String.valueOf(credit.getCredit_monthly_rate() * credit.getCredit_period()) + " " + credit.getCredit_currency());
+        try {
+            CalculateCredit();
+            monthly_rate_lbl.setText(String.valueOf(credit.getCredit_monthly_rate()) + " " + credit.getCredit_currency());
+            interest_lbl.setText(String.valueOf(credit.getCredit_intrest()) + "%");
+            total_credit_value_lbl.setText(String.valueOf(credit.getCredit_total_sum()) + " " + credit.getCredit_currency());
+            effective_anual_interest_lbl.setText(String.valueOf(credit.getCredit_intrest()) + "%");
+            total_payment_amount_lbl.setText(String.valueOf(credit.getCredit_monthly_rate() * credit.getCredit_period()) + " " + credit.getCredit_currency());
+            this.details_container.setVisible(true);
+        } catch (Exception e) {
+            System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("One field is empty!");
+            alert.showAndWait();
+        }
+
     }
 
-    private void CalculateCredit(){
-        var credit_totalSum = Float.valueOf(requested_sum_fld.getText());
-        var credit_period = Integer.valueOf(period_choicebox.getValue().toString());
-        var credit_currency = currency_choicebox.getValue().toString();
-        var credit_intrest = BankInfo.getInstance().getIntrest();
-        var credit_monthly_rate = (float)LoanCalculator.calculateMonthlyRate(credit_totalSum, credit_period);
-
-        var loggedUser = UserLoggedIn.getInstance().getLoggedInUser();
-        this.credit = new Credit(loggedUser.getUserId(), credit_totalSum, credit_period, credit_currency, credit_monthly_rate, credit_intrest);
+    private void CalculateCredit() {
+        try {
+            var credit_totalSum = Float.valueOf(requested_sum_fld.getText());
+            var credit_period = Integer.valueOf(period_choicebox.getValue().toString());
+            var credit_currency = currency_choicebox.getValue().toString();
+            var credit_intrest = BankInfo.getInstance().getIntrest();
+            var credit_monthly_rate = (float) LoanCalculator.calculateMonthlyRate(credit_totalSum, credit_period);
+            var loggedUser = UserLoggedIn.getInstance().getLoggedInUser();
+            this.credit = new Credit(loggedUser.getUserId(), credit_totalSum, credit_period, credit_currency, credit_monthly_rate, credit_intrest);
+        } catch (Exception e) {
+            System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
+        }
     }
-
 
 
 }

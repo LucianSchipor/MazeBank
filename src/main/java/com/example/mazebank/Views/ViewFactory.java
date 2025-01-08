@@ -95,7 +95,7 @@ public class ViewFactory {
 
     public AnchorPane getDashboardView() {
             try {
-                var dashboardV = new FXMLLoader(getClass().getResource("/Fxml/User/Menu/Dashboard.fxml"));
+                var dashboardV = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
                 dashboardV.setController(new DashboardController());
                 dashboardView = dashboardV.load();
             } catch (Exception e) {
@@ -196,7 +196,7 @@ public class ViewFactory {
     }
     public void showRegisterFormWindow() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Register.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/SignUp/SignUp.fxml"));
             createStage(loader);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -315,7 +315,7 @@ public class ViewFactory {
     public AnchorPane getRegisterFormWindow() {
         if (formsView == null) {
             try {
-                formsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/RegisterForm.fxml")).load();
+                formsView = new FXMLLoader(getClass().getResource("/Fxml/User/SignUp/SignUpForm.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
