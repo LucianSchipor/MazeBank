@@ -3,7 +3,7 @@ package com.example.mazebank.Controllers.User.TempUser;
 import com.example.mazebank.Core.Forms.Form;
 import com.example.mazebank.Core.Forms.FormStatus;
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Repositories.DBUtils.DB_Forms;
+import com.example.mazebank.Repositories.Forms.DB_Forms;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;

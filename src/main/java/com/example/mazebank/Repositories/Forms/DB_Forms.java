@@ -1,9 +1,10 @@
-package com.example.mazebank.Repositories.DBUtils;
+package com.example.mazebank.Repositories.Forms;
 
 import com.example.mazebank.Core.Forms.Form;
 import com.example.mazebank.Core.Forms.FormStatus;
 import com.example.mazebank.Core.Forms.FormType;
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import javafx.util.Pair;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -15,13 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DB_Forms {
 
-    private static void createDocument(){
+    private static void CreateDocument(){
         List<Pair<String, String>> Text = new ArrayList<>();
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         Text.add(new Pair<>("Username: ", userLoggedIn.getUsername()));
@@ -52,8 +52,8 @@ public class DB_Forms {
                 contentStream.newLineAtOffset(260, 500);
                 Text.forEach(n -> {
                     try {
-                        contentStream.showText(n.getKey().toString());
-                        contentStream.showText(n.getValue().toString());
+                        contentStream.showText(n.getKey());
+                        contentStream.showText(n.getValue());
                         contentStream.newLineAtOffset(0, -25);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -61,7 +61,7 @@ public class DB_Forms {
                 });
                 contentStream.endText();
             }
-            File file = new File("Forms/" + Text.get(0).getValue() + "_Register_Form.pdf");
+            File file = new File("Forms/" + Text.getFirst().getValue() + "_Register_Form.pdf");
             document.save(file);
             System.out.println("[LOG][Forms] - PDF created successfully! Path: " + file.getAbsolutePath());
         } catch (IOException e) {
@@ -71,7 +71,6 @@ public class DB_Forms {
 
     public static void UpdateFormStatus(int form_id, FormStatus status){
         PreparedStatement querry;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -87,7 +86,7 @@ public class DB_Forms {
             if (rowsAffected > 0) {
                 System.out.println("[LOG][Forms] - successfully deleted form!");
                 try {
-                    createDocument();
+                    CreateDocument();
                 }
                 catch (Exception e){
                     System.out.println("[LOG][Forms] - " + e.getCause());
@@ -101,7 +100,6 @@ public class DB_Forms {
 
     public static void DeleteForm(int form_id){
         PreparedStatement querry;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -116,7 +114,7 @@ public class DB_Forms {
             if (rowsAffected > 0) {
                 System.out.println("[LOG][Forms] - successfully deleted form!");
                 try {
-                    createDocument();
+                    CreateDocument();
                 }
                 catch (Exception e){
                     System.out.println("[LOG][Forms] - " + e.getCause());
@@ -128,9 +126,8 @@ public class DB_Forms {
         }
     }
 
-    public static void CreateForm(){
+    public static void CreateForm(FormType type){
         PreparedStatement querry;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -139,17 +136,18 @@ public class DB_Forms {
         }
         try {
             assert connection != null;
-            querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id) values (?, ?, ?, ?)");
+            querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id, form_type) values (?, ?, ?, ?, ?)");
             querry.setString(1, "Forms/" + UserLoggedIn.getInstance().getLoggedInUser().getUsername() + "_Register_Form.pdf");
             querry.setDate(2, Date.valueOf(LocalDate.now()));
             querry.setInt(3, 0);
             querry.setInt(4, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
+            querry.setInt(5, FormType.valueOf(type.name()).ordinal());
 
             int rowsAffected = querry.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("[LOG][Forms] - successfully created form!");
                 try {
-                    createDocument();
+                    CreateDocument();
                 }
                 catch (Exception e){
                     System.out.println("[LOG][Forms] - " + e.getMessage());
@@ -161,7 +159,6 @@ public class DB_Forms {
     }
     public static void CreateForm(Form form){
         PreparedStatement querry;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -181,7 +178,7 @@ public class DB_Forms {
             if (rowsAffected > 0) {
                 System.out.println("[LOG][Forms] - successfully created form!");
                 try {
-                    createDocument();
+                    CreateDocument();
                 }
                 catch (Exception e){
                     System.out.println("[LOG][Forms] - " + e.getMessage());

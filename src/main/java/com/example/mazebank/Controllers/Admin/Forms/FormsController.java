@@ -1,20 +1,13 @@
 package com.example.mazebank.Controllers.Admin.Forms;
 
-import com.example.mazebank.Controllers.Admin.Forms.Cell.FormsResultCell_Controller;
-import com.example.mazebank.Controllers.Admin.Forms.Cell.FormsResultListCell_Controller;
-import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCell;
+import com.example.mazebank.Controllers.FormsCell.List.FormsResultListCell_Controller;
 import com.example.mazebank.Core.Forms.Form;
-import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Core.Transactions.Transaction;
-import com.example.mazebank.Repositories.DBUtils.DB_Forms;
-import com.example.mazebank.Repositories.Transactions.DB_Transactions;
-import com.google.zxing.WriterException;
+import com.example.mazebank.Repositories.Forms.DB_Forms;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

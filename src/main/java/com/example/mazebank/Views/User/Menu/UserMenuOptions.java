@@ -5,5 +5,6 @@ public enum UserMenuOptions {
     TRANSACTIONS,
     ACCOUNTS,
     ADD_FUDNS,
+    FORMS,
 
 }

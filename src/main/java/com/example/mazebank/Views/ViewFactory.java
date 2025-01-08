@@ -29,6 +29,7 @@ public class ViewFactory {
     private AnchorPane accountsView;
     private AnchorPane createClientView;
     private AnchorPane searchView;
+    private AnchorPane userFormsView;
     private AnchorPane clientsView;
     private AnchorPane addFundsView;
     private AnchorPane depositView;
@@ -91,6 +92,18 @@ public class ViewFactory {
             }
         }
         return addFundsView;
+    }
+
+    public AnchorPane getUserFormsView() {
+
+        if (userFormsView == null) {
+            try {
+                userFormsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Forms.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return userFormsView;
     }
 
     public AnchorPane getDashboardView() {

@@ -21,7 +21,7 @@ public class UserController implements Initializable {
 //                default -> client_parent.setCenter(Model.getInstance().getViewFactory().getDashboardView(user));
 //            }
 //        });
-//    }4
+//    }
 
 
     @Override
@@ -35,6 +35,7 @@ public class UserController implements Initializable {
                 case TRANSACTIONS -> client_parent.setCenter(Model.getInstance().getViewFactory().getTransactionsView());
                 case ACCOUNTS -> client_parent.setCenter(Model.getInstance().getViewFactory().getAccountsView());
                 case ADD_FUDNS -> client_parent.setCenter(Model.getInstance().getViewFactory().getAddFundsView());
+                case FORMS -> client_parent.setCenter(Model.getInstance().getViewFactory().getUserFormsView());
                 default -> client_parent.setCenter(Model.getInstance().getViewFactory().getDashboardView());
             }
         } );

@@ -18,6 +18,7 @@ public class UserMenuController implements Initializable {
     public Button logout_btn;
     public Button report_btn;
     public Button add_funds_btn;
+    public Button forms_btn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -26,6 +27,7 @@ public class UserMenuController implements Initializable {
     }
 
     private void addListeners(){
+        forms_btn.setOnAction(event -> onForms());
         add_funds_btn.setOnAction(event -> onAddFunds());
         dashboard_btn.setOnAction(event -> onDashboard());
         transactions_btn.setOnAction(event -> onTransactions());
@@ -63,6 +65,13 @@ public class UserMenuController implements Initializable {
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.ADD_FUDNS);
         deselectAll();
         setStyleSelectedButton(add_funds_btn);
+    }
+
+    private void onForms(){
+        System.out.println("[LOG] - redirecting to Forms panel");
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.FORMS);
+        deselectAll();
+        setStyleSelectedButton(forms_btn);
     }
 
 

@@ -9,35 +9,47 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="738.0" prefWidth="850.0" styleClass="container"
-            stylesheets="@../../../Styles/User/Forms/Forms.css" xmlns="http://javafx.com/javafx/23"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.mazebank.Controllers.User.Forms.FormsController">
-   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="5.0"
-         AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+<AnchorPane prefHeight="738.0" prefWidth="850.0" styleClass="container" stylesheets="@../../../Styles/User/Forms/Forms.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Forms.FormsController">
+   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title_container">
          <Label text="Forms">
             <graphic>
-               <FontAwesomeIconView glyphName="WPFORMS" size="20"/>
+               <FontAwesomeIconView glyphName="WPFORMS" size="20" />
             </graphic>
          </Label>
       </VBox>
       <VBox styleClass="main_VBox" VBox.vgrow="ALWAYS">
          <VBox.margin>
-            <Insets/>
+            <Insets />
          </VBox.margin>
          <TabPane styleClass="users_container" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
             <VBox.margin>
-               <Insets/>
+               <Insets />
             </VBox.margin>
             <Tab text="Account">
                <VBox>
-                  <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+                  <VBox>
+                     <children>
+                        <Label text="Account Forms" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <ListView fx:id="account_forms_listview" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                </VBox>
             </Tab>
             <Tab text="Credits">
                <VBox>
-                  <ListView VBox.vgrow="ALWAYS"/>
+                  <VBox>
+                     <children>
+                        <Label text="Credits Forms" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <ListView fx:id="credits_forms_listview" VBox.vgrow="ALWAYS" />
                </VBox>
             </Tab>
          </TabPane>

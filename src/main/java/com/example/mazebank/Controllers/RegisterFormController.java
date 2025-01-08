@@ -1,6 +1,7 @@
 package com.example.mazebank.Controllers;
 
-import com.example.mazebank.Repositories.DBUtils.DB_Forms;
+import com.example.mazebank.Core.Forms.FormType;
+import com.example.mazebank.Repositories.Forms.DB_Forms;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +13,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -40,7 +40,7 @@ public class RegisterFormController implements Initializable {
         Text.add(new Pair<>("E-Mail: ", email_fld.getText()));
         Text.add(new Pair<>("Last Name: ", lName_fld.getText()));
         Text.add(new Pair<>("First Name: ", fName_fld.getText()));
-        DB_Forms.CreateForm();
+        DB_Forms.CreateForm(FormType.ACCOUNT);
     }
 
     private void createDocument(List<Pair<String, String>> Text){

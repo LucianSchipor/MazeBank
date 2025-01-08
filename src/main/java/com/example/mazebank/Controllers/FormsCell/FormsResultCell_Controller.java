@@ -1,12 +1,11 @@
-package com.example.mazebank.Controllers.Admin.Forms.Cell;
+package com.example.mazebank.Controllers.FormsCell;
 
 import com.example.mazebank.Core.Forms.Form;
 import com.example.mazebank.Core.Forms.FormStatus;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Users.AccountType;
-import com.example.mazebank.Repositories.DBUtils.DB_Forms;
+import com.example.mazebank.Repositories.Forms.DB_Forms;
 import com.example.mazebank.Repositories.Users.DB_Users;
-import com.example.mazebank.Views.User.Menu.UserMenuOptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

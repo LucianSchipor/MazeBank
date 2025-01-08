@@ -1,14 +1,10 @@
-package com.example.mazebank.Controllers.Admin.Forms.Cell;
+package com.example.mazebank.Controllers.FormsCell.List;
 
-import com.example.mazebank.Controllers.Admin.Forms.FormsController;
+import com.example.mazebank.Controllers.FormsCell.FormsResultCell_Controller;
 import com.example.mazebank.Core.Forms.Form;
-import com.example.mazebank.Core.Models.UserLoggedIn;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
-
-import java.util.Objects;
 
 public class FormsResultListCell_Controller extends ListCell<Form> {
 

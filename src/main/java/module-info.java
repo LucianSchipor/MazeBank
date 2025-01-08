@@ -42,8 +42,12 @@ module com.example.mazebank {
     exports com.example.mazebank.Controllers.Admin.Search.BankAccounts.Cell;
     exports com.example.mazebank.Controllers.Admin.Search.BankAccounts;
     exports com.example.mazebank.Controllers.Admin.Forms;
-    exports com.example.mazebank.Controllers.Admin.Forms.Cell;
+    exports com.example.mazebank.Controllers.FormsCell;
     exports com.example.mazebank.Controllers.Alerts;
     exports com.example.mazebank.Controllers.User.TempUser;
     exports com.example.mazebank.Controllers.User.AddFunds;
+    exports com.example.mazebank.Controllers.FormsCell.List;
+    exports com.example.mazebank.Repositories.Forms;
+    exports com.example.mazebank.Core.Forms;
+    exports com.example.mazebank.Controllers.User.Forms;
 }
