@@ -63,7 +63,7 @@ public class FormsResultCell_Controller implements Initializable {
         this.id.setText(Integer.toString(form.getForm_id()));
         if(UserLoggedIn.getInstance().getLoggedInUser().getRole().equals(AccountType.ADMIN)) {
             username_HBox.setVisible(true);
-            username_lbl.setText(DB_Users.SearchUserById(form.getUser_id()).getUsername());
+            username_lbl.setText(String.valueOf(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
             accept_btn.setVisible(true);
             reject_btn.setVisible(true);
         }

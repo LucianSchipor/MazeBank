@@ -50,4 +50,7 @@ module com.example.mazebank {
     exports com.example.mazebank.Repositories.Forms;
     exports com.example.mazebank.Core.Forms;
     exports com.example.mazebank.Controllers.User.Forms;
+    exports com.example.mazebank.Controllers.User.Forms.Forms_Menu;
+    exports com.example.mazebank.Controllers.User.Forms.Forms_Menu.Account;
+    exports com.example.mazebank.Controllers.User.Forms.Forms_Menu.Credits;
 }

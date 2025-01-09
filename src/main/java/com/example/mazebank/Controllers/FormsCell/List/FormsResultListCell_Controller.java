@@ -19,7 +19,6 @@ public class FormsResultListCell_Controller extends ListCell<Form> {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Forms/FormsResult/FormsResultCell.fxml"));
                 AnchorPane hbox = loader.load();
                 FormsResultCell_Controller controller = loader.getController();
-
                 controller.setform(form);
                 setGraphic(hbox);
 //                if(isSelected()){

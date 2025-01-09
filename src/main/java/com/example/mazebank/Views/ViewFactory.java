@@ -9,6 +9,7 @@ import com.example.mazebank.Controllers.User.Menu.UserController;
 import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
+import com.example.mazebank.Views.User.Forms.FormsMenuOptions;
 import com.example.mazebank.Views.User.Menu.TempUserMenuOptions;
 import com.example.mazebank.Views.User.Menu.UserMenuOptions;
 import javafx.beans.property.ObjectProperty;
@@ -35,9 +36,12 @@ public class ViewFactory {
     private AnchorPane depositView;
     private AnchorPane formsView;
     private AnchorPane tempUserDashboard;
+    private AnchorPane formsAccountsView;
+    private AnchorPane formsCreditsView;
     private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private final ObjectProperty<TempUserMenuOptions> tempUserSelectedMenuItem;
+    private final ObjectProperty<FormsMenuOptions> formsMenuSelectedItem;
     private Scene previousWindow;
 
     public ViewFactory() {
@@ -45,6 +49,7 @@ public class ViewFactory {
         this.clientSelectedMenuItem = new SimpleObjectProperty<>();
         this.adminSelectedMenuItem = new SimpleObjectProperty<>();
         this.tempUserSelectedMenuItem = new SimpleObjectProperty<>();
+        this.formsMenuSelectedItem = new SimpleObjectProperty<>();
     }
 
     public AccountType getLoginAccountType() {
@@ -64,6 +69,10 @@ public class ViewFactory {
             }
         }
         return clientsView;
+    }
+
+    public ObjectProperty<FormsMenuOptions> getFormsMenuSelectedMenuItem() {
+        return formsMenuSelectedItem;
     }
 
     public ObjectProperty<UserMenuOptions> getClientSelectedMenuItem() {
@@ -172,6 +181,7 @@ public class ViewFactory {
             exception.printStackTrace();
         }
     }
+
 
 
     public void show2FAWindow(Scene previousScene){
@@ -334,6 +344,24 @@ public class ViewFactory {
             }
         }
         return formsView;
+    }
+
+    public AnchorPane getFormsAccountView() {
+            try {
+                formsAccountsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Account/Forms_Account.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return formsAccountsView;
+    }
+
+    public AnchorPane getFormsCreditsView() {
+            try {
+                formsCreditsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Credits/Forms_Credits.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return formsCreditsView;
     }
 
     public void closeStage(Stage stage) {
