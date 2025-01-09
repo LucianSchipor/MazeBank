@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1030.0" stylesheets="@../Styles/2FA.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.FA_Controller">
@@ -24,7 +25,11 @@
          <children>
             <Label fx:id="code_lbl" text="RAZ5OKOS63PBEB2U5PCLVWLBZKDW423N" textFill="FORESTGREEN" />
             <Label text="Enter OTP Code from Google Authenticator" />
-              <TextField fx:id="otp_fld" prefHeight="26.0" prefWidth="401.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                    <TextField fx:id="otp_fld" alignment="CENTER" prefHeight="26.0" prefWidth="287.0" promptText="Enter the OTP Code" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="searchbox_container">

@@ -62,15 +62,16 @@ public class DB_Transactions {
             if (connection != null) {
                 try {
                     connection.close();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Success!");
+                    alert.setTitle("Success!");
+                    alert.setContentText("Transfer successful!");
+                    alert.showAndWait();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
 
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setContentText("Transfer successful!");
-            alert.showAndWait();
         }
     }
 

@@ -5,6 +5,8 @@ import com.example.mazebank.Core.Transactions.Transaction;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
+
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class TransactionListCell extends ListCell<Transaction> {
@@ -20,7 +22,8 @@ public class TransactionListCell extends ListCell<Transaction> {
                 AnchorPane hbox = loader.load();
                 TransactionCellController controller = loader.getController();
                 controller.currency_lbl.setText(transaction.getCurrency());
-                controller.trans_date_lbl.setText(transaction.getTimestamp().toString());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                controller.trans_date_lbl.setText(transaction.getTimestamp().toLocalDateTime().format(formatter));
                 setGraphic(hbox);
                 if (Objects.equals(transaction.getSender(), UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
 

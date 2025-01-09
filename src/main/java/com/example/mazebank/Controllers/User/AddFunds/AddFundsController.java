@@ -76,6 +76,8 @@ public class AddFundsController implements Initializable {
         }
         finally {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Success!");
+            alert.setTitle("Success!");
             alert.setContentText("Credit request has been created successfully!");
             alert.showAndWait();
         }

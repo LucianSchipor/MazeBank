@@ -73,6 +73,8 @@ public class FA_Controller implements Initializable {
             DB_Users.UpdateFAVerificationTime(UserLoggedIn.getInstance().getLoggedInUser());
             Security.getInstance().setFA_Verified(true);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success!");
+            alert.setHeaderText("Success!");
             alert.setContentText("2FA verified for " + UserLoggedIn.getInstance().getLoggedInUser().getUsername());
             alert.showAndWait();
             Stage stage = (Stage)otp_fld.getScene().getWindow();

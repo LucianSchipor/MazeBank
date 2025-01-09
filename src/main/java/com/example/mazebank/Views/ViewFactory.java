@@ -61,13 +61,11 @@ public class ViewFactory {
     }
 
     public AnchorPane getClientsView() {
-        if (clientsView == null) {
             try {
                 clientsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Accounts/Accounts.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return clientsView;
     }
 
@@ -81,37 +79,31 @@ public class ViewFactory {
 
     public AnchorPane getAccountsView() {
 
-        if (accountsView == null) {
             try {
                 accountsView = new FXMLLoader(getClass().getResource("/Fxml/User/BankAccounts/Accounts.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return accountsView;
     }
 
     public AnchorPane getAddFundsView() {
 
-        if (addFundsView == null) {
             try {
                 addFundsView = new FXMLLoader(getClass().getResource("/Fxml/User/Add Funds/Add_Funds.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return addFundsView;
     }
 
     public AnchorPane getUserFormsView() {
 
-        if (userFormsView == null) {
             try {
                 userFormsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Forms.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return userFormsView;
     }
 
@@ -127,13 +119,11 @@ public class ViewFactory {
     }
 
     public AnchorPane getDepositView() {
-        if (depositView == null) {
             try {
                 depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit/Deposit.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return depositView;
     }
 
@@ -294,35 +284,29 @@ public class ViewFactory {
     }
 
     public AnchorPane getCreateView() {
-        if (createClientView == null) {
             try {
                 createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Create/Create.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return createClientView;
     }
 
     public AnchorPane getSearchView() {
-        if (searchView == null) {
             try {
                 searchView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/Search.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return searchView;
     }
 
     public AnchorPane getFormsView() {
-        if (formsView == null) {
             try {
                 formsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Forms/Forms.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return formsView;
     }
 
@@ -336,13 +320,11 @@ public class ViewFactory {
     }
 
     public AnchorPane getRegisterFormWindow() {
-        if (formsView == null) {
             try {
                 formsView = new FXMLLoader(getClass().getResource("/Fxml/User/SignUp/SignUpForm.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
         return formsView;
     }
 
