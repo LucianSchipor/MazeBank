@@ -121,24 +121,31 @@
     -fx-spacing: 10;
 }
 
-.transaction_listview:focused{
-    /*-fx-background-color: transparent;*/
-}
-
 .transaction_listview {
     -fx-background-color: transparent;
-    -fx-border-width: 0 0 0 0;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+.dashboard .transactions_VBox .transaction_listview {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
 }
 
-.transaction_listview .list-cell:focused {
-    /*-fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);*/
-    /*-fx-scale-x: 1.01;*/
-    /*-fx-scale-y: 1.01;*/
-    /*-fx-background-radius: 5;*/
-    -fx-background-color: inherit; /* Folosește culoarea celulei deja setate */
-    -fx-border-color: transparent; /* Înlătură bordura albastră implicită */
-    -fx-effect: none; /* Dezactivează efectele vizuale */
+.dashboard .transactions_VBox .transaction_listview .list-cell {
+    -fx-background-color: #FFFFFF;
 }
+
+
+.dashboard .transactions_VBox .transaction_listview .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.dashboard .transactions_VBox .transaction_listview .list-cell:selected {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
 
 .transaction_listview .scroll-bar:vertical {
     -fx-scale-x: 0;

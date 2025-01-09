@@ -19,8 +19,18 @@
 }
 
 .transactions_container .list-view {
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: transparent;
     -fx-padding: 10;
+}
+
+.transactions_container .list-view .list-cell:selected {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.transactions_container .list-view:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
 }
 
 .transactions_container .list-cell {

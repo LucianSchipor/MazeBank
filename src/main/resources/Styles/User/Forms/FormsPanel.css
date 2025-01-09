@@ -1,0 +1,28 @@
+
+.listview_container {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+.listview_container:focused{
+    /*-fx-background-color: transparent;*/
+}
+
+.listview_container .list-cell:focused {
+    /*-fx-border-color: transparent;*/
+    /*!*-fx-background-color: transparent;*!*/
+    /*-fx-border-width: 0;*/
+}
+
+.listview_container .list-cell:selected {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+
+}
+
+.listview_container .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}

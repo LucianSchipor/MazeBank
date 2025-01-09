@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Forms.Forms_Menu.Account.FormsMenuAccountController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../Styles/User/Forms/FormsPanel.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Forms.Forms_Menu.Account.FormsMenuAccountController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -15,7 +15,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ListView fx:id="listview" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="listview" styleClass="listview_container" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>

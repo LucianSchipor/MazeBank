@@ -57,6 +57,8 @@ public class UserMenuController implements Initializable {
 
         dashboard_btn.setStyle(deselectButtonString);
         transactions_btn.setStyle(deselectButtonString);
+        add_funds_btn.setStyle(deselectButtonString);
+        forms_btn.setStyle(deselectButtonString);
         accounts_btn.setStyle(deselectButtonString);
     }
 

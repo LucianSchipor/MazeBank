@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" prefHeight="60.0" styleClass="main_menu_container" stylesheets="@../../../Styles/Menu.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Forms.Forms_Menu.FormsMenuController">
+<AnchorPane maxHeight="-Infinity" prefHeight="60.0" style="-fx-background-color: transparent;" styleClass="main_menu_container" stylesheets="@../../../Styles/Menu.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.Forms.Forms_Menu.FormsMenuController">
     <children>
         <HBox styleClass="menu_container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>

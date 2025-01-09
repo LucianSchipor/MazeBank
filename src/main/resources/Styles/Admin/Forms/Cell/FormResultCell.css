@@ -1,8 +1,12 @@
 .user_cell_container {
+    -fx-background-color: transparent;
+    /*-fx-background-radius: 10;*/
+    /*-fx-padding: 5 5 5 5;*/
+}
+
+.main_HBox {
+    -fx-background-radius: 5;
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 7);
-    -fx-padding: 5 5 5 5;
 }
 
 .user_cell_container FontAwesomeIconView {
@@ -44,7 +48,6 @@
 }
 
 .button_HBox {
-
     -fx-alignment: center_right;
 }
 

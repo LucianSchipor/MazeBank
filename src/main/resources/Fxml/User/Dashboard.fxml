@@ -38,7 +38,7 @@
                   <Font name="Calibri Light" size="17.0" />
                </font>
             </Label>
-            <ListView fx:id="transaction_listview" prefWidth="829.0" styleClass="transaction_listview" />
+            <ListView fx:id="transaction_listview" prefWidth="827.0" styleClass="transaction_listview" />
          </VBox>
       </children>
    </VBox>
