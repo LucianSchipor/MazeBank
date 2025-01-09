@@ -1,4 +1,4 @@
-.container{
+.container {
     -fx-background-color: #EEEEEE;
 }
 
@@ -17,42 +17,41 @@
     -fx-font-size: 2.5em;
     -fx-font-family: "Calibri Light";
 }
-.container .searchbox_container .list-view:focused{
-    -fx-background-color: transparent;
-}
+
 .container .searchbox_container .list-view {
-    -fx-background-color: #EEEEEE;
+-fx-background-color: transparent;
 }
 
-.container .list-cell {
-    -fx-background-color: #EEEEEE;
-}
-
-.container .searchbox_container .list-view .list-cell:focused {
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
-    -fx-scale-x: 1.01;
-    -fx-scale-y: 1.01;
-    -fx-background-radius: 5;
+.container .searchbox_container .list-view .list-cell:selected {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
 }
 
-.searchbox_container{
+.container .searchbox_container .list-view .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+
+.searchbox_container {
     -fx-background-color: #EEEEEE;
     -fx-padding: 0 0 0 0;
     -fx-spacing: 5;
 }
 
-.searchbox_container Text{
+.searchbox_container Text {
     -fx-font-family: "Calibri Light";
     -fx-font-size: 1.3em;
 }
 
-.searchbox_container TextField{
+.searchbox_container TextField {
     -fx-pref-height: 40;
     -fx-background-color: #e0e0e0;
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
 }
 
-.searchbox_container Button:hover{
+.searchbox_container Button:hover {
     -fx-cursor: hand;
 }

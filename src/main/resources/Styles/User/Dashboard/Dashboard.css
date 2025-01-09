@@ -10,7 +10,7 @@
 
 .dashboard_button{
     -fx-border-style: solid;
-    -fx-border-width: 0.1px;
+    -fx-border-width: 0.1;
     -fx-border-radius: 10px;
     -fx-background-color: transparent;
     -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);

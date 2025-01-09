@@ -30,6 +30,7 @@ public class FormsResultCell_Controller implements Initializable {
     public Form form;
     public Label username_lbl;
     public HBox username_HBox;
+    public Label formtype_lbl;
 
     public FormsResultCell_Controller(Form form) {
         this.form = form;
@@ -44,6 +45,9 @@ public class FormsResultCell_Controller implements Initializable {
     }
 
     private void setStatus() {
+        this.username_lbl.setTextFill(Paint.valueOf("#000000"));
+        this.id.setTextFill(Paint.valueOf("#000000"));
+        this.formtype_lbl.setTextFill(Paint.valueOf("#000000"));
         if (form.getStatus().equals(FormStatus.PENDING)) {
             this.status_lbl.setText("Pending");
             this.status_lbl.setTextFill(Paint.valueOf("#5787db"));
@@ -63,9 +67,11 @@ public class FormsResultCell_Controller implements Initializable {
         this.id.setText(Integer.toString(form.getForm_id()));
         if(UserLoggedIn.getInstance().getLoggedInUser().getRole().equals(AccountType.ADMIN)) {
             username_HBox.setVisible(true);
-            username_lbl.setText(String.valueOf(UserLoggedIn.getInstance().getLoggedInUser().getUserId()));
+            username_lbl.setText("User id: " + String.valueOf(form.getUser_id()));
             accept_btn.setVisible(true);
             reject_btn.setVisible(true);
+            formtype_lbl.setText(form.getFormType().toString());
+            formtype_lbl.setVisible(true);
         }
         else{
             username_HBox.setVisible(false);
@@ -80,6 +86,7 @@ public class FormsResultCell_Controller implements Initializable {
         reject_btn.setOnAction(this::onRejectForm);
         reject_btn.setVisible(false);
         viewForm_btn.setOnAction(this::onViewForm);
+        formtype_lbl.setVisible(false);
     }
 
     private void onRejectForm(ActionEvent actionEvent) {

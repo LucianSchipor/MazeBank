@@ -22,6 +22,15 @@
          </HBox>
       </HBox>
       <HBox layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+         <children>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                  <Label fx:id="formtype_lbl" text="Account " />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="userid_container">
          <HBox fx:id="username_HBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false">
             <Label fx:id="username_lbl" prefHeight="22.0" prefWidth="151.0" text="Pending" />
          </HBox>

@@ -1,7 +1,5 @@
 .user_cell_container {
-    -fx-background-color: transparent;
-    /*-fx-background-radius: 10;*/
-    /*-fx-padding: 5 5 5 5;*/
+    -fx-background-color: #FFFFFF;
 }
 
 .main_HBox {
@@ -25,6 +23,9 @@
 
 .user_cell_container .button_container {
     -fx-spacing: 2;
+}
+.user_cell_container .userid_container Label {
+    -fx-fill: #000000;
 }
 
 .acc_display_lbl {

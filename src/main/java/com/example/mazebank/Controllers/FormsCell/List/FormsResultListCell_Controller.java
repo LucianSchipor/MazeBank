@@ -3,6 +3,7 @@ package com.example.mazebank.Controllers.FormsCell.List;
 import com.example.mazebank.Controllers.FormsCell.FormsResultCell_Controller;
 import com.example.mazebank.Core.Forms.Form;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 
