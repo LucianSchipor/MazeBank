@@ -42,7 +42,7 @@ public class DB_Transactions {
                     psInsertTransaction.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
                     int rowsAffected = psInsertTransaction.executeUpdate();
                     if (rowsAffected > 0) {
-                        DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id(), amount, receiver);
+                        DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN(), amount, receiver);
 //                    DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
                         System.out.println("Transaction successfully inserted.");
                     } else {

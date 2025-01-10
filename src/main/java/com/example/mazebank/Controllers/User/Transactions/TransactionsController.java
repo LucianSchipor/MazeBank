@@ -8,6 +8,7 @@ import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
 import com.google.zxing.WriterException;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -22,7 +23,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
-    public ListView transactions_listview = new ListView();
+    public ListView<Transaction> transactions_listview = new ListView<>();
     public TextField payee_fld = new TextField();
     public TextField amount_fld = new TextField();
     public TextArea message_fld = new TextArea();
@@ -42,8 +43,12 @@ public class TransactionsController implements Initializable {
                 DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().
                         getSelectedCheckingAccount()
                         .getIBAN()));
-        transactions_listview.setItems(transactions_observable);
-        transactions_listview.setCellFactory(param -> new TransactionListCell());
+
+        Platform.runLater(() -> {
+            transactions_listview.setItems(transactions_observable);
+            transactions_listview.setCellFactory(param -> new TransactionListCell());
+        });
+
     }
 
     public TransactionsController() {
@@ -88,6 +93,7 @@ public class TransactionsController implements Initializable {
             alert.setContentText("You cannot have empty fields!");
             alert.showAndWait();
         }
+        updatePage();
     }
 
     private static boolean VerifyTransfer(String receiver, String amount_String, String message) {
@@ -137,7 +143,10 @@ public class TransactionsController implements Initializable {
     }
 
     private void updatePage() {
+        UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
         var account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
+
+        account.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getIBAN()));
         var transactionsList = account.getTransactions();
         ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();
         try {
