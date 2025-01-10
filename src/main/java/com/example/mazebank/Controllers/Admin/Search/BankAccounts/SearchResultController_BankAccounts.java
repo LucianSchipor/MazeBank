@@ -49,6 +49,7 @@ public class SearchResultController_BankAccounts implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        bacc_title_lbl.setText(user.getUsername() + "'s Bank Accounts");
         ObservableList< BankAccount > bankAccountObservableList = FXCollections.observableArrayList(DB_BankAccounts.GetBankAccounts(user.getUserId()).values().stream().toList());
         bAcc_listView.setItems(bankAccountObservableList);
         bAcc_listView.setCellFactory(param -> new SearchResultListCell_BankAccounts());

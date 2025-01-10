@@ -74,3 +74,11 @@
 .new_trans_container Button:hover{
     -fx-cursor: hand;
 }
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent; /* Fundal transparent */
+    -fx-pref-width: 12px; /* Lățimea scroll-ului */
+}
+.scroll-bar .thumb {
+    -fx-background-color: #AAAAAA;
+}
