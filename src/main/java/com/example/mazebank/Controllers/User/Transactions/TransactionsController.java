@@ -38,7 +38,10 @@ public class TransactionsController implements Initializable {
                 System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
             }
         });
-        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber()));
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(
+                DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().
+                        getSelectedCheckingAccount()
+                        .getIBAN()));
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
@@ -51,7 +54,10 @@ public class TransactionsController implements Initializable {
                 System.out.println("[LOG][Transactions][Cause] - " + e.getCause());
                 System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
             }
-        });        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber()));
+        });        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions
+                (UserLoggedIn.getInstance().getLoggedInUser().
+                        getSelectedCheckingAccount().getIBAN()));
+
         transactions_listview.setItems(transactions_observable);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
@@ -89,7 +95,7 @@ public class TransactionsController implements Initializable {
             return false;
         }
         for (Map.Entry<String, BankAccount> entry : UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet()) {
-            String account_number = entry.getKey();
+            String account_number = entry.getValue().getIBAN();
             if(account_number.equals(receiver)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("You cannot send money to your own account. Use Deposit.");
@@ -98,7 +104,7 @@ public class TransactionsController implements Initializable {
             }
         }
 
-        if (Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
+        if (Objects.equals(receiver, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("You cannot send money to your own account!");
             alert.showAndWait();
@@ -146,7 +152,7 @@ public class TransactionsController implements Initializable {
         double income = 0;
         double outcome = 0;
         for (Transaction transaction : transactionsList) {
-            if (Objects.equals(transaction.getSender(), account.getAccount_id())) {
+            if (Objects.equals(transaction.getSender(), account.getIBAN())) {
                 outcome += transaction.getAmount();
             } else {
                 income += transaction.getAmount();

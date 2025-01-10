@@ -35,7 +35,7 @@ public class DB_BankAccounts {
 
                 var newBankAccount = new BankAccount(account_id, balance, currency, date, CVV);
                 newBankAccount.setAccount_id(resultSet.getString("account_id"));
-                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
+                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(IBAN));
                 newBankAccount.setIBAN(IBAN);
                 accounts.put(account_id, newBankAccount);
             }
@@ -112,7 +112,7 @@ public class DB_BankAccounts {
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 double balance = resultSet.getDouble("account_balance");
-                account.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getAccount_id()));
+                account.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getIBAN()));
                 account.setBalance(balance);
             }
         } catch (Exception exception) {
@@ -146,14 +146,14 @@ public class DB_BankAccounts {
             psInsertTransaction = connection.prepareStatement(
                     "UPDATE bank_accounts " +
                             "SET account_balance = account_balance - ? " +
-                            "WHERE account_id = ?");
+                            "WHERE iban = ?");
             psInsertTransaction.setDouble(1, amount);
             psInsertTransaction.setString(2, sender);
             psInsertTransaction.executeUpdate();
 
             psInsertTransaction = connection.prepareStatement(
                     "SELECT account_currency from bank_accounts " +
-                            "WHERE account_id = ?");
+                            "WHERE iban = ?");
             psInsertTransaction.setString(1, receiver);
             resultSet = psInsertTransaction.executeQuery();
             String currency = "";
@@ -164,7 +164,7 @@ public class DB_BankAccounts {
             psInsertTransaction = connection.prepareStatement(
                     "UPDATE bank_accounts " +
                             "SET account_balance = account_balance + ? " +
-                            "WHERE account_id = ?");
+                            "WHERE iban = ?");
 
             Double newAmount = Currency_Conversion(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency(), currency, amount);
             psInsertTransaction.setDouble(1, newAmount);
@@ -298,7 +298,6 @@ public class DB_BankAccounts {
                 bankAccount.setAccount_id(resultSet.getString("account_id"));
                 bankAccount.setBalance(resultSet.getDouble("account_balance"));
                 bankAccount.setCurrency(resultSet.getString("account_currency"));
-                bankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(IBAN));
                 bankAccount.setIBAN(IBAN);
                 return bankAccount;
             }

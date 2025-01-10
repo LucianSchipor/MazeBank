@@ -4,7 +4,11 @@ import com.example.mazebank.Core.Transactions.Transaction;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -34,12 +38,22 @@ public class TransactionCellController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        MenuItem copyMenuItem = new MenuItem("Copy");
+        copyMenuItem.setOnAction(event -> copyLabelToClipboard());
 
+        ContextMenu contextMenu = new ContextMenu(copyMenuItem);
+
+        fromBAccNumber_lbl.setOnContextMenuRequested(event -> {
+            contextMenu.show(fromBAccNumber_lbl, event.getScreenX(), event.getScreenY());
+        });
+    }
+    public void copyLabelToClipboard() {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(fromBAccNumber_lbl.getText());
+        clipboard.setContent(content);
     }
 
-//    public void selectCell(){
-//        anchorPane.setStyle("-fx-background-color:  #AAAAAA" + ";");
-//    }
     public void setFromAccountId(String fromAccountId) {
         sender_lbl.setText(fromAccountId);
         sender_lbl.setStyle("-fx-text-fill: #000000");

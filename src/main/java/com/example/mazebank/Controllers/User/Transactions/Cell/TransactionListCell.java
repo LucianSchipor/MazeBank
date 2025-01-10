@@ -26,7 +26,7 @@ public class TransactionListCell extends ListCell<Transaction> {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 controller.trans_date_lbl.setText(transaction.getTimestamp().toLocalDateTime().format(formatter));
                 setGraphic(hbox);
-                if (Objects.equals(transaction.getSender(), UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id())) {
+                if (Objects.equals(transaction.getSender(), UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN())) {
 
                     controller.setFromAccountId("to " + transaction.getTo_username());
                     controller.setFromBankAccountNumber(transaction.getReciever_BankAccount().getIBAN());

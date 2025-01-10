@@ -18,9 +18,6 @@ public class DB_Transactions {
 
     //Database Statement
     public static void Transfer(String receiver, Double amount, String message) {
-//        if (!VerifyTransfer(receiver, amount.toString(), message)) {
-//            return;
-//        }
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -29,33 +26,35 @@ public class DB_Transactions {
         }
         PreparedStatement psInsertTransaction;
         try {
-            assert connection != null;
-            psInsertTransaction = connection.prepareStatement(
-                    "INSERT INTO" +
-                            " transactions (sender,receiver,amount, message, currency, datetime) VALUES (?,?,?,?,?,?)");
+            if(DB_BankAccounts.SearchBankAccountByIBAN(receiver) != null) {
+                try {
+                    assert connection != null;
+                    connection = DB_ConnectionManager.getInstance().GetConnection();
+                    psInsertTransaction = connection.prepareStatement(
+                            "INSERT INTO" +
+                                    " transactions (sender,receiver,amount, message, currency, datetime) VALUES (?,?,?,?,?,?)");
 
-            psInsertTransaction.setString(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id());
-            psInsertTransaction.setString(2, receiver);
-            psInsertTransaction.setDouble(3, amount);
-            psInsertTransaction.setString(4, message);
-            psInsertTransaction.setString(5, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency());
-            psInsertTransaction.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
-            try {
-                int rowsAffected = psInsertTransaction.executeUpdate();
-                if (rowsAffected > 0) {
-                    DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id(), amount, receiver);
+                    psInsertTransaction.setString(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN());
+                    psInsertTransaction.setString(2, receiver);
+                    psInsertTransaction.setDouble(3, amount);
+                    psInsertTransaction.setString(4, message);
+                    psInsertTransaction.setString(5, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency());
+                    psInsertTransaction.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+                    int rowsAffected = psInsertTransaction.executeUpdate();
+                    if (rowsAffected > 0) {
+                        DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccount_id(), amount, receiver);
 //                    DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
-                    System.out.println("Transaction successfully inserted.");
-                } else {
-                    System.out.println("Failed to insert transaction.");
+                        System.out.println("Transaction successfully inserted.");
+                    } else {
+                        System.out.println("Failed to insert transaction.");
+                    }
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Bank account with IBAN " + receiver + " does not exists!");
+                    alert.showAndWait();
+                    return;
                 }
-            } catch (SQLIntegrityConstraintViolationException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Bank account with IBAN " + receiver + " does not exists!");
-                alert.showAndWait();
-                return;
             }
-            psInsertTransaction.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -76,7 +75,7 @@ public class DB_Transactions {
     }
 
     @SuppressWarnings("UseCompareMethod")
-    public static List<Transaction> GetBankAccountTransactions(String bank_account_number) {
+    public static List<Transaction> GetBankAccountTransactions(String IBAN) {
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -102,9 +101,9 @@ public class DB_Transactions {
                     FROM
                         transactions t
                     JOIN
-                    	bank_accounts b1 ON t.sender = b1.account_id
+                    	bank_accounts b1 ON t.sender = b1.iban
                     JOIN
-                    	bank_accounts b2 On t.receiver = b2.account_id
+                    	bank_accounts b2 On t.receiver = b2.iban
                     JOIN
                         users u1 ON b1.user_id = u1.user_id
                     JOIN
@@ -112,7 +111,7 @@ public class DB_Transactions {
                     WHERE
                         t.receiver = ?
                     """);
-            psCheckUserExists.setString(1, bank_account_number);
+            psCheckUserExists.setString(1, IBAN);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
@@ -124,8 +123,8 @@ public class DB_Transactions {
                 String currency = resultSet.getString("currency");
                 Timestamp date = resultSet.getTimestamp("datetime");
                 String message = "";
-                BankAccount sender_BAcc = DB_BankAccounts.GetBankAccountByAccountId(sender);
-                BankAccount receiver_BAcc = DB_BankAccounts.GetBankAccountByAccountId(receiver);
+                BankAccount sender_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(sender);
+                BankAccount receiver_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(receiver);
                 try {
                     message = resultSet.getString("message");
                 } catch (Exception e) {
@@ -153,16 +152,16 @@ public class DB_Transactions {
                                              FROM
                                                  transactions t
                                              JOIN
-                                             	bank_accounts b1 ON t.sender = b1.account_id
+                                             	bank_accounts b1 ON t.sender = b1.iban
                                              JOIN
-                                             	bank_accounts b2 On t.receiver = b2.account_id
+                                             	bank_accounts b2 On t.receiver = b2.iban
                                              JOIN
                                                  users u1 ON b1.user_id = u1.user_id
                                              JOIN
                                                  users u2 ON b2.user_id = u2.user_id
                                              WHERE
                                                  t.sender = ?;""");
-            psCheckUserExists.setString(1, bank_account_number);
+            psCheckUserExists.setString(1, IBAN);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
@@ -173,8 +172,8 @@ public class DB_Transactions {
                 String to_username = resultSet.getString("to_username");
                 String currency = resultSet.getString("currency");
                 Timestamp date = resultSet.getTimestamp("datetime");
-                BankAccount sender_BAcc = DB_BankAccounts.GetBankAccountByAccountId(sender);
-                BankAccount receiver_BAcc = DB_BankAccounts.GetBankAccountByAccountId(receiver);
+                BankAccount sender_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(sender);
+                BankAccount receiver_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(receiver);
                 String message = "";
                 try {
                     message = resultSet.getString("message");
