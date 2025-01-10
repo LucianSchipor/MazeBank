@@ -122,6 +122,7 @@ public class DB_Transactions {
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
                 String currency = resultSet.getString("currency");
+                Timestamp date = resultSet.getTimestamp("datetime");
                 String message = "";
                 BankAccount sender_BAcc = DB_BankAccounts.GetBankAccountByAccountId(sender);
                 BankAccount receiver_BAcc = DB_BankAccounts.GetBankAccountByAccountId(receiver);
@@ -134,6 +135,7 @@ public class DB_Transactions {
                 transaction.setCurrency(currency);
                 transaction.setReciever_BankAccount(receiver_BAcc);
                 transaction.setSender_BankAccount(sender_BAcc);
+                transaction.setTimestamp(date);
                 transactions.add(transaction);
 
             }

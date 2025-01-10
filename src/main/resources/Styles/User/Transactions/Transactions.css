@@ -1,5 +1,5 @@
 .transactions_container{
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: transparent;
 }
 
 .lbl_VB{
@@ -23,18 +23,15 @@
     -fx-padding: 10;
 }
 
-.transactions_container .list-view .list-cell:selected {
+.transactions_container .list-view .list-cell:empty {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
 
-.transactions_container .list-view:empty {
+.transactions_container .list-view .list-cell {
     -fx-background-color: transparent;
-    -fx-border-width: 0;
-}
-
-.transactions_container .list-cell {
-    -fx-background-color: #EEEEEE;
+    -fx-border-color: #e1dede;
+    -fx-border-width: 0 0 1px 0;
     -fx-pref-width: 800;
 }
 
@@ -72,13 +69,6 @@
     -fx-font-size: 1.5em;
     -fx-font-family: "Calibri Light";
     -fx-text-fill: #FFFFFF;
-}
-
-.list-view .list-cell:focused {
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
-    -fx-scale-x: 1.01;
-    -fx-scale-y: 1.01;
-    -fx-background-radius: 5;
 }
 
 .new_trans_container Button:hover{

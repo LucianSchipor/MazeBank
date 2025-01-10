@@ -2,7 +2,6 @@
     -fx-background-color: #EEEEEE;
 }
 
-
 .user_name{
     -fx-font-size: 2.6em;
     -fx-font-family: "Calibri Light";
@@ -121,22 +120,26 @@
     -fx-spacing: 10;
 }
 
-.transaction_listview {
+ .transaction_listview {
     -fx-background-color: transparent;
     -fx-border-width: 0;
     -fx-border-color: transparent;
 }
+
+
 .dashboard .transactions_VBox .transaction_listview {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
 
-.dashboard .transactions_VBox .transaction_listview .list-cell {
-    -fx-background-color: #FFFFFF;
+.transaction_listview .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: #e1dede;
+    -fx-border-width: 0 0 1px 0;
+    -fx-pref-width: 800;
 }
 
-
-.dashboard .transactions_VBox .transaction_listview .list-cell:empty {
+.transaction_listview .list-cell:empty {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
@@ -157,37 +160,37 @@
 }
 
 
-.new_trans_container{
-    -fx-background-color: #EEEEEE;
-    -fx-padding: 20 10 20 10;
-    -fx-spacing: 10;
-    -fx-alignment: center_left;
-}
+/*.new_trans_container{*/
+/*    -fx-background-color: #EEEEEE;*/
+/*    -fx-padding: 20 10 20 10;*/
+/*    -fx-spacing: 10;*/
+/*    -fx-alignment: center_left;*/
+/*}*/
 
-.new_trans_container Label{
-    -fx-font-family: "Calibri Light";
-    -fx-font-size: 1.3em;
-    -fx-font-weight: 700;
-}
+/*.new_trans_container Label{*/
+/*    -fx-font-family: "Calibri Light";*/
+/*    -fx-font-size: 1.3em;*/
+/*    -fx-font-weight: 700;*/
+/*}*/
 
-.new_trans_container TextField{
-    -fx-pref-height: 40;
-    -fx-background-color: #FFFFFF;
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
-}
+/*.new_trans_container TextField{*/
+/*    -fx-pref-height: 40;*/
+/*    -fx-background-color: #FFFFFF;*/
+/*    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);*/
+/*}*/
 
-.new_trans_container Button{
-    -fx-background-color: linear-gradient(to right, #005B43, #228B22);
-    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);
-    -fx-pref-width: 230;
-    -fx-font-size: 1.5em;
-    -fx-font-family: "Calibri Light";
-    -fx-text-fill: #FFFFFF;
-}
+/*.new_trans_container Button{*/
+/*    -fx-background-color: linear-gradient(to right, #005B43, #228B22);*/
+/*    -fx-effect: dropshadow(three-pass-box, #AAAAAA, 3, 0, 0, 3);*/
+/*    -fx-pref-width: 230;*/
+/*    -fx-font-size: 1.5em;*/
+/*    -fx-font-family: "Calibri Light";*/
+/*    -fx-text-fill: #FFFFFF;*/
+/*}*/
 
-.new_trans_container Button:hover{
-    -fx-cursor: hand;
-}
+/*.new_trans_container Button:hover{*/
+/*    -fx-cursor: hand;*/
+/*}*/
 
 
 

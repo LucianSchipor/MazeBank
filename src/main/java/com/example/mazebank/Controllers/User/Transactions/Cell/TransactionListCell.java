@@ -36,14 +36,12 @@ public class TransactionListCell extends ListCell<Transaction> {
                     controller.setFromBankAccountNumber(transaction.getSender_BankAccount().getIBAN());
                 }
 
-
-
 //                if(isSelected()) {
 //                    controller.selectCell();
 //                }
 
             } catch (Exception e) {
-                System.out.println("[LOG] - " + e.getMessage());
+                System.out.println("[LOG][TransactionListCell] - " + e.getMessage());
             }
 
         }
