@@ -210,17 +210,19 @@ public class DB_Forms {
             querry.setInt(5, FormType.valueOf(type.name()).ordinal());
 
             int rowsAffected = querry.executeUpdate();
-            if (rowsAffected > 0) {
                 System.out.println("[LOG][Forms] - successfully created form!");
                 try {
-                    CreateFormDocument(DB_Forms.GetFormsById(
-                            UserLoggedIn.getInstance().getLoggedInUser().getUserId())
-                            .getLast());
+                    querry = connection.prepareStatement("UPDATE forms SET form_path = ? where form_id = ?");
+                    var createdForm = DB_Forms.GetFormsById(
+                                    UserLoggedIn.getInstance().getLoggedInUser().getUserId())
+                            .getLast();
+                    querry.setString(1, CreateFormDocument(createdForm));
+                    querry.setInt(2, createdForm.getForm_id());
+                    querry.executeUpdate();
                 }
                 catch (Exception e){
                     System.out.println("[LOG][Forms] - " + e.getMessage());
                 }
-            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -21,6 +21,7 @@ public class TransactionCellController implements Initializable {
     public Button viewTransactionDetails_btn;
     public Button deleteTransaction_btn;
     public Label sender_lbl;
+    public Label message_lbl;
 
     private Transaction transaction;
 
@@ -41,10 +42,18 @@ public class TransactionCellController implements Initializable {
 //    }
     public void setFromAccountId(String fromAccountId) {
         sender_lbl.setText(fromAccountId);
+        sender_lbl.setStyle("-fx-text-fill: #000000");
+    }
+
+    public void setMessage(String message) {
+        message_lbl.setText(message);
+        message_lbl.setStyle("-fx-text-fill: #000000");
+
     }
 
     public void setFromBankAccountNumber(String fromBankAccountNumber) {
         fromBAccNumber_lbl.setText(fromBankAccountNumber);
+        fromBAccNumber_lbl.setStyle("-fx-text-fill: #000000");
     }
 
     public void setAmount(double amount, String color) {

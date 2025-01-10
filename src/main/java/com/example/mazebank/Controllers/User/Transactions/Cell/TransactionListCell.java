@@ -22,6 +22,7 @@ public class TransactionListCell extends ListCell<Transaction> {
                 AnchorPane hbox = loader.load();
                 TransactionCellController controller = loader.getController();
                 controller.currency_lbl.setText(transaction.getCurrency());
+                controller.setMessage(transaction.getMessage());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 controller.trans_date_lbl.setText(transaction.getTimestamp().toLocalDateTime().format(formatter));
                 setGraphic(hbox);
