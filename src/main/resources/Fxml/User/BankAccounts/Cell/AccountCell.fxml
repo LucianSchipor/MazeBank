@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController" stylesheets="@../../../../Styles/User/Dashboard/BankAccounts/BankAccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@../../../../Styles/User/Dashboard/BankAccounts/BankAccountCell.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCellController">
    <styleClass>
       <String fx:value="account" />
       <String fx:value="account_gradient" />
@@ -32,6 +32,16 @@
                            </font>
                         </Label>
                         <Label fx:id="checking_acc_num" text="0000 0000 0000 0000" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="checking_acc_num1" layoutX="10.0" layoutY="29.0" text="IBAN" textFill="WHITE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="iban_nr" layoutX="10.0" layoutY="55.0" text="0000 0000 0000 0000" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>

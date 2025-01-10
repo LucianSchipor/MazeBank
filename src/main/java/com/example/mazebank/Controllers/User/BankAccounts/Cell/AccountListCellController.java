@@ -3,6 +3,7 @@ package com.example.mazebank.Controllers.User.BankAccounts.Cell;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +17,7 @@ public class AccountListCellController implements Initializable {
     public Label currency_lbl;
     public Label expire_date_lbl;
     public Label cvv_lbl;
+    public Label iban_nr;
 
     public AccountListCellController() {
     }
@@ -32,6 +34,10 @@ public class AccountListCellController implements Initializable {
         this.currency_lbl.setText(account_currency);
     }
 
+
+    public void setIbanNR(String ibanNR) {
+        this.iban_nr.setText(ibanNR);
+    }
     public void setAccount_number(String account_number) {
         StringBuilder formattedString = new StringBuilder();
 

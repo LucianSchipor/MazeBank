@@ -23,6 +23,7 @@ public class AccountListCell extends ListCell<BankAccount> {
                 controller.setAccount_balance(account.getBalance());
                 controller.setAccount_currency(account.getCurrency());
                 controller.setAccount_number(account.getAccount_id());
+                controller.setIbanNR(account.getIBAN());
                 controller.setAccount_CVV(account.getCVV());
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
                 String formattedDate = formatter.format(account.getExpire_date());
