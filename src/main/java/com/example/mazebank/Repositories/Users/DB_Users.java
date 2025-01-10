@@ -2,6 +2,7 @@ package com.example.mazebank.Repositories.Users;
 
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Security.Security;
+import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
@@ -50,7 +51,41 @@ public class DB_Users {
         }
     }
 
-    public static void SignupUser(String username, String password) {
+    public static void UpgradeAccount(int user_id) {
+        PreparedStatement querry;
+        ResultSet resultSet;
+        Connection connection = null;
+        try {
+            connection = DB_ConnectionManager.getInstance().GetConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assert connection != null;
+            querry = connection.prepareStatement("UPDATE users SET role = ? WHERE user_Id = ?");
+            querry.setInt(1, AccountType.CLIENT.ordinal());
+            querry.setInt(2, user_id);
+            querry.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            DB_BankAccounts.CreateBankAccount(user_id, "RON");
+        }
+    }
+
+
+        public static void SignupUser(String username, String password) throws Exception {
+        if(username.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText("Username or Password are Required");
+            alert.showAndWait();
+            throw new Exception("Username or Password are Required");
+        }
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         Connection connection = null;
@@ -78,7 +113,6 @@ public class DB_Users {
                 while (resultSet.next()) {
                     added_user_id = resultSet.getInt("user_id");
                 }
-                DB_BankAccounts.CreateBankAccount(added_user_id, "RON");
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -88,6 +122,8 @@ public class DB_Users {
             alert.setContentText("User" + username + " already exists");
             alert.showAndWait();
             System.out.println("[LOG] - used username on register");
+            throw new Exception("User\" + username + \" already exists");
+
         }
     }
 

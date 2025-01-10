@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane styleClass="login_container" stylesheets="@../../../Styles/SignUp/SignUpForm.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.RegisterFormController">
+<AnchorPane styleClass="login_container" stylesheets="@../../../Styles/SignUp/SignUpForm.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.SignUpController">
    <VBox layoutX="340.0" layoutY="142.0" styleClass="login_form_container" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
       <VBox>
          <children>

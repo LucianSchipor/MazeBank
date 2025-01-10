@@ -2,6 +2,7 @@ package com.example.mazebank.Controllers.Admin.Create;
 
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.Users.DB_Users;
+import com.google.zxing.WriterException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -26,7 +28,15 @@ public class CreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        users_create_btn.setOnAction(this::onCreate);
+            users_create_btn.setOnAction(actionEvent -> {
+               try {
+                   onCreate(actionEvent);
+               }
+               catch (Exception e) {
+                   System.out.println("[LOG][CreateController]" + e.getMessage());
+                   System.out.println("[LOG][CreateController]" + e.getLocalizedMessage());
+               }
+            });
         bAcc_create_btn.setOnAction(this::onCreateBankAccount);
         ObservableList<String> Currencies = FXCollections.observableArrayList();
         Currencies.add("RON");
@@ -57,18 +67,24 @@ public class CreateController implements Initializable {
         }
     }
 
-    private void onCreate(Event event) {
-        String username = users_username_fld.getText();
-        if (username.isEmpty() || Objects.equals(username, "")) {
-            if (Objects.equals(username, "")) {
-                System.out.println("[LOG] - " + "one field is empty");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("One field is empty");
-                alert.showAndWait();
-            }
-        }
-        else{
-            DB_Users.SignupUser(username, username);
-        }
+    private void onCreate(Event event) throws Exception {
+       try {
+           String username = users_username_fld.getText();
+           if (username.isEmpty() || Objects.equals(username, "")) {
+               if (Objects.equals(username, "")) {
+                   System.out.println("[LOG] - " + "one field is empty");
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setContentText("One field is empty");
+                   alert.showAndWait();
+               }
+           }
+           else{
+               DB_Users.SignupUser(username, username);
+           }
+       }
+       catch (Exception exception) {
+           System.out.println("[LOG][CreateController] - " + "one field is empty");
+       }
+
     }
 }

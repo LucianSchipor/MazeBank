@@ -5,6 +5,7 @@ import com.example.mazebank.Core.Forms.FormStatus;
 import com.example.mazebank.Core.Forms.FormType;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
+import com.example.mazebank.Repositories.Users.DB_Users;
 import javafx.util.Pair;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -21,13 +22,16 @@ import java.util.List;
 
 public class DB_Forms {
 
-    private static void CreateFormDocument(Form form) {
+    private static String CreateFormDocument(Form form) {
+        String formPath = null;
         List<Pair<String, String>> Text = new ArrayList<>();
-        var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
-        Text.add(new Pair<>("Username: ", userLoggedIn.getUsername()));
-        Text.add(new Pair<>("E-Mail: ", userLoggedIn.getEmail()));
+        var formCreator = DB_Users.SearchUserById(form.getUser_id());
+
+        Text.add(new Pair<>("Username: ", formCreator.getUsername()));
+        Text.add(new Pair<>("E-Mail: ", formCreator.getEmail()));
         Text.add(new Pair<>("Last Name: ", "soon"));
         Text.add(new Pair<>("First Name: ", "soon"));
+        Text.add(new Pair<>("Form Type: ", form.getFormType().toString()));
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
@@ -61,12 +65,26 @@ public class DB_Forms {
                 });
                 contentStream.endText();
             }
-            File file = new File("Forms/" + Text.getFirst().getValue() + "_Register_Form.pdf");
-            document.save(file);
-            System.out.println("[LOG][Forms] - PDF created successfully! Path: " + file.getAbsolutePath());
+            if(form.getFormType().equals(FormType.ACCOUNT)){
+                String path = "Forms/Account/" + "form" + form.getForm_id() + "_user" + form.getUser_id() + "_ft" + form.getFormType() + "_d" +form.getDate() + ".pdf";
+                File file = new File(path);
+                document.save(file);
+                System.out.println("[LOG][Forms] - PDF created successfully! Path: " + file.getAbsolutePath());
+                formPath = path;
+            }
+            else{
+                String path = "Forms/Credits/" + "form" + form.getForm_id() + "_user" + form.getUser_id() + "_ft" + form.getFormType() + "_d" +form.getDate() + ".pdf";
+
+                File file = new File(path);
+                document.save(file);
+                System.out.println("[LOG][Forms] - PDF created successfully! Path: " + file.getAbsolutePath());
+                formPath =  path;
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    return formPath;
     }
 
     private static void CreateDocument(){
@@ -185,7 +203,7 @@ public class DB_Forms {
         try {
             assert connection != null;
             querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id, form_type) values (?, ?, ?, ?, ?)");
-            querry.setString(1, "Forms/" + UserLoggedIn.getInstance().getLoggedInUser().getUsername() + "_Register_Form.pdf");
+            querry.setString(1, "Unknown");
             querry.setDate(2, Date.valueOf(LocalDate.now()));
             querry.setInt(3, 0);
             querry.setInt(4, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
@@ -195,7 +213,9 @@ public class DB_Forms {
             if (rowsAffected > 0) {
                 System.out.println("[LOG][Forms] - successfully created form!");
                 try {
-                    CreateDocument();
+                    CreateFormDocument(DB_Forms.GetFormsById(
+                            UserLoggedIn.getInstance().getLoggedInUser().getUserId())
+                            .getLast());
                 }
                 catch (Exception e){
                     System.out.println("[LOG][Forms] - " + e.getMessage());
@@ -226,8 +246,9 @@ public class DB_Forms {
             if (rowsAffected > 0) {
                 System.out.println("[LOG][Forms] - successfully created form!");
                 try {
-                    CreateDocument();
-                }
+                    CreateFormDocument(DB_Forms.GetFormsById(
+                                    UserLoggedIn.getInstance().getLoggedInUser().getUserId())
+                            .getLast());                }
                 catch (Exception e){
                     System.out.println("[LOG][Forms] - " + e.getMessage());
                 }

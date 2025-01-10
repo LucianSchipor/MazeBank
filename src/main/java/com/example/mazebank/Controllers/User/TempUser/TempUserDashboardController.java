@@ -2,8 +2,10 @@ package com.example.mazebank.Controllers.User.TempUser;
 
 import com.example.mazebank.Core.Forms.Form;
 import com.example.mazebank.Core.Forms.FormStatus;
+import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Repositories.Forms.DB_Forms;
+import com.example.mazebank.Repositories.Users.DB_Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -38,6 +41,14 @@ public class TempUserDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         login_date.setText(LocalDate.now().toString());
+        upgrade_btn.setOnAction(event -> {
+            try {
+                onUpgradeAccount();
+            } catch (Exception e) {
+                System.out.println("[LOG][TempUserDashboardController] - " + e.getMessage());
+                System.out.println("[LOG][TempUserDashboardController] - " + e.getLocalizedMessage());
+            }
+        });
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         hello_lbl.setText("Welcome back, " + username + "!");
@@ -48,11 +59,24 @@ public class TempUserDashboardController implements Initializable {
         username_input.setText(currentUser.getUsername());
         lname_input.setText("soon");
         fname_input.setText("soon");
-        if(!form.getStatus().equals(FormStatus.ACCEPTED)){
+        if (!form.getStatus().equals(FormStatus.ACCEPTED)) {
             upgrade_btn.setVisible(false);
         }
         setStatus();
         updatePage();
+    }
+
+    private void onUpgradeAccount() {
+        try {
+            DB_Users.UpgradeAccount(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
+            Stage stage = (Stage) upgrade_btn.getScene().getWindow();
+            Model.getInstance().getViewFactory().closeStage(stage);
+            Model.getInstance().getViewFactory().showLoginWindow();
+        }
+        catch (Exception e) {
+            System.out.println("[LOG][TempUserDashboardController] - " + e.getMessage());
+            System.out.println("[LOG][TempUserDashboardController] - " + e.getLocalizedMessage());
+        }
     }
 
     private void setStatus() {
@@ -69,6 +93,7 @@ public class TempUserDashboardController implements Initializable {
             }
         }
     }
+
     public TempUserDashboardController() {
         updatePage();
     }

@@ -20,6 +20,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.net.URLEncoder;
+
 
 @SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
@@ -193,6 +195,21 @@ public class ViewFactory {
         stage.setTitle("Maze Bank");
         stage.show();
     }
+
+
+    public void showUserWindow(User user){
+        if(user.getRole().equals(AccountType.ADMIN)){
+            showAdminWindow();
+        }
+        else
+            if(user.getRole().equals(AccountType.CLIENT)){
+                showClientWindow();
+            }
+            else{
+                showTempUserDashboard();
+            }
+    }
+
 
     public void showAdminWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
