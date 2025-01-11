@@ -1,18 +1,24 @@
 .container .list-view {
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: transparent;
     -fx-padding: 10;
 }
 
-.container .list-view:focused {
+.container:focused {
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-color: #EEEEEE;
 }
 
 .container .list-cell {
-    -fx-background-color: #EEEEEE;
-    -fx-pref-width: 450;
+    -fx-background-color: transparent;
 }
+
+.container .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
 
 .title_container {
     -fx-font-size: 2.0em;

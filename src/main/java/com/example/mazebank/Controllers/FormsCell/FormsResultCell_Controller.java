@@ -57,6 +57,7 @@ public class FormsResultCell_Controller implements Initializable {
 
     public void setform(Form form) {
         this.form = form;
+        anchorPane.setStyle("-fx-background-color: transparent");
         this.id.setText(Integer.toString(form.getForm_id()));
         if (UserLoggedIn.getInstance().getLoggedInUser().getRole().equals(AccountType.ADMIN)) {
             username_HBox.setVisible(true);

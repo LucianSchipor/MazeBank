@@ -1,5 +1,5 @@
 .container {
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: transparent;
 }
 
 .title_container {
@@ -36,7 +36,18 @@
 
 
 .searchbox_container {
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+    -fx-spacing: 5;
+}
+.searchbox_container .list-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+    -fx-spacing: 5;
+}
+
+.searchbox_container .list-view .list-cell:empty {
+    -fx-background-color: transparent;
     -fx-padding: 0 0 0 0;
     -fx-spacing: 5;
 }

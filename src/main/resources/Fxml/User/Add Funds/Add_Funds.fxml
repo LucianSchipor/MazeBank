@@ -17,6 +17,90 @@
    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" styleClass="login_form_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
       <AnchorPane styleClass="login_container">
          <VBox layoutX="340.0" layoutY="142.0" styleClass="login_form_container" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <VBox layoutX="10.0" layoutY="798.0">
+               <children>
+                  <Label text="Employer ">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="INFO" />
+                     </graphic>
+                  </Label>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="requested_sum_fld111" alignment="CENTER" promptText="Company name" styleClass="input_field" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="888.0">
+               <children>
+                  <Label text="Type of employment contract ">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="INFO" />
+                     </graphic>
+                  </Label>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="requested_sum_fld1111" alignment="CENTER" promptText="Permanent, fixed-term, self-employed" styleClass="input_field" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="140.0" text="Net monthly income" textAlignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="INFO" />
+                     </graphic>
+                  </Label>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="requested_sum_fld11" alignment="CENTER" promptText="Salaries, pensions, rents, dividends, etc." styleClass="input_field" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Label text="Existing debts">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="INFO" />
+                     </graphic>
+                  </Label>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets left="100.0" right="100.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="requested_sum_fld1" alignment="CENTER" promptText="Other loans, overdrafts, credit cards, etc." styleClass="input_field" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
             <VBox VBox.vgrow="ALWAYS">
                <Label text="How much do you need?">
                   <graphic>
