@@ -43,10 +43,6 @@ public class TransactionListCell extends ListCell<Transaction> {
                     }
                 });
 
-//                if(isSelected()) {
-//                    controller.selectCell();
-//                }
-
             } catch (Exception e) {
                 System.out.println("[LOG][TransactionListCell] - " + e.getMessage());
             }

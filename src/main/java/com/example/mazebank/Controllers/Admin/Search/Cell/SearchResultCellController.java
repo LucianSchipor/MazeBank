@@ -2,15 +2,11 @@ package com.example.mazebank.Controllers.Admin.Search.Cell;
 
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Users.User;
-import com.example.mazebank.Views.ViewFactory;
 import javafx.event.Event;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 

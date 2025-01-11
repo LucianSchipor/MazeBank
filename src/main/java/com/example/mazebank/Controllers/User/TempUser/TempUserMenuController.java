@@ -3,8 +3,6 @@ package com.example.mazebank.Controllers.User.TempUser;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Views.User.Menu.TempUserMenuOptions;
-import com.example.mazebank.Views.User.Menu.UserMenuOptions;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;

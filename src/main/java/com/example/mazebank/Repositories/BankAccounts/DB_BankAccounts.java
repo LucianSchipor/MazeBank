@@ -1,12 +1,9 @@
 package com.example.mazebank.Repositories.BankAccounts;
-
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
 import javafx.scene.control.Alert;
-
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -26,18 +23,8 @@ public class DB_BankAccounts {
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
-                String account_id = resultSet.getString("account_id");
-                double balance = resultSet.getDouble("account_balance");
-                String currency = resultSet.getString("account_currency");
-                String CVV = resultSet.getString("cvv");
-                Date date = resultSet.getDate("expire_date");
-                String IBAN = resultSet.getString("IBAN");
-
-                var newBankAccount = new BankAccount(account_id, balance, currency, date, CVV);
-                newBankAccount.setAccount_id(resultSet.getString("account_id"));
-                newBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(IBAN));
-                newBankAccount.setIBAN(IBAN);
-                accounts.put(account_id, newBankAccount);
+                var ba = CreateBankAccountFromDB(resultSet);
+                accounts.put(ba.getAccount_id(), ba);
             }
         } catch (Exception exception) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -54,79 +41,19 @@ public class DB_BankAccounts {
         return accounts;
     }
 
-    public static BankAccount GetBankAccountByAccountId(String account_id) {
-        PreparedStatement psCheckUserExists;
-        ResultSet resultSet;
-        BankAccount foundBankAccount = null;
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
-            psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");
 
-            psCheckUserExists.setString(1, account_id);
-            resultSet = psCheckUserExists.executeQuery();
-            while (resultSet.next()) {
-                String bankAccount_id = resultSet.getString("account_id");
-                double balance = resultSet.getDouble("account_balance");
-                String currency = resultSet.getString("account_currency");
-                String CVV = resultSet.getString("cvv");
-                Date date = resultSet.getDate("expire_date");
-                String IBAN = resultSet.getString("IBAN");
-
-                foundBankAccount = new BankAccount(bankAccount_id, balance, currency, date, CVV);
-                foundBankAccount.setAccount_id(resultSet.getString("account_id"));
-//                foundBankAccount.setTransactions(DB_Transactions.GetBankAccountTransactions(account_id));
-                foundBankAccount.setIBAN(IBAN);
-            }
-        } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(exception.getMessage());
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.out.println("Error closing connection");
-                }
-            }
-        }
-        return foundBankAccount;
-    }
-
-    // Used for set the local Checking Account with updated from database Checking Account.
-    // Returns same Checkin Account but updated
-    public static void Local_UpdateBankAccountsAfterTransaction(BankAccount account) {
-        Connection connection = null;
-        try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
-        } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-        }
-        PreparedStatement psCheckUserExists;
-        ResultSet resultSet;
-        BankAccount newBankAccount = null;
-        try {
-            assert connection != null;
-            psCheckUserExists = connection.prepareStatement("SELECT * FROM bank_accounts WHERE account_id = ?");
-            psCheckUserExists.setString(1, account.getAccount_id());
-            resultSet = psCheckUserExists.executeQuery();
-            while (resultSet.next()) {
-                double balance = resultSet.getDouble("account_balance");
-                account.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getIBAN()));
-                account.setBalance(balance);
-            }
-        } catch (Exception exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText(exception.getMessage());
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.out.println("Error closing connection");
-                }
-            }
-        }
+    private static BankAccount CreateBankAccountFromDB(ResultSet resultSet) throws SQLException {
+        String bankAccount_id = resultSet.getString("account_id");
+        double balance = resultSet.getDouble("account_balance");
+        String currency = resultSet.getString("account_currency");
+        String CVV = resultSet.getString("cvv");
+        Date date = resultSet.getDate("expire_date");
+        String IBAN = resultSet.getString("IBAN");
+        BankAccount ba = new BankAccount(bankAccount_id, balance, currency, date, CVV);
+        ba.setIBAN(IBAN);
+        ba.setAccount_id(bankAccount_id);
+        ba.setTransactions(DB_Transactions.GetBankAccountTransactions(ba.getIBAN()));
+        return ba;
     }
 
     public static void DB_UpdateBankAccountsAfterTransaction(String sender, Double amount, String receiver) {
@@ -137,10 +64,7 @@ public class DB_BankAccounts {
             System.out.println("[LOG] - " + e.getMessage());
         }
         PreparedStatement psInsertTransaction;
-        PreparedStatement psGetBankAccount;
         ResultSet resultSet;
-        Double sender_balance = (double) 0;
-        Double receiver_balance = (double) 0;
         try {
             assert connection != null;
             psInsertTransaction = connection.prepareStatement(
@@ -176,8 +100,8 @@ public class DB_BankAccounts {
     }
 
 
-    private static String GenerateIBAN() throws SQLException {
-        String IBAN = "";
+    private static String GenerateIBAN(){
+        String IBAN;
         String RO = "RO";
         Random random = new Random();
         int randomTwoDigitNumber = 10 + random.nextInt(90);
@@ -190,7 +114,7 @@ public class DB_BankAccounts {
         String lastNumbers = String.valueOf(randomEightDigitNumber);
         IBAN = RO + RO_NR + MAZE + defaultNumbers + lastNumbers;
 
-        if(SearchBankAccountByIBAN(IBAN) != null){
+        if (SearchBankAccountByIBAN(IBAN) != null) {
             GenerateIBAN();
         }
         return IBAN;
@@ -220,8 +144,8 @@ public class DB_BankAccounts {
             System.out.println("[LOG] - " + e.getMessage());
         }
         PreparedStatement psCheckUserExists;
-        ResultSet resultSet;
         try {
+            assert connection != null;
             psCheckUserExists = connection.prepareStatement("INSERT INTO bank_accounts (account_id, account_balance, account_currency, user_id, pin, iban, cvv, expire_date) VALUES (?,?,?,?,?,?,?,?)");
             psCheckUserExists.setString(1, GenerateNewAccountNumber());
             psCheckUserExists.setFloat(2, 0);
@@ -241,44 +165,8 @@ public class DB_BankAccounts {
         }
     }
 
-    public static void GenerateNewIBANForAllAccounts(){
-        Connection connection = null;
-        try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
-        } catch (Exception e) {
-            System.out.println("[LOG] - " + e.getMessage());
-        }
-        PreparedStatement psCheckUserExists;
-        ResultSet resultSet = null;
-        try {
-            PreparedStatement psSelectAccounts = connection.prepareStatement("SELECT account_id FROM bank_accounts");
-            ResultSet rs = psSelectAccounts.executeQuery();
 
-            PreparedStatement psUpdateIBAN = connection.prepareStatement("UPDATE bank_accounts SET IBAN = ? WHERE account_id = ?");
-
-            while (rs.next()) {
-                String accountId = rs.getString("account_id");
-                String newIBAN = GenerateIBAN();
-
-                psUpdateIBAN.setString(1, newIBAN);
-                psUpdateIBAN.setString(2, accountId);
-
-                int rowsAffected = psUpdateIBAN.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Successfully updated IBAN for account ID: " + accountId);
-                }
-            }
-
-            // Închidem resursele
-            rs.close();
-            psSelectAccounts.close();
-            psUpdateIBAN.close();
-        } catch (Exception e) {
-            System.out.println("[LOG] - " + e.getMessage());
-        }
-    }
-
-    public static BankAccount SearchBankAccountByIBAN(String IBAN) throws SQLException {
+    public static BankAccount SearchBankAccountByIBAN(String IBAN) {
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -293,7 +181,7 @@ public class DB_BankAccounts {
             querry = connection.prepareStatement("SELECT * FROM bank_accounts where IBAN = ?");
             querry.setString(1, IBAN);
             resultSet = querry.executeQuery();
-            while(resultSet.next()) {
+            if (resultSet.next()) {
                 BankAccount bankAccount = new BankAccount();
                 bankAccount.setAccount_id(resultSet.getString("account_id"));
                 bankAccount.setBalance(resultSet.getDouble("account_balance"));
@@ -306,6 +194,7 @@ public class DB_BankAccounts {
         }
         return null;
     }
+
     private static Double Currency_Conversion(String currency, String currency2, Double amount) {
         Map<String, Double> exchangeRates = new HashMap<>();
         // Rates are in RON -> 1 DOL - 4.56 RON

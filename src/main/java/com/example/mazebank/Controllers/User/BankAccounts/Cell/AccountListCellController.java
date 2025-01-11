@@ -3,8 +3,6 @@ package com.example.mazebank.Controllers.User.BankAccounts.Cell;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Paint;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

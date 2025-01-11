@@ -3,8 +3,11 @@ package com.example.mazebank.Controllers.User.AddFunds;
 import com.example.mazebank.Core.Bank.BankInfo;
 import com.example.mazebank.Core.Credit.Credit;
 import com.example.mazebank.Core.Credit.LoanCalculator;
+import com.example.mazebank.Core.Forms.Form;
+import com.example.mazebank.Core.Forms.FormStatus;
+import com.example.mazebank.Core.Forms.FormType;
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Repositories.Credits.DB_Credits;
+import com.example.mazebank.Repositories.Forms.DB_Forms;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,8 +20,8 @@ import java.util.ResourceBundle;
 
 public class AddFundsController implements Initializable {
     public TextField requested_sum_fld;
-    public ChoiceBox period_choicebox;
-    public ChoiceBox currency_choicebox;
+    public ChoiceBox<Object> period_choicebox;
+    public ChoiceBox<String> currency_choicebox;
     public Label monthly_rate_lbl;
     public Label interest_lbl;
     public Label analysis_comission_lbl;
@@ -35,13 +38,7 @@ public class AddFundsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         check_box.setSelected(false);
-        check_box.setOnAction(n -> {
-            if (check_box.isSelected()) {
-                this.createForm_btn.setDisable(false);
-            } else {
-                this.createForm_btn.setDisable(true);
-            }
-        });
+        check_box.setOnAction(n -> this.createForm_btn.setDisable(!check_box.isSelected()));
         details_container.setVisible(false);
         createForm_btn.setOnAction(this::onApply);
         calculate_btn.setOnAction(this::onCalculate);
@@ -62,11 +59,10 @@ public class AddFundsController implements Initializable {
     }
 
     private void onApply(ActionEvent actionEvent) {
-        /*
-         -> creez formular de credit in BD
-
-         */
         try {
+            //TODO -> de schimbat cu a avea 2 tipuri de formulare, care mostenesc Forms.
+            Form creditForm = new Form(FormType.FUNDS);
+            DB_Forms.CreateForm(FormType.FUNDS);
         }
         catch (Exception e) {
             System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
@@ -82,17 +78,16 @@ public class AddFundsController implements Initializable {
             alert.showAndWait();
         }
 
-
     }
 
     private void onCalculate(javafx.event.ActionEvent actionEvent) {
         try {
             CalculateCredit();
-            monthly_rate_lbl.setText(String.valueOf(credit.getCredit_monthly_rate()) + " " + credit.getCredit_currency());
-            interest_lbl.setText(String.valueOf(credit.getCredit_intrest()) + "%");
-            total_credit_value_lbl.setText(String.valueOf(credit.getCredit_total_sum()) + " " + credit.getCredit_currency());
-            effective_anual_interest_lbl.setText(String.valueOf(credit.getCredit_intrest()) + "%");
-            total_payment_amount_lbl.setText(String.valueOf(credit.getCredit_monthly_rate() * credit.getCredit_period()) + " " + credit.getCredit_currency());
+            monthly_rate_lbl.setText(credit.getCredit_monthly_rate() + " " + credit.getCredit_currency());
+            interest_lbl.setText(credit.getCredit_intrest() + "%");
+            total_credit_value_lbl.setText(credit.getCredit_total_sum() + " " + credit.getCredit_currency());
+            effective_anual_interest_lbl.setText(credit.getCredit_intrest() + "%");
+            total_payment_amount_lbl.setText(credit.getCredit_monthly_rate() * credit.getCredit_period() + " " + credit.getCredit_currency());
             this.details_container.setVisible(true);
         } catch (Exception e) {
             System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
@@ -105,9 +100,9 @@ public class AddFundsController implements Initializable {
 
     private void CalculateCredit() {
         try {
-            var credit_totalSum = Float.valueOf(requested_sum_fld.getText());
-            var credit_period = Integer.valueOf(period_choicebox.getValue().toString());
-            var credit_currency = currency_choicebox.getValue().toString();
+            float credit_totalSum = Float.parseFloat(requested_sum_fld.getText());
+            int credit_period = Integer.parseInt(period_choicebox.getValue().toString());
+            var credit_currency = currency_choicebox.getValue();
             var credit_intrest = BankInfo.getInstance().getIntrest();
             var credit_monthly_rate = (float) LoanCalculator.calculateMonthlyRate(credit_totalSum, credit_period);
             var loggedUser = UserLoggedIn.getInstance().getLoggedInUser();

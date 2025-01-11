@@ -37,7 +37,7 @@
                </Label>
             </children>
          </HBox>
-         <HBox>
+         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
             <Label fx:id="amount_lbl" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="trans_amount_lbl" text="3,000.00">
                <HBox.margin>
                   <Insets right="5.0" />
@@ -46,7 +46,7 @@
             <Label fx:id="currency_lbl" styleClass="trans_amount_lbl" text="RON" />
          </HBox>
       </HBox>
-      <HBox styleClass="btn_container" HBox.hgrow="ALWAYS">
+      <HBox styleClass="btn_container">
          <Button fx:id="viewTransactionDetails_btn1" layoutX="10.0" layoutY="15.0" mnemonicParsing="false" styleClass="exchange_btn" textFill="FORESTGREEN">
             <graphic>
                <FontAwesomeIconView glyphName="EXCHANGE" selectionFill="FORESTGREEN" size="16" />

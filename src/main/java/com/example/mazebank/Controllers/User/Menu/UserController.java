@@ -11,19 +11,6 @@ public class UserController implements Initializable {
 
     public BorderPane client_parent = new BorderPane();
 
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        Model.getInstance().getViewFactory().getClientSelectedMenuItem().addListener((observableValue, oldVal, newVal) -> {
-//            switch (newVal) {
-//                case TRANSACTIONS ->
-//                        client_parent.setCenter(Model.getInstance().getViewFactory().getTransactionsView());
-//                case ACCOUNTS -> client_parent.setCenter(Model.getInstance().getViewFactory().getAccountsView());
-//                default -> client_parent.setCenter(Model.getInstance().getViewFactory().getDashboardView(user));
-//            }
-//        });
-//    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         client_parent.setCenter(Model.getInstance().getViewFactory().getDashboardView());

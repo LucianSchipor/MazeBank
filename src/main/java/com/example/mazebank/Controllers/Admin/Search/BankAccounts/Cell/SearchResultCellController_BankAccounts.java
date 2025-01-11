@@ -1,13 +1,11 @@
 package com.example.mazebank.Controllers.Admin.Search.BankAccounts.Cell;
 
 import com.example.mazebank.Core.BankAccounts.BankAccount;
-import com.example.mazebank.Core.Users.User;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class SearchResultCellController_BankAccounts implements Initializable {

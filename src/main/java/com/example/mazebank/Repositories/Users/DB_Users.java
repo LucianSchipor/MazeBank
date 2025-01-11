@@ -12,24 +12,9 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection", "CallToPrintStackTrace"})
 public class DB_Users {
-
-    public static String GenerateNewAccountNumber() {
-        Random random = new Random();
-
-        StringBuilder number = new StringBuilder();
-        number.append(random.nextInt(9) + 1);
-
-        for (int i = 1; i < 16; i++) {
-            number.append(random.nextInt(10));
-        }
-
-        return number.toString();
-    }
-
 
     private static boolean VerifyCredentials(String username) {
         PreparedStatement psCheckUserExists;
@@ -53,7 +38,6 @@ public class DB_Users {
 
     public static void UpgradeAccount(int user_id) {
         PreparedStatement querry;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -70,15 +54,14 @@ public class DB_Users {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             DB_BankAccounts.CreateBankAccount(user_id, "RON");
         }
     }
 
 
-        public static void SignupUser(String username, String password) throws Exception {
-        if(username.isEmpty() || password.isEmpty()) {
+    public static void SignupUser(String username, String password) throws Exception {
+        if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
@@ -87,7 +70,6 @@ public class DB_Users {
             throw new Exception("Username or Password are Required");
         }
         PreparedStatement psCheckUserExists;
-        ResultSet resultSet;
         Connection connection = null;
         try {
             connection = DB_ConnectionManager.getInstance().GetConnection();
@@ -108,11 +90,7 @@ public class DB_Users {
 
                 psCheckUserExists = connection.prepareStatement("SELECT user_id FROM users WHERE username = ?");
                 psCheckUserExists.setString(1, username);
-                resultSet = psCheckUserExists.executeQuery();
-                int added_user_id = 0;
-                while (resultSet.next()) {
-                    added_user_id = resultSet.getInt("user_id");
-                }
+                psCheckUserExists.executeQuery();
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -209,11 +187,11 @@ public class DB_Users {
                 String Key = resultSet.getString("2FA_Key");
                 Timestamp timestamp = resultSet.getTimestamp("2FA_Verification_Time");
                 Boolean FA_Enabled = false;
-                if(!Key.equals("NaN") && !Key.isEmpty() && !Key.equals("")) {
+                if (!Key.equals("NaN") && !Key.isEmpty()) {
                     FA_Enabled = true;
                 }
                 LocalDateTime FA_Verification_Time = null;
-                if(timestamp != null) {
+                if (timestamp != null) {
                     FA_Verification_Time = timestamp.toLocalDateTime();
                 }
                 var newUser = new User(user_id, username, password, role, email);
@@ -272,19 +250,17 @@ public class DB_Users {
         }
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
-        List<User> usersList = new ArrayList<>();
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE user_id = ?");
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
-            while (resultSet.next()) {
-                var newUser = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));
-                return newUser;
+            if (resultSet.next()) {
+                return new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));
             }
         } catch (Exception exception) {
             System.out.println("[LOG] - failed to search users!");
         }
-    return null;
+        return null;
     }
 }

@@ -2,7 +2,6 @@ package com.example.mazebank.Controllers.User.Forms.Forms_Menu;
 
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Views.User.Forms.FormsMenuOptions;
-import com.example.mazebank.Views.User.Menu.UserMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
@@ -17,6 +16,7 @@ public class FormsMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setStyleSelectedButton(account_btn);
         addListeners();
     }
 

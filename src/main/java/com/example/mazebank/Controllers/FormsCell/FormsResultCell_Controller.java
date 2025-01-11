@@ -5,7 +5,6 @@ import com.example.mazebank.Core.Forms.FormStatus;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Repositories.Forms.DB_Forms;
-import com.example.mazebank.Repositories.Users.DB_Users;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -33,17 +32,10 @@ public class FormsResultCell_Controller implements Initializable {
     public HBox username_HBox;
     public Label formtype_lbl;
 
-    public FormsResultCell_Controller(Form form) {
-        this.form = form;
-    }
-
     public FormsResultCell_Controller() {
 
     }
 
-    public void selectCell() {
-        anchorPane.setStyle("-fx-background-color:  #AAAAAA" + ";");
-    }
 
     private void setStatus() {
         this.username_lbl.setTextFill(Paint.valueOf("#000000"));
@@ -66,15 +58,14 @@ public class FormsResultCell_Controller implements Initializable {
     public void setform(Form form) {
         this.form = form;
         this.id.setText(Integer.toString(form.getForm_id()));
-        if(UserLoggedIn.getInstance().getLoggedInUser().getRole().equals(AccountType.ADMIN)) {
+        if (UserLoggedIn.getInstance().getLoggedInUser().getRole().equals(AccountType.ADMIN)) {
             username_HBox.setVisible(true);
-            username_lbl.setText("User id: " + String.valueOf(form.getUser_id()));
+            username_lbl.setText("User id: " + form.getUser_id());
             accept_btn.setVisible(true);
             reject_btn.setVisible(true);
             formtype_lbl.setText(form.getFormType().toString());
             formtype_lbl.setVisible(true);
-        }
-        else{
+        } else {
             username_HBox.setVisible(false);
         }
         setStatus();
@@ -91,47 +82,43 @@ public class FormsResultCell_Controller implements Initializable {
     }
 
     private void onRejectForm(ActionEvent actionEvent) {
-       try {
-           this.form.setStatus(FormStatus.REJECTED);
-           DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.REJECTED);
-           setStatus();
-           System.out.println("[LOG][FormCell] - Form rejected");
-       }
-       catch (Exception e) {
-           System.out.println("[LOG][FormCell] - " + e.getMessage());
-           System.out.println("[LOG][FormCell] - " + e.getLocalizedMessage());
+        try {
+            this.form.setStatus(FormStatus.REJECTED);
+            DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.REJECTED);
+            setStatus();
+            System.out.println("[LOG][FormCell] - Form rejected");
+        } catch (Exception e) {
+            System.out.println("[LOG][FormCell] - " + e.getMessage());
+            System.out.println("[LOG][FormCell] - " + e.getLocalizedMessage());
 
-       }
-       finally {
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
-           alert.setTitle("Alert");
-           alert.setHeaderText("Success");
-           alert.setContentText("Form: " + form.getForm_id() + " rejected!");
-           alert.showAndWait();
-       }
+        } finally {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alert");
+            alert.setHeaderText("Success");
+            alert.setContentText("Form: " + form.getForm_id() + " rejected!");
+            alert.showAndWait();
+        }
 
     }
 
     private void onAcceptForm(ActionEvent actionEvent) {
-       try {
-           this.form.setStatus(FormStatus.ACCEPTED);
-           this.status_lbl.setText("Accepted");
-           DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.ACCEPTED);
-           setStatus();
-           System.out.println("[LOG][FormCell] - Form accepted");
-       }
-       catch (Exception e) {
-           System.out.println("[LOG][FormCell] - " + e.getMessage());
-           System.out.println("[LOG][FormCell] - " + e.getLocalizedMessage());
+        try {
+            this.form.setStatus(FormStatus.ACCEPTED);
+            this.status_lbl.setText("Accepted");
+            DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.ACCEPTED);
+            setStatus();
+            System.out.println("[LOG][FormCell] - Form accepted");
+        } catch (Exception e) {
+            System.out.println("[LOG][FormCell] - " + e.getMessage());
+            System.out.println("[LOG][FormCell] - " + e.getLocalizedMessage());
 
-       }
-       finally {
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
-           alert.setTitle("Alert");
-           alert.setHeaderText("Success");
-           alert.setContentText("Form: " + form.getForm_id() + " accepted!");
-           alert.showAndWait();
-       }
+        } finally {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alert");
+            alert.setHeaderText("Success");
+            alert.setContentText("Form: " + form.getForm_id() + " accepted!");
+            alert.showAndWait();
+        }
     }
 
 
@@ -148,7 +135,12 @@ public class FormsResultCell_Controller implements Initializable {
                 System.out.println("[LOG][Forms] - file not found");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("[LOG][DB_Forms] - " + e.getCause());
+            System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Enter more than 3 characters!");
+            alert.showAndWait();
+            throw new RuntimeException(e);
         }
     }
 

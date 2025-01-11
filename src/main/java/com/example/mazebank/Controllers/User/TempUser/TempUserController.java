@@ -2,11 +2,8 @@ package com.example.mazebank.Controllers.User.TempUser;
 
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Views.User.Menu.TempUserMenuOptions;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;

@@ -1,14 +1,9 @@
 package com.example.mazebank.Controllers.Admin.Search.BankAccounts.Cell;
 
-import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionCellController;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
-import com.example.mazebank.Core.Models.UserLoggedIn;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
-
-import java.util.Objects;
 
 public class SearchResultListCell_BankAccounts extends ListCell<BankAccount> {
     @Override

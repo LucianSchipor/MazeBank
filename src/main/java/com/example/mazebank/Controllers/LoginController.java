@@ -1,7 +1,5 @@
 package com.example.mazebank.Controllers;
 
-import com.example.mazebank.Core.Alert.AlertType;
-import com.example.mazebank.Core.Alert.CustomAlert;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Security.Security;
@@ -9,18 +7,14 @@ import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Users.AccountType;
-import com.google.zxing.WriterException;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -51,29 +45,6 @@ public class LoginController implements Initializable {
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showRegisterFormWindow();
     }
-
-    private void onSignUp(Event event) {
-        String username = username_fld.getText();
-        String password = password_fld.getText();
-        if (Objects.equals(username, "") || Objects.equals(password, "")) {
-            System.out.println("[LOG] - " + "one field is empty");
-            CustomAlert alert = new CustomAlert(AlertType.ERROR);
-            alert.setContentText("One field is empty");
-            alert.showAndWait();
-        }
-
-        if (!username.isEmpty() && !password.isEmpty()) {
-            try {
-                DB_Users.SignupUser(username, password);
-            } catch (Exception e) {
-                System.out.println("[LOG] - " + e.getMessage());
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Error on creating a new account.");
-                alert.showAndWait();
-            }
-        }
-    }
-
 
     private void ShowClientWindow(){
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
@@ -132,16 +103,21 @@ public class LoginController implements Initializable {
                         alert.showAndWait();
                     }
             } catch (Exception e) {
-                System.out.println("[LOG] - " + e.getMessage());
+                System.out.println("[LOG][LoginController] - " + e.getCause());
+                System.out.println("[LOG][LoginController] - " + e.getLocalizedMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+                throw new RuntimeException(e);
             }
         } else {
-            CustomAlert alert = new CustomAlert(AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("One field is empty");
             alert.showAndWait();
         }
     }
 
-    private void FA_Check() throws IOException, WriterException {
+    private void FA_Check() {
         if (!Security.getInstance().isFA_Enabled()) {
             Security.getInstance().setAuthCodes();
             Stage stage = (Stage) error_lbl.getScene().getWindow();

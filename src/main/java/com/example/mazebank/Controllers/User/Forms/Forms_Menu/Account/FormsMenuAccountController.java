@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 public class FormsMenuAccountController implements Initializable {
 
-    public ListView listview;
+    public ListView<Form> listview;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

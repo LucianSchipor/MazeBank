@@ -25,7 +25,7 @@ public class SignUpController implements Initializable {
     public TextField fName_fld;
     public TextField email_fld;
     public TextField username_fld;
-    private List<Pair<String, String>> Text = new ArrayList<Pair<String, String>>();
+    private List<Pair<String, String>> Text = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,4 +54,11 @@ public class SignUpController implements Initializable {
 
     }
 
+    public List<Pair<String, String>> getText() {
+        return Text;
+    }
+
+    public void setText(List<Pair<String, String>> text) {
+        Text = text;
+    }
 }

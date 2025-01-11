@@ -1,25 +1,17 @@
 package com.example.mazebank.Controllers.User.Forms;
 
-import com.example.mazebank.Controllers.FormsCell.List.FormsResultListCell_Controller;
-import com.example.mazebank.Core.Forms.Form;
-import com.example.mazebank.Core.Forms.FormType;
 import com.example.mazebank.Core.Models.Model;
-import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Repositories.Forms.DB_Forms;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.example.mazebank.Views.User.Forms.FormsMenuOptions;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class FormsController implements Initializable {
 
 
-    public ListView account_forms_listview;
-    public ListView credits_forms_listview;
     public BorderPane border_pane;
 
     @Override
@@ -31,9 +23,10 @@ public class FormsController implements Initializable {
 
     public FormsController(){
         Model.getInstance().getViewFactory().getFormsMenuSelectedMenuItem().addListener((observableValue, oldVal, newVal) ->{
-            switch (newVal){
-                case CREDITS -> border_pane.setCenter(Model.getInstance().getViewFactory().getFormsCreditsView());
-                default -> border_pane.setCenter(Model.getInstance().getViewFactory().getFormsAccountView());
+            if (Objects.requireNonNull(newVal) == FormsMenuOptions.CREDITS) {
+                border_pane.setCenter(Model.getInstance().getViewFactory().getFormsCreditsView());
+            } else {
+                border_pane.setCenter(Model.getInstance().getViewFactory().getFormsAccountView());
             }
         } );
     }

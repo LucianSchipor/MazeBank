@@ -3,13 +3,11 @@ module com.example.mazebank {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires de.jensd.fx.glyphs.fontawesome;
     requires org.apache.commons.codec;
     requires totp;
     requires com.google.zxing;
     requires com.google.zxing.javase;
     requires org.apache.pdfbox;
-    requires javafx.web;
     requires java.desktop;
     opens com.example.mazebank to javafx.fxml;
     exports com.example.mazebank;
@@ -24,6 +22,7 @@ module com.example.mazebank {
     exports com.example.mazebank.Core.BankAccounts;
     exports com.example.mazebank.Core.Users;
     exports com.example.mazebank.Core.Transactions;
+    exports com.example.mazebank.Core.Forms;
     exports com.example.mazebank.Repositories.BankAccounts;
     exports com.example.mazebank.Repositories.Transactions;
     exports com.example.mazebank.Repositories.Users;
@@ -37,6 +36,7 @@ module com.example.mazebank {
     exports com.example.mazebank.Views.Admin;
     exports com.example.mazebank.Views.Admin.Menu;
     exports com.example.mazebank.Views.User.Menu;
+    exports com.example.mazebank.Views.User.Forms;
     exports com.example.mazebank.Views.User.Transactions;
     exports com.example.mazebank.Controllers.Admin.Search.Cell;
     exports com.example.mazebank.Controllers.Admin.Search.BankAccounts.Cell;
@@ -48,9 +48,9 @@ module com.example.mazebank {
     exports com.example.mazebank.Controllers.User.AddFunds;
     exports com.example.mazebank.Controllers.FormsCell.List;
     exports com.example.mazebank.Repositories.Forms;
-    exports com.example.mazebank.Core.Forms;
     exports com.example.mazebank.Controllers.User.Forms;
     exports com.example.mazebank.Controllers.User.Forms.Forms_Menu;
     exports com.example.mazebank.Controllers.User.Forms.Forms_Menu.Account;
     exports com.example.mazebank.Controllers.User.Forms.Forms_Menu.Credits;
+    exports com.example.mazebank.Controllers.User.Dashboard;
 }

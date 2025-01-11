@@ -1,7 +1,6 @@
 package com.example.mazebank.Controllers.User.Transactions.Cell;
 
 import com.example.mazebank.Core.Transactions.Transaction;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -43,9 +42,8 @@ public class TransactionCellController implements Initializable {
 
         ContextMenu contextMenu = new ContextMenu(copyMenuItem);
 
-        fromBAccNumber_lbl.setOnContextMenuRequested(event -> {
-            contextMenu.show(fromBAccNumber_lbl, event.getScreenX(), event.getScreenY());
-        });
+        fromBAccNumber_lbl.setOnContextMenuRequested(event ->
+                contextMenu.show(fromBAccNumber_lbl, event.getScreenX(), event.getScreenY()));
     }
     public void copyLabelToClipboard() {
         Clipboard clipboard = Clipboard.getSystemClipboard();

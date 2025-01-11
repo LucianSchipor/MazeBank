@@ -5,7 +5,6 @@ import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import com.google.zxing.WriterException;
-import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -34,14 +33,22 @@ public class FA_Controller implements Initializable {
         try {
             verify_btn.setOnAction(event -> {
                 try {
-                    Update2FAKey(event);
+                    Update2FAKey();
                 } catch (IOException | WriterException e) {
-                    e.printStackTrace();
-                }
+                    System.out.println("[LOG][DB_Forms] - " + e.getCause());
+                    System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("Enter more than 3 characters!");
+                    alert.showAndWait();
+                    throw new RuntimeException(e);                      }
             });
         } catch (Exception e) {
-            e.printStackTrace();
-        }
+            System.out.println("[LOG][DB_Forms] - " + e.getCause());
+            System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Enter more than 3 characters!");
+            alert.showAndWait();
+            throw new RuntimeException(e);              }
         try {
             Pair<String, String> keyPair = Security.getInstance().getAuthCodes();
             imageView.setImage(getQRCode());
@@ -57,10 +64,10 @@ public class FA_Controller implements Initializable {
         return createQRCode(Security.getInstance().getAuthCodes().getValue());
     }
 
-    private void Update2FAKey(Event event) throws IOException, WriterException {
+    private void Update2FAKey() throws IOException, WriterException {
         if (Security.getInstance().verifyOTP(otp_fld.getText())) {
             DB_Users.Update2FAKey(UserLoggedIn.getInstance().getLoggedInUser(), Security.getInstance().getAuthCodes().getKey());
-            Verify2FA(event);
+            Verify2FA();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("OTP Code is invalid!");
@@ -68,7 +75,7 @@ public class FA_Controller implements Initializable {
         }
     }
 
-    private void Verify2FA(Event event) throws IOException, WriterException {
+    private void Verify2FA() {
         if (Security.getInstance().verifyOTP(otp_fld.getText())) {
             DB_Users.UpdateFAVerificationTime(UserLoggedIn.getInstance().getLoggedInUser());
             Security.getInstance().setFA_Verified(true);

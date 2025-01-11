@@ -24,7 +24,6 @@ public class Security {
 
     private Pair<String, String> authCodes = new Pair<>("", "");
     private Boolean FA_Enabled = false;
-    private boolean FA_Verified = false;
     private String FA_Key = "";
     private LocalDateTime FA_Verification_Time;
 
@@ -46,12 +45,7 @@ public class Security {
     }
 
     public void setFA_Verified(boolean FA_Verified) {
-        this.FA_Verified = FA_Verified;
         setFA_Verification_Time(LocalDateTime.now());
-    }
-
-    public void setFA_Enabled(boolean FA_Enabled) {
-        this.FA_Enabled = FA_Enabled;
     }
 
     public String getFA_Key() {
@@ -68,7 +62,7 @@ public class Security {
     public Security() {
     }
 
-    public static synchronized Security getInstance() throws IOException, WriterException {
+    public static synchronized Security getInstance() {
         if (instance == null) {
             instance = new Security();
         }
@@ -76,7 +70,7 @@ public class Security {
     }
 
 
-    public Boolean verifyOTP(String otp) throws IOException, WriterException {
+    public Boolean verifyOTP(String otp) {
         if (otp.equals(getTOTPCode(Security.getInstance().authCodes.getKey()))) {
             System.out.println("[LOG][Security] - OTP Code is valid for this User");
             return true;
@@ -101,7 +95,7 @@ public class Security {
         return TOTP.getOTP(hexKey);
     }
 
-    public void startSecurityThread(String secretKey) throws IOException, WriterException {
+    public void startSecurityThread(String secretKey) {
         Thread securityThread = new Thread(() -> {
             String lastCode = null;
             while (true) {
@@ -152,7 +146,7 @@ public class Security {
         authCodes = new Pair<>(secretKey, barCodeUrl);
     }
 
-    public void setAuthCodes() throws IOException, WriterException {
+    public void setAuthCodes() {
         String secretKey = generateSecretKey();
         String email = UserLoggedIn.getInstance().getLoggedInUser().getEmail();
         String companyName = "Maze Bank";

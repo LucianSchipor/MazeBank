@@ -52,7 +52,6 @@ public class DB_Transactions {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Bank account with IBAN " + receiver + " does not exists!");
                     alert.showAndWait();
-                    return;
                 }
             }
         } catch (SQLException e) {
@@ -210,7 +209,4 @@ public class DB_Transactions {
         });
         return transactions;
     }
-
-
-
 }

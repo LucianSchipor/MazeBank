@@ -2,7 +2,7 @@ package com.example.mazebank.Views;
 
 import com.example.mazebank.Controllers.Admin.AdminController;
 import com.example.mazebank.Controllers.Admin.Search.BankAccounts.SearchResultController_BankAccounts;
-import com.example.mazebank.Controllers.User.Menu.DashboardController;
+import com.example.mazebank.Controllers.User.Dashboard.DashboardController;
 import com.example.mazebank.Controllers.User.TempUser.TempUserController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
@@ -20,14 +20,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.net.URLEncoder;
-
 
 @SuppressWarnings("CallToPrintStackTrace")
 public class ViewFactory {
 
     private AnchorPane dashboardView;
-    private AccountType loginAccountType;
     private AnchorPane transactionsView;
     private AnchorPane accountsView;
     private AnchorPane createClientView;
@@ -47,19 +44,10 @@ public class ViewFactory {
     private Scene previousWindow;
 
     public ViewFactory() {
-        this.loginAccountType = AccountType.CLIENT;
         this.clientSelectedMenuItem = new SimpleObjectProperty<>();
         this.adminSelectedMenuItem = new SimpleObjectProperty<>();
         this.tempUserSelectedMenuItem = new SimpleObjectProperty<>();
         this.formsMenuSelectedItem = new SimpleObjectProperty<>();
-    }
-
-    public AccountType getLoginAccountType() {
-        return loginAccountType;
-    }
-
-    public void setLoginAccountType(AccountType loginAccountType) {
-        this.loginAccountType = loginAccountType;
     }
 
     public AnchorPane getClientsView() {
@@ -274,21 +262,6 @@ public class ViewFactory {
         stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
         stage.setResizable(true);
         stage.setTitle("Maze Bank");
-        stage.show();
-    }
-
-    private void createStage(FXMLLoader loader, String title) {
-        Scene scene = null;
-        try {
-            scene = new Scene(loader.load());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
-        stage.setResizable(false);
-        stage.setTitle(title);
         stage.show();
     }
 

@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FormsMenuCreditsController implements Initializable {
-    public ListView listview;
+    public ListView<Form> listview;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 public class FormsController implements Initializable {
 
-    public javafx.scene.control.ListView forms_listView = new ListView();
+    public javafx.scene.control.ListView<Form> forms_listView = new ListView<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

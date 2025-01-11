@@ -35,7 +35,7 @@ public class TempUserDashboardController implements Initializable {
     public Label username_input;
     Form form;
     List<Form> forms = new ArrayList<>();
-    public ListView<Form> forms_listview = new ListView<Form>();
+    public ListView<Form> forms_listview = new ListView<>();
     ObservableList<Form> forms_observable = FXCollections.observableArrayList();
 
 

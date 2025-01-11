@@ -2,15 +2,11 @@ package com.example.mazebank.Controllers.Admin.Create;
 
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.Users.DB_Users;
-import com.google.zxing.WriterException;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -24,13 +20,13 @@ public class CreateController implements Initializable {
     public TextField users_phoneNumber_fld;
     public TextField bAcc_username_fld;
     public Button bAcc_create_btn;
-    public ChoiceBox choicebox;
+    public ChoiceBox<String> choicebox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
             users_create_btn.setOnAction(actionEvent -> {
                try {
-                   onCreate(actionEvent);
+                   onCreate();
                }
                catch (Exception e) {
                    System.out.println("[LOG][CreateController]" + e.getMessage());
@@ -47,7 +43,7 @@ public class CreateController implements Initializable {
     }
 
     private void onCreateBankAccount(Event event) {
-        if(bAcc_username_fld.getText().isEmpty() || (choicebox.getValue() == null) || choicebox.getValue().toString().isEmpty()) {
+        if(bAcc_username_fld.getText().isEmpty() || (choicebox.getValue() == null) || choicebox.getValue().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("One field is empty!");
             alert.showAndWait();
@@ -55,7 +51,7 @@ public class CreateController implements Initializable {
         }
         try {
             int user_id = Integer.parseInt(bAcc_username_fld.getText());
-            DB_BankAccounts.CreateBankAccount(user_id, choicebox.getValue().toString());
+            DB_BankAccounts.CreateBankAccount(user_id, choicebox.getValue());
         }
         catch (Exception exception) {
             System.out.println("[LOG] - " + "one field is empty");
@@ -67,7 +63,7 @@ public class CreateController implements Initializable {
         }
     }
 
-    private void onCreate(Event event) throws Exception {
+    private void onCreate() {
        try {
            String username = users_username_fld.getText();
            if (username.isEmpty() || Objects.equals(username, "")) {

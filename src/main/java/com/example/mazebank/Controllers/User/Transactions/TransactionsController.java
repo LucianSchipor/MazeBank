@@ -11,7 +11,6 @@ import com.google.zxing.WriterException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -33,8 +32,8 @@ public class TransactionsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         send_money_btn.setOnAction(event -> {
             try {
-                onSendMoney(event);
-            } catch (IOException | WriterException e) {
+                onSendMoney();
+            } catch (Exception e) {
                 System.out.println("[LOG][Transactions][Cause] - " + e.getCause());
                 System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
             }
@@ -54,12 +53,13 @@ public class TransactionsController implements Initializable {
     public TransactionsController() {
         send_money_btn.setOnAction(event -> {
             try {
-                onSendMoney(event);
-            } catch (IOException | WriterException e) {
+                onSendMoney();
+            } catch (Exception e) {
                 System.out.println("[LOG][Transactions][Cause] - " + e.getCause());
                 System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
             }
-        });        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions
+        });
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions
                 (UserLoggedIn.getInstance().getLoggedInUser().
                         getSelectedCheckingAccount().getIBAN()));
 
@@ -67,23 +67,21 @@ public class TransactionsController implements Initializable {
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
 
-    private void onSendMoney(Event event) throws IOException, WriterException {
+    private void onSendMoney() {
         var selectedAccount = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
         if (!Objects.equals(payee_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
-            if(Security.getInstance().isFA_Verified()){
-                if(VerifyTransfer(payee_fld.getText(), amount_fld.getText(), message_fld.getText())){
+            if (Security.getInstance().isFA_Verified()) {
+                if (VerifyTransfer(payee_fld.getText(), amount_fld.getText(), message_fld.getText())) {
                     selectedAccount.setBalance(selectedAccount.getBalance() - Double.parseDouble(amount_fld.getText()));
                     DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
                     updatePage();
-                }
-                else{
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     System.out.println("[LOG] - one field was null");
                     alert.setContentText("You cannot have empty fields!");
                     alert.showAndWait();
-                    }
-            }
-            else{
+                }
+            } else {
                 Model.getInstance().getViewFactory().closeStage((Stage) send_money_btn.getScene().getWindow());
                 Model.getInstance().getViewFactory().show2FAWindow(send_money_btn.getScene());
             }
@@ -102,7 +100,7 @@ public class TransactionsController implements Initializable {
         }
         for (Map.Entry<String, BankAccount> entry : UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet()) {
             String account_number = entry.getValue().getIBAN();
-            if(account_number.equals(receiver)) {
+            if (account_number.equals(receiver)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("You cannot send money to your own account. Use Deposit.");
                 alert.showAndWait();
@@ -126,7 +124,7 @@ public class TransactionsController implements Initializable {
             alert.showAndWait();
             return false;
         }
-        if (receiver.isEmpty() || amount == 0 || amount < 0) {
+        if (amount == 0 || amount < 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             System.out.println("[LOG] - receiver field from Transfer has an incorrect type or value!");
             alert.setContentText("Receiver field from Transfer has an incorrect type or value!");
@@ -158,15 +156,6 @@ public class TransactionsController implements Initializable {
 
         transactions_listview.itemsProperty().set(observableTransactionList);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
-        double income = 0;
-        double outcome = 0;
-        for (Transaction transaction : transactionsList) {
-            if (Objects.equals(transaction.getSender(), account.getIBAN())) {
-                outcome += transaction.getAmount();
-            } else {
-                income += transaction.getAmount();
-            }
-        }
     }
 }
 
