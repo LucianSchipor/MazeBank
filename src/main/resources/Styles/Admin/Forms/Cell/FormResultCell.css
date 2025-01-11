@@ -1,10 +1,10 @@
 .user_cell_container {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: transparent;
 }
 
 .main_HBox {
     -fx-background-radius: 5;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: transparent;
 }
 
 .user_cell_container FontAwesomeIconView {

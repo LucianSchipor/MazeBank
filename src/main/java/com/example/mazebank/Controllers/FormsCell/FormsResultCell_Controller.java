@@ -8,6 +8,7 @@ import com.example.mazebank.Repositories.Forms.DB_Forms;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -90,19 +91,47 @@ public class FormsResultCell_Controller implements Initializable {
     }
 
     private void onRejectForm(ActionEvent actionEvent) {
-        this.form.setStatus(FormStatus.REJECTED);
-        DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.REJECTED);
-        setStatus();
-        System.out.println("[LOG][FormCell] - Form rejected");
+       try {
+           this.form.setStatus(FormStatus.REJECTED);
+           DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.REJECTED);
+           setStatus();
+           System.out.println("[LOG][FormCell] - Form rejected");
+       }
+       catch (Exception e) {
+           System.out.println("[LOG][FormCell] - " + e.getMessage());
+           System.out.println("[LOG][FormCell] - " + e.getLocalizedMessage());
+
+       }
+       finally {
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Alert");
+           alert.setHeaderText("Success");
+           alert.setContentText("Form: " + form.getForm_id() + " rejected!");
+           alert.showAndWait();
+       }
+
     }
 
     private void onAcceptForm(ActionEvent actionEvent) {
-        this.form.setStatus(FormStatus.ACCEPTED);
-        this.status_lbl.setText("Accepted");
-        DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.ACCEPTED);
-        setStatus();
-        System.out.println("[LOG][FormCell] - Form accepted");
+       try {
+           this.form.setStatus(FormStatus.ACCEPTED);
+           this.status_lbl.setText("Accepted");
+           DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.ACCEPTED);
+           setStatus();
+           System.out.println("[LOG][FormCell] - Form accepted");
+       }
+       catch (Exception e) {
+           System.out.println("[LOG][FormCell] - " + e.getMessage());
+           System.out.println("[LOG][FormCell] - " + e.getLocalizedMessage());
 
+       }
+       finally {
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Alert");
+           alert.setHeaderText("Success");
+           alert.setContentText("Form: " + form.getForm_id() + " accepted!");
+           alert.showAndWait();
+       }
     }
 
 

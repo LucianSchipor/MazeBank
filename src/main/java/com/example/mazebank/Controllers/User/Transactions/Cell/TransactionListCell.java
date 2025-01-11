@@ -37,6 +37,12 @@ public class TransactionListCell extends ListCell<Transaction> {
                     controller.setFromBankAccountNumber(transaction.getSender_BankAccount().getIBAN());
                 }
 
+                this.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                    if (isNowSelected) {
+                        getListView().getSelectionModel().clearSelection();
+                    }
+                });
+
 //                if(isSelected()) {
 //                    controller.selectCell();
 //                }

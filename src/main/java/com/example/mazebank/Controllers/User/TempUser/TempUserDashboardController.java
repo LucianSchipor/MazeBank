@@ -9,6 +9,7 @@ import com.example.mazebank.Repositories.Users.DB_Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -34,7 +35,7 @@ public class TempUserDashboardController implements Initializable {
     public Label username_input;
     Form form;
     List<Form> forms = new ArrayList<>();
-    public ListView forms_listview = new ListView();
+    public ListView<Form> forms_listview = new ListView<Form>();
     ObservableList<Form> forms_observable = FXCollections.observableArrayList();
 
 
@@ -69,13 +70,21 @@ public class TempUserDashboardController implements Initializable {
     private void onUpgradeAccount() {
         try {
             DB_Users.UpgradeAccount(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
-            Stage stage = (Stage) upgrade_btn.getScene().getWindow();
-            Model.getInstance().getViewFactory().closeStage(stage);
-            Model.getInstance().getViewFactory().showLoginWindow();
+
         }
         catch (Exception e) {
             System.out.println("[LOG][TempUserDashboardController] - " + e.getMessage());
             System.out.println("[LOG][TempUserDashboardController] - " + e.getLocalizedMessage());
+        }
+        finally {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alert");
+            alert.setHeaderText("Success");
+            alert.setContentText("Successfully upgraded account. Log in again.");
+            alert.showAndWait();
+            Stage stage = (Stage) upgrade_btn.getScene().getWindow();
+            Model.getInstance().getViewFactory().closeStage(stage);
+            Model.getInstance().getViewFactory().showLoginWindow();
         }
     }
 
