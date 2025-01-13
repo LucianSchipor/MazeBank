@@ -10,6 +10,12 @@ public class FormAccount extends Form {
         super(form_id, user, form_path, date, status, formType);
     }
 
+    public FormAccount(Form form){
+        super(form.getForm_id(), form.getCreator(), form.getForm_path(), form.getDate(), form.getStatus(), form.getFormType().ordinal());
+
+    }
+
+
     //se vor putea creea bank account-uri
     public void setFormDetails(){
 

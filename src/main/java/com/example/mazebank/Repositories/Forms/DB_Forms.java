@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
@@ -97,8 +98,9 @@ public class DB_Forms {
             if (form instanceof FormCredit creditForm) {
                 creditForm.getDetails().forEach(n ->
                         text.add(new Pair<>(n.getKey(), n.getValue())));
-            } else {
-                FormAccount accountForm = (FormAccount) form;
+            } else if (form instanceof FormAccount accountForm) {
+                accountForm.getBasicFormDetails().forEach(n ->
+                        text.add(new Pair<>(n.getKey(), n.getValue())));
                 //something
             }
         } catch (Exception e) {

@@ -1,5 +1,8 @@
 package com.example.mazebank.Controllers;
 
+import com.example.mazebank.Core.Forms.Form;
+import com.example.mazebank.Core.Forms.FormAccount;
+import com.example.mazebank.Core.Forms.FormCredit;
 import com.example.mazebank.Core.Forms.FormType;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.UserLoggedIn;
@@ -42,7 +45,9 @@ public class SignUpController implements Initializable {
             UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
             assert userLoggedIn != null;
 
-            DB_Forms.createForm(FormType.ACCOUNT);
+            Form form = new Form(FormType.ACCOUNT);
+            FormAccount accountForm = new FormAccount(form);
+            DB_Forms.createForm(accountForm);
 
             Stage stage = (Stage) username_fld.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
