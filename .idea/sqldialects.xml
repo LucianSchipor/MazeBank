@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/db_scripts/v_09.01.2025.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/mazebank/Repositories/BankAccounts/DB_BankAccounts.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/mazebank/Repositories/BankInfo/DB_BankInfo.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/mazebank/Repositories/Credits/DB_Credits.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/mazebank/Repositories/Forms/DB_Forms.java" dialect="GenericSQL" />
   </component>

@@ -1,6 +1,5 @@
 package com.example.mazebank.Controllers.User.Transactions.Cell;
 
-import com.example.mazebank.Core.Transactions.Transaction;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -9,7 +8,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,8 +23,6 @@ public class TransactionCellController implements Initializable {
     public Button deleteTransaction_btn;
     public Label sender_lbl;
     public Label message_lbl;
-
-    private Transaction transaction;
 
     public TransactionCellController() {
     }

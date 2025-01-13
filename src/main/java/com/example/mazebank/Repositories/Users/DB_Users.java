@@ -183,10 +183,7 @@ public class DB_Users {
                 String email = resultSet.getString("email");
                 String Key = resultSet.getString("2FA_Key");
                 Timestamp timestamp = resultSet.getTimestamp("2FA_Verification_Time");
-                boolean FA_Enabled = false;
-                if (!Key.equals("NaN") && !Key.isEmpty()) {
-                    FA_Enabled = true;
-                }
+                boolean FA_Enabled = !Key.equals("NaN") && !Key.isEmpty();
                 LocalDateTime FA_Verification_Time = null;
                 if (timestamp != null) {
                     FA_Verification_Time = timestamp.toLocalDateTime();
