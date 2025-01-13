@@ -38,7 +38,6 @@ public class TempUserMenuController implements Initializable {
         Model.getInstance().getViewFactory().getTempUserSelectedMenuItem().set(TempUserMenuOptions.CREATE);
     }
 
-
     private void onDashboard(){
         System.out.println("[LOG] - redirecting to Temp Dashboard panel");
         Model.getInstance().getViewFactory().getTempUserSelectedMenuItem().set(TempUserMenuOptions.DASHBOARD);

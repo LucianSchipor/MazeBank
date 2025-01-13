@@ -21,16 +21,16 @@ import java.util.List;
 
 public class DB_Forms {
 
-    private static String CreateFormDocument(Form form) {
+    private static String createFormDocument(Form form) {
         String formPath;
         List<Pair<String, String>> Text = new ArrayList<>();
-        var formCreator = DB_Users.SearchUserById(form.getUser_id());
+        var formCreator = DB_Users.searchUserById(form.getUser_id());
 
         assert formCreator != null;
-        CreateText(Text, form, formCreator);
+        createtext(Text, form);
         Text.add(new Pair<>("Form Type: ", form.getFormType().toString()));
         try (PDDocument document = new PDDocument()) {
-            CreatePDF(Text, document);
+            createPDF(Text, document);
             String path;
             if (form.getFormType().equals(FormType.ACCOUNT)) {
                 path = "Forms/Account/" + "form" + form.getForm_id() + "_user" + form.getUser_id() + "_ft" + form.getFormType() + "_d" + form.getDate() + ".pdf";
@@ -57,7 +57,7 @@ public class DB_Forms {
         return formPath;
     }
 
-    private static void CreatePDF(List<Pair<String, String>> text, PDDocument document) throws IOException {
+    private static void createPDF(List<Pair<String, String>> text, PDDocument document) throws IOException {
         PDPage page = new PDPage();
         document.addPage(page);
         String logoPath = "src/main/resources/Images/Icon/bank.png";
@@ -92,33 +92,33 @@ public class DB_Forms {
         }
     }
 
-    private static void CreateText(List<Pair<String, String>> text, Form form, User formCreator) {
+    private static void createtext(List<Pair<String, String>> text, Form form) {
         try {
-            if (form instanceof FormCredit) {
-                FormCredit creditForm = (FormCredit) form;
-                creditForm.GetDetails().forEach(n ->
+            if (form instanceof FormCredit creditForm) {
+                creditForm.getDetails().forEach(n ->
                         text.add(new Pair<>(n.getKey(), n.getValue())));
-            } else if (form instanceof FormAccount) {
+            } else {
                 FormAccount accountForm = (FormAccount) form;
+                //something
             }
         } catch (Exception e) {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
         }
     }
 
-    private static void CreateText(List<Pair<String, String>> text, User formCreator) {
+    private static void createText(List<Pair<String, String>> text, User formCreator) {
         text.add(new Pair<>("Username: ", formCreator.getUsername()));
         text.add(new Pair<>("E-Mail: ", formCreator.getEmail()));
         text.add(new Pair<>("Last Name: ", "soon"));
         text.add(new Pair<>("First Name: ", "soon"));
     }
 
-    private static void CreateDocument() {
+    private static void createDocument() {
         List<Pair<String, String>> Text = new ArrayList<>();
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
-        CreateText(Text, userLoggedIn);
+        createText(Text, userLoggedIn);
         try (PDDocument document = new PDDocument()) {
-            CreatePDF(Text, document);
+            createPDF(Text, document);
             File file = new File("Forms/" + Text.getFirst().getValue() + "_Register_Form.pdf");
             document.save(file);
             System.out.println("[LOG][Forms] - PDF created successfully! Path: " + file.getAbsolutePath());
@@ -132,11 +132,11 @@ public class DB_Forms {
         }
     }
 
-    public static void UpdateFormStatus(int form_id, FormStatus status) {
+    public static void updateFormStatus(int form_id, FormStatus status) {
         PreparedStatement querry;
         Connection connection;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
             System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
@@ -154,7 +154,7 @@ public class DB_Forms {
             if (rowsAffected > 0) {
                 System.out.println("[LOG][DB_Forms] - successfully deleted form!");
                 try {
-                    CreateDocument();
+                    createDocument();
                 } catch (Exception e) {
                     System.out.println("[LOG][DB_Forms] - " + e.getCause());
                     System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
@@ -165,43 +165,11 @@ public class DB_Forms {
         }
     }
 
-    public static void DeleteForm(int form_id) {
+    public static void createForm(FormType type) {
         PreparedStatement querry;
         Connection connection;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
-        } catch (SQLException e) {
-            System.out.println("[LOG][DB_Forms] - " + e.getCause());
-            System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Enter more than 3 characters!");
-            alert.showAndWait();
-            throw new RuntimeException(e);
-        }
-        try {
-            assert connection != null;
-            querry = connection.prepareStatement("DELETE from FORMS where form_id = ?");
-            querry.setInt(1, form_id);
-            int rowsAffected = querry.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("[LOG][Forms] - successfully deleted form!");
-                try {
-                    CreateDocument();
-                } catch (Exception e) {
-                    System.out.println("[LOG][Forms] - " + e.getCause());
-                    System.out.println("[LOG][Forms] - " + e.getLocalizedMessage());
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void CreateForm(FormType type) {
-        PreparedStatement querry;
-        Connection connection;
-        try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
             System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
@@ -223,10 +191,10 @@ public class DB_Forms {
             System.out.println("[LOG][Forms] - successfully created form!");
             try {
                 querry = connection.prepareStatement("UPDATE forms SET form_path = ? where form_id = ?");
-                var createdForm = DB_Forms.GetFormsById(
+                var createdForm = DB_Forms.getFormsById(
                                 UserLoggedIn.getInstance().getLoggedInUser().getUserId())
                         .getLast();
-                querry.setString(1, CreateFormDocument(createdForm));
+                querry.setString(1, createFormDocument(createdForm));
                 querry.setInt(2, createdForm.getForm_id());
                 querry.executeUpdate();
             } catch (Exception e) {
@@ -237,11 +205,11 @@ public class DB_Forms {
         }
     }
 
-    public static void CreateForm(Form form) {
+    public static void createForm(Form form) {
         PreparedStatement querry;
         Connection connection;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
             System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
@@ -253,7 +221,7 @@ public class DB_Forms {
         try {
             assert connection != null;
             querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id, form_type) values (?, ?, ?, ?, ?)");
-            form.SetFormPath("Unknown");
+            form.setFormPath("Unknown");
             querry.setString(1, form.getForm_path());
             querry.setDate(2, Date.valueOf(LocalDate.now()));
             querry.setInt(3, form.getStatus().ordinal());
@@ -264,30 +232,26 @@ public class DB_Forms {
             querry = connection.prepareStatement("SELECT MAX(form_id) AS max_form_id FROM forms");
             var resultSet = querry.executeQuery();
             while (resultSet.next()) {
-                form.SetFormId(resultSet.getInt("max_form_id"));
+                form.setFormId(resultSet.getInt("max_form_id"));
             }
-            form.SetFormPath(CreateFormDocument(form));
+            form.setFormPath(createFormDocument(form));
             querry = connection.prepareStatement("UPDATE forms SET form_path = ? where form_id = ?");
             querry.setString(1, form.getForm_path());
             querry.setInt(2, form.getForm_id());
             querry.executeUpdate();
             System.out.println("[LOG][Forms] - successfully created form!");
-            try {
-            } catch (Exception e) {
-                System.out.println("[LOG][Forms] - " + e.getMessage());
-            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static List<Form> GetFormsById(int userId) {
+    public static List<Form> getFormsById(int userId) {
         PreparedStatement querry;
         List<Form> forms = new ArrayList<>();
-        ResultSet resultSet;
         Connection connection;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
             System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
@@ -300,33 +264,37 @@ public class DB_Forms {
             assert connection != null;
             querry = connection.prepareStatement("SELECT * FROM forms where user_id = ?");
             querry.setInt(1, userId);
-            resultSet = querry.executeQuery();
-            while (resultSet.next()) {
-                int form_id = resultSet.getInt("form_id");
-                String path = resultSet.getString("form_path");
-                int user_id = resultSet.getInt("user_id");
-                int status = resultSet.getInt("status");
-                int form_type = resultSet.getInt("form_type");
-                FormStatus formStatus = null;
-                if (status == 0) formStatus = FormStatus.PENDING;
-                if (status == 1) formStatus = FormStatus.ACCEPTED;
-                if (status == 2) formStatus = FormStatus.REJECTED;
-                Form form = new Form(form_id, DB_Users.SearchUserById(user_id), path, resultSet.getDate("date"), formStatus, form_type);
-                forms.add(form);
-            }
+            executeGetForms(querry, forms);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return forms;
     }
 
-    public static List<Form> GetForms() {
+    private static void executeGetForms(PreparedStatement querry, List<Form> forms) throws SQLException {
+        ResultSet resultSet;
+        resultSet = querry.executeQuery();
+        while (resultSet.next()) {
+            int form_id = resultSet.getInt("form_id");
+            String path = resultSet.getString("form_path");
+            int user_id = resultSet.getInt("user_id");
+            int status = resultSet.getInt("status");
+            int form_type = resultSet.getInt("form_type");
+            FormStatus formStatus = null;
+            if (status == 0) formStatus = FormStatus.PENDING;
+            if (status == 1) formStatus = FormStatus.ACCEPTED;
+            if (status == 2) formStatus = FormStatus.REJECTED;
+            Form form = new Form(form_id, DB_Users.searchUserById(user_id), path, resultSet.getDate("date"), formStatus, form_type);
+            forms.add(form);
+        }
+    }
+
+    public static List<Form> getForms() {
         PreparedStatement querry;
         List<Form> forms = new ArrayList<>();
-        ResultSet resultSet;
         Connection connection;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
             System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
@@ -338,20 +306,7 @@ public class DB_Forms {
         try {
             assert connection != null;
             querry = connection.prepareStatement("SELECT * FROM forms");
-            resultSet = querry.executeQuery();
-            while (resultSet.next()) {
-                int form_id = resultSet.getInt("form_id");
-                String path = resultSet.getString("form_path");
-                int user_id = resultSet.getInt("user_id");
-                int status = resultSet.getInt("status");
-                int form_type = resultSet.getInt("form_type");
-                FormStatus formStatus = null;
-                if (status == 0) formStatus = FormStatus.PENDING;
-                if (status == 1) formStatus = FormStatus.ACCEPTED;
-                if (status == 2) formStatus = FormStatus.REJECTED;
-                Form form = new Form(form_id, DB_Users.SearchUserById(user_id), path, resultSet.getDate("date"), formStatus, form_type);
-                forms.add(form);
-            }
+            executeGetForms(querry, forms);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -24,7 +24,7 @@ public class FormsResultListCell_Controller extends ListCell<Form> {
 
 
             } catch (Exception e) {
-                System.out.println("[LOG] - " + e.getCause());
+                System.out.println("[LOG][FormsResultListCell] - " + e.getCause());
             }
         }
     }

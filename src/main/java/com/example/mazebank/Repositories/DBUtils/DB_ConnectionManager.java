@@ -15,17 +15,13 @@ public class DB_ConnectionManager {
         return instance;
     }
 
-    private void  OpenConnection() throws SQLException {
+    private void openConnection() throws SQLException {
         this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
     }
 
-    public void CloseConnection() throws SQLException {
-        this.con.close();
-    }
-
-    public Connection GetConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         if(this.con == null || this.con.isClosed())
-            this.OpenConnection();
+            this.openConnection();
         return this.con;
     }
 }

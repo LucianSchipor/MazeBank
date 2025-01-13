@@ -35,7 +35,7 @@ public Button search_btn = new Button();
                 alert.showAndWait();
                 return;
             }
-            ObservableList<User> searchResult_observable = FXCollections.observableArrayList(DB_Users.SearchUsers(username_fld.getText()));
+            ObservableList<User> searchResult_observable = FXCollections.observableArrayList(DB_Users.searchUsers(username_fld.getText()));
             searchResult_listview.setItems(searchResult_observable);
             searchResult_listview.setCellFactory(param -> new SearchResultCell());
         }

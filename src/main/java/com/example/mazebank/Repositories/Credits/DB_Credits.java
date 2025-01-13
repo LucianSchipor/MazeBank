@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class DB_Credits {
 
-    public static Credit GetCreditByUserId(int user_id) {
+    public static Credit getCreditByUserId(int user_id) {
         PreparedStatement querry;
         ResultSet resultSet;
         Credit newCredit = null;
@@ -42,7 +42,7 @@ public class DB_Credits {
         return newCredit;
     }
 
-    public static void CreateCredit(Credit credit) {
+    public static void createCredit(Credit credit) {
         PreparedStatement querry;
         Connection connection = null;
         try {

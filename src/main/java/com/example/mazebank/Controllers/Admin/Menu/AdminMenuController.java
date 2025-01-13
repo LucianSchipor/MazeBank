@@ -36,6 +36,33 @@ public class AdminMenuController implements Initializable {
         deselectAll();
         setStyleSelectedButton(forms_btn);
     }
+
+    private void onSearch(){
+        System.out.println("[LOG] - redirecting to Search panel");
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.SEARCH);
+        deselectAll();
+        setStyleSelectedButton(search_btn);
+    }
+
+    private void onCreate(){
+        System.out.println("[LOG] - redirecting to Create panel");
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE);
+        deselectAll();
+        setStyleSelectedButton(create_btn);
+    }
+
+    private void onDeposit(){
+        System.out.println("[LOG] - redirecting to Deposit panel");
+        deselectAll();
+        setStyleSelectedButton(deposit_btn);
+    }
+
+    private void onLogOut(){
+        Stage stage = (Stage)logout_btn.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showLoginWindow();
+    }
+
     private void setStyleSelectedButton(Button button){
         String selectButtonString = """
                 -fx-pref-width: 130;
@@ -62,38 +89,5 @@ public class AdminMenuController implements Initializable {
         search_btn.setStyle(deselectButtonString);
         forms_btn.setStyle(deselectButtonString);
         deposit_btn.setStyle(deselectButtonString);
-    }
-
-
-    private void onSearch(){
-        System.out.println("[LOG] - redirecting to Search panel");
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.SEARCH);
-        deselectAll();
-        setStyleSelectedButton(search_btn);
-    }
-
-    private void onCreate(){
-        System.out.println("[LOG] - redirecting to Create panel");
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE);
-        deselectAll();
-        setStyleSelectedButton(create_btn);
-    }
-
-    private void onClients(){
-        System.out.println("[LOG] - redirecting to Clients panel");
-        deselectAll();
-        setStyleSelectedButton(forms_btn);
-    }
-
-    private void onDeposit(){
-        System.out.println("[LOG] - redirecting to Deposit panel");
-        deselectAll();
-        setStyleSelectedButton(deposit_btn);
-    }
-
-    private void onLogOut(){
-        Stage stage = (Stage)logout_btn.getScene().getWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
-        Model.getInstance().getViewFactory().showLoginWindow();
     }
 }

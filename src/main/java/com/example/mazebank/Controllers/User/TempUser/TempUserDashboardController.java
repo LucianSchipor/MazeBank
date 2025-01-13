@@ -53,7 +53,7 @@ public class TempUserDashboardController implements Initializable {
         var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
         var username = userLoggedIn.getUsername();
         hello_lbl.setText("Welcome back, " + username + "!");
-        forms = DB_Forms.GetFormsById(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
+        forms = DB_Forms.getFormsById(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
         form = forms.getFirst();
         var currentUser = UserLoggedIn.getInstance().getLoggedInUser();
         e_mail_input.setText(currentUser.getEmail());
@@ -69,7 +69,7 @@ public class TempUserDashboardController implements Initializable {
 
     private void onUpgradeAccount() {
         try {
-            DB_Users.UpgradeAccount(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
+            DB_Users.upgradeAccount(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
 
         }
         catch (Exception e) {
@@ -108,7 +108,7 @@ public class TempUserDashboardController implements Initializable {
     }
 
     public void updatePage() {
-        forms = DB_Forms.GetFormsById(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
+        forms = DB_Forms.getFormsById(UserLoggedIn.getInstance().getLoggedInUser().getUserId());
         forms_observable = FXCollections.observableArrayList(forms);
         forms_listview.setItems(forms_observable);
         System.out.println("[LOG][TempUserDashboard] - Page Updated");

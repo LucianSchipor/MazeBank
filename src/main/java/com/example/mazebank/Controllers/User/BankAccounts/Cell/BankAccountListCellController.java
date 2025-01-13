@@ -6,9 +6,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AccountListCellController implements Initializable {
-    public Label account_name = new Label();
-
+public class BankAccountListCellController implements Initializable {
     public BankAccount account;
     public Label balance;
     public Label checking_acc_num;
@@ -17,9 +15,8 @@ public class AccountListCellController implements Initializable {
     public Label cvv_lbl;
     public Label iban_nr;
 
-    public AccountListCellController() {
+    public BankAccountListCellController() {
     }
-
 
     public void initialize(URL location, ResourceBundle resources) {
     }
@@ -32,10 +29,10 @@ public class AccountListCellController implements Initializable {
         this.currency_lbl.setText(account_currency);
     }
 
-
     public void setIbanNR(String ibanNR) {
         this.iban_nr.setText(ibanNR);
     }
+
     public void setAccount_number(String account_number) {
         StringBuilder formattedString = new StringBuilder();
 

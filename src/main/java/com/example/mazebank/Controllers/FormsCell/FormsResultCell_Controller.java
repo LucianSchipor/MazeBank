@@ -36,7 +36,6 @@ public class FormsResultCell_Controller implements Initializable {
 
     }
 
-
     private void setStatus() {
         this.username_lbl.setTextFill(Paint.valueOf("#000000"));
         this.id.setTextFill(Paint.valueOf("#000000"));
@@ -85,7 +84,7 @@ public class FormsResultCell_Controller implements Initializable {
     private void onRejectForm(ActionEvent actionEvent) {
         try {
             this.form.setStatus(FormStatus.REJECTED);
-            DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.REJECTED);
+            DB_Forms.updateFormStatus(this.form.getForm_id(), FormStatus.REJECTED);
             setStatus();
             System.out.println("[LOG][FormCell] - Form rejected");
         } catch (Exception e) {
@@ -106,7 +105,7 @@ public class FormsResultCell_Controller implements Initializable {
         try {
             this.form.setStatus(FormStatus.ACCEPTED);
             this.status_lbl.setText("Accepted");
-            DB_Forms.UpdateFormStatus(this.form.getForm_id(), FormStatus.ACCEPTED);
+            DB_Forms.updateFormStatus(this.form.getForm_id(), FormStatus.ACCEPTED);
             setStatus();
             System.out.println("[LOG][FormCell] - Form accepted");
         } catch (Exception e) {
@@ -122,10 +121,8 @@ public class FormsResultCell_Controller implements Initializable {
         }
     }
 
-
     private void onViewForm(ActionEvent actionEvent) {
         String filePath = this.form.getForm_path();
-
         try {
             File file = new File(filePath);
 
@@ -139,7 +136,7 @@ public class FormsResultCell_Controller implements Initializable {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
             System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Enter more than 3 characters!");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
             throw new RuntimeException(e);
         }

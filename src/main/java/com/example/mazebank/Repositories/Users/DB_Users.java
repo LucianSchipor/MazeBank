@@ -16,12 +16,12 @@ import java.util.List;
 @SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection", "CallToPrintStackTrace"})
 public class DB_Users {
 
-    private static boolean VerifyCredentials(String username) {
+    private static boolean verifyCredentials(String username) {
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,11 +36,11 @@ public class DB_Users {
         }
     }
 
-    public static void UpgradeAccount(int user_id) {
+    public static void upgradeAccount(int user_id) {
         PreparedStatement querry;
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,12 +55,11 @@ public class DB_Users {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            DB_BankAccounts.CreateBankAccount(user_id, "RON");
+            DB_BankAccounts.createBankAccount(user_id, "RON");
         }
     }
 
-
-    public static void SignupUser(String username, String password) throws Exception {
+    public static void signupUser(String username, String password) throws Exception {
         if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -72,11 +71,11 @@ public class DB_Users {
         PreparedStatement psCheckUserExists;
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (VerifyCredentials(username)) {
+        if (verifyCredentials(username)) {
             try {
                 assert connection != null;
                 psCheckUserExists = connection.prepareStatement("INSERT INTO users (username, password, role, 2FA_Key, email, 2FA_Verification_Time) VALUES (?, ?, ?, ?, ?, ?)");
@@ -105,11 +104,11 @@ public class DB_Users {
         }
     }
 
-    public static void Update2FAKey(User user, String key) {
+    public static void update2FAKey(User user, String key) {
         PreparedStatement psCheckUserExists;
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -130,12 +129,11 @@ public class DB_Users {
         }
     }
 
-
-    public static void UpdateFAVerificationTime(User user) {
+    public static void updateFAVerificationTime(User user) {
         PreparedStatement psCheckUserExists;
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -164,13 +162,12 @@ public class DB_Users {
 
     }
 
-
-    public static User LoginUser(String username, String password) {
+    public static User loginUser(String username, String password) {
         PreparedStatement psCheckUserExists;
         ResultSet resultSet;
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -186,7 +183,7 @@ public class DB_Users {
                 String email = resultSet.getString("email");
                 String Key = resultSet.getString("2FA_Key");
                 Timestamp timestamp = resultSet.getTimestamp("2FA_Verification_Time");
-                Boolean FA_Enabled = false;
+                boolean FA_Enabled = false;
                 if (!Key.equals("NaN") && !Key.isEmpty()) {
                     FA_Enabled = true;
                 }
@@ -215,10 +212,10 @@ public class DB_Users {
         return null;
     }
 
-    public static List<User> SearchUsers(String username) {
+    public static List<User> searchUsers(String username) {
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -241,10 +238,10 @@ public class DB_Users {
         return usersList;
     }
 
-    public static User SearchUserById(int user_id) {
+    public static User searchUserById(int user_id) {
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }

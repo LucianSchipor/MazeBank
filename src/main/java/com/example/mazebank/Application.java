@@ -9,7 +9,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage primaryStage) {
         System.out.println("Java version - " + System.getProperty("java.version"));
         System.out.println("JavaFX version - " + System.getProperty("javafx.version"));
-        DB_BankInfo.GetBankInfo();
+        DB_BankInfo.getBankInfo();
         Model.getInstance().getViewFactory().showLoginWindow();
     }
 

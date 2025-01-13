@@ -17,15 +17,14 @@ public class FormsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<Form> forms_observable = FXCollections.observableArrayList(DB_Forms.GetForms());
+        ObservableList<Form> forms_observable = FXCollections.observableArrayList(DB_Forms.getForms());
         forms_listView.setItems(forms_observable);
         forms_listView.setCellFactory(param -> new FormsResultListCell_Controller());
     }
 
     public FormsController (){
-        ObservableList<Form> forms_observable = FXCollections.observableArrayList(DB_Forms.GetForms());
+        ObservableList<Form> forms_observable = FXCollections.observableArrayList(DB_Forms.getForms());
         forms_listView.setItems(forms_observable);
         forms_listView.setCellFactory(param -> new FormsResultListCell_Controller());
-        //TODO -> setat style cand selectez formular
     }
 }

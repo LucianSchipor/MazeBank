@@ -17,19 +17,19 @@ public class DB_Transactions {
     //TODO -> de facut conversia (ex: Trimit 150 ron si ar trebui sa ajunga 30 EUR, nu 150 EUR).
 
     //Database Statement
-    public static void Transfer(String receiver, Double amount, String message) {
+    public static void transfer(String receiver, Double amount, String message) {
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
         PreparedStatement psInsertTransaction;
         try {
-            if(DB_BankAccounts.SearchBankAccountByIBAN(receiver) != null) {
+            if(DB_BankAccounts.searchBankAccountByIBAN(receiver) != null) {
                 try {
                     assert connection != null;
-                    connection = DB_ConnectionManager.getInstance().GetConnection();
+                    connection = DB_ConnectionManager.getInstance().getConnection();
                     psInsertTransaction = connection.prepareStatement(
                             "INSERT INTO" +
                                     " transactions (sender,receiver,amount, message, currency, datetime) VALUES (?,?,?,?,?,?)");
@@ -42,7 +42,7 @@ public class DB_Transactions {
                     psInsertTransaction.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
                     int rowsAffected = psInsertTransaction.executeUpdate();
                     if (rowsAffected > 0) {
-                        DB_BankAccounts.DB_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN(), amount, receiver);
+                        DB_BankAccounts.updateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN(), amount, receiver);
 //                    DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
                         System.out.println("Transaction successfully inserted.");
                     } else {
@@ -74,10 +74,10 @@ public class DB_Transactions {
     }
 
     @SuppressWarnings("UseCompareMethod")
-    public static List<Transaction> GetBankAccountTransactions(String IBAN) {
+    public static List<Transaction> getBankAccountTransactions(String IBAN) {
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,8 +122,8 @@ public class DB_Transactions {
                 String currency = resultSet.getString("currency");
                 Timestamp date = resultSet.getTimestamp("datetime");
                 String message = "";
-                BankAccount sender_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(sender);
-                BankAccount receiver_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(receiver);
+                BankAccount sender_BAcc = DB_BankAccounts.searchBankAccountByIBAN(sender);
+                BankAccount receiver_BAcc = DB_BankAccounts.searchBankAccountByIBAN(receiver);
                 try {
                     message = resultSet.getString("message");
                 } catch (Exception e) {
@@ -171,8 +171,8 @@ public class DB_Transactions {
                 String to_username = resultSet.getString("to_username");
                 String currency = resultSet.getString("currency");
                 Timestamp date = resultSet.getTimestamp("datetime");
-                BankAccount sender_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(sender);
-                BankAccount receiver_BAcc = DB_BankAccounts.SearchBankAccountByIBAN(receiver);
+                BankAccount sender_BAcc = DB_BankAccounts.searchBankAccountByIBAN(sender);
+                BankAccount receiver_BAcc = DB_BankAccounts.searchBankAccountByIBAN(receiver);
                 String message = "";
                 try {
                     message = resultSet.getString("message");

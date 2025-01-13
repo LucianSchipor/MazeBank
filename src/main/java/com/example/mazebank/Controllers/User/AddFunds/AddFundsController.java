@@ -45,7 +45,7 @@ public class AddFundsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        CheckFieldsAreNotEmpty();
+        checkFieldsAreNotEmpty();
         check_box.setSelected(false);
         check_box.setOnAction(n -> this.createForm_btn.setDisable(!check_box.isSelected()));
         details_container.setVisible(false);
@@ -67,16 +67,14 @@ public class AddFundsController implements Initializable {
         period_choicebox.setItems(Periods);
     }
 
-
-
     private void onApply(ActionEvent actionEvent) {
         try {
             //TODO -> de schimbat cu a avea 2 tipuri de formulare, care mostenesc Forms.
             Form form = new Form(FormType.FUNDS);
             FormCredit creditForm = new FormCredit(form, this.credit);
-            creditForm.SetFinancialDetails(CreateFinancialDetailsList());
-            creditForm.SetDetails();
-            DB_Forms.CreateForm(creditForm);
+            creditForm.setFinancialDetails(createFinancialDetailsList());
+            creditForm.setDetails();
+            DB_Forms.createForm(creditForm);
         } catch (Exception e) {
             System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -94,7 +92,7 @@ public class AddFundsController implements Initializable {
 
     private void onCalculate(javafx.event.ActionEvent actionEvent) {
         try {
-            CalculateCredit();
+            calculateCredit();
             monthly_rate_lbl.setText(credit.getCredit_monthly_rate() + " " + credit.getCredit_currency());
             interest_lbl.setText(credit.getCredit_intrest() + "%");
             total_credit_value_lbl.setText(credit.getCredit_total_sum() + " " + credit.getCredit_currency());
@@ -104,13 +102,13 @@ public class AddFundsController implements Initializable {
         } catch (Exception e) {
             System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("One field is empty!");
+            alert.setContentText("There was some error on calculate your credit!");
             alert.showAndWait();
         }
 
     }
 
-    private void CalculateCredit() {
+    private void calculateCredit() {
         try {
             float credit_totalSum = Float.parseFloat(requested_sum_fld.getText());
             int credit_period = Integer.parseInt(period_choicebox.getValue().toString());
@@ -121,10 +119,14 @@ public class AddFundsController implements Initializable {
             this.credit = new Credit(loggedUser.getUserId(), credit_totalSum, credit_period, credit_currency, credit_monthly_rate, credit_intrest);
         } catch (Exception e) {
             System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
 
-    private void CheckFieldsAreNotEmpty() {
+    private void checkFieldsAreNotEmpty() {
         calculate_btn.disableProperty().bind(
                 Bindings.createBooleanBinding(
                         () -> companyName_fld.getText().isEmpty() ||
@@ -143,7 +145,7 @@ public class AddFundsController implements Initializable {
         );
     }
 
-    private List<Pair<String, String>> CreateFinancialDetailsList() {
+    private List<Pair<String, String>> createFinancialDetailsList() {
         List<Pair<String, String>> FinancialDetails = new ArrayList<>();
         FinancialDetails.add(
                 new Pair<>(

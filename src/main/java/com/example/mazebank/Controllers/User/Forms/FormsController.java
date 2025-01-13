@@ -16,12 +16,6 @@ public class FormsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//
-
-
-    }
-
-    public FormsController(){
         Model.getInstance().getViewFactory().getFormsMenuSelectedMenuItem().addListener((observableValue, oldVal, newVal) ->{
             if (Objects.requireNonNull(newVal) == FormsMenuOptions.CREDITS) {
                 border_pane.setCenter(Model.getInstance().getViewFactory().getFormsCreditsView());

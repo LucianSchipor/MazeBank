@@ -28,10 +28,6 @@ public class TransactionCellController implements Initializable {
 
     private Transaction transaction;
 
-    public TransactionCellController(Transaction transaction) {
-        this.transaction = transaction;
-    }
-
     public TransactionCellController() {
     }
 
@@ -45,6 +41,7 @@ public class TransactionCellController implements Initializable {
         fromBAccNumber_lbl.setOnContextMenuRequested(event ->
                 contextMenu.show(fromBAccNumber_lbl, event.getScreenX(), event.getScreenY()));
     }
+
     public void copyLabelToClipboard() {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();

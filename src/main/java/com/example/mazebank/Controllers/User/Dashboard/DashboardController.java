@@ -1,6 +1,6 @@
 package com.example.mazebank.Controllers.User.Dashboard;
 
-import com.example.mazebank.Controllers.User.BankAccounts.Cell.AccountListCell;
+import com.example.mazebank.Controllers.User.BankAccounts.Cell.BankAccountListCell;
 import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCell;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Map;
@@ -26,49 +27,63 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        login_date.setText(LocalDate.now().toString());
+        try {
 
-        Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-        var account = entry.getValue();
+            login_date.setText(LocalDate.now().toString());
 
-        if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
-            account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
+            Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+            var account = entry.getValue();
+
+            if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
+                account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
+            }
+            setTransactionsList();
+            selectedAccount_lbl.setText("Account: " + UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber() + " transactions");
+            currency_lbl.setText(account.getCurrency());
+        } catch (Exception e) {
+            System.out.println("[LOG][DashboardController] - " + e.getMessage());
+            System.out.println("[LOG][DashboardController] - " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getLocalizedMessage());
         }
-        SetTransactionsList();
-        selectedAccount_lbl.setText("Account: " + UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getAccountNumber() + " transactions");
-        currency_lbl.setText(account.getCurrency());
     }
 
     public DashboardController() {
-        login_date.setText(LocalDate.now().toString());
 
-        var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
-        var account_list = userLoggedIn.getCheckingAccounts();
-        Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
-        var account = entry.getValue();
+        try {
 
-        if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
-            account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
+            login_date.setText(LocalDate.now().toString());
+
+            var userLoggedIn = UserLoggedIn.getInstance().getLoggedInUser();
+            var account_list = userLoggedIn.getCheckingAccounts();
+            Map.Entry<String, BankAccount> entry = UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().entrySet().iterator().next();
+            var account = entry.getValue();
+
+            if (UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount() != null) {
+                account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
+                acc_selected_number_lbl.setText(account.getAccountNumber());
+            }
             acc_selected_number_lbl.setText(account.getAccountNumber());
+
+            setTransactionsList();
+            ObservableList<BankAccount> observableAccountsList = FXCollections.observableArrayList();
+            observableAccountsList.addAll(account_list.values().stream().toList());
+            account_listview.itemsProperty().set(observableAccountsList);
+            setAccountListView(account_listview);
+        } catch (Exception e) {
+            System.out.println("[LOG][DashboardController] - " + e.getMessage());
+            System.out.println("[LOG][DashboardController] - " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getLocalizedMessage());
         }
-        acc_selected_number_lbl.setText(account.getAccountNumber());
-
-        SetTransactionsList();
-        ObservableList<BankAccount> observableAccountsList = FXCollections.observableArrayList();
-        observableAccountsList.addAll(account_list.values().stream().toList());
-        account_listview.itemsProperty().set(observableAccountsList);
-        setAccountlistView(account_listview);
-
-
     }
 
-    /*
-     * TODO
-     *  - la selectie pentru account, se vede ce cont este selectat + tranzactiile se afiseaza pe baza contului
-     *    selectat
-     * */
-    private void setAccountlistView(ListView<BankAccount> listView) {
-        listView.setCellFactory(l -> new AccountListCell() {
+    private void setAccountListView(ListView<BankAccount> listView) {
+        listView.setCellFactory(l -> new BankAccountListCell() {
 
             // create all nodes that could be displayed
             {
@@ -101,8 +116,7 @@ public class DashboardController implements Initializable {
         });
     }
 
-
-    private void SetTransactionsList() {
+    private void setTransactionsList() {
         var account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
         var transactionsList = account.getTransactions();
         ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();
@@ -116,7 +130,7 @@ public class DashboardController implements Initializable {
         ObservableList<BankAccount> observableAccountsList = FXCollections.observableArrayList();
         observableAccountsList.addAll(UserLoggedIn.getInstance().getLoggedInUser().getCheckingAccounts().values().stream().toList());
         account_listview.itemsProperty().set(observableAccountsList);
-        setAccountlistView(account_listview);
+        setAccountListView(account_listview);
 
         transaction_listview.itemsProperty().set(observableTransactionList);
         transaction_listview.setCellFactory(param -> new TransactionListCell());
@@ -124,8 +138,7 @@ public class DashboardController implements Initializable {
         currency_lbl.setText(account.getCurrency());
     }
 
-
     private void updatePage() {
-        SetTransactionsList();
+        setTransactionsList();
     }
 }

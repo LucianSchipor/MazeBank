@@ -7,7 +7,6 @@ import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Security.Security;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
-import com.google.zxing.WriterException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
@@ -39,7 +37,7 @@ public class TransactionsController implements Initializable {
             }
         });
         ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(
-                DB_Transactions.GetBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().
+                DB_Transactions.getBankAccountTransactions(UserLoggedIn.getInstance().getLoggedInUser().
                         getSelectedCheckingAccount()
                         .getIBAN()));
 
@@ -59,7 +57,7 @@ public class TransactionsController implements Initializable {
                 System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
             }
         });
-        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.GetBankAccountTransactions
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.getBankAccountTransactions
                 (UserLoggedIn.getInstance().getLoggedInUser().
                         getSelectedCheckingAccount().getIBAN()));
 
@@ -71,9 +69,9 @@ public class TransactionsController implements Initializable {
         var selectedAccount = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
         if (!Objects.equals(payee_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
             if (Security.getInstance().isFA_Verified()) {
-                if (VerifyTransfer(payee_fld.getText(), amount_fld.getText(), message_fld.getText())) {
+                if (verifyTransfer(payee_fld.getText(), amount_fld.getText(), message_fld.getText())) {
                     selectedAccount.setBalance(selectedAccount.getBalance() - Double.parseDouble(amount_fld.getText()));
-                    DB_Transactions.Transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
+                    DB_Transactions.transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
                     updatePage();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -94,7 +92,7 @@ public class TransactionsController implements Initializable {
         updatePage();
     }
 
-    private static boolean VerifyTransfer(String receiver, String amount_String, String message) {
+    private static boolean verifyTransfer(String receiver, String amount_String, String message) {
         if (receiver.isBlank() || amount_String.isBlank() || message.isBlank()) {
             return false;
         }
@@ -144,7 +142,7 @@ public class TransactionsController implements Initializable {
         UserLoggedIn.getInstance().getLoggedInUser().setSelectedCheckingAccount(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
         var account = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
 
-        account.setTransactions(DB_Transactions.GetBankAccountTransactions(account.getIBAN()));
+        account.setTransactions(DB_Transactions.getBankAccountTransactions(account.getIBAN()));
         var transactionsList = account.getTransactions();
         ObservableList<Transaction> observableTransactionList = FXCollections.observableArrayList();
         try {

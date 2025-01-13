@@ -40,7 +40,8 @@ public class FA_Controller implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Enter more than 3 characters!");
                     alert.showAndWait();
-                    throw new RuntimeException(e);                      }
+                    throw new RuntimeException(e);
+                }
             });
         } catch (Exception e) {
             System.out.println("[LOG][DB_Forms] - " + e.getCause());
@@ -48,7 +49,8 @@ public class FA_Controller implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Enter more than 3 characters!");
             alert.showAndWait();
-            throw new RuntimeException(e);              }
+            throw new RuntimeException(e);
+        }
         try {
             Pair<String, String> keyPair = Security.getInstance().getAuthCodes();
             imageView.setImage(getQRCode());
@@ -66,7 +68,7 @@ public class FA_Controller implements Initializable {
 
     private void Update2FAKey() throws IOException, WriterException {
         if (Security.getInstance().verifyOTP(otp_fld.getText())) {
-            DB_Users.Update2FAKey(UserLoggedIn.getInstance().getLoggedInUser(), Security.getInstance().getAuthCodes().getKey());
+            DB_Users.update2FAKey(UserLoggedIn.getInstance().getLoggedInUser(), Security.getInstance().getAuthCodes().getKey());
             Verify2FA();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,20 +78,28 @@ public class FA_Controller implements Initializable {
     }
 
     private void Verify2FA() {
-        if (Security.getInstance().verifyOTP(otp_fld.getText())) {
-            DB_Users.UpdateFAVerificationTime(UserLoggedIn.getInstance().getLoggedInUser());
-            Security.getInstance().setFA_Verified(true);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success!");
-            alert.setHeaderText("Success!");
-            alert.setContentText("2FA verified for " + UserLoggedIn.getInstance().getLoggedInUser().getUsername());
-            alert.showAndWait();
-            Stage stage = (Stage)otp_fld.getScene().getWindow();
-            Model.getInstance().getViewFactory().closeStage(stage);
-            Model.getInstance().getViewFactory().showPreviousWindow();
-        } else {
+        try {
+            if (Security.getInstance().verifyOTP(otp_fld.getText())) {
+                DB_Users.updateFAVerificationTime(UserLoggedIn.getInstance().getLoggedInUser());
+                Security.getInstance().setFA_Verified(true);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success!");
+                alert.setHeaderText("Success!");
+                alert.setContentText("2FA verified for " + UserLoggedIn.getInstance().getLoggedInUser().getUsername());
+                alert.showAndWait();
+                Stage stage = (Stage) otp_fld.getScene().getWindow();
+                Model.getInstance().getViewFactory().closeStage(stage);
+                Model.getInstance().getViewFactory().showPreviousWindow();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("OTP Code is invalid!");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+            System.out.println("[LOG][FA_Controller] - " + e.getCause());
+            System.out.println("[LOG][FA_Controller] - " + e.getLocalizedMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("OTP Code is invalid!");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
     }

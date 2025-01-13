@@ -45,6 +45,7 @@ public class UserMenuController implements Initializable {
                     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 6);""";
             button.setStyle(selectButtonString);
     }
+
     private void deselectAll(){
         String deselectButtonString = """
                 -fx-pref-width: 130;
@@ -75,7 +76,6 @@ public class UserMenuController implements Initializable {
         deselectAll();
         setStyleSelectedButton(forms_btn);
     }
-
 
     private void onDashboard(){
         System.out.println("[LOG] - redirecting to Dashboard panel");

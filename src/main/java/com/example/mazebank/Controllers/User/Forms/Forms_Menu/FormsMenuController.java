@@ -31,6 +31,7 @@ public class FormsMenuController implements Initializable {
                     -fx-effect: dropshadow(three-pass-box, #DDDDDD, 5, 0, 0, 6);""";
         button.setStyle(selectButtonString);
     }
+
     private void deselectAll() {
         String deselectButtonString = """
                 -fx-pref-width: 130;

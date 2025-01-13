@@ -162,8 +162,6 @@ public class ViewFactory {
         }
     }
 
-
-
     public void show2FAWindow(Scene previousScene){
         this.previousWindow = previousScene;
         try {
@@ -174,7 +172,6 @@ public class ViewFactory {
         }
     }
 
-
     public void showPreviousWindow() {
         Stage stage = new Stage();
         stage.setScene(this.previousWindow);
@@ -183,7 +180,6 @@ public class ViewFactory {
         stage.setTitle("Maze Bank");
         stage.show();
     }
-
 
     public void showUserWindow(User user){
         if(user.getRole().equals(AccountType.ADMIN)){
@@ -197,7 +193,6 @@ public class ViewFactory {
                 showTempUserDashboard();
             }
     }
-
 
     public void showAdminWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
@@ -247,7 +242,6 @@ public class ViewFactory {
             exception.printStackTrace();
         }
     }
-
 
     private void createStage(FXMLLoader loader) {
         Scene scene = null;

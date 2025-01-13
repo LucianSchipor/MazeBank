@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.text.SimpleDateFormat;
 
-public class AccountListCell extends ListCell<BankAccount> {
+public class BankAccountListCell extends ListCell<BankAccount> {
 
     @Override
     protected void updateItem(BankAccount account, boolean empty) {
@@ -19,7 +19,7 @@ public class AccountListCell extends ListCell<BankAccount> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/BankAccounts/Cell/AccountCell.fxml"));
                 AnchorPane hbox = loader.load();
-                AccountListCellController controller = loader.getController();
+                BankAccountListCellController controller = loader.getController();
                 controller.setAccount_balance(account.getBalance());
                 controller.setAccount_currency(account.getCurrency());
                 controller.setAccount_number(account.getAccount_id());

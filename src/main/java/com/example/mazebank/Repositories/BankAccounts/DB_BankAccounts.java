@@ -23,7 +23,7 @@ public class DB_BankAccounts {
             psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
-                var ba = CreateBankAccountFromDB(resultSet);
+                var ba = createBankAccountFromDB(resultSet);
                 accounts.put(ba.getAccount_id(), ba);
             }
         } catch (Exception exception) {
@@ -42,7 +42,7 @@ public class DB_BankAccounts {
     }
 
 
-    private static BankAccount CreateBankAccountFromDB(ResultSet resultSet) throws SQLException {
+    private static BankAccount createBankAccountFromDB(ResultSet resultSet) throws SQLException {
         String bankAccount_id = resultSet.getString("account_id");
         double balance = resultSet.getDouble("account_balance");
         String currency = resultSet.getString("account_currency");
@@ -52,14 +52,14 @@ public class DB_BankAccounts {
         BankAccount ba = new BankAccount(bankAccount_id, balance, currency, date, CVV);
         ba.setIBAN(IBAN);
         ba.setAccount_id(bankAccount_id);
-        ba.setTransactions(DB_Transactions.GetBankAccountTransactions(ba.getIBAN()));
+        ba.setTransactions(DB_Transactions.getBankAccountTransactions(ba.getIBAN()));
         return ba;
     }
 
-    public static void DB_UpdateBankAccountsAfterTransaction(String sender, Double amount, String receiver) {
+    public static void updateBankAccountsAfterTransaction(String sender, Double amount, String receiver) {
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (Exception e) {
             System.out.println("[LOG] - " + e.getMessage());
         }
@@ -90,7 +90,7 @@ public class DB_BankAccounts {
                             "SET account_balance = account_balance + ? " +
                             "WHERE iban = ?");
 
-            Double newAmount = Currency_Conversion(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency(), currency, amount);
+            Double newAmount = currencyConversion(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency(), currency, amount);
             psInsertTransaction.setDouble(1, newAmount);
             psInsertTransaction.setString(2, receiver);
             psInsertTransaction.executeUpdate();
@@ -99,8 +99,7 @@ public class DB_BankAccounts {
         }
     }
 
-
-    private static String GenerateIBAN(){
+    private static String generateIBAN(){
         String IBAN;
         String RO = "RO";
         Random random = new Random();
@@ -114,14 +113,13 @@ public class DB_BankAccounts {
         String lastNumbers = String.valueOf(randomEightDigitNumber);
         IBAN = RO + RO_NR + MAZE + defaultNumbers + lastNumbers;
 
-        if (SearchBankAccountByIBAN(IBAN) != null) {
-            GenerateIBAN();
+        if (searchBankAccountByIBAN(IBAN) != null) {
+            generateIBAN();
         }
         return IBAN;
     }
 
-
-    private static String GenerateNewAccountNumber() {
+    private static String generateNewAccountNumber() {
         Random random = new Random();
         StringBuilder number = new StringBuilder();
         number.append(random.nextInt(9) + 1);
@@ -131,15 +129,15 @@ public class DB_BankAccounts {
         return number.toString();
     }
 
-    public static String GenerateCVV() {
+    public static String generateCVV() {
         Random random = new Random();
         return String.valueOf(100 + random.nextInt(900));
     }
 
-    public static void CreateBankAccount(int user_id, String currency) {
+    public static void createBankAccount(int user_id, String currency) {
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (Exception e) {
             System.out.println("[LOG] - " + e.getMessage());
         }
@@ -147,13 +145,13 @@ public class DB_BankAccounts {
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("INSERT INTO bank_accounts (account_id, account_balance, account_currency, user_id, pin, iban, cvv, expire_date) VALUES (?,?,?,?,?,?,?,?)");
-            psCheckUserExists.setString(1, GenerateNewAccountNumber());
+            psCheckUserExists.setString(1, generateNewAccountNumber());
             psCheckUserExists.setFloat(2, 0);
             psCheckUserExists.setString(3, currency);
             psCheckUserExists.setInt(4, user_id);
             psCheckUserExists.setString(5, "0000");
-            psCheckUserExists.setString(6, GenerateIBAN());
-            psCheckUserExists.setString(7, GenerateCVV());
+            psCheckUserExists.setString(6, generateIBAN());
+            psCheckUserExists.setString(7, generateCVV());
             psCheckUserExists.setDate(8, Date.valueOf(LocalDate.now().plusYears(4)));
 
             int rowsAffected = psCheckUserExists.executeUpdate();
@@ -165,11 +163,10 @@ public class DB_BankAccounts {
         }
     }
 
-
-    public static BankAccount SearchBankAccountByIBAN(String IBAN) {
+    public static BankAccount searchBankAccountByIBAN(String IBAN) {
         Connection connection = null;
         try {
-            connection = DB_ConnectionManager.getInstance().GetConnection();
+            connection = DB_ConnectionManager.getInstance().getConnection();
         } catch (Exception e) {
             System.out.println("[LOG] - " + e.getMessage());
         }
@@ -195,7 +192,7 @@ public class DB_BankAccounts {
         return null;
     }
 
-    private static Double Currency_Conversion(String currency, String currency2, Double amount) {
+    private static Double currencyConversion(String currency, String currency2, Double amount) {
         Map<String, Double> exchangeRates = new HashMap<>();
         // Rates are in RON -> 1 DOL - 4.56 RON
         exchangeRates.put("USD", 4.56);

@@ -6,6 +6,7 @@ import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Repositories.Forms.DB_Forms;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -36,12 +37,12 @@ public class SignUpController implements Initializable {
         try{
             String username = username_fld.getText();
             String password = username_fld.getText();
-            DB_Users.SignupUser(username, password);
-            var userLoggedIn = DB_Users.LoginUser(username, password);
+            DB_Users.signupUser(username, password);
+            var userLoggedIn = DB_Users.loginUser(username, password);
             UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
             assert userLoggedIn != null;
 
-            DB_Forms.CreateForm(FormType.ACCOUNT);
+            DB_Forms.createForm(FormType.ACCOUNT);
 
             Stage stage = (Stage) username_fld.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
@@ -50,6 +51,10 @@ public class SignUpController implements Initializable {
         catch (Exception e) {
             System.out.println("[LOG][RegisterFormController] " + e.getMessage());
             System.out.println("[LOG][RegisterFormController] " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
 
     }

@@ -18,20 +18,20 @@ public class FormCredit extends Form {
     }
 
     public FormCredit(Form form, Credit credit) {
-        super(form.getForm_id(), form.GetCreator(), form.getForm_path(), form.getDate(), form.getStatus(), form.getFormType().ordinal());
+        super(form.getForm_id(), form.getCreator(), form.getForm_path(), form.getDate(), form.getStatus(), form.getFormType().ordinal());
         this.credit = credit;
     }
 
-    public List<Pair<String, String>> GetDetails() {
+    public List<Pair<String, String>> getDetails() {
         return this.dets;
     }
 
-    public void SetFinancialDetails(List<Pair<String, String>> FinancialDetails) {
+    public void setFinancialDetails(List<Pair<String, String>> FinancialDetails) {
         this.FinancialDetails = FinancialDetails;
     }
 
-    public void SetDetails(){
-        dets.addAll(super.GetBasicFormDetails());
+    public void setDetails(){
+        dets.addAll(super.getBasicFormDetails());
         dets.addAll(FinancialDetails);
 
     }

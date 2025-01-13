@@ -7,6 +7,7 @@ import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import java.net.URL;
@@ -27,7 +28,12 @@ public class SearchResultController_BankAccounts implements Initializable {
             bAcc_listView.setCellFactory(param -> new SearchResultListCell_BankAccounts());
         }
         catch (Exception e){
-            System.out.println("[LOG] - " + e.getMessage());
+            System.out.println("[LOG][Admin_SearchResultController] - " + e.getMessage());
+            System.out.println("[LOG][Admin_SearchResultController] - " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
 
@@ -38,7 +44,12 @@ public class SearchResultController_BankAccounts implements Initializable {
             bAcc_listView.setCellFactory(param -> new SearchResultListCell_BankAccounts());
         }
         catch (Exception e){
-            System.out.println("[LOG] - " + e.getMessage());
+            System.out.println("[LOG][Admin_BankAccounts_SearchResultController] - " + e.getMessage());
+            System.out.println("[LOG][Admin_BankAccounts_SearchResultController] - " + e.getLocalizedMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
 
     }

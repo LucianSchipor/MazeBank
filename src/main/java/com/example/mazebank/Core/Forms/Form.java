@@ -63,15 +63,15 @@ public class Form {
         this.status = status;
     }
 
-    public void SetFormPath(String path) {
+    public void setFormPath(String path) {
         this.form_path = path;
     }
 
-    public void SetFormId(int id){
+    public void setFormId(int id){
         this.form_id = id;
     }
 
-    public List<Pair<String, String>> GetBasicFormDetails(){
+    public List<Pair<String, String>> getBasicFormDetails(){
         List<Pair<String, String>> dets = new ArrayList<>();
 
         dets.add(new Pair<>("Username: ", creator.getUsername()));
@@ -81,10 +81,10 @@ public class Form {
         return dets;
     }
 
-
-    public User GetCreator() {
+    public User getCreator() {
         return creator;
     }
+
     public int getUser_id() {
         return creator.getUserId();
     }

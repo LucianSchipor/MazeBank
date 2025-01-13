@@ -21,7 +21,7 @@ public class FormsMenuAccountController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var loggedUser = UserLoggedIn.getInstance().getLoggedInUser();
         ObservableList<Form> account_forms_observable = FXCollections.observableArrayList(
-                DB_Forms.GetFormsById(loggedUser.getUserId()));
+                DB_Forms.getFormsById(loggedUser.getUserId()));
         listview.setItems(
                 account_forms_observable.filtered(form -> form.getFormType() == FormType.ACCOUNT));
         listview.setCellFactory(param -> new FormsResultListCell_Controller());

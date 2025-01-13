@@ -27,19 +27,19 @@ public class CreateController implements Initializable {
             users_create_btn.setOnAction(actionEvent -> {
                try {
                    onCreate();
+                   bAcc_create_btn.setOnAction(this::onCreateBankAccount);
+                   ObservableList<String> Currencies = FXCollections.observableArrayList();
+                   Currencies.add("RON");
+                   Currencies.add("EUR");
+                   Currencies.add("CHF");
+                   Currencies.add("GBP");
+                   choicebox.setItems(Currencies);
                }
                catch (Exception e) {
                    System.out.println("[LOG][CreateController]" + e.getMessage());
                    System.out.println("[LOG][CreateController]" + e.getLocalizedMessage());
                }
             });
-        bAcc_create_btn.setOnAction(this::onCreateBankAccount);
-        ObservableList<String> Currencies = FXCollections.observableArrayList();
-        Currencies.add("RON");
-        Currencies.add("EUR");
-        Currencies.add("CHF");
-        Currencies.add("GBP");
-        choicebox.setItems(Currencies);
     }
 
     private void onCreateBankAccount(Event event) {
@@ -51,7 +51,7 @@ public class CreateController implements Initializable {
         }
         try {
             int user_id = Integer.parseInt(bAcc_username_fld.getText());
-            DB_BankAccounts.CreateBankAccount(user_id, choicebox.getValue());
+            DB_BankAccounts.createBankAccount(user_id, choicebox.getValue());
         }
         catch (Exception exception) {
             System.out.println("[LOG] - " + "one field is empty");
@@ -75,7 +75,7 @@ public class CreateController implements Initializable {
                }
            }
            else{
-               DB_Users.SignupUser(username, username);
+               DB_Users.signupUser(username, username);
            }
        }
        catch (Exception exception) {
