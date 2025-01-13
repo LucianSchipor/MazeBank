@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -12,14 +13,33 @@
 <AnchorPane prefHeight="738.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../Styles/User/Dashboard/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
       <children>
-         <HBox>
+         <HBox prefHeight="35.0" prefWidth="830.0">
             <children>
-               <HBox prefHeight="100.0" prefWidth="200.0" styleClass="greeting_container" HBox.hgrow="ALWAYS">
+               <VBox HBox.hgrow="ALWAYS">
                   <children>
                      <Text fx:id="hello_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hello, User!" />
+                     <VBox prefHeight="0.0" prefWidth="491.0" styleClass="greeting_container">
+                        <children>
+                           <Label prefHeight="54.0" prefWidth="488.0" text=" Please note, you need to select an account before making any transfer">
+                              <graphic>
+                                 <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl" />
+                              </graphic>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="488.0" text=" You can select it by clicking on its representative image">
+                              <graphic>
+                                 <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl" />
+                              </graphic>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="28.0" prefHeight="54.0" prefWidth="488.0" text=" For multiple accounts, scroll down to access them">
+                              <graphic>
+                                 <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl" />
+                              </graphic>
+                           </Label>
+                        </children>
+                     </VBox>
                   </children>
-               </HBox>
-               <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" styleClass="date_container" HBox.hgrow="ALWAYS">
+               </VBox>
+               <HBox layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="338.0" styleClass="date_container" HBox.hgrow="ALWAYS">
                   <children>
                      <Label fx:id="login_date" styleClass="date_lbl" text="Today, 04/01/2024" />
                   </children>

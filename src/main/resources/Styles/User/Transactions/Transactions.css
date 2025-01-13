@@ -36,7 +36,7 @@
 }
 
 .new_trans_container{
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: transparent;
     -fx-padding: 20 300 20 300;
     -fx-spacing: 10;
     -fx-alignment: center_left;

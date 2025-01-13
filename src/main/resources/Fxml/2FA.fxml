@@ -27,7 +27,7 @@
             <Label text="Enter OTP Code from Google Authenticator" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                    <TextField fx:id="otp_fld" alignment="CENTER" prefHeight="26.0" prefWidth="287.0" promptText="Enter the OTP Code" />
+                    <TextField fx:id="otp_fld" alignment="CENTER" prefHeight="26.0" prefWidth="450.0" promptText="Enter the OTP Code" />
                </children>
             </HBox>
          </children>

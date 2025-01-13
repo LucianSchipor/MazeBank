@@ -56,7 +56,7 @@
     -fx-fill: #c59d01;
 }
  .warning_lbl{
-    -fx-font-size: 1.2em;
+    -fx-font-size: 1.0em;
     -fx-text-fill: #c59d01;
     -fx-font-weight: bold;
 }
