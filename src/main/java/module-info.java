@@ -9,6 +9,7 @@ module com.example.mazebank {
     requires com.google.zxing.javase;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires java.scripting;
     opens com.example.mazebank to javafx.fxml;
     exports com.example.mazebank;
     exports com.example.mazebank.Controllers;

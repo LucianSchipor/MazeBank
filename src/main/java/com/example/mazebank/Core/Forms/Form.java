@@ -1,28 +1,29 @@
 package com.example.mazebank.Core.Forms;
 
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Core.Users.User;
+import javafx.util.Pair;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Form {
-    private final int form_id;
-    private final String form_path;
+    private int form_id;
+    private String form_path;
     private final Date date;
-    private final int user_id;
+    private User creator;
     private FormStatus status;
     private FormType formType;
 
 
-    //used when putting forms in DB
-
-
     //Used when getting forms from DB
-    public Form(int form_id, int user_id, String form_path, Date date, FormStatus status, int formType) {
+    public Form(int form_id, User user, String form_path, Date date, FormStatus status, int formType) {
         this.form_id = form_id;
         this.form_path = form_path;
         this.date = date;
-        this.user_id = user_id;
+        this.creator = user;
         this.status = status;
         if (formType == 0) {
             this.formType = FormType.ACCOUNT;
@@ -31,13 +32,14 @@ public class Form {
         }
     }
 
+    //used when putting forms in DB
     public Form(FormType formType) {
         form_id = 0;
         form_path = "";
         this.status = FormStatus.PENDING;
         this.formType = formType;
         this.date = java.sql.Date.valueOf(LocalDate.now());
-        this.user_id = UserLoggedIn.getInstance().getLoggedInUser().getUserId();
+        this.creator = UserLoggedIn.getInstance().getLoggedInUser();
 
     }
 
@@ -61,8 +63,30 @@ public class Form {
         this.status = status;
     }
 
+    public void SetFormPath(String path) {
+        this.form_path = path;
+    }
+
+    public void SetFormId(int id){
+        this.form_id = id;
+    }
+
+    public List<Pair<String, String>> GetBasicFormDetails(){
+        List<Pair<String, String>> dets = new ArrayList<>();
+
+        dets.add(new Pair<>("Username: ", creator.getUsername()));
+        dets.add(new Pair<>("Email: ", creator.getEmail()));
+        dets.add(new Pair<>("Form Status: ", status.name()));
+        dets.add(new Pair<>("Creation Date: ", date.toString()));
+        return dets;
+    }
+
+
+    public User GetCreator() {
+        return creator;
+    }
     public int getUser_id() {
-        return user_id;
+        return creator.getUserId();
     }
 
     public FormType getFormType() {

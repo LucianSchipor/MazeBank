@@ -29,7 +29,7 @@
                         <Insets left="100.0" right="100.0" />
                      </VBox.margin>
                      <children>
-                        <TextField fx:id="requested_sum_fld111" alignment="CENTER" promptText="Company name" styleClass="input_field" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="companyName_fld" alignment="CENTER" promptText="Company name" styleClass="input_field" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -50,7 +50,7 @@
                         <Insets left="100.0" right="100.0" />
                      </VBox.margin>
                      <children>
-                        <TextField fx:id="requested_sum_fld1111" alignment="CENTER" promptText="Permanent, fixed-term, self-employed" styleClass="input_field" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="employment_contract_fld" alignment="CENTER" promptText="Permanent, fixed-term, self-employed" styleClass="input_field" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -71,7 +71,7 @@
                         <Insets left="100.0" right="100.0" />
                      </VBox.margin>
                      <children>
-                        <TextField fx:id="requested_sum_fld11" alignment="CENTER" promptText="Salaries, pensions, rents, dividends, etc." styleClass="input_field" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="net_monthly_income_fld" alignment="CENTER" promptText="Salaries, pensions, rents, dividends, etc." styleClass="input_field" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -92,7 +92,7 @@
                         <Insets left="100.0" right="100.0" />
                      </VBox.margin>
                      <children>
-                        <TextField fx:id="requested_sum_fld1" alignment="CENTER" promptText="Other loans, overdrafts, credit cards, etc." styleClass="input_field" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="debts_fld" alignment="CENTER" promptText="Other loans, overdrafts, credit cards, etc." styleClass="input_field" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
