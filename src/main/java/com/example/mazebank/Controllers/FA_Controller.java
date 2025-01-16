@@ -2,7 +2,7 @@ package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Core.Security.Security;
+import com.example.mazebank.Core.Security.SecurityManager;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import com.google.zxing.WriterException;
 import javafx.fxml.Initializable;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.example.mazebank.Core.Security.Security.createQRCode;
+import static com.example.mazebank.Core.Security.SecurityManager.createQRCode;
 
 public class FA_Controller implements Initializable {
 
@@ -52,23 +52,23 @@ public class FA_Controller implements Initializable {
             throw new RuntimeException(e);
         }
         try {
-            Pair<String, String> keyPair = Security.getInstance().getAuthCodes();
+            Pair<String, String> keyPair = SecurityManager.getInstance().getAuthCodes();
             imageView.setImage(getQRCode());
             code_lbl.setText(keyPair.getKey());
-            Security.getInstance().startSecurityThread(keyPair.getKey());
+            SecurityManager.getInstance().startSecurityThread(keyPair.getKey());
         } catch (IOException | WriterException e) {
             throw new RuntimeException(e);
         }
     }
 
     private Image getQRCode() throws IOException, WriterException {  //Used ONCE
-        Security.getInstance();
-        return createQRCode(Security.getInstance().getAuthCodes().getValue());
+        SecurityManager.getInstance();
+        return createQRCode(SecurityManager.getInstance().getAuthCodes().getValue());
     }
 
     private void Update2FAKey() throws IOException, WriterException {
-        if (Security.getInstance().verifyOTP(otp_fld.getText())) {
-            DB_Users.update2FAKey(UserLoggedIn.getInstance().getLoggedInUser(), Security.getInstance().getAuthCodes().getKey());
+        if (SecurityManager.getInstance().verifyOTP(otp_fld.getText())) {
+            DB_Users.update2FAKey(UserLoggedIn.getInstance().getLoggedInUser(), SecurityManager.getInstance().getAuthCodes().getKey());
             Verify2FA();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -79,9 +79,9 @@ public class FA_Controller implements Initializable {
 
     private void Verify2FA() {
         try {
-            if (Security.getInstance().verifyOTP(otp_fld.getText())) {
+            if (SecurityManager.getInstance().verifyOTP(otp_fld.getText())) {
                 DB_Users.updateFAVerificationTime(UserLoggedIn.getInstance().getLoggedInUser());
-                Security.getInstance().setFA_Verified(true);
+                SecurityManager.getInstance().setFA_Verified(true);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success!");
                 alert.setHeaderText("Success!");

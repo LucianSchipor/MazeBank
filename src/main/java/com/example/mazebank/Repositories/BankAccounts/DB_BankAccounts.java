@@ -1,9 +1,13 @@
 package com.example.mazebank.Repositories.BankAccounts;
+
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Core.Security.Encryption.EncryptionManager;
+import com.example.mazebank.Core.Security.KeyManager.KeyManager;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
 import javafx.scene.control.Alert;
+
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -42,18 +46,24 @@ public class DB_BankAccounts {
     }
 
 
-    private static BankAccount createBankAccountFromDB(ResultSet resultSet) throws SQLException {
-        String bankAccount_id = resultSet.getString("account_id");
-        double balance = resultSet.getDouble("account_balance");
-        String currency = resultSet.getString("account_currency");
-        String CVV = resultSet.getString("cvv");
-        Date date = resultSet.getDate("expire_date");
-        String IBAN = resultSet.getString("IBAN");
-        BankAccount ba = new BankAccount(bankAccount_id, balance, currency, date, CVV);
-        ba.setIBAN(IBAN);
-        ba.setAccount_id(bankAccount_id);
-        ba.setTransactions(DB_Transactions.getBankAccountTransactions(ba.getIBAN()));
-        return ba;
+    private static BankAccount createBankAccountFromDB(ResultSet resultSet) throws Exception {
+        try {
+            String bankAccount_id = EncryptionManager.decrypt(resultSet.getString("account_id"), KeyManager.loadKey());
+            double balance = Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("account_balance"), KeyManager.loadKey()));
+            String currency = EncryptionManager.decrypt(resultSet.getString("account_currency"), KeyManager.loadKey());
+            String CVV = EncryptionManager.decrypt(resultSet.getString("cvv"), KeyManager.loadKey());
+            Date date = resultSet.getDate("expire_date");
+            String IBAN = EncryptionManager.decrypt(resultSet.getString("iban"), KeyManager.loadKey());
+            BankAccount ba = new BankAccount(bankAccount_id, balance, currency, date, CVV);
+            ba.setIBAN(IBAN);
+            ba.setAccount_id(bankAccount_id);
+            ba.setTransactions(DB_Transactions.getBankAccountTransactions(ba.getIBAN()));
+            return ba;
+        } catch (Exception exception) {
+            System.out.println("[LOG][BankAccounts] " + exception.getMessage());
+            throw new Exception("[LOG][BankAccounts] " + exception.getMessage());
+        }
+
     }
 
     public static void updateBankAccountsAfterTransaction(String sender, Double amount, String receiver) {
@@ -67,39 +77,50 @@ public class DB_BankAccounts {
         ResultSet resultSet;
         try {
             assert connection != null;
-            psInsertTransaction = connection.prepareStatement(
-                    "UPDATE bank_accounts " +
-                            "SET account_balance = account_balance - ? " +
-                            "WHERE iban = ?");
-            psInsertTransaction.setDouble(1, amount);
-            psInsertTransaction.setString(2, sender);
-            psInsertTransaction.executeUpdate();
+            PreparedStatement querry = connection.prepareStatement("SELECT account_balance FROM bank_accounts WHERE iban = ?");
+            querry.setString(1, EncryptionManager.encrypt(sender, KeyManager.loadKey()));
+            resultSet = querry.executeQuery();
+            if (resultSet.next()) {
+                var account_balance = Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("account_balance"), KeyManager.loadKey()));
+                psInsertTransaction = connection.prepareStatement(
+                        "UPDATE bank_accounts " +
+                                "SET account_balance = ? " +
+                                "WHERE iban = ?");
+                psInsertTransaction.setString(1, EncryptionManager.encrypt(String.valueOf(account_balance - amount), KeyManager.loadKey()));
+                psInsertTransaction.setString(2, sender);
+                psInsertTransaction.executeUpdate();
+            }
 
             psInsertTransaction = connection.prepareStatement(
                     "SELECT account_currency from bank_accounts " +
                             "WHERE iban = ?");
-            psInsertTransaction.setString(1, receiver);
+            psInsertTransaction.setString(1, EncryptionManager.encrypt(receiver, KeyManager.loadKey()));
             resultSet = psInsertTransaction.executeQuery();
             String currency = "";
             while (resultSet.next()) {
-                currency = resultSet.getString("account_currency");
+                currency = EncryptionManager.decrypt(resultSet.getString("account_currency"), KeyManager.loadKey());
             }
 
-            psInsertTransaction = connection.prepareStatement(
-                    "UPDATE bank_accounts " +
-                            "SET account_balance = account_balance + ? " +
-                            "WHERE iban = ?");
-
-            Double newAmount = currencyConversion(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency(), currency, amount);
-            psInsertTransaction.setDouble(1, newAmount);
-            psInsertTransaction.setString(2, receiver);
-            psInsertTransaction.executeUpdate();
+            querry = connection.prepareStatement("SELECT account_balance FROM bank_accounts WHERE iban = ?");
+            querry.setString(1, EncryptionManager.encrypt(sender, KeyManager.loadKey()));
+            resultSet = querry.executeQuery();
+            if (resultSet.next()) {
+                var account_balance = Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("account_balance"), KeyManager.loadKey()));
+                psInsertTransaction = connection.prepareStatement(
+                        "UPDATE bank_accounts " +
+                                "SET account_balance = ? " +
+                                "WHERE iban = ?");
+                Double newAmount = currencyConversion(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency(), currency, amount);
+                psInsertTransaction.setString(1, EncryptionManager.encrypt(String.valueOf(account_balance + newAmount), KeyManager.loadKey()));
+                psInsertTransaction.setString(2, EncryptionManager.encrypt(receiver, KeyManager.loadKey()));
+                psInsertTransaction.executeUpdate();
+            }
         } catch (Exception exception) {
             System.out.println("[LOG] - " + exception.getMessage());
         }
     }
 
-    private static String generateIBAN(){
+    private static String generateIBAN() {
         String IBAN;
         String RO = "RO";
         Random random = new Random();
@@ -145,13 +166,13 @@ public class DB_BankAccounts {
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("INSERT INTO bank_accounts (account_id, account_balance, account_currency, user_id, pin, iban, cvv, expire_date) VALUES (?,?,?,?,?,?,?,?)");
-            psCheckUserExists.setString(1, generateNewAccountNumber());
-            psCheckUserExists.setFloat(2, 0);
-            psCheckUserExists.setString(3, currency);
+            psCheckUserExists.setString(1, EncryptionManager.encrypt(generateNewAccountNumber(), KeyManager.loadKey()));
+            psCheckUserExists.setString(2, EncryptionManager.encrypt(String.valueOf(0), KeyManager.loadKey()));
+            psCheckUserExists.setString(3, EncryptionManager.encrypt(currency, KeyManager.loadKey()));
             psCheckUserExists.setInt(4, user_id);
-            psCheckUserExists.setString(5, "0000");
-            psCheckUserExists.setString(6, generateIBAN());
-            psCheckUserExists.setString(7, generateCVV());
+            psCheckUserExists.setString(5, EncryptionManager.encrypt("0000", KeyManager.loadKey()));
+            psCheckUserExists.setString(6, EncryptionManager.encrypt(generateIBAN(), KeyManager.loadKey()));
+            psCheckUserExists.setString(7, EncryptionManager.encrypt(generateCVV(), KeyManager.loadKey()));
             psCheckUserExists.setDate(8, Date.valueOf(LocalDate.now().plusYears(4)));
 
             int rowsAffected = psCheckUserExists.executeUpdate();
@@ -176,13 +197,16 @@ public class DB_BankAccounts {
 
         try {
             querry = connection.prepareStatement("SELECT * FROM bank_accounts where IBAN = ?");
-            querry.setString(1, IBAN);
+            querry.setString(1, EncryptionManager.encrypt(IBAN, KeyManager.loadKey()));
             resultSet = querry.executeQuery();
             if (resultSet.next()) {
                 BankAccount bankAccount = new BankAccount();
-                bankAccount.setAccount_id(resultSet.getString("account_id"));
-                bankAccount.setBalance(resultSet.getDouble("account_balance"));
-                bankAccount.setCurrency(resultSet.getString("account_currency"));
+                bankAccount.setAccount_id(
+                        resultSet.getString("account_id"));
+                bankAccount.setBalance(
+                        Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("account_balance"), KeyManager.loadKey())));
+                bankAccount.setCurrency(
+                        EncryptionManager.decrypt(resultSet.getString("account_currency"), KeyManager.loadKey()));
                 bankAccount.setIBAN(IBAN);
                 return bankAccount;
             }

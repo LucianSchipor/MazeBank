@@ -2,6 +2,8 @@ package com.example.mazebank.Repositories.Forms;
 
 import com.example.mazebank.Core.Forms.*;
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Core.Security.Encryption.EncryptionManager;
+import com.example.mazebank.Core.Security.KeyManager.KeyManager;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
 import com.example.mazebank.Repositories.Users.DB_Users;
@@ -151,7 +153,7 @@ public class DB_Forms {
             assert connection != null;
             querry = connection.prepareStatement("UPDATE forms SET status = ? WHERE form_id = ?");
             querry.setInt(2, form_id);
-            querry.setInt(1, FormStatus.valueOf(status.name()).ordinal());
+            querry.setString(1, EncryptionManager.encrypt(String.valueOf(FormStatus.valueOf(status.name()).ordinal()), KeyManager.loadKey()));
             int rowsAffected = querry.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("[LOG][DB_Forms] - successfully deleted form!");
@@ -162,7 +164,7 @@ public class DB_Forms {
                     System.out.println("[LOG][DB_Forms] - " + e.getLocalizedMessage());
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -183,11 +185,11 @@ public class DB_Forms {
         try {
             assert connection != null;
             querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id, form_type) values (?, ?, ?, ?, ?)");
-            querry.setString(1, "Unknown");
+            querry.setString(1, EncryptionManager.encrypt("Unknown", KeyManager.loadKey()));
             querry.setDate(2, Date.valueOf(LocalDate.now()));
-            querry.setInt(3, 0);
+            querry.setString(3, EncryptionManager.encrypt(Integer.toString(0), KeyManager.loadKey()));
             querry.setInt(4, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
-            querry.setInt(5, FormType.valueOf(type.name()).ordinal());
+            querry.setString(5, EncryptionManager.encrypt(Integer.toString(FormType.valueOf(type.name()).ordinal()), KeyManager.loadKey()));
 
             querry.executeUpdate();
             System.out.println("[LOG][Forms] - successfully created form!");
@@ -196,13 +198,13 @@ public class DB_Forms {
                 var createdForm = DB_Forms.getFormsById(
                                 UserLoggedIn.getInstance().getLoggedInUser().getUserId())
                         .getLast();
-                querry.setString(1, createFormDocument(createdForm));
+                querry.setString(1, EncryptionManager.encrypt(createFormDocument(createdForm), KeyManager.loadKey()));
                 querry.setInt(2, createdForm.getForm_id());
                 querry.executeUpdate();
             } catch (Exception e) {
                 System.out.println("[LOG][Forms] - " + e.getMessage());
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -224,11 +226,11 @@ public class DB_Forms {
             assert connection != null;
             querry = connection.prepareStatement("INSERT INTO forms(form_path, date, status, user_id, form_type) values (?, ?, ?, ?, ?)");
             form.setFormPath("Unknown");
-            querry.setString(1, form.getForm_path());
+            querry.setString(1, EncryptionManager.encrypt(form.getForm_path(), KeyManager.loadKey()));
             querry.setDate(2, Date.valueOf(LocalDate.now()));
-            querry.setInt(3, form.getStatus().ordinal());
+            querry.setString(3, EncryptionManager.encrypt(String.valueOf(form.getStatus().ordinal()), KeyManager.loadKey()));
             querry.setInt(4, UserLoggedIn.getInstance().getLoggedInUser().getUserId());
-            querry.setInt(5, form.getFormType().ordinal());
+            querry.setString(5, EncryptionManager.encrypt(Integer.toString(FormType.valueOf(form.getFormType().name()).ordinal()), KeyManager.loadKey()));
             querry.executeUpdate();
 
             querry = connection.prepareStatement("SELECT MAX(form_id) AS max_form_id FROM forms");
@@ -238,12 +240,12 @@ public class DB_Forms {
             }
             form.setFormPath(createFormDocument(form));
             querry = connection.prepareStatement("UPDATE forms SET form_path = ? where form_id = ?");
-            querry.setString(1, form.getForm_path());
+            querry.setString(1, EncryptionManager.encrypt(form.getForm_path(), KeyManager.loadKey()));
             querry.setInt(2, form.getForm_id());
             querry.executeUpdate();
             System.out.println("[LOG][Forms] - successfully created form!");
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -277,17 +279,21 @@ public class DB_Forms {
         ResultSet resultSet;
         resultSet = querry.executeQuery();
         while (resultSet.next()) {
-            int form_id = resultSet.getInt("form_id");
-            String path = resultSet.getString("form_path");
-            int user_id = resultSet.getInt("user_id");
-            int status = resultSet.getInt("status");
-            int form_type = resultSet.getInt("form_type");
-            FormStatus formStatus = null;
-            if (status == 0) formStatus = FormStatus.PENDING;
-            if (status == 1) formStatus = FormStatus.ACCEPTED;
-            if (status == 2) formStatus = FormStatus.REJECTED;
-            Form form = new Form(form_id, DB_Users.searchUserById(user_id), path, resultSet.getDate("date"), formStatus, form_type);
-            forms.add(form);
+            try {
+                int form_id = resultSet.getInt("form_id");
+                String path = EncryptionManager.decrypt(resultSet.getString("form_path"), KeyManager.loadKey());
+                int user_id = resultSet.getInt("user_id");
+                int status = Integer.parseInt(EncryptionManager.decrypt(resultSet.getString("status"), KeyManager.loadKey()));
+                int form_type = Integer.parseInt(EncryptionManager.decrypt(resultSet.getString("form_type"), KeyManager.loadKey()));
+                FormStatus formStatus = null;
+                if (status == 0) formStatus = FormStatus.PENDING;
+                if (status == 1) formStatus = FormStatus.ACCEPTED;
+                if (status == 2) formStatus = FormStatus.REJECTED;
+                Form form = new Form(form_id, DB_Users.searchUserById(user_id), path, resultSet.getDate("date"), formStatus, form_type);
+                forms.add(form);
+            } catch (Exception e) {
+                System.out.println("[LOG][DB_Forms] - " + e.getMessage());
+            }
         }
     }
 

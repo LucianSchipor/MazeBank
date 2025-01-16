@@ -1,7 +1,9 @@
 package com.example.mazebank.Repositories.Users;
 
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Core.Security.Security;
+import com.example.mazebank.Core.Security.Encryption.EncryptionManager;
+import com.example.mazebank.Core.Security.KeyManager.KeyManager;
+import com.example.mazebank.Core.Security.SecurityManager;
 import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
@@ -79,16 +81,16 @@ public class DB_Users {
             try {
                 assert connection != null;
                 psCheckUserExists = connection.prepareStatement("INSERT INTO users (username, password, role, 2FA_Key, email, 2FA_Verification_Time) VALUES (?, ?, ?, ?, ?, ?)");
-                psCheckUserExists.setString(1, username);
-                psCheckUserExists.setString(2, password);
+                psCheckUserExists.setString(1, EncryptionManager.encrypt(username, KeyManager.loadKey()));
+                psCheckUserExists.setString(2, EncryptionManager.encrypt(password, KeyManager.loadKey()));
                 psCheckUserExists.setInt(3, 2);
-                psCheckUserExists.setString(4, "NaN");
-                psCheckUserExists.setString(5, username);
+                psCheckUserExists.setString(4, EncryptionManager.encrypt("NaN", KeyManager.loadKey()));
+                psCheckUserExists.setString(5, EncryptionManager.encrypt(username, KeyManager.loadKey()));
                 psCheckUserExists.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now().minusYears(1)));
                 psCheckUserExists.executeUpdate();
 
                 psCheckUserExists = connection.prepareStatement("SELECT user_id FROM users WHERE username = ?");
-                psCheckUserExists.setString(1, username);
+                psCheckUserExists.setString(1, EncryptionManager.encrypt(username, KeyManager.loadKey()));
                 psCheckUserExists.executeQuery();
 
             } catch (SQLException e) {
@@ -116,10 +118,10 @@ public class DB_Users {
             try {
                 assert connection != null;
                 psCheckUserExists = connection.prepareStatement("UPDATE users SET 2FA_Key = ? WHERE username = ?");
-                psCheckUserExists.setString(1, key);
-                psCheckUserExists.setString(2, user.getUsername());
+                psCheckUserExists.setString(1, EncryptionManager.encrypt(key, KeyManager.loadKey()));
+                psCheckUserExists.setString(2, EncryptionManager.encrypt(user.getUsername(), KeyManager.loadKey()));
                 psCheckUserExists.executeUpdate();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
@@ -143,7 +145,7 @@ public class DB_Users {
                     "SET 2FA_Verification_Time = ? " +
                     "WHERE username = ?");
             psCheckUserExists.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-            psCheckUserExists.setString(2, user.getUsername());
+            psCheckUserExists.setString(2, EncryptionManager.encrypt(user.getUsername(), KeyManager.loadKey()));
             psCheckUserExists.executeUpdate();
 
         } catch (Exception exception) {
@@ -159,7 +161,6 @@ public class DB_Users {
                 }
             }
         }
-
     }
 
     public static User loginUser(String username, String password) {
@@ -174,14 +175,15 @@ public class DB_Users {
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT  * FROM users WHERE username = ? AND password = ?");
-            psCheckUserExists.setString(1, username);
-            psCheckUserExists.setString(2, password);
+            psCheckUserExists.setString(1, EncryptionManager.encrypt(username, KeyManager.loadKey()));
+            psCheckUserExists.setString(2, EncryptionManager.encrypt(password, KeyManager.loadKey()));
             resultSet = psCheckUserExists.executeQuery();
             if (resultSet.next()) {
+                //TODO -> de decriptat
                 int role = resultSet.getInt("role");
                 int user_id = resultSet.getInt("user_id");
-                String email = resultSet.getString("email");
-                String Key = resultSet.getString("2FA_Key");
+                String email = EncryptionManager.decrypt(resultSet.getString("email"), KeyManager.loadKey()) ;
+                String Key =  EncryptionManager.decrypt(resultSet.getString("2FA_Key"), KeyManager.loadKey());
                 Timestamp timestamp = resultSet.getTimestamp("2FA_Verification_Time");
                 boolean FA_Enabled = !Key.equals("NaN") && !Key.isEmpty();
                 LocalDateTime FA_Verification_Time = null;
@@ -189,9 +191,9 @@ public class DB_Users {
                     FA_Verification_Time = timestamp.toLocalDateTime();
                 }
                 var newUser = new User(user_id, username, password, role, email);
-                Security.getInstance().setFA_Enabled(FA_Enabled);
-                Security.getInstance().setFA_Key(Key);
-                Security.getInstance().setFA_Verification_Time(FA_Verification_Time);
+                SecurityManager.getInstance().setFA_Enabled(FA_Enabled);
+                SecurityManager.getInstance().setFA_Key(Key);
+                SecurityManager.getInstance().setFA_Verification_Time(FA_Verification_Time);
                 return newUser;
             }
         } catch (Exception exception) {
@@ -222,7 +224,7 @@ public class DB_Users {
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE username LIKE ?");
-            psCheckUserExists.setString(1, username + "%");
+            psCheckUserExists.setString(1,  EncryptionManager.encrypt(username, KeyManager.loadKey()) + "%");
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 var newUser = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));
@@ -247,7 +249,7 @@ public class DB_Users {
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE user_id = ?");
-            psCheckUserExists.setInt(1, user_id);
+            psCheckUserExists.setInt(1,  user_id);
             resultSet = psCheckUserExists.executeQuery();
             if (resultSet.next()) {
                 return new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));

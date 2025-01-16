@@ -19,8 +19,8 @@ import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class Security {
-    private static Security instance;
+public class SecurityManager {
+    private static SecurityManager instance;
 
     private Pair<String, String> authCodes = new Pair<>("", "");
     private Boolean FA_Enabled = false;
@@ -35,11 +35,7 @@ public class Security {
         return FA_Enabled;
     }
 
-
     public boolean isFA_Verified() {
-//    Pe baza timpului cand s-a efectuat ultima verificare, stocat in BD in 2FA_Verification_Time
-//    Vad daca aceasta verificare a fost factuta acum mai mult de 15 minute.
-//    Daca da, cer iar sa-si verifice codul
 
         return Duration.between(FA_Verification_Time, LocalDateTime.now()).toMinutes() <= 15;
     }
@@ -59,19 +55,18 @@ public class Security {
     public void setFA_Verification_Time(LocalDateTime FA_Verification_Time) {
         this.FA_Verification_Time = FA_Verification_Time;
     }
-    public Security() {
+    public SecurityManager() {
     }
 
-    public static synchronized Security getInstance() {
+    public static synchronized SecurityManager getInstance() {
         if (instance == null) {
-            instance = new Security();
+            instance = new SecurityManager();
         }
         return instance;
     }
 
-
     public Boolean verifyOTP(String otp) {
-        if (otp.equals(getTOTPCode(Security.getInstance().authCodes.getKey()))) {
+        if (otp.equals(getTOTPCode(SecurityManager.getInstance().authCodes.getKey()))) {
             System.out.println("[LOG][Security] - OTP Code is valid for this User");
             return true;
         } else {
@@ -99,7 +94,7 @@ public class Security {
         Thread securityThread = new Thread(() -> {
             String lastCode = null;
             while (true) {
-                String code = Security.getTOTPCode(secretKey);
+                String code = SecurityManager.getTOTPCode(secretKey);
                 if (!code.equals(lastCode)) {
                     System.out.println("[LOG][Google Auth] - Key: " + secretKey + " Code: " + code);
                 }
@@ -118,7 +113,7 @@ public class Security {
 
     public static Image createQRCode(String barCodeData)
             throws WriterException, IOException {
-        BitMatrix matrix = new MultiFormatWriter().encode(Security.getInstance().getAuthCodes().getValue(), BarcodeFormat.QR_CODE,
+        BitMatrix matrix = new MultiFormatWriter().encode(SecurityManager.getInstance().getAuthCodes().getValue(), BarcodeFormat.QR_CODE,
                 300, 300);
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             MatrixToImageWriter.writeToStream(matrix, "png", out);
@@ -142,7 +137,7 @@ public class Security {
     public void setAuthCodes(String secretKey) {
         String email = UserLoggedIn.getInstance().getLoggedInUser().getEmail();
         String companyName = "Maze Bank";
-        String barCodeUrl = Security.getGoogleAuthenticatorBarCode(secretKey, email, companyName);
+        String barCodeUrl = SecurityManager.getGoogleAuthenticatorBarCode(secretKey, email, companyName);
         authCodes = new Pair<>(secretKey, barCodeUrl);
     }
 
@@ -150,7 +145,8 @@ public class Security {
         String secretKey = generateSecretKey();
         String email = UserLoggedIn.getInstance().getLoggedInUser().getEmail();
         String companyName = "Maze Bank";
-        String barCodeUrl = Security.getGoogleAuthenticatorBarCode(secretKey, email, companyName);
+        String barCodeUrl = SecurityManager.getGoogleAuthenticatorBarCode(secretKey, email, companyName);
         authCodes = new Pair<>(secretKey, barCodeUrl);
     }
+
 }

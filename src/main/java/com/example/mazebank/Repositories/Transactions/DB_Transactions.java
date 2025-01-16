@@ -2,6 +2,8 @@ package com.example.mazebank.Repositories.Transactions;
 
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Core.Security.Encryption.EncryptionManager;
+import com.example.mazebank.Core.Security.KeyManager.KeyManager;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.DBUtils.DB_ConnectionManager;
@@ -26,7 +28,7 @@ public class DB_Transactions {
         }
         PreparedStatement psInsertTransaction;
         try {
-            if(DB_BankAccounts.searchBankAccountByIBAN(receiver) != null) {
+            if (DB_BankAccounts.searchBankAccountByIBAN(receiver) != null) {
                 try {
                     assert connection != null;
                     connection = DB_ConnectionManager.getInstance().getConnection();
@@ -34,16 +36,15 @@ public class DB_Transactions {
                             "INSERT INTO" +
                                     " transactions (sender,receiver,amount, message, currency, datetime) VALUES (?,?,?,?,?,?)");
 
-                    psInsertTransaction.setString(1, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN());
-                    psInsertTransaction.setString(2, receiver);
-                    psInsertTransaction.setDouble(3, amount);
-                    psInsertTransaction.setString(4, message);
-                    psInsertTransaction.setString(5, UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency());
+                    psInsertTransaction.setString(1, EncryptionManager.encrypt(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN(), KeyManager.loadKey()));
+                    psInsertTransaction.setString(2, EncryptionManager.encrypt(receiver, KeyManager.loadKey()));
+                    psInsertTransaction.setString(3, EncryptionManager.encrypt(amount.toString(), KeyManager.loadKey()));
+                    psInsertTransaction.setString(4, EncryptionManager.encrypt(message, KeyManager.loadKey()));
+                    psInsertTransaction.setString(5, EncryptionManager.encrypt(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getCurrency(), KeyManager.loadKey()));
                     psInsertTransaction.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
                     int rowsAffected = psInsertTransaction.executeUpdate();
                     if (rowsAffected > 0) {
                         DB_BankAccounts.updateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount().getIBAN(), amount, receiver);
-//                    DB_BankAccounts.Local_UpdateBankAccountsAfterTransaction(UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount());
                         System.out.println("Transaction successfully inserted.");
                     } else {
                         System.out.println("Failed to insert transaction.");
@@ -54,7 +55,7 @@ public class DB_Transactions {
                     alert.showAndWait();
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (connection != null) {
@@ -110,16 +111,16 @@ public class DB_Transactions {
                     WHERE
                         t.receiver = ?
                     """);
-            psCheckUserExists.setString(1, IBAN);
+            psCheckUserExists.setString(1, EncryptionManager.encrypt(IBAN, KeyManager.loadKey()));
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
-                String sender = resultSet.getString("sender");
-                String receiver = resultSet.getString("receiver");
-                double amount = resultSet.getDouble("amount");
+                String sender = EncryptionManager.decrypt(resultSet.getString("sender"), KeyManager.loadKey());
+                String receiver = EncryptionManager.decrypt(resultSet.getString("receiver"), KeyManager.loadKey());
+                double amount = Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("amount"), KeyManager.loadKey()));
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
-                String currency = resultSet.getString("currency");
+                String currency = EncryptionManager.decrypt(resultSet.getString("currency"), KeyManager.loadKey());
                 Timestamp date = resultSet.getTimestamp("datetime");
                 String message = "";
                 BankAccount sender_BAcc = DB_BankAccounts.searchBankAccountByIBAN(sender);
@@ -160,22 +161,22 @@ public class DB_Transactions {
                                                  users u2 ON b2.user_id = u2.user_id
                                              WHERE
                                                  t.sender = ?;""");
-            psCheckUserExists.setString(1, IBAN);
+            psCheckUserExists.setString(1, EncryptionManager.encrypt(IBAN, KeyManager.loadKey()));
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
                 int transaction_id = resultSet.getInt("transaction_id");
-                String sender = resultSet.getString("sender");
-                String receiver = resultSet.getString("receiver");
-                double amount = resultSet.getDouble("amount");
+                String sender = EncryptionManager.decrypt(resultSet.getString("sender"), KeyManager.loadKey());
+                String receiver = EncryptionManager.decrypt(resultSet.getString("receiver"), KeyManager.loadKey());
+                double amount = Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("amount"), KeyManager.loadKey()));
                 String from_username = resultSet.getString("from_username");
                 String to_username = resultSet.getString("to_username");
-                String currency = resultSet.getString("currency");
+                String currency = EncryptionManager.decrypt(resultSet.getString("currency"), KeyManager.loadKey());
                 Timestamp date = resultSet.getTimestamp("datetime");
+                String message = "";
                 BankAccount sender_BAcc = DB_BankAccounts.searchBankAccountByIBAN(sender);
                 BankAccount receiver_BAcc = DB_BankAccounts.searchBankAccountByIBAN(receiver);
-                String message = "";
                 try {
-                    message = resultSet.getString("message");
+                    message = EncryptionManager.decrypt(resultSet.getString("message"), KeyManager.loadKey());
                 } catch (Exception e) {
                     System.out.println("Message is null");
                 }

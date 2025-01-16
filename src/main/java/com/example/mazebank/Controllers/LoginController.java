@@ -2,7 +2,7 @@ package com.example.mazebank.Controllers;
 
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.BankAccounts.BankAccount;
-import com.example.mazebank.Core.Security.Security;
+import com.example.mazebank.Core.Security.SecurityManager;
 import com.example.mazebank.Repositories.BankAccounts.DB_BankAccounts;
 import com.example.mazebank.Repositories.Users.DB_Users;
 import com.example.mazebank.Core.Models.Model;
@@ -80,7 +80,7 @@ public class LoginController implements Initializable {
                     if (userLoggedIn != null) {
                         UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);
                         if (userLoggedIn.getRole() == AccountType.CLIENT) {
-                            if (!Security.getInstance().isFA_Enabled() || !Security.getInstance().isFA_Verified()) {
+                            if (!SecurityManager.getInstance().isFA_Enabled() || !SecurityManager.getInstance().isFA_Verified()) {
                                 FA_Check();
                             } else {
                                 showClientWindow();
@@ -125,14 +125,14 @@ public class LoginController implements Initializable {
     }
 
     private void FA_Check() {
-        if (!Security.getInstance().isFA_Enabled()) {
-            Security.getInstance().setAuthCodes();
+        if (!SecurityManager.getInstance().isFA_Enabled()) {
+            SecurityManager.getInstance().setAuthCodes();
             Stage stage = (Stage) error_lbl.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
             Model.getInstance().getViewFactory().show2FAWindow(error_lbl.getScene());
 
         } else {
-            Security.getInstance().setAuthCodes(Security.getInstance().getFA_Key());
+            SecurityManager.getInstance().setAuthCodes(SecurityManager.getInstance().getFA_Key());
             Stage stage = (Stage) error_lbl.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
             Model.getInstance().getViewFactory().show2FAWindow(error_lbl.getScene());

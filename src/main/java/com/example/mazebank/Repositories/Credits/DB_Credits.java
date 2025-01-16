@@ -1,8 +1,12 @@
 package com.example.mazebank.Repositories.Credits;
 
 import com.example.mazebank.Core.Credit.Credit;
+import com.example.mazebank.Core.Security.Encryption.EncryptionManager;
+import com.example.mazebank.Core.Security.KeyManager.KeyManager;
 import javafx.scene.control.Alert;
 
+import java.security.Key;
+import java.security.KeyManagementException;
 import java.sql.*;
 
 public class DB_Credits {
@@ -20,11 +24,11 @@ public class DB_Credits {
             resultSet = querry.executeQuery();
             while (resultSet.next()) {
                 int credit_id = resultSet.getInt("credit_id");
-                float credit_total_sum = resultSet.getFloat("credit_total_sum");
-                int credit_period = resultSet.getInt("credit_period");
-                String credit_currency = resultSet.getString("credit_currency");
-                float credit_monthly_rate = resultSet.getFloat("credit_monthly_rate");
-                float credit_intrest = resultSet.getFloat("credit_intrest");
+                float credit_total_sum = Float.parseFloat(EncryptionManager.decrypt(resultSet.getString("credit_total_sum"), KeyManager.loadKey()));
+                int credit_period = Integer.parseInt(EncryptionManager.decrypt(resultSet.getString("credit_period"), KeyManager.loadKey())) ;
+                String credit_currency = EncryptionManager.decrypt(resultSet.getString("credit_currency"), KeyManager.loadKey());
+                float credit_monthly_rate = Float.parseFloat(EncryptionManager.decrypt(resultSet.getString("credit_monthly_rate"), KeyManager.loadKey()));
+                float credit_intrest = Float.parseFloat(EncryptionManager.decrypt(resultSet.getString("credit_intrest"), KeyManager.loadKey()));
                 newCredit = new Credit(credit_id, credit_total_sum, credit_period, credit_currency, credit_monthly_rate, credit_intrest);
             }
         } catch (Exception exception) {
@@ -47,15 +51,14 @@ public class DB_Credits {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mazebank", "root", "ariseu123");
-            querry = connection.prepareStatement("INSERT INTO credits VALUES (?,?,?,?,?,?,?)");
+            querry = connection.prepareStatement("INSERT INTO credits VALUES (?,?,?,?,?,?)");
 
-            querry.setInt(1, credit.getCredit_id());
-            querry.setFloat(2, credit.getCredit_total_sum());
-            querry.setInt(3, credit.getCredit_period());
-            querry.setString(4, credit.getCredit_currency());
-            querry.setFloat(5, credit.getCredit_monthly_rate());
-            querry.setFloat(6, credit.getCredit_intrest());
-            querry.setInt(7, credit.getCredit_id());
+            querry.setString(1, EncryptionManager.encrypt(String.valueOf(credit.getCredit_id()), KeyManager.loadKey()));
+            querry.setString(2, EncryptionManager.encrypt(String.valueOf(credit.getCredit_total_sum()), KeyManager.loadKey()));
+            querry.setString(3, EncryptionManager.encrypt(String.valueOf(credit.getCredit_period()), KeyManager.loadKey()));
+            querry.setString(4, EncryptionManager.encrypt(credit.getCredit_currency(), KeyManager.loadKey()));
+            querry.setString(5, EncryptionManager.encrypt(String.valueOf(credit.getCredit_monthly_rate()), KeyManager.loadKey()));
+            querry.setString(6, EncryptionManager.encrypt(String.valueOf(credit.getCredit_intrest()), KeyManager.loadKey()));
             querry.executeUpdate();
 
         } catch (Exception exception) {

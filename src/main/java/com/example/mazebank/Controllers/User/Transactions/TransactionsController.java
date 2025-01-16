@@ -4,7 +4,7 @@ import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionListCe
 import com.example.mazebank.Core.BankAccounts.BankAccount;
 import com.example.mazebank.Core.Models.Model;
 import com.example.mazebank.Core.Models.UserLoggedIn;
-import com.example.mazebank.Core.Security.Security;
+import com.example.mazebank.Core.Security.SecurityManager;
 import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Repositories.Transactions.DB_Transactions;
 import javafx.application.Platform;
@@ -68,7 +68,7 @@ public class TransactionsController implements Initializable {
     private void onSendMoney() {
         var selectedAccount = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
         if (!Objects.equals(payee_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
-            if (Security.getInstance().isFA_Verified()) {
+            if (SecurityManager.getInstance().isFA_Verified()) {
                 if (verifyTransfer(payee_fld.getText(), amount_fld.getText(), message_fld.getText())) {
                     selectedAccount.setBalance(selectedAccount.getBalance() - Double.parseDouble(amount_fld.getText()));
                     DB_Transactions.transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
