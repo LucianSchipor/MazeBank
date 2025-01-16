@@ -118,15 +118,15 @@ public class DB_Transactions {
                 String sender = EncryptionManager.decrypt(resultSet.getString("sender"), KeyManager.loadKey());
                 String receiver = EncryptionManager.decrypt(resultSet.getString("receiver"), KeyManager.loadKey());
                 double amount = Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("amount"), KeyManager.loadKey()));
-                String from_username = resultSet.getString("from_username");
-                String to_username = resultSet.getString("to_username");
+                String from_username = EncryptionManager.decrypt(resultSet.getString("from_username"), KeyManager.loadKey());
+                String to_username = EncryptionManager.decrypt(resultSet.getString("to_username"), KeyManager.loadKey());
                 String currency = EncryptionManager.decrypt(resultSet.getString("currency"), KeyManager.loadKey());
                 Timestamp date = resultSet.getTimestamp("datetime");
                 String message = "";
                 BankAccount sender_BAcc = DB_BankAccounts.searchBankAccountByIBAN(sender);
                 BankAccount receiver_BAcc = DB_BankAccounts.searchBankAccountByIBAN(receiver);
                 try {
-                    message = resultSet.getString("message");
+                    message = EncryptionManager.decrypt(resultSet.getString("message"), KeyManager.loadKey());
                 } catch (Exception e) {
                     System.out.println("Message is null");
                 }
@@ -168,8 +168,8 @@ public class DB_Transactions {
                 String sender = EncryptionManager.decrypt(resultSet.getString("sender"), KeyManager.loadKey());
                 String receiver = EncryptionManager.decrypt(resultSet.getString("receiver"), KeyManager.loadKey());
                 double amount = Double.parseDouble(EncryptionManager.decrypt(resultSet.getString("amount"), KeyManager.loadKey()));
-                String from_username = resultSet.getString("from_username");
-                String to_username = resultSet.getString("to_username");
+                String from_username = EncryptionManager.decrypt(resultSet.getString("from_username"), KeyManager.loadKey());
+                String to_username = EncryptionManager.decrypt(resultSet.getString("to_username"), KeyManager.loadKey());
                 String currency = EncryptionManager.decrypt(resultSet.getString("currency"), KeyManager.loadKey());
                 Timestamp date = resultSet.getTimestamp("datetime");
                 String message = "";

@@ -87,7 +87,7 @@ public class DB_BankAccounts {
                                 "SET account_balance = ? " +
                                 "WHERE iban = ?");
                 psInsertTransaction.setString(1, EncryptionManager.encrypt(String.valueOf(account_balance - amount), KeyManager.loadKey()));
-                psInsertTransaction.setString(2, sender);
+                psInsertTransaction.setString(2, EncryptionManager.encrypt(sender, KeyManager.loadKey()));
                 psInsertTransaction.executeUpdate();
             }
 

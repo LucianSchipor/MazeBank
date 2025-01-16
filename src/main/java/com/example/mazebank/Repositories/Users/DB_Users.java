@@ -182,8 +182,8 @@ public class DB_Users {
                 //TODO -> de decriptat
                 int role = resultSet.getInt("role");
                 int user_id = resultSet.getInt("user_id");
-                String email = EncryptionManager.decrypt(resultSet.getString("email"), KeyManager.loadKey()) ;
-                String Key =  EncryptionManager.decrypt(resultSet.getString("2FA_Key"), KeyManager.loadKey());
+                String email = EncryptionManager.decrypt(resultSet.getString("email"), KeyManager.loadKey());
+                String Key = EncryptionManager.decrypt(resultSet.getString("2FA_Key"), KeyManager.loadKey());
                 Timestamp timestamp = resultSet.getTimestamp("2FA_Verification_Time");
                 boolean FA_Enabled = !Key.equals("NaN") && !Key.isEmpty();
                 LocalDateTime FA_Verification_Time = null;
@@ -224,10 +224,15 @@ public class DB_Users {
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE username LIKE ?");
-            psCheckUserExists.setString(1,  EncryptionManager.encrypt(username, KeyManager.loadKey()) + "%");
+            psCheckUserExists.setString(1, EncryptionManager.encrypt(username, KeyManager.loadKey()) + "%");
             resultSet = psCheckUserExists.executeQuery();
             while (resultSet.next()) {
-                var newUser = new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));
+                var newUser = new User(
+                        resultSet.getInt("user_id"),
+                        EncryptionManager.decrypt(resultSet.getString("username"), KeyManager.loadKey()),
+                        EncryptionManager.decrypt(resultSet.getString("password"), KeyManager.loadKey()),
+                        resultSet.getInt("role"),
+                        EncryptionManager.decrypt(resultSet.getString("email"), KeyManager.loadKey()));
                 usersList.add(newUser);
                 System.out.println("[LOG] - added user " + newUser.getUsername() + " to list of users!");
             }
@@ -249,7 +254,7 @@ public class DB_Users {
         try {
             assert connection != null;
             psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE user_id = ?");
-            psCheckUserExists.setInt(1,  user_id);
+            psCheckUserExists.setInt(1, user_id);
             resultSet = psCheckUserExists.executeQuery();
             if (resultSet.next()) {
                 return new User(resultSet.getInt("user_id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("role"), resultSet.getString("email"));
