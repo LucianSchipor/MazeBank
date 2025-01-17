@@ -38,6 +38,21 @@
     -fx-background-color: linear-gradient(to right, #005B43, #228B22);
 }
 
+.bank_accounts_btn:hover{
+    -fx-cursor: hand;
+}
+.view_form_btn:hover{
+    -fx-cursor: hand;
+}
+
+.accept_form_btn:hover{
+    -fx-cursor: hand;
+}
+
+.delete_btn:hover{
+    -fx-cursor: hand;
+}
+
 .accept_form_btn {
     -fx-font-size: 20;
     -fx-background-color: transparent;

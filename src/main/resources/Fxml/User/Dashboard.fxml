@@ -10,53 +10,46 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="738.0" prefWidth="850.0" styleClass="dashboard" stylesheets="@../../Styles/User/Dashboard/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
-   <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-         AnchorPane.topAnchor="10.0">
+<AnchorPane prefHeight="738.0" prefWidth="900.0" styleClass="dashboard" stylesheets="@../../Styles/User/Dashboard/Dashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
       <HBox prefHeight="35.0" prefWidth="830.0">
          <VBox.margin>
-            <Insets top="10.0"/>
+            <Insets top="10.0" />
          </VBox.margin>
          <VBox HBox.hgrow="ALWAYS">
-            <Text fx:id="hello_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name"
-                  text="Hello, User!"/>
+            <Text fx:id="hello_lbl" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="user_name" text="Hello, User!" />
             <VBox prefHeight="0.0" prefWidth="491.0" styleClass="greeting_container">
-               <Label prefHeight="54.0" prefWidth="488.0"
-                      text=" Please note, you need to select an account before making any transfer">
+               <Label prefHeight="54.0" prefWidth="488.0" text=" Please note, you need to select an account before making any transfer">
                   <graphic>
-                     <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl"/>
+                     <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl" />
                   </graphic>
                </Label>
-               <Label layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="488.0"
-                      text=" You can select it by clicking on its representative image">
+               <Label layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="488.0" text=" You can select it by clicking on its representative image">
                   <graphic>
-                     <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl"/>
+                     <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl" />
                   </graphic>
                </Label>
-               <Label layoutX="10.0" layoutY="28.0" prefHeight="54.0" prefWidth="488.0"
-                      text=" For multiple accounts, scroll down to access them">
+               <Label layoutX="10.0" layoutY="28.0" prefHeight="54.0" prefWidth="488.0" text=" For multiple accounts, scroll down to access them">
                   <graphic>
-                     <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl"/>
+                     <FontAwesomeIconView glyphName="INFO" styleClass="warning_lbl" />
                   </graphic>
                </Label>
             </VBox>
          </VBox>
-         <HBox layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="338.0" styleClass="date_container"
-               HBox.hgrow="ALWAYS">
-            <Label fx:id="login_date" styleClass="date_lbl" text="Today, 04/01/2024"/>
+         <HBox layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="338.0" styleClass="date_container" HBox.hgrow="ALWAYS">
+            <Label fx:id="login_date" styleClass="date_lbl" text="Today, 04/01/2024" />
          </HBox>
       </HBox>
       <VBox VBox.vgrow="ALWAYS">
-         <ListView fx:id="account_listview" prefWidth="827.0" styleClass="transaction_listview"/>
+         <ListView fx:id="account_listview" prefWidth="827.0" styleClass="transaction_listview" />
       </VBox>
       <VBox styleClass="transactions_VBox" VBox.vgrow="ALWAYS">
-         <Label fx:id="selectedAccount_lbl" alignment="CENTER" prefHeight="19.0" prefWidth="338.0"
-                text="Bank account: 1234 1234 1234 1234 transactions" textAlignment="CENTER">
+         <Label fx:id="selectedAccount_lbl" alignment="CENTER" prefHeight="19.0" prefWidth="338.0" text="Bank account: 1234 1234 1234 1234 transactions" textAlignment="CENTER">
             <font>
-               <Font name="Calibri Light" size="17.0"/>
+               <Font name="Calibri Light" size="17.0" />
             </font>
          </Label>
-         <ListView fx:id="transaction_listview" prefWidth="827.0" styleClass="transaction_listview"/>
+         <ListView fx:id="transaction_listview" prefWidth="827.0" styleClass="transaction_listview" />
       </VBox>
    </VBox>
 </AnchorPane>

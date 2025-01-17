@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 
 public class AdminMenuController implements Initializable {
     public Button forms_btn;
-    public Button deposit_btn;
     public Button logout_btn;
     public Button create_btn;
     public Button search_btn;
@@ -26,7 +25,6 @@ public class AdminMenuController implements Initializable {
     create_btn.setOnAction(event -> onCreate());
     search_btn.setOnAction(event -> onSearch());
     forms_btn.setOnAction(event -> onForms());
-    deposit_btn.setOnAction(event -> onDeposit());
     logout_btn.setOnAction(event -> onLogOut());
     }
 
@@ -51,14 +49,9 @@ public class AdminMenuController implements Initializable {
         setStyleSelectedButton(create_btn);
     }
 
-    private void onDeposit(){
-        System.out.println("[LOG] - redirecting to Deposit panel");
-        deselectAll();
-        setStyleSelectedButton(deposit_btn);
-    }
-
     private void onLogOut(){
         Stage stage = (Stage)logout_btn.getScene().getWindow();
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.CREATE);
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showLoginWindow();
     }
@@ -88,6 +81,5 @@ public class AdminMenuController implements Initializable {
         create_btn.setStyle(deselectButtonString);
         search_btn.setStyle(deselectButtonString);
         forms_btn.setStyle(deselectButtonString);
-        deposit_btn.setStyle(deselectButtonString);
     }
 }

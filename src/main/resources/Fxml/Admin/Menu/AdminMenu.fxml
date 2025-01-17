@@ -28,11 +28,6 @@
                <FontAwesomeIconView glyphName="WPFORMS" size="20" />
             </graphic>
          </Button>
-         <Button fx:id="deposit_btn" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" text="Deposit">
-            <graphic>
-               <FontAwesomeIconView glyphName="MONEY" size="20" />
-            </graphic>
-         </Button>
          <Button fx:id="logout_btn" layoutX="10.0" layoutY="61.0" mnemonicParsing="false" styleClass="alt_menu_btn" text="Logout">
             <graphic>
                <FontAwesomeIconView glyphName="EXTERNAL_LINK" size="20" styleClass="alt_menu_btn" />

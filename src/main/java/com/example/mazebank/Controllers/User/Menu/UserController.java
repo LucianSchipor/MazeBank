@@ -17,7 +17,7 @@ public class UserController implements Initializable {
     }
 
     public UserController() {
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().addListener((observableValue, oldVal, newVal) ->{
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().addListener((observableValue, oldVal, newVal) ->{
             switch (newVal){
                 case TRANSACTIONS -> client_parent.setCenter(Model.getInstance().getViewFactory().getTransactionsView());
                 case ACCOUNTS -> client_parent.setCenter(Model.getInstance().getViewFactory().getAccountsView());

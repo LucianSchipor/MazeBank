@@ -37,14 +37,14 @@ public class ViewFactory {
     private AnchorPane tempUserDashboard;
     private AnchorPane formsAccountsView;
     private AnchorPane formsCreditsView;
-    private final ObjectProperty<UserMenuOptions> clientSelectedMenuItem;
+    private final ObjectProperty<UserMenuOptions> userSelectedMenuItem;
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
     private final ObjectProperty<TempUserMenuOptions> tempUserSelectedMenuItem;
     private final ObjectProperty<FormsMenuOptions> formsMenuSelectedItem;
     private Scene previousWindow;
 
     public ViewFactory() {
-        this.clientSelectedMenuItem = new SimpleObjectProperty<>();
+        this.userSelectedMenuItem = new SimpleObjectProperty<>();
         this.adminSelectedMenuItem = new SimpleObjectProperty<>();
         this.tempUserSelectedMenuItem = new SimpleObjectProperty<>();
         this.formsMenuSelectedItem = new SimpleObjectProperty<>();
@@ -63,8 +63,8 @@ public class ViewFactory {
         return formsMenuSelectedItem;
     }
 
-    public ObjectProperty<UserMenuOptions> getClientSelectedMenuItem() {
-        return clientSelectedMenuItem;
+    public ObjectProperty<UserMenuOptions> getUserSelectedMenuItem() {
+        return userSelectedMenuItem;
     }
 
     public AnchorPane getAccountsView() {

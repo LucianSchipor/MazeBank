@@ -65,28 +65,28 @@ public class UserMenuController implements Initializable {
 
     private void onAddFunds(){
         System.out.println("[LOG] - redirecting to Add Funds panel");
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.ADD_FUDNS);
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(UserMenuOptions.ADD_FUDNS);
         deselectAll();
         setStyleSelectedButton(add_funds_btn);
     }
 
     private void onForms(){
         System.out.println("[LOG] - redirecting to Forms panel");
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.FORMS);
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(UserMenuOptions.FORMS);
         deselectAll();
         setStyleSelectedButton(forms_btn);
     }
 
     private void onDashboard(){
         System.out.println("[LOG] - redirecting to Dashboard panel");
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.DASHBOARD);
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(UserMenuOptions.DASHBOARD);
         deselectAll();
         setStyleSelectedButton(dashboard_btn);
     }
 
     private void onTransactions(){
         System.out.println("[LOG] - redirecting to Transactions panel");
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(UserMenuOptions.TRANSACTIONS);
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(UserMenuOptions.TRANSACTIONS);
         deselectAll();
         setStyleSelectedButton(transactions_btn);
     }
@@ -94,6 +94,7 @@ public class UserMenuController implements Initializable {
     private void onLogOut(){
         UserLoggedIn.getInstance().setLoggedInUser(null);
         Stage stage = (Stage)dashboard_btn.getScene().getWindow();
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(UserMenuOptions.DASHBOARD);
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showLoginWindow();
     }
