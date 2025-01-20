@@ -6,6 +6,7 @@ import com.example.mazebank.Controllers.User.Dashboard.DashboardController;
 import com.example.mazebank.Controllers.User.TempUser.TempUserController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
+import com.example.mazebank.Controllers.User.Transactions.TransactionsWithOnePers.TransactionsWithOnePersController;
 import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
@@ -25,7 +26,9 @@ import javafx.stage.Stage;
 public class ViewFactory {
 
     private AnchorPane dashboardView;
+    private AnchorPane loginWindow;
     private AnchorPane transactionsView;
+    private AnchorPane transWithOnePersView;
     private AnchorPane accountsView;
     private AnchorPane createClientView;
     private AnchorPane searchView;
@@ -108,6 +111,15 @@ public class ViewFactory {
         return dashboardView;
     }
 
+    public AnchorPane getLoginWindow() {
+        try {
+            loginWindow = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit/Deposit.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return loginWindow;
+    }
+
     public AnchorPane getDepositView() {
             try {
                 depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit/Deposit.fxml")).load();
@@ -128,10 +140,41 @@ public class ViewFactory {
         return transactionsView;
     }
 
+    public AnchorPane getTransactionsRetransferView(String sender, String receiver) {
+        try {
+            var tV = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions/Transactions.fxml"));
+            tV.setController(new TransactionsController(sender, receiver));
+            transWithOnePersView = tV.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return transWithOnePersView;
+    }
+
+
+
     public void showLoginWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         createStage(loader);
     }
+
+    public void showTransactionsWithOnePersWindow(){
+        TransactionsWithOnePersController controller = new TransactionsWithOnePersController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions/TransactionsWithOnePers.fxml"));
+        loader.setController(controller);
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(String.valueOf(getClass().getResource("/Images/Icon/bank.png"))));
+        stage.setResizable(true);
+        stage.show();
+    }
+
 
     public void showAdminOptionsForUserWindow(User user){
         SearchResultController_BankAccounts controller = new SearchResultController_BankAccounts(user);

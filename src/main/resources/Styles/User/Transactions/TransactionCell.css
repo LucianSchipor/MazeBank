@@ -42,12 +42,12 @@
     -fx-cursor: hand;
 }
 
-.exchange_btn {
+.view_trans_btn {
     -fx-background-color: transparent;
     -fx-font-size: 16;
 }
 
-.exchange_btn:hover {
+.view_trans_btn:hover {
    -fx-cursor: hand;
 }
 
@@ -60,8 +60,8 @@
     -fx-fill: #5787db;
 }
 
-.btn_container .exchange_btn FontAwesomeIconView{
-    -fx-fill: #228B22;
+.btn_container .view_trans_btn FontAwesomeIconView{
+    -fx-fill: #5787db;
 }
 
 .btn_container .delete_btn FontAwesomeIconView{

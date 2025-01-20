@@ -1,12 +1,13 @@
 package com.example.mazebank.Core.Models;
 
 import com.example.mazebank.Core.BankAccounts.BankAccount;
+import com.example.mazebank.Core.Transactions.Transaction;
 import com.example.mazebank.Core.Users.User;
 
 public class UserLoggedIn {
     private static UserLoggedIn instance;
     private User loggedInUser;
-    private BankAccount bankAccount;
+    private Transaction retransferSelectedTransaction;
 
     private UserLoggedIn() {}
 
@@ -26,6 +27,12 @@ public class UserLoggedIn {
     }
 
 
+    public Transaction getRetransferSelectedTransaction() {
+        return retransferSelectedTransaction;
+    }
 
+    public void setRetransferSelectedTransaction(Transaction retransferSelectedTransaction) {
+        this.retransferSelectedTransaction = retransferSelectedTransaction;
+    }
 }
 

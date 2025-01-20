@@ -179,7 +179,6 @@ public class DB_Users {
             psCheckUserExists.setString(2, EncryptionManager.encrypt(password, KeyManager.loadKey()));
             resultSet = psCheckUserExists.executeQuery();
             if (resultSet.next()) {
-                //TODO -> de decriptat
                 int role = resultSet.getInt("role");
                 int user_id = resultSet.getInt("user_id");
                 String email = EncryptionManager.decrypt(resultSet.getString("email"), KeyManager.loadKey());

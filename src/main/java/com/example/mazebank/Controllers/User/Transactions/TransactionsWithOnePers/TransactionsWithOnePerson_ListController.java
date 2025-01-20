@@ -1,5 +1,6 @@
-package com.example.mazebank.Controllers.User.Transactions.Cell;
+package com.example.mazebank.Controllers.User.Transactions.TransactionsWithOnePers;
 
+import com.example.mazebank.Controllers.User.Transactions.Cell.TransactionCellController;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Transactions.Transaction;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class TransactionListCell extends ListCell<Transaction> {
+public class TransactionsWithOnePerson_ListController extends ListCell<Transaction> {
     @Override
     protected void updateItem(Transaction transaction, boolean empty) {
         super.updateItem(transaction, empty);
@@ -22,6 +23,8 @@ public class TransactionListCell extends ListCell<Transaction> {
                 AnchorPane hbox = loader.load();
                 TransactionCellController controller = loader.getController();
                 controller.setTransaction(transaction);
+                controller.retransfer_btn.setVisible(false);
+                controller.deleteTransaction_btn.setVisible(false);
                 controller.currency_lbl.setText(transaction.getCurrency());
                 controller.setMessage(transaction.getMessage());
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

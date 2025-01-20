@@ -21,10 +21,12 @@ import java.util.ResourceBundle;
 
 public class TransactionsController implements Initializable {
     public ListView<Transaction> transactions_listview = new ListView<>();
-    public TextField payee_fld = new TextField();
+    public TextField receiver_fld = new TextField();
     public TextField amount_fld = new TextField();
     public TextArea message_fld = new TextArea();
     public Button send_money_btn = new Button("Send Money");
+    private String sender;
+    private String receiver;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,13 +67,37 @@ public class TransactionsController implements Initializable {
         transactions_listview.setCellFactory(param -> new TransactionListCell());
     }
 
+    public TransactionsController(String sender, String receiver) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.receiver_fld = new TextField();
+        this.receiver_fld.setText(receiver);
+
+        send_money_btn.setOnAction(event -> {
+            try {
+                onSendMoney();
+            } catch (Exception e) {
+                System.out.println("[LOG][Transactions][Cause] - " + e.getCause());
+                System.out.println("[LOG][Transactions][Message] - " + e.getMessage());
+            }
+        });
+        ObservableList<Transaction> transactions_observable = FXCollections.observableArrayList(DB_Transactions.getBankAccountTransactions
+                (UserLoggedIn.getInstance().getLoggedInUser().
+                        getSelectedCheckingAccount().getIBAN()));
+
+        transactions_listview.setItems(transactions_observable);
+        transactions_listview.setCellFactory(param -> new TransactionListCell());
+
+    }
+
+
     private void onSendMoney() {
         var selectedAccount = UserLoggedIn.getInstance().getLoggedInUser().getSelectedCheckingAccount();
-        if (!Objects.equals(payee_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
+        if (!Objects.equals(receiver_fld.getText(), "") && !Objects.equals(amount_fld.getText(), "")) {
             if (SecurityManager.getInstance().isFA_Verified()) {
-                if (verifyTransfer(payee_fld.getText(), amount_fld.getText(), message_fld.getText())) {
+                if (verifyTransfer(receiver_fld.getText(), amount_fld.getText(), message_fld.getText())) {
                     selectedAccount.setBalance(selectedAccount.getBalance() - Double.parseDouble(amount_fld.getText()));
-                    DB_Transactions.transfer(payee_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
+                    DB_Transactions.transfer(receiver_fld.getText(), Double.parseDouble(amount_fld.getText()), message_fld.getText());
                     updatePage();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -154,6 +180,22 @@ public class TransactionsController implements Initializable {
 
         transactions_listview.itemsProperty().set(observableTransactionList);
         transactions_listview.setCellFactory(param -> new TransactionListCell());
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 }
 

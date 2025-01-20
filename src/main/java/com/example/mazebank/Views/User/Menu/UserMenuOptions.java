@@ -6,5 +6,6 @@ public enum UserMenuOptions {
     ACCOUNTS,
     ADD_FUDNS,
     FORMS,
-
+    RETRANSFER,
+    LOGGEDOUT,
 }

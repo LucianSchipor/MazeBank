@@ -52,4 +52,5 @@ module com.example.mazebank {
     exports com.example.mazebank.Controllers.User.Forms.Forms_Menu.Account;
     exports com.example.mazebank.Controllers.User.Forms.Forms_Menu.Credits;
     exports com.example.mazebank.Controllers.User.Dashboard;
+    exports com.example.mazebank.Controllers.User.Transactions.TransactionsWithOnePers;
 }

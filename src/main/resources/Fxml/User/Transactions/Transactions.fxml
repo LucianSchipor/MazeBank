@@ -22,7 +22,7 @@
    <VBox layoutX="187.0" layoutY="59.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
       <VBox styleClass="new_trans_container">
          <Label text="IBAN *"/>
-         <TextField fx:id="payee_fld"/>
+         <TextField fx:id="receiver_fld"/>
          <Label layoutX="10.0" layoutY="10.0" text="Amount *"/>
          <TextField fx:id="amount_fld" layoutX="10.0" layoutY="31.0"/>
          <Label layoutX="10.0" layoutY="62.0" text="Message"/>
