@@ -14,6 +14,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @SuppressWarnings({"SqlDialectInspection", "SqlNoDataSourceInspection", "CallToPrintStackTrace"})
 public class DB_Users {
@@ -69,6 +70,32 @@ public class DB_Users {
             alert.setContentText("Username or Password are Required");
             alert.showAndWait();
             throw new Exception("Username or Password are Required");
+        }
+        else{
+            if(username.length() < 3){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Username is too short");
+                alert.showAndWait();
+                throw new Exception("Username is too short");
+            }
+            else{
+                String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+                if(Pattern.matches(regex, password) == false){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Error");
+                    alert.setContentText(" The input must meet the following criteria:\n" +
+                            "    - At least one uppercase letter (A-Z)\n" +
+                            "    - At least one lowercase letter (a-z)\n" +
+                            "    - At least one digit (0-9)\n" +
+                            "    - At least one special character (@#$%^&+=!)\n" +
+                            "    - Minimum length of 8 characters");
+                    alert.showAndWait();
+                    throw new Exception("Password is too short");
+                }
+            }
         }
         PreparedStatement psCheckUserExists;
         Connection connection = null;

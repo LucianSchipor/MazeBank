@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="738.0" stylesheets="@../../../Styles/User/AddFunds/Add_Funds.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mazebank.Controllers.User.AddFunds.AddFundsController">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" styleClass="login_form_container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+         <content>
+            <AnchorPane styleClass="login_container">
+               <children>
+                  <VBox layoutX="340.0" layoutY="142.0" styleClass="login_form_container" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <VBox fx:id="details_container" styleClass="details_container">
+                           <children>
+                              <VBox styleClass="information_container" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox styleClass="label_container" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Label text="Monthly rate" />
+                                                <Label fx:id="monthly_rate_lbl" layoutX="98.0" layoutY="10.0" text="1.091,12 Lei" />
+                                                <VBox styleClass="label_container" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Label text="Interest" />
+                                                <Label fx:id="interest_lbl" layoutX="54.0" layoutY="49.0" text="11,00%" />
+                                                <VBox VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Includes the monthly commission  of the loanof 5 lei during the entire period" textFill="#a6a6a6" wrapText="true" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" styleClass="payment_details_container">
+                                       <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <HBox VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <HBox HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Analysis commission" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox layoutX="45.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label fx:id="analysis_comission_lbl" text="200 Lei" />
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <HBox styleClass="tcredit_Hbox" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Total credit value" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox layoutX="66.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label fx:id="total_credit_value_lbl" text="49.954 Lei" />
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <HBox HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Effective annual interest" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label fx:id="effective_anual_interest_lbl" text="11,99%" />
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="10.0" layoutY="156.0" prefHeight="200.0" prefWidth="100.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <HBox HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Total payment amount" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox layoutX="32.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label fx:id="total_payment_amount_lbl" text="65.467,20 Lei" />
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="This simulation is indicative, does not engage the bank contractually and refers to the repayment of the loan in equal installments. To simulate the option with decreasing rates, contact a representative from the agency. Before making a decision, access Information regarding loan repayment for additional details (differences/advantages/disadvantages for the two options). The interest rate is between 6.25% and 14.75% and is customized depending on the amount, the loan period, options, the client's relationship with the bank, and the minimum APR value is 8.71% and the maximum APR value is 34, 82%." textFill="#898989" wrapText="true">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox fx:id="check_box" mnemonicParsing="false" text="I have read and I fully agree with the terms and conditions." />
+                                 </children>
+                              </VBox>
+                              <VBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="createForm_btn" mnemonicParsing="false" prefHeight="61.0" text="Pay">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="GRATIPAY" size="20" />
+                                       </graphic></Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

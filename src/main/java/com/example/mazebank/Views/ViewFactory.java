@@ -7,6 +7,7 @@ import com.example.mazebank.Controllers.User.TempUser.TempUserController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsController;
 import com.example.mazebank.Controllers.User.Menu.UserController;
 import com.example.mazebank.Controllers.User.Transactions.TransactionsWithOnePers.TransactionsWithOnePersController;
+import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Users.AccountType;
 import com.example.mazebank.Core.Users.User;
 import com.example.mazebank.Views.Admin.Menu.AdminMenuOptions;
@@ -54,11 +55,11 @@ public class ViewFactory {
     }
 
     public AnchorPane getClientsView() {
-            try {
-                clientsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Accounts/Accounts.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            clientsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Accounts/Accounts.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return clientsView;
     }
 
@@ -72,42 +73,42 @@ public class ViewFactory {
 
     public AnchorPane getAccountsView() {
 
-            try {
-                accountsView = new FXMLLoader(getClass().getResource("/Fxml/User/BankAccounts/Accounts.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            accountsView = new FXMLLoader(getClass().getResource("/Fxml/User/BankAccounts/Accounts.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return accountsView;
     }
 
     public AnchorPane getAddFundsView() {
 
-            try {
-                addFundsView = new FXMLLoader(getClass().getResource("/Fxml/User/Add Funds/Add_Funds.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            addFundsView = new FXMLLoader(getClass().getResource("/Fxml/User/Add Funds/Add_Funds.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return addFundsView;
     }
 
     public AnchorPane getUserFormsView() {
 
-            try {
-                userFormsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Forms.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            userFormsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Forms.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return userFormsView;
     }
 
     public AnchorPane getDashboardView() {
-            try {
-                var dashboardV = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
-                dashboardV.setController(new DashboardController());
-                dashboardView = dashboardV.load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            var dashboardV = new FXMLLoader(getClass().getResource("/Fxml/User/Dashboard.fxml"));
+            dashboardV.setController(new DashboardController());
+            dashboardView = dashboardV.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return dashboardView;
     }
 
@@ -121,22 +122,22 @@ public class ViewFactory {
     }
 
     public AnchorPane getDepositView() {
-            try {
-                depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit/Deposit.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            depositView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit/Deposit.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return depositView;
     }
 
     public AnchorPane getTransactionsView() {
-            try {
-                var tV = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions/Transactions.fxml"));
-                tV.setController(new TransactionsController());
-                transactionsView = tV.load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            var tV = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions/Transactions.fxml"));
+            tV.setController(new TransactionsController());
+            transactionsView = tV.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return transactionsView;
     }
 
@@ -152,16 +153,22 @@ public class ViewFactory {
     }
 
 
-
     public void showLoginWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         createStage(loader);
     }
 
-    public void showTransactionsWithOnePersWindow(){
+    public void showTransactionsWithOnePersWindow() {
         TransactionsWithOnePersController controller = new TransactionsWithOnePersController();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/Transactions/TransactionsWithOnePers.fxml"));
+
         loader.setController(controller);
+        var loggeduser = UserLoggedIn.getInstance().getLoggedInUser();
+        if (!loggeduser.getUsername().equals(UserLoggedIn.getInstance().getRetransferSelectedTransaction().getTo_username())) {
+            controller.setTitle("Your transactions with " + UserLoggedIn.getInstance().getRetransferSelectedTransaction().getTo_username());
+        } else
+            controller.setTitle("Your transactions with " + UserLoggedIn.getInstance().getRetransferSelectedTransaction().getFrom_username());
+
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
@@ -176,7 +183,7 @@ public class ViewFactory {
     }
 
 
-    public void showAdminOptionsForUserWindow(User user){
+    public void showAdminOptionsForUserWindow(User user) {
         SearchResultController_BankAccounts controller = new SearchResultController_BankAccounts(user);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/SearchResult/BankAccounts/SearchResult_BankAccounts.fxml"));
         loader.setController(controller);
@@ -205,7 +212,7 @@ public class ViewFactory {
         }
     }
 
-    public void show2FAWindow(Scene previousScene){
+    public void show2FAWindow(Scene previousScene) {
         this.previousWindow = previousScene;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/2FA.fxml"));
@@ -224,17 +231,14 @@ public class ViewFactory {
         stage.show();
     }
 
-    public void showUserWindow(User user){
-        if(user.getRole().equals(AccountType.ADMIN)){
+    public void showUserWindow(User user) {
+        if (user.getRole().equals(AccountType.ADMIN)) {
             showAdminWindow();
+        } else if (user.getRole().equals(AccountType.CLIENT)) {
+            showClientWindow();
+        } else {
+            showTempUserDashboard();
         }
-        else
-            if(user.getRole().equals(AccountType.CLIENT)){
-                showClientWindow();
-            }
-            else{
-                showTempUserDashboard();
-            }
     }
 
     public void showAdminWindow() {
@@ -244,12 +248,13 @@ public class ViewFactory {
         createStage(loader);
     }
 
-    public void showTempUserDashboard(){
+    public void showTempUserDashboard() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/TempUser/TempUser.fxml"));
         TempUserController controller = new TempUserController();
         loader.setController(controller);
         createStage(loader);
     }
+
     public void showRegisterFormWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/User/SignUp/SignUp.fxml"));
@@ -311,65 +316,65 @@ public class ViewFactory {
     }
 
     public AnchorPane getCreateView() {
-            try {
-                createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Create/Create.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            createClientView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Create/Create.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return createClientView;
     }
 
     public AnchorPane getSearchView() {
-            try {
-                searchView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/Search.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            searchView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Search/Search.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return searchView;
     }
 
     public AnchorPane getFormsView() {
-            try {
-                formsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Forms/Forms.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            formsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/Forms/Forms.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return formsView;
     }
 
     public AnchorPane getTempDashboardView() {
-            try {
-                tempUserDashboard = new FXMLLoader(getClass().getResource("/Fxml/User/TempUser/Menu/TempUserDashboard.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            tempUserDashboard = new FXMLLoader(getClass().getResource("/Fxml/User/TempUser/Menu/TempUserDashboard.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return tempUserDashboard;
     }
 
     public AnchorPane getRegisterFormWindow() {
-            try {
-                formsView = new FXMLLoader(getClass().getResource("/Fxml/User/SignUp/SignUpForm.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            formsView = new FXMLLoader(getClass().getResource("/Fxml/User/SignUp/SignUpForm.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return formsView;
     }
 
     public AnchorPane getFormsAccountView() {
-            try {
-                formsAccountsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Account/Forms_Account.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            formsAccountsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Account/Forms_Account.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return formsAccountsView;
     }
 
     public AnchorPane getFormsCreditsView() {
-            try {
-                formsCreditsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Credits/Forms_Credits.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            formsCreditsView = new FXMLLoader(getClass().getResource("/Fxml/User/Forms/Credits/Forms_Credits.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return formsCreditsView;
     }
 

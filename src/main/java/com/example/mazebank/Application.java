@@ -12,8 +12,8 @@ public class Application extends javafx.application.Application {
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Java version - " + System.getProperty("java.version"));
         System.out.println("JavaFX version - " + System.getProperty("javafx.version"));
-        System.out.println(EncryptionManager.encrypt("1000", KeyManager.loadKey()));
         DB_BankInfo.getBankInfo();
+        System.out.println(EncryptionManager.encrypt("1000.0", KeyManager.loadKey()));
         Model.getInstance().getViewFactory().showLoginWindow();
     }
 }

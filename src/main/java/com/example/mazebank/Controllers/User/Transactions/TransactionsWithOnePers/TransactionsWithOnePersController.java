@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
@@ -17,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class TransactionsWithOnePersController implements Initializable {
     public ListView<Transaction> transactions_listview = new ListView<>();
+    public Label title_lbl = new Label();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,5 +49,8 @@ public class TransactionsWithOnePersController implements Initializable {
         transactions_listview.setCellFactory(param -> new TransactionsWithOnePerson_ListController());
     }
 
+    public void setTitle(String title) {
+        this.title_lbl.setText(title);
+    }
 
 }

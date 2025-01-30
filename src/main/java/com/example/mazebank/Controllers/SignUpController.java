@@ -29,6 +29,7 @@ public class SignUpController implements Initializable {
     public TextField fName_fld;
     public TextField email_fld;
     public TextField username_fld;
+    public TextField password_fld;
     private List<Pair<String, String>> Text = new ArrayList<>();
 
     @Override
@@ -39,7 +40,7 @@ public class SignUpController implements Initializable {
     private void onCreateForm(javafx.event.ActionEvent actionEvent) {
         try{
             String username = username_fld.getText();
-            String password = username_fld.getText();
+            String password = password_fld.getText();
             DB_Users.signupUser(username, password);
             var userLoggedIn = DB_Users.loginUser(username, password);
             UserLoggedIn.getInstance().setLoggedInUser(userLoggedIn);

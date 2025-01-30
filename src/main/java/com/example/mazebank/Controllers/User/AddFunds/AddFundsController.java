@@ -7,6 +7,7 @@ import com.example.mazebank.Core.Forms.Form;
 import com.example.mazebank.Core.Forms.FormCredit;
 import com.example.mazebank.Core.Forms.FormType;
 import com.example.mazebank.Core.Models.UserLoggedIn;
+import com.example.mazebank.Repositories.Credits.DB_Credits;
 import com.example.mazebank.Repositories.Forms.DB_Forms;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -75,6 +76,7 @@ public class AddFundsController implements Initializable {
             creditForm.setFinancialDetails(createFinancialDetailsList());
             creditForm.setDetails();
             DB_Forms.createForm(creditForm);
+            DB_Credits.createCredit(this.credit);
         } catch (Exception e) {
             System.out.println("[LOG][AddFunds] - " + e.getCause() + " at: " + e.getLocalizedMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);

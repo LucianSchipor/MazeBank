@@ -30,7 +30,7 @@
                   <Tab text="Users">
                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="tab_VBox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username (used for tests)" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username " />
                            <TextField fx:id="users_username_fld" layoutX="21.0" layoutY="54.0" prefWidth="586.0" promptText="Enter username for new user" />
                            <Text layoutX="21.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
                            <TextField fx:id="users_fName_fld" prefWidth="586.0" />

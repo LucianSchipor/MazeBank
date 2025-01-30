@@ -1,9 +1,10 @@
 package com.example.mazebank.Controllers.FormsCell;
 
-import com.example.mazebank.Core.Forms.Form;
-import com.example.mazebank.Core.Forms.FormStatus;
+import com.example.mazebank.Core.Credit.Credit;
+import com.example.mazebank.Core.Forms.*;
 import com.example.mazebank.Core.Models.UserLoggedIn;
 import com.example.mazebank.Core.Users.AccountType;
+import com.example.mazebank.Repositories.Credits.DB_Credits;
 import com.example.mazebank.Repositories.Forms.DB_Forms;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -103,11 +104,19 @@ public class FormsResultCell_Controller implements Initializable {
 
     private void onAcceptForm(ActionEvent actionEvent) {
         try {
+            try{
+                if(form.getFormType().equals(FormType.FUNDS)){
+                }
+            }
+            catch (Exception e){
+                System.out.println("[LOG][FormsResultCell] - " + e.getMessage());
+            }
             this.form.setStatus(FormStatus.ACCEPTED);
             this.status_lbl.setText("Accepted");
             DB_Forms.updateFormStatus(this.form.getForm_id(), FormStatus.ACCEPTED);
             setStatus();
             System.out.println("[LOG][FormCell] - Form accepted");
+
         } catch (Exception e) {
             System.out.println("[LOG][FormCell] - " + e.getMessage());
             System.out.println("[LOG][FormCell] - " + e.getLocalizedMessage());
